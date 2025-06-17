@@ -98,7 +98,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Contact Buttons (Desktop) */}
-          <div className="hidden lg:flex items-center space-x-2 space-x-reverse flex-shrink-0">
+          <div className="hidden xl:flex items-center space-x-2 space-x-reverse flex-shrink-0">
             <PhoneButton
               phoneNumber="052-472-4700"
               variant="outline"
@@ -158,6 +158,7 @@ const Header: React.FC = () => {
               <div className="py-6 space-y-3 bg-white/50 backdrop-blur-sm rounded-2xl mt-4 shadow-soft">
                 {navItems.map((item, index) => {
                   const isActive = location.pathname === item.path;
+
                   return (
                     <motion.div
                       key={item.path}

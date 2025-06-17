@@ -6,11 +6,12 @@ import {
   Phone,
   Mail,
   MapPin,
-  MessageCircle,
   Award,
   BookOpen,
   Users,
 } from "lucide-react";
+import PhoneButton from "../common/PhoneButton";
+import WhatsAppIcon from "../common/WhatsAppIcon";
 
 // Custom Instagram SVG Icon Component
 const InstagramIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -28,20 +29,20 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   const quickLinks = [
-    { path: "/coaching", label: "אימון אישי", icon: Award },
     { path: "/therapy", label: "כלבנות טיפולית", icon: Heart },
-    { path: "/training", label: "קורסי אילוף", icon: BookOpen },
-    { path: "/schools", label: "בתי ספר", icon: Users },
+    { path: "/training", label: "אילוף כלבים", icon: BookOpen },
+    { path: "/coaching", label: "אימון אישי", icon: Award },
+    { path: "/schools", label: "תכנית גפן", icon: Users },
   ];
 
   const contactInfo = [
-    { icon: Phone, label: "050-123-4567", href: "tel:0501234567" },
+    { icon: Phone, label: "052-472-4700", href: "tel:0524724700" },
     {
       icon: Mail,
-      label: "info@dogtraining.co.il",
-      href: "mailto:info@dogtraining.co.il",
+      label: "Eladshi1326@gmail.com",
+      href: "mailto:Eladshi1326@gmail.com",
     },
-    { icon: MapPin, label: "תל אביב, ישראל", href: "#" },
+    { icon: MapPin, label: "ראשון לציון, ישראל", href: "#" },
   ];
 
   const socialLinks = [
@@ -52,7 +53,7 @@ const Footer: React.FC = () => {
       color: "hover:text-pink-600",
     },
     {
-      icon: MessageCircle,
+      icon: WhatsAppIcon,
       label: "WhatsApp",
       href: "#",
       color: "hover:text-green-600",
@@ -169,15 +170,12 @@ const Footer: React.FC = () => {
               מוכנים להתחיל את המסע עם הכלב שלכם? צרו קשר עכשיו לקביעת פגישת
               ייעוץ ראשונה.
             </p>
-            <motion.a
-              href="tel:0501234567"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center space-x-2 space-x-reverse bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-medium px-6 py-3 rounded-2xl shadow-soft hover:shadow-soft-lg transition-all duration-200"
-            >
-              <Phone className="w-4 h-4" />
-              <span>התקשרו עכשיו</span>
-            </motion.a>
+            <PhoneButton
+              phoneNumber="052-472-4700"
+              variant="default"
+              size="sm"
+              className="justify-center"
+            />
           </motion.div>
         </div>
       </div>
@@ -187,7 +185,7 @@ const Footer: React.FC = () => {
         <div className="container-max section-padding py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
             <p className="text-slate-400 text-sm text-center sm:text-right">
-              © {currentYear} דוג טריינינג. כל הזכויות שמורות.
+              © {currentYear} אומץ לב - כל הזכויות שמורות.
             </p>
             <div className="flex items-center space-x-6 space-x-reverse text-sm">
               <Link
