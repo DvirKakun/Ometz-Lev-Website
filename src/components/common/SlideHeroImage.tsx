@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart } from "lucide-react";
 
-// Import your images
-import profileImage from "../../assets/images/Profile_Image.jpg";
+import eladTrainingImage from "../../assets/images/Elad_Training.jpg";
+import eladAndBoni from "../../assets/images/Elad_And_Boni.jpg";
 import reviewsImage from "../../assets/images/Reviews_Image.jpg";
-import eladImage from "../../assets/images/Elad_Image.jpg";
+import { FloatingBadge } from "./FloatingBadge";
 
 interface SlideHeroImageProps {
   className?: string;
@@ -21,22 +20,22 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
   // Array of images with their descriptions
   const images = [
     {
-      src: profileImage,
-      alt: "אלעד שמעונוב - מאמן כלבים מקצועי באומץ לב",
+      src: eladTrainingImage,
+      alt: "אלעד באימון כלבים עם בוני ומייפל",
       title: "אלעד שמעונוב",
-      subtitle: "מאמן כלבים מקצועי",
+      subtitle: "אימון עם בוני ומייפל",
     },
     {
       src: reviewsImage,
       alt: "ביקורות מהורים על אלעד שמעונוב",
-      title: "אלעד שמעונוב",
-      subtitle: "ביקורות מהורים",
+      title: "ביקורות מהורים",
+      subtitle: "קייטנת כלבים 2024",
     },
     {
-      src: eladImage,
-      alt: "אלעד במהלך הדרכה",
+      src: eladAndBoni,
+      alt: "אלעד עם הכלבה בוני",
       title: "אלעד שמעונוב",
-      subtitle: "הדרכת אילוף",
+      subtitle: "אלעד עם בוני",
     },
   ];
 
@@ -226,35 +225,10 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
               </div>
             )}
           </div>
-
-          {/* Floating Badge with Animation */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`badge-${currentImageIndex}`}
-              initial={{ opacity: 0, scale: 0, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0, y: -20 }}
-              transition={{
-                duration: 0.4,
-                delay: 0.3,
-                type: "spring",
-                stiffness: 400,
-                damping: 25,
-              }}
-              className="absolute -bottom-4 -right-4 bg-white shadow-2xl rounded-2xl p-4 border-2 border-primary-100"
-            >
-              <div className="flex items-center space-x-2 space-x-reverse">
-                <div className="text-right">
-                  <div className="text-sm font-bold text-slate-800">
-                    {currentImage.title}
-                  </div>
-                  <div className="text-xs text-slate-600">
-                    {currentImage.subtitle}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          <FloatingBadge
+            currentImage={currentImage}
+            currentImageIndex={currentImageIndex}
+          />
         </motion.div>
       </div>
     </div>
