@@ -2,28 +2,21 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
-import WhatsAppIcon from "./WhatsAppIcon";
+import FacebookIcon from "./FacebookIcon";
 
-interface WhatsAppButtonProps {
-  phoneNumber?: string;
-  message?: string;
+interface FacebookButtonProps {
+  facebookUrl?: string;
   className?: string;
   variant?: "default" | "icon" | "outline";
   size?: "sm" | "md" | "lg";
 }
 
-const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
-  phoneNumber = "972524724700",
-  message = "מה קורה? הגעתי אליך דרך האתר, אשמח שנדבר!.",
+const FacebookButton: React.FC<FacebookButtonProps> = ({
+  facebookUrl = "https://www.facebook.com/share/1BZ6LUVmqB/",
   className,
   variant = "default",
   size = "md",
 }) => {
-  const createWhatsAppLink = () => {
-    const encodedMessage = encodeURIComponent(message);
-    return `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-  };
-
   const sizeClasses = {
     sm: "px-4 py-2.5 text-sm h-10",
     md: "px-5 py-3 text-base h-12",
@@ -38,16 +31,16 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
 
   const variants = {
     default:
-      "bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-soft hover:shadow-soft-lg",
-    icon: "bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-white shadow-soft hover:shadow-soft-lg",
+      "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-soft hover:shadow-soft-lg",
+    icon: "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-soft hover:shadow-soft-lg",
     outline:
-      "border-2 border-green-500 text-green-600 hover:bg-green-50 bg-transparent shadow-soft hover:shadow-soft-lg",
+      "border-2 border-blue-600 text-blue-600 hover:bg-blue-50 bg-transparent shadow-soft hover:shadow-soft-lg",
   };
 
   if (variant === "icon") {
     return (
       <motion.a
-        href={createWhatsAppLink()}
+        href={facebookUrl}
         target="_blank"
         rel="noopener noreferrer"
         whileHover={{ scale: 1.05, rotate: [0, -5, 5, 0] }}
@@ -57,9 +50,9 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
           variants.icon,
           className
         )}
-        aria-label="שלח הודעה בוואטסאפ"
+        aria-label="עקבו בפייסבוק"
       >
-        <WhatsAppIcon className={iconSizes[size]} />
+        <FacebookIcon className={iconSizes[size]} />
       </motion.a>
     );
   }
@@ -75,17 +68,13 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
           className
         )}
       >
-        <a
-          href={createWhatsAppLink()}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="hidden md:inline">שלחו הודעה</span>
+        <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
+          <span className="hidden md:inline">עקבו בפייסבוק</span>
           <motion.div
             whileHover={{ rotate: [0, -10, 10, 0] }}
             transition={{ duration: 0.4 }}
           >
-            <WhatsAppIcon className={iconSizes[size]} />
+            <FacebookIcon className={iconSizes[size]} />
           </motion.div>
         </a>
       </Button>
@@ -93,4 +82,4 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   );
 };
 
-export default WhatsAppButton;
+export default FacebookButton;

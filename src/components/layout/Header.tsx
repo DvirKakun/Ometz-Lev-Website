@@ -106,7 +106,6 @@ const Header: React.FC = () => {
             />
             <WhatsAppButton
               phoneNumber="972524724700"
-              message="שלום! אני מעוניין/ת לקבל מידע על שירותי אילוף הכלבים של אומץ לב."
               variant="default"
               size="sm"
             />
