@@ -19,11 +19,11 @@ const HomePage: React.FC = () => {
       {/* Hero Section with Owner Image */}
       <HeroSection />
 
-      {/* About Section */}
-      <AboutSection />
-
       {/* Services Grid */}
       <ServicesGrid />
+
+      {/* About Section */}
+      <AboutSection />
 
       {/* Contact CTA */}
       <ContactCTA />

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Heart, Award, BookOpen, Users, Home } from "lucide-react";
-import { cn } from "../../lib/utils";
-import PhoneButton from "../common/PhoneButton";
-import WhatsAppButton from "../common/WhatsAppButton";
+import { cn } from "../../../lib/utils";
+import PhoneButton from "../../common/PhoneButton";
+import WhatsAppButton from "../../common/WhatsAppButton";
+import FlipCountdownTimer from "../header/FlipCountdownTimer";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,6 +36,9 @@ const Header: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  // Example countdown target - set to null to hide timer
+  const countdownTarget = new Date("2024-08-15T10:00:00"); // Change this date or set to null
+
   return (
     <header
       className={cn(
@@ -45,7 +49,7 @@ const Header: React.FC = () => {
       )}
     >
       <nav className="container-max section-padding">
-        <div className="flex items-center justify-between h-18 lg:h-24">
+        <div className="flex items-center justify-between h-20 lg:h-24 gap-4">
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.02 }}
@@ -54,16 +58,16 @@ const Header: React.FC = () => {
           >
             <Link
               to="/"
-              className="flex items-center space-x-4 space-x-reverse"
+              className="flex items-center space-x-3 space-x-reverse"
             >
-              <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 rounded-3xl flex items-center justify-center shadow-lg">
-                <Heart className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+              <div className="w-11 h-11 lg:w-12 lg:h-12 bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg">
+                <Heart className="w-5 h-5 lg:w-6 lg:h-6 text-white" />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-2xl lg:text-3xl font-bold text-slate-800 tracking-tight">
+                <h1 className="text-xl lg:text-2xl font-bold text-slate-800 tracking-tight leading-tight">
                   אומץ לב
                 </h1>
-                <p className="text-sm lg:text-base text-slate-600 -mt-1 font-medium">
+                <p className="text-xs lg:text-sm text-slate-600 font-medium leading-tight">
                   אילוף כלבים מקצועי
                 </p>
               </div>
@@ -71,7 +75,7 @@ const Header: React.FC = () => {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex items-center space-x-4 space-x-reverse flex-1 justify-center">
+          <div className="hidden xl:flex items-center space-x-3 space-x-reverse flex-1 justify-center">
             {navItems.map((item) => {
               const isActive = location.pathname === item.path;
               return (
@@ -97,6 +101,11 @@ const Header: React.FC = () => {
             })}
           </div>
 
+          {/* Countdown Timer - Desktop Only */}
+          <div className="hidden lg:flex items-center justify-center flex-shrink-0">
+            <FlipCountdownTimer targetDate={countdownTarget} />
+          </div>
+
           {/* Contact Buttons (Desktop) */}
           <div className="hidden xl:flex items-center space-x-2 space-x-reverse flex-shrink-0">
             <PhoneButton
@@ -115,7 +124,7 @@ const Header: React.FC = () => {
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={toggleMenu}
-            className="xl:hidden p-3 rounded-2xl bg-primary-100 hover:bg-primary-200 text-primary-700 transition-all duration-200 shadow-sm hover:shadow-md"
+            className="xl:hidden p-2.5 rounded-xl bg-primary-100 hover:bg-primary-200 text-primary-700 transition-all duration-200 shadow-sm hover:shadow-md"
             aria-label={isMenuOpen ? "סגור תפריט" : "פתח תפריט"}
           >
             <AnimatePresence mode="wait">
@@ -127,7 +136,7 @@ const Header: React.FC = () => {
                   exit={{ rotate: 90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <X className="w-7 h-7" />
+                  <X className="w-6 h-6" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -137,7 +146,7 @@ const Header: React.FC = () => {
                   exit={{ rotate: -90, opacity: 0 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Menu className="w-7 h-7" />
+                  <Menu className="w-6 h-6" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -154,10 +163,15 @@ const Header: React.FC = () => {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="xl:hidden overflow-hidden border-t border-primary-100/50 mt-2"
             >
-              <div className="py-6 space-y-3 bg-white/50 backdrop-blur-sm rounded-2xl mt-4 shadow-soft">
+              <div className="py-6 space-y-4 bg-white/50 backdrop-blur-sm rounded-2xl mt-4 shadow-soft">
+                {/* Mobile Countdown Timer */}
+                <div className="flex justify-center mb-4">
+                  <FlipCountdownTimer targetDate={countdownTarget} />
+                </div>
+
+                {/* Mobile Navigation Items */}
                 {navItems.map((item, index) => {
                   const isActive = location.pathname === item.path;
-
                   return (
                     <motion.div
                       key={item.path}
@@ -168,13 +182,13 @@ const Header: React.FC = () => {
                       <Link
                         to={item.path}
                         className={cn(
-                          "flex items-center space-x-4 space-x-reverse px-6 py-4 mx-3 rounded-2xl font-semibold text-lg transition-all duration-300",
+                          "flex items-center space-x-4 space-x-reverse px-6 py-3 mx-3 rounded-xl font-semibold text-base transition-all duration-300",
                           isActive
                             ? "bg-primary-100 text-primary-700 shadow-md"
                             : "text-slate-700 hover:bg-primary-50 hover:text-primary-600"
                         )}
                       >
-                        <item.icon className="w-6 h-6" />
+                        <item.icon className="w-5 h-5" />
                         <span>{item.label}</span>
                       </Link>
                     </motion.div>
@@ -189,7 +203,7 @@ const Header: React.FC = () => {
                     delay: navItems.length * 0.1 + 0.2,
                     duration: 0.3,
                   }}
-                  className="pt-6 px-3"
+                  className="pt-4 px-3"
                 >
                   <div className="grid grid-cols-1 gap-3">
                     <WhatsAppButton

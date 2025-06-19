@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import Header from "./Header";
+import Header from "./header/Header";
 import Footer from "./Footer";
 
 interface LayoutProps {
