@@ -58,7 +58,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({
   }
 
   return (
-    <div className="hidden xl:flex items-center space-x-4 space-x-reverse flex-1 justify-center">
+    <div className="hidden xl:flex items-center space-x-2 space-x-reverse justify-start ml-4">
       {navItems.map((item) => {
         const isActive = location.pathname === item.path;
         return (
@@ -70,7 +70,7 @@ const HeaderNavigation: React.FC<HeaderNavigationProps> = ({
             <Link
               to={item.path}
               className={cn(
-                "flex items-center space-x-2 space-x-reverse px-3 py-2 rounded-xl font-medium text-sm transition-all duration-300",
+                "flex items-center space-x-2 space-x-reverse px-2.5 py-2 rounded-lg font-medium text-sm transition-all duration-300",
                 isActive
                   ? "bg-primary-100 text-primary-700 shadow-md"
                   : "text-slate-700 hover:bg-primary-50 hover:text-primary-600 hover:shadow-sm"

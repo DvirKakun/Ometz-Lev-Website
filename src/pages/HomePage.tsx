@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import HeroSection from "../components/sections/hero/HeroSection";
 import AboutSection from "../components/sections/AboutSection";
 import ContactCTA from "../components/sections/ContactCTA";
-import ServicesGrid from "../components/sections/ServicesGrid";
+import ServicesGrid from "../components/sections/services/ServicesGrid";
 // import AboutSection from "../components/sections/AboutSection";
 // import ServicesGrid from "../components/sections/ServicesGrid";
 // import ContactCTA from "../components/sections/ContactCTA";
