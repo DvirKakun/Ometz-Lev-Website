@@ -60,7 +60,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
     const timer = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, [targetDate, timeLeft]);
+  }, [targetDate]);
 
   if (!isActive) {
     return null;

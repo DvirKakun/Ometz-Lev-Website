@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Heart } from "lucide-react";
+import DogIcon from "../../../assets/images/DogIcon.ico";
 
 const HeaderLogo: React.FC = () => {
   return (
@@ -10,8 +10,16 @@ const HeaderLogo: React.FC = () => {
       className="flex-shrink-0"
     >
       <Link to="/" className="flex items-center space-x-4 space-x-reverse">
-        <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 rounded-3xl flex items-center justify-center shadow-lg">
-          <Heart className="w-6 h-6 lg:w-7 lg:h-7 text-white" />
+        <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center shadow-2xl border-2 border-white relative overflow-hidden">
+          <div
+            className="w-6 h-6 lg:w-7 lg:h-7 relative z-10"
+            style={{
+              backgroundImage: `url(${DogIcon})`,
+              backgroundSize: "contain",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          />
         </div>
         <div className="hidden sm:block">
           <h1 className="text-2xl lg:text-3xl font-bold text-slate-800 tracking-tight">

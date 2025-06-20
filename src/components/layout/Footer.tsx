@@ -14,7 +14,7 @@ import PhoneButton from "../common/PhoneButton";
 import WhatsAppButton from "../common/WhatsAppButton";
 import InstagramButton from "../common/InstagramButton";
 import FacebookButton from "../common/FacebookButton";
-import YouTubeButton from "../common/YouTubeButton";
+import YouTubeButton from "../common/YoutubeButton";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
