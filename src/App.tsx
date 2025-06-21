@@ -11,6 +11,8 @@ import TherapyPage from "./pages/TherapyPage";
 import TrainingPage from "./pages/TrainingPage";
 import SchoolsPage from "./pages/SchoolsPage";
 import SplashPage from "./pages/SplashPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +45,16 @@ const router = createBrowserRouter([
     path: "/schools",
     element: <Layout />,
     children: [{ index: true, element: <SchoolsPage /> }],
+  },
+  {
+    path: "/privacy",
+    element: <Layout />,
+    children: [{ index: true, element: <PrivacyPolicyPage /> }],
+  },
+  {
+    path: "/terms",
+    element: <Layout />,
+    children: [{ index: true, element: <TermsOfServicePage /> }],
   },
   // Redirect any unknown routes to splash
   { path: "*", element: <Navigate to="/" replace /> },
