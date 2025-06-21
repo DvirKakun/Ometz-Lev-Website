@@ -26,7 +26,7 @@ const FooterQuickLinks: React.FC = () => {
           <li key={link.path}>
             <Link
               to={link.path}
-              className="flex items-center space-x-2 space-x-reverse text-slate-300 hover:text-primary-300 transition-colors duration-200 group"
+              className="flex items-center space-x-2 space-x-reverse text-slate-300 hover:text-primary-300 focus-visible:text-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 transition-colors duration-200 group rounded p-1"
             >
               <link.icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
               <span>{link.label}</span>

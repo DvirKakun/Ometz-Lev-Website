@@ -11,16 +11,22 @@ const FooterBottom: React.FC = () => {
           <p className="text-slate-400 text-sm text-center sm:text-right">
             © {currentYear} אומץ לב - כל הזכויות שמורות.
           </p>
-          <div className="flex items-center space-x-6 space-x-reverse text-sm">
+          <div className="flex items-center space-x-4 space-x-reverse text-sm">
+            <Link
+              to="/accessibility"
+              className="text-slate-400 hover:text-primary-300 focus-visible:text-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 transition-colors duration-200 rounded p-1"
+            >
+              נגישות
+            </Link>
             <Link
               to="/privacy"
-              className="text-slate-400 hover:text-primary-300 transition-colors duration-200"
+              className="text-slate-400 hover:text-primary-300 focus-visible:text-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 transition-colors duration-200 rounded p-1"
             >
               מדיניות פרטיות
             </Link>
             <Link
               to="/terms"
-              className="text-slate-400 hover:text-primary-300 transition-colors duration-200"
+              className="text-slate-400 hover:text-primary-300 focus-visible:text-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 transition-colors duration-200 rounded p-1"
             >
               תנאי שירות
             </Link>

@@ -44,10 +44,10 @@ export default function HeaderNavigation({
               onClick={onItemClick}
               className={({ isActive }) =>
                 cn(
-                  "flex items-center space-x-4 space-x-reverse px-5 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 w-full",
+                  "flex items-center space-x-4 space-x-reverse px-5 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
                   isActive
                     ? "bg-primary-100 text-primary-700 shadow-sm"
-                    : "text-slate-700 hover:bg-primary-50 hover:text-primary-600 active:bg-primary-100"
+                    : "text-slate-700 hover:bg-primary-50 hover:text-primary-600 active:bg-primary-100 focus-visible:bg-primary-50 focus-visible:text-primary-600"
                 )
               }
             >
@@ -74,10 +74,10 @@ export default function HeaderNavigation({
             end={item.to === "/"} /* 2 */
             className={({ isActive }) =>
               cn(
-                "flex items-center space-x-2 space-x-reverse px-2.5 py-2 rounded-lg font-medium text-sm transition-all",
+                "flex items-center space-x-2 space-x-reverse px-2.5 py-2 rounded-lg font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
                 isActive
                   ? "bg-primary-100 text-primary-700 shadow-md"
-                  : "text-slate-700 hover:bg-primary-50 hover:text-primary-600 hover:shadow-sm"
+                  : "text-slate-700 hover:bg-primary-50 hover:text-primary-600 hover:shadow-sm focus-visible:bg-primary-50 focus-visible:text-primary-600"
               )
             }
           >

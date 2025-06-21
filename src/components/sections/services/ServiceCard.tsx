@@ -39,7 +39,13 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to={service.path} className="block">
+      <Link
+        to={service.path}
+        className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 rounded-lg"
+        onFocus={() => setIsHovered(true)}
+        onBlur={() => setIsHovered(false)}
+        aria-label={`למידע נוסף על ${service.title}`}
+      >
         <Card className="h-full bg-white border border-slate-200/60 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:-translate-y-2">
           <CardContent className="p-6 h-full flex flex-col">
             {/* Icon */}

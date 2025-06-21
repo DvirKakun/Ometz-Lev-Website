@@ -13,6 +13,7 @@ import SchoolsPage from "./pages/SchoolsPage";
 import SplashPage from "./pages/SplashPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
+import AccessibilityPage from "./pages/AccessibilityPage";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,11 @@ const router = createBrowserRouter([
     path: "/terms",
     element: <Layout />,
     children: [{ index: true, element: <TermsOfServicePage /> }],
+  },
+  {
+    path: "/accessibility",
+    element: <Layout />,
+    children: [{ index: true, element: <AccessibilityPage /> }],
   },
   // Redirect any unknown routes to splash
   { path: "*", element: <Navigate to="/" replace /> },
