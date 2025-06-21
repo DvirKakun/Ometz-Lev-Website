@@ -12,7 +12,7 @@ interface PhoneButtonProps {
 }
 
 const PhoneButton: React.FC<PhoneButtonProps> = ({
-  phoneNumber = "050-123-4567",
+  phoneNumber = "052-472-4700",
   className,
   variant = "default",
   size = "md",

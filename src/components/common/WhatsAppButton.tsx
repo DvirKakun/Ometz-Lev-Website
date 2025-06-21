@@ -14,7 +14,7 @@ interface WhatsAppButtonProps {
 
 const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   phoneNumber = "972524724700",
-  message = "מה קורה? הגעתי אליך דרך האתר, אשמח שנדבר!.",
+  message = "מה קורה? הגעתי אליך דרך האתר, אשמח שנדבר!",
   className,
   variant = "default",
   size = "md",

@@ -43,8 +43,8 @@ const ContactHero: React.FC = () => {
         viewport={{ once: true }}
         className="text-xl text-primary-100 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0"
       >
-        צרו קשר עכשיו לקביעת פגישת ייעוץ ראשונה ונתחיל יחד את המסע ליצירת
-        קשר הרמוני בינכם לבין הכלב שלכם
+        צרו קשר עכשיו לקביעת פגישת ייעוץ ראשונה ונתחיל יחד את המסע ליצירת קשר
+        הרמוני בינכם לבין הכלב שלכם
       </motion.p>
 
       <ContactButtons />

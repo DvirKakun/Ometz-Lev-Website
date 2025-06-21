@@ -1,7 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import WorkingHours from "./WorkingHours";
-import ContactMethods from "./ContactMethods";
 import TrustBadge from "./TrustBadge";
 
 const ContactInfo: React.FC = () => {
@@ -14,7 +13,6 @@ const ContactInfo: React.FC = () => {
       className="space-y-6"
     >
       <WorkingHours />
-      <ContactMethods />
       <TrustBadge />
     </motion.div>
   );

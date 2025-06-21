@@ -92,7 +92,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
   return (
     <motion.div
       className={cn(
-        "flex flex-col items-center space-y-1",
+        "flex flex-col items-center space-y-1 sm:space-y-1",
         // Clean background with subtle gradient
         "bg-white/80 backdrop-blur-sm",
         // Simple elegant border
@@ -101,8 +101,8 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
         "shadow-md shadow-slate-900/5",
         // Rounded corners
         "rounded-lg",
-        // Minimal padding
-        "px-2 py-1.5",
+        // Responsive padding - ultra compact for mobile, normal for desktop
+        "px-1.5 py-0.5 sm:px-2 sm:py-1 xl:px-2 xl:py-1.5",
         className
       )}
       initial={{ opacity: 0, scale: 0.95 }}
@@ -114,7 +114,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
         <EventInfo
           targetDate={targetDate}
           eventTitle={eventTitle}
-          className="mb-1"
+          className="mb-0.5 xl:mb-1"
         />
       )}
 

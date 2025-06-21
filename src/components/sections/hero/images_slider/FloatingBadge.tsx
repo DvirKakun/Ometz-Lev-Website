@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import dogIcon from "../../assets/images/DogIcon.ico";
+import dogIcon from "../../../../assets/images/DogIcon.ico";
 
 interface FloatingBadgeProps {
   currentImage: {

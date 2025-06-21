@@ -15,10 +15,21 @@ const AboutHeader: React.FC = () => {
         <Heart className="w-4 h-4" />
         <span>קצת עלינו</span>
       </div>
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-800 mb-6">
-        מי אנחנו ב
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600">
-          {" "}
+      <h2 
+        className="font-bold leading-none mb-6 text-slate-800"
+        style={{
+          fontSize: "clamp(2.4rem, 5vw, 4rem)",
+          fontWeight: 700,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        מי אנחנו ב{" "}
+        <span
+          className="bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent drop-shadow-lg"
+          style={{
+            filter: "drop-shadow(0 0 20px rgba(20, 184, 166, 0.4))",
+          }}
+        >
           אומץ לב
         </span>
       </h2>

@@ -11,10 +11,12 @@ interface NavItem {
 
 interface HeaderNavigationProps {
   isMobile?: boolean;
+  onItemClick?: () => void;
 }
 
 export default function HeaderNavigation({
   isMobile = false,
+  onItemClick,
 }: HeaderNavigationProps) {
   /* ---------- 1. absolute paths ---------- */
   const items: NavItem[] = [
@@ -28,28 +30,29 @@ export default function HeaderNavigation({
   /* ---------- MOBILE LIST ---------- */
   if (isMobile) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-2">
         {items.map((item, i) => (
           <motion.div
             key={item.to}
             initial={{ x: -30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: i * 0.08, duration: 0.25 }}
+            transition={{ delay: i * 0.06, duration: 0.25 }}
           >
             <NavLink
               to={item.to}
               end={item.to === "/"} /* 2 */
+              onClick={onItemClick}
               className={({ isActive }) =>
                 cn(
-                  "flex items-center space-x-4 space-x-reverse px-6 py-4 mx-3 rounded-2xl font-semibold text-lg transition-all",
+                  "flex items-center space-x-4 space-x-reverse px-5 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 w-full",
                   isActive
-                    ? "bg-primary-100 text-primary-700 shadow-md"
-                    : "text-slate-700 hover:bg-primary-50 hover:text-primary-600"
+                    ? "bg-primary-100 text-primary-700 shadow-sm"
+                    : "text-slate-700 hover:bg-primary-50 hover:text-primary-600 active:bg-primary-100"
                 )
               }
             >
-              <item.icon className="w-6 h-6" />
-              <span>{item.label}</span>
+              <item.icon className="w-5 h-5 flex-shrink-0" />
+              <span className="flex-1">{item.label}</span>
             </NavLink>
           </motion.div>
         ))}

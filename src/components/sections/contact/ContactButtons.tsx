@@ -13,13 +13,10 @@ const ContactButtons: React.FC = () => {
       className="flex flex-col sm:flex-row gap-4 mb-8"
     >
       <WhatsAppButton
-        phoneNumber="972524724700"
-        message="שלום אלעד! אני מעוניין/ת לקבוע פגישת ייעוץ ראשונה לכלב שלי."
         size="lg"
         className="flex-1 sm:flex-none bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30"
       />
       <PhoneButton
-        phoneNumber="052-472-4700"
         variant="outline"
         size="lg"
         className="flex-1 sm:flex-none border-white/30 text-white hover:bg-white/10"

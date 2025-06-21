@@ -83,7 +83,7 @@ const SplashPage: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
           >
             ברוכים הבאים ל
-            <span className="block text-primary-600 mt-2 text-5xl">
+            <span className="block text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent mt-2">
               אומץ לב
             </span>
           </motion.h1>

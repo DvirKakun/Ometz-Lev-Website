@@ -15,10 +15,18 @@ const ServicesHeader: React.FC = () => {
         <BookOpen className="w-4 h-4" />
         <span>השירותים שלנו</span>
       </div>
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 mb-4">
-        איך אנחנו יכולים
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-600">
-          {" "}
+      <h2 
+        className="font-bold leading-tight mb-6 text-slate-800"
+        style={{
+          fontSize: "clamp(2rem, 4vw, 3.5rem)",
+          fontWeight: 700,
+          letterSpacing: "-0.02em",
+        }}
+      >
+        איך אנחנו יכולים{" "}
+        <span
+          className="bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent"
+        >
           לעזור לכם
         </span>
       </h2>

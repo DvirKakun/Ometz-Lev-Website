@@ -15,23 +15,23 @@ const HeaderCTAButtons: React.FC<HeaderCTAButtonsProps> = ({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
-          delay: 0.8, // Adjust based on nav items count
+          delay: 0.4, // Reduced delay for faster appearance
           duration: 0.3,
         }}
-        className="pt-6 px-3"
+        className="pt-4 border-t border-slate-100"
       >
-        <div className="grid grid-cols-1 gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <WhatsAppButton
             phoneNumber="972524724700"
             message="שלום! אני מעוניין/ת לקבל מידע על שירותי אילוף הכלבים של אומץ לב."
             variant="default"
-            size="md"
+            size="sm"
             className="w-full justify-center"
           />
           <PhoneButton
             phoneNumber="052-472-4700"
             variant="outline"
-            size="md"
+            size="sm"
             className="w-full justify-center"
           />
         </div>

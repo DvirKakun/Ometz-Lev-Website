@@ -5,8 +5,8 @@ import { Card, CardContent } from "../../ui/card";
 
 const WorkingHours: React.FC = () => {
   const workingHours = [
-    { day: "ראשון - חמישי", hours: "08:00 - 20:00" },
-    { day: "שישי", hours: "08:00 - 15:00" },
+    { day: "ראשון - חמישי", hours: "20:00 - 08:00" },
+    { day: "שישי", hours: "15:00 - 08:00" },
     { day: "שבת", hours: "לפי תיאום מראש" },
   ];
 
@@ -27,8 +27,8 @@ const WorkingHours: React.FC = () => {
               viewport={{ once: true }}
               className="flex justify-between items-center text-primary-100"
             >
-              <span className="font-medium">{schedule.hours}</span>
               <span>{schedule.day}</span>
+              <span className="font-medium">{schedule.hours}</span>
             </motion.div>
           ))}
         </div>

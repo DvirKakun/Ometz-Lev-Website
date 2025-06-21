@@ -1,6 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { Heart } from "lucide-react";
 import AboutHeader from "./AboutHeader";
 import AboutContent from "./AboutContent";
 import AboutValues from "./AboutValues";

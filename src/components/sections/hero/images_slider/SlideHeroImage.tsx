@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import eladTrainingImage from "../../assets/images/Elad_Training.jpg";
-import eladAndBoni from "../../assets/images/Elad_And_Boni.jpg";
-import reviewsImage from "../../assets/images/Reviews_Image.jpg";
+import eladTrainingImage from "../../../../assets/images/Elad_Training.jpg";
+import eladAndBoni from "../../../../assets/images/Elad_And_Boni.jpg";
+import reviewsImage from "../../../../assets/images/Reviews_Image.jpg";
 import { FloatingBadge } from "./FloatingBadge";
 
 interface SlideHeroImageProps {
@@ -98,7 +98,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
 
   return (
     <div
-      className={`relative w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl mx-auto ${className}`}
+      className={`relative w-full min-h-[300px] ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -122,15 +122,16 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
         <motion.div
           className="relative bg-white p-1 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl transform -rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-500"
           whileHover={{ scale: 1.02 }}
+          style={{ aspectRatio: "1/1" }}
         >
           {/* Image with Responsive Height */}
-          <div className="relative w-full h-[280px] xs:h-[320px] sm:h-[360px] md:h-[400px] lg:h-[450px] xl:h-[500px] rounded-xl sm:rounded-2xl overflow-hidden">
+          <div className="relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden">
             <AnimatePresence initial={false} custom={direction}>
               <motion.img
                 key={currentImageIndex}
                 src={currentImage.src}
                 alt={currentImage.alt}
-                className="w-full h-full object-cover rounded-xl sm:rounded-2xl absolute inset-0"
+                className="w-full h-full object-cover object-center rounded-xl sm:rounded-2xl absolute inset-0"
                 custom={direction}
                 variants={slideVariants}
                 initial="enter"

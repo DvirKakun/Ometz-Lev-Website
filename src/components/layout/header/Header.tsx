@@ -52,15 +52,15 @@ const Header: React.FC = () => {
             <HeaderNavigation />
           </div>
 
-          {/* Countdown Timer - Center position with responsive behavior */}
+          {/* Countdown Timer - Center position with mobile-first responsive behavior */}
           <div className="flex-1 flex justify-center items-center min-w-0">
             {countdownTarget && (
-              <div className="hidden sm:block">
+              <div className="block">
                 <CountdownTimer
                   targetDate={countdownTarget}
                   eventTitle="הקייטנה הבאה!"
                   showEventInfo={true}
-                  className="max-w-sm"
+                  className="max-w-xs sm:max-w-sm scale-[0.65] sm:scale-75 md:scale-[0.8] lg:scale-[0.85] xl:scale-100"
                 />
               </div>
             )}
@@ -86,7 +86,7 @@ const Header: React.FC = () => {
               )}
 
               {/* Mobile Navigation */}
-              <HeaderNavigation isMobile />
+              <HeaderNavigation isMobile onItemClick={() => setIsMenuOpen(false)} />
 
               {/* Mobile Contact Buttons */}
               <HeaderCTAButtons isMobile />
