@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import WhatsAppButton from "../../common/WhatsAppButton";
-import PhoneButton from "../../common/PhoneButton";
+import WhatsAppButton from "../../../common/WhatsAppButton";
+import PhoneButton from "../../../common/PhoneButton";
 
 const ContactButtons: React.FC = () => {
   return (

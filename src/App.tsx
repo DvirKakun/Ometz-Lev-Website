@@ -6,7 +6,7 @@ import {
 
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
-import CoachingPage from "./pages/CoachingPage";
+import ActivitiesPage from "./pages/ActivitiesPage";
 import TherapyPage from "./pages/TherapyPage";
 import TrainingPage from "./pages/TrainingPage";
 import SchoolsPage from "./pages/SchoolsPage";
@@ -14,6 +14,11 @@ import SplashPage from "./pages/SplashPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import AccessibilityPage from "./pages/AccessibilityPage";
+import { services } from "./data/services";
+
+const trainingService = services.find(
+  (service) => service.path === "/training"
+);
 
 const router = createBrowserRouter([
   {
@@ -35,12 +40,17 @@ const router = createBrowserRouter([
   {
     path: "/training",
     element: <Layout />,
-    children: [{ index: true, element: <TrainingPage /> }],
+    children: [
+      {
+        index: true,
+        element: <TrainingPage service={trainingService} />,
+      },
+    ],
   },
   {
-    path: "/coaching",
+    path: "/activities",
     element: <Layout />,
-    children: [{ index: true, element: <CoachingPage /> }],
+    children: [{ index: true, element: <ActivitiesPage /> }],
   },
   {
     path: "/schools",

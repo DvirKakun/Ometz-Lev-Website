@@ -23,7 +23,7 @@ export default function HeaderNavigation({
     { to: "/home", label: "דף הבית", icon: Home },
     { to: "/therapy", label: "כלבנות טיפולית", icon: Heart },
     { to: "/training", label: "אילוף כלבים", icon: BookOpen },
-    { to: "/coaching", label: "אימון אישי", icon: Award },
+    { to: "/activities", label: "פעילויות", icon: Award },
     { to: "/schools", label: "תכנית גפן", icon: Users },
   ];
 

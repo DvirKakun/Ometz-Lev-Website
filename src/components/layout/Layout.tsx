@@ -1,10 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
+import ScrollToTop from "../common/ScrollToTop";
 
 export default function Layout() {
   return (
     <div className="flex min-h-screen flex-col">
+      <ScrollToTop />
       {/* Skip Links for Accessibility */}
       <a
         href="#main-content"

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "../../ui/card";
+import { Card, CardContent } from "../../../ui/card";
 import { ArrowUpRight } from "lucide-react";
-import { type Service } from "../../../data/services";
+import { type Service } from "../../../../data/services";
 
 interface ServiceCardProps {
   service: Service;
@@ -20,7 +20,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
         return "text-red-500";
       case "/training":
         return "text-primary-600";
-      case "/coaching":
+      case "/activities":
         return "text-accent-600";
       case "/schools":
         return "text-purple-600";
@@ -66,7 +66,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
 
             {/* Features */}
             <div className="space-y-3 flex-1 mb-6">
-              {service.features.map((feature, idx) => (
+              {service.features.slice(0, 3).map((feature, idx) => (
                 <motion.div
                   key={idx}
                   className="flex items-center text-sm text-slate-600"
@@ -77,7 +77,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
                   <div
                     className={`w-2 h-2 bg-gradient-to-br ${service.color} rounded-full ml-3 flex-shrink-0`}
                   />
-                  <span className="leading-relaxed">{feature}</span>
+                  <span className="leading-relaxed">{feature.title}</span>
                 </motion.div>
               ))}
             </div>

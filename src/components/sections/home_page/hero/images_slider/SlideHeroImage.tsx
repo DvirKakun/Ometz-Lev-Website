@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import eladTrainingImage from "../../../../assets/images/Elad_Training.jpg";
-import eladAndBoni from "../../../../assets/images/Elad_And_Boni.jpg";
-import reviewsImage from "../../../../assets/images/Reviews_Image.jpg";
+import eladTrainingImage from "../../../../../assets/images/Elad_Training.jpg";
+import eladAndBoni from "../../../../../assets/images/Elad_And_Boni.jpg";
+import reviewsImage from "../../../../../assets/images/Reviews_Image.jpg";
 import { FloatingBadge } from "./FloatingBadge";
 
 interface SlideHeroImageProps {

@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
-import { Card, CardContent } from "../../ui/card";
+import { Card, CardContent } from "../../../ui/card";
 
 const WorkingHours: React.FC = () => {
   const workingHours = [

@@ -7,7 +7,7 @@ const FooterQuickLinks: React.FC = () => {
   const quickLinks = [
     { path: "/therapy", label: "כלבנות טיפולית", icon: Heart },
     { path: "/training", label: "אילוף כלבים", icon: BookOpen },
-    { path: "/coaching", label: "אימון אישי", icon: Award },
+    { path: "/activities", label: "פעילויות", icon: Award },
     { path: "/schools", label: "תכנית גפן", icon: Users },
   ];
 
@@ -18,9 +18,7 @@ const FooterQuickLinks: React.FC = () => {
       transition={{ duration: 0.6, delay: 0.1 }}
       viewport={{ once: true }}
     >
-      <h4 className="text-lg font-semibold mb-6 text-primary-300">
-        שירותים
-      </h4>
+      <h4 className="text-lg font-semibold mb-6 text-primary-300">שירותים</h4>
       <ul className="space-y-3">
         {quickLinks.map((link) => (
           <li key={link.path}>

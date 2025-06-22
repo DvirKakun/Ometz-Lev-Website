@@ -86,7 +86,10 @@ const Header: React.FC = () => {
               )}
 
               {/* Mobile Navigation */}
-              <HeaderNavigation isMobile onItemClick={() => setIsMenuOpen(false)} />
+              <HeaderNavigation
+                isMobile
+                onItemClick={() => setIsMenuOpen(false)}
+              />
 
               {/* Mobile Contact Buttons */}
               <HeaderCTAButtons isMobile />

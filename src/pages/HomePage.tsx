@@ -1,9 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import HeroSection from "../components/sections/hero/HeroSection";
-import AboutSection from "../components/sections/about/AboutSection";
-import ContactCTA from "../components/sections/contact/ContactCTA";
-import ServicesGrid from "../components/sections/services/ServicesGrid";
+import HeroSection from "../components/sections/home_page/hero/HeroSection";
+import AboutSection from "../components/sections/home_page/about/AboutSection";
+import ContactCTA from "../components/sections/home_page/contact/ContactCTA";
+import ServicesGrid from "../components/sections/home_page/services/ServicesGrid";
 // import AboutSection from "../components/sections/AboutSection";
 // import ServicesGrid from "../components/sections/ServicesGrid";
 // import ContactCTA from "../components/sections/ContactCTA";
