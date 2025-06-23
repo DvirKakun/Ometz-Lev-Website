@@ -1,6 +1,6 @@
-import { getDemoVideos } from "../../../../data/videos";
+import { getDemoVideos } from "../../../data/videos";
 import { motion } from "framer-motion";
-import VideoCard from "../../video_library_page/VideoCard";
+import VideoCard from "../video_library_page/VideoCard";
 
 export default function DemoVideosGrid() {
   const demoVideos = getDemoVideos("training");

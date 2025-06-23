@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import type { Service } from "../data/services";
-import CollapsibleFeatures from "../components/sections/training_page/collapsible_features/CollapsibleFeatures";
+import CollapsibleFeatures from "../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import TrainingMethod from "../components/sections/training_page/training_method/TrainingMethod";
 import ContentSection from "../components/sections/shared/content/ContentSection";
 import ContactSection from "../components/sections/shared/contact/ContactSection";
@@ -29,7 +29,7 @@ export default function TrainingPage({ service }: TrainingPageProps) {
     // Restore scroll position if returning from library
     const returnFromLibrary = location.state?.returnFromLibrary;
     const scrollPosition = location.state?.scrollPosition;
-    
+
     if (returnFromLibrary && scrollPosition !== undefined) {
       // Use setTimeout to ensure DOM is fully rendered
       setTimeout(() => {
@@ -55,7 +55,7 @@ export default function TrainingPage({ service }: TrainingPageProps) {
     buttonText: "עבור לספרייה",
     accentColor: "red",
     gradientFrom: "from-red-500",
-    gradientTo: "to-red-600"
+    gradientTo: "to-red-600",
   };
 
   const articlesConfig = {
@@ -66,7 +66,7 @@ export default function TrainingPage({ service }: TrainingPageProps) {
     buttonText: "עבור לספרייה",
     accentColor: "accent",
     gradientFrom: "from-accent-500",
-    gradientTo: "to-orange-600"
+    gradientTo: "to-orange-600",
   };
 
   return (

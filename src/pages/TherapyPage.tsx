@@ -1,19 +1,18 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { services } from "../data/services";
 import ContentSection from "../components/sections/shared/content/ContentSection";
 import ContactSection from "../components/sections/shared/contact/ContactSection";
-import CollapsibleFeatures from "../components/sections/training_page/collapsible_features/CollapsibleFeatures";
+import CollapsibleFeatures from "../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import TrainingMethod from "../components/sections/training_page/training_method/TrainingMethod";
+import type { Service } from "../data/services";
 
-const TherapyPage = () => {
+interface TherapygPageProps {
+  service: Service | undefined;
+}
+
+const TherapyPage = ({ service }: TherapygPageProps) => {
   const location = useLocation();
-
-  // Get therapy service data
-  const therapyService = services.find(
-    (service) => service.path === "/therapy"
-  );
 
   useEffect(() => {
     document.title = "כלבנות טיפולית | אומץ לב";
@@ -38,9 +37,9 @@ const TherapyPage = () => {
     libraryPath: "/therapy-videos-library",
     libraryTitle: "ספריית סרטוני הטיפול שלנו",
     buttonText: "עבור לספרייה",
-    accentColor: "blue",
-    gradientFrom: "from-blue-500",
-    gradientTo: "to-blue-600",
+    accentColor: "red",
+    gradientFrom: "from-red-500",
+    gradientTo: "to-red-600",
   };
 
   const articlesConfig = {
@@ -54,7 +53,7 @@ const TherapyPage = () => {
     gradientTo: "to-orange-600",
   };
 
-  if (!therapyService) {
+  if (!service) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-slate-600">שירות לא נמצא</p>
@@ -70,7 +69,7 @@ const TherapyPage = () => {
       className="min-h-screen"
     >
       {/* Features Section */}
-      <CollapsibleFeatures service={therapyService} />
+      <CollapsibleFeatures service={service} />
 
       {/* Therapy Method Section */}
       <TrainingMethod />

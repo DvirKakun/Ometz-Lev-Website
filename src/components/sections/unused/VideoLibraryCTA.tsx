@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../../../ui/button";
-import { videos } from "../../../../data/videos";
+import { Button } from "../../ui/button";
+import { videos } from "../../../data/videos";
 
 const VideoLibraryCTA = () => {
   const navigate = useNavigate();
@@ -10,7 +10,8 @@ const VideoLibraryCTA = () => {
   const trainingVideos = videos.training;
 
   // Calculate video count (25+ if over 25)
-  const videoCount = trainingVideos.length > 25 ? "25+" : trainingVideos.length.toString();
+  const videoCount =
+    trainingVideos.length > 25 ? "25+" : trainingVideos.length.toString();
 
   // Calculate total hours from duration strings
   const totalMinutes = trainingVideos.reduce((total, video) => {
@@ -21,8 +22,8 @@ const VideoLibraryCTA = () => {
 
   const handleViewAllVideos = () => {
     const scrollPosition = window.scrollY;
-    navigate("/videos-library", { 
-      state: { scrollPosition } 
+    navigate("/videos-library", {
+      state: { scrollPosition },
     });
   };
 
@@ -36,14 +37,16 @@ const VideoLibraryCTA = () => {
     >
       {/* Background accent */}
       <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-red-600/10" />
-      
+
       <div className="relative p-4">
         <div className="flex items-center justify-between">
           {/* Content */}
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-              <span className="text-sm font-medium text-slate-700">ספריית הווידאו שלנו</span>
+              <span className="text-sm font-medium text-slate-700">
+                ספריית הווידאו שלנו
+              </span>
             </div>
             <div className="flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">

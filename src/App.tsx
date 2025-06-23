@@ -23,6 +23,8 @@ const trainingService = services.find(
   (service) => service.path === "/training"
 );
 
+const therapyService = services.find((service) => service.path === "/therapy");
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,7 +45,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PageLoader>
-            <TherapyPage />
+            <TherapyPage service={therapyService} />
           </PageLoader>
         ),
       },
