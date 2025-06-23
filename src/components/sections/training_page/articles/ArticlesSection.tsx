@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import { articles } from "../../../../data/articles";
 import ArticlesHeader from "./ArticlesHeader";
-import ArticleCard from "./ArticleCard";
+import ArticlesLibraryCTA from "./ArticlesLibraryCTA";
 
 const ArticlesSection = () => {
   return (
@@ -17,19 +16,8 @@ const ArticlesSection = () => {
           transition={{ duration: 0.6 }}
           className="max-w-6xl mx-auto"
         >
-          {/* Section Header */}
           <ArticlesHeader />
-
-          {/* Articles Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {articles.map((article, index) => (
-              <ArticleCard
-                key={index}
-                article={article}
-                index={index}
-              />
-            ))}
-          </div>
+          <ArticlesLibraryCTA />
         </motion.div>
       </div>
     </section>

@@ -12,6 +12,14 @@ const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
   const location = useLocation();
 
   useEffect(() => {
+    // Skip loading if returning from library
+    const returnFromLibrary = location.state?.returnFromLibrary;
+    
+    if (returnFromLibrary) {
+      setIsLoading(false);
+      return;
+    }
+
     // Reset loading state when route changes
     setIsLoading(true);
 
@@ -20,7 +28,7 @@ const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
     }, minLoadTime);
 
     return () => clearTimeout(timer);
-  }, [location.pathname, minLoadTime]); // Add location.pathname as dependency
+  }, [location.pathname, location.state, minLoadTime]);
 
   if (isLoading) {
     return <LoadingPage />;

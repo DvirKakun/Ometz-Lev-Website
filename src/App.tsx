@@ -15,6 +15,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import AccessibilityPage from "./pages/AccessibilityPage";
 import VideoLibraryPage from "./pages/VideoLibraryPage";
+import ArticlesLibraryPage from "./pages/ArticlesLibraryPage";
 import PageLoader from "./components/common/PageLoader";
 import { services } from "./data/services";
 
@@ -94,6 +95,11 @@ const router = createBrowserRouter([
     path: "/videos-library",
     element: <Layout />,
     children: [{ index: true, element: <VideoLibraryPage /> }],
+  },
+  {
+    path: "/articles-library",
+    element: <Layout />,
+    children: [{ index: true, element: <ArticlesLibraryPage /> }],
   },
   {
     path: "/privacy",

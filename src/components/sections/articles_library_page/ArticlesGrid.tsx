@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
-import { type Video } from "../../../data/videos";
-import VideoCard from "./VideoCard";
+import { type Article } from "../../../data/articles";
+import ArticleCard from "./ArticleCard";
 import EmptyState from "./EmptyState";
 
-interface VideoGridProps {
-  videos: Video[];
+interface ArticlesGridProps {
+  articles: Article[];
+  selectedCategory: string;
 }
 
-const VideoGrid = ({ videos }: VideoGridProps) => {
+const ArticlesGrid = ({ articles, selectedCategory }: ArticlesGridProps) => {
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
@@ -17,18 +18,18 @@ const VideoGrid = ({ videos }: VideoGridProps) => {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="max-w-6xl mx-auto"
         >
-          {videos.length > 0 ? (
+          {articles.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {videos.map((video, index) => (
-                <VideoCard
-                  key={video.videoKey || index}
-                  video={video}
+              {articles.map((article, index) => (
+                <ArticleCard
+                  key={article.articleKey || index}
+                  article={article}
                   index={index}
                 />
               ))}
             </div>
           ) : (
-            <EmptyState />
+            <EmptyState selectedCategory={selectedCategory} />
           )}
         </motion.div>
       </div>
@@ -36,4 +37,4 @@ const VideoGrid = ({ videos }: VideoGridProps) => {
   );
 };
 
-export default VideoGrid;
+export default ArticlesGrid;

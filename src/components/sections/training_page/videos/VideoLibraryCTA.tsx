@@ -17,7 +17,10 @@ const VideoLibraryCTA = () => {
   const totalHours = Math.round(totalMinutes / 60);
 
   const handleViewAllVideos = () => {
-    navigate("/videos-library");
+    const scrollPosition = window.scrollY;
+    navigate("/videos-library", { 
+      state: { scrollPosition } 
+    });
   };
 
   return (

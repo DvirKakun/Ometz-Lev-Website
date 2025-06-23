@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import type { Service } from "../data/services";
 import CollapsibleFeatures from "../components/sections/training_page/collapsible_features/CollapsibleFeatures";
 import TrainingMethod from "../components/sections/training_page/training_method/TrainingMethod";
@@ -12,6 +13,8 @@ interface TrainingPageProps {
 }
 
 export default function TrainingPage({ service }: TrainingPageProps) {
+  const location = useLocation();
+
   useEffect(() => {
     document.title = "אילוף כלבים מקצועי | אומץ לב";
 
@@ -23,7 +26,18 @@ export default function TrainingPage({ service }: TrainingPageProps) {
         "אילוף כלבים מקצועי ואישי עם הדרכה מותאמת לכל כלב. מדריך מוסמך, שיטות מתקדמות ותוצאות מובטחות. הזמינו ייעוץ חינם!"
       );
     }
-  }, []);
+
+    // Restore scroll position if returning from library
+    const returnFromLibrary = location.state?.returnFromLibrary;
+    const scrollPosition = location.state?.scrollPosition;
+    
+    if (returnFromLibrary && scrollPosition !== undefined) {
+      // Use setTimeout to ensure DOM is fully rendered
+      setTimeout(() => {
+        window.scrollTo(0, scrollPosition);
+      }, 100);
+    }
+  }, [location.state]);
 
   if (!service) {
     return (
