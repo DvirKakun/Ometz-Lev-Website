@@ -74,23 +74,23 @@ const ContactForm = () => {
       className="max-w-lg mx-auto"
     >
       <Card className="bg-white/95 backdrop-blur-sm border-white/20 shadow-2xl">
-        <CardContent className="p-6">
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <CardContent className="p-4">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
             {/* Full Name */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700 text-right block">
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-slate-700 text-right block">
                 שם מלא *
               </label>
               <div className="relative">
                 <input
                   {...register("fullName")}
                   type="text"
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-right ${
+                  className={`w-full px-3 py-1.5 border rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent text-right text-sm ${
                     errors.fullName ? "border-red-500" : "border-slate-200"
                   }`}
                   placeholder="הכניסו את שמכם"
                 />
-                <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <User className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400" />
               </div>
               {errors.fullName && (
                 <p className="text-red-500 text-xs text-right">
@@ -100,20 +100,20 @@ const ContactForm = () => {
             </div>
 
             {/* Phone */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700 text-right block">
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-slate-700 text-right block">
                 טלפון *
               </label>
               <div className="relative">
                 <input
                   {...register("phone")}
                   type="tel"
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-right ${
+                  className={`w-full px-3 py-1.5 border rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent text-right text-sm ${
                     errors.phone ? "border-red-500" : "border-slate-200"
                   }`}
                   placeholder="050-1234567"
                 />
-                <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Phone className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400" />
               </div>
               {errors.phone && (
                 <p className="text-red-500 text-xs text-right">
@@ -123,20 +123,20 @@ const ContactForm = () => {
             </div>
 
             {/* Email */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700 text-right block">
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-slate-700 text-right block">
                 אימייל
               </label>
               <div className="relative">
                 <input
                   {...register("email")}
                   type="email"
-                  className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-right ${
+                  className={`w-full px-3 py-1.5 border rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent text-right text-sm ${
                     errors.email ? "border-red-500" : "border-slate-200"
                   }`}
                   placeholder="example@email.com"
                 />
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                <Mail className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400" />
               </div>
               {errors.email && (
                 <p className="text-red-500 text-xs text-right">
@@ -146,13 +146,13 @@ const ContactForm = () => {
             </div>
 
             {/* Message */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-700 text-right block">
+            <div className="space-y-1">
+              <label className="text-xs font-medium text-slate-700 text-right block">
                 על מה תרצו לשמוע?
               </label>
               <textarea
                 {...register("message")}
-                className="w-full px-3 py-2 border border-slate-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-right h-20 resize-none"
+                className="w-full px-3 py-1.5 border border-slate-200 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent text-right text-sm h-16 resize-none"
                 placeholder="תאר בקצרה את הבעיות או השאלות שלך..."
               />
             </div>
@@ -161,11 +161,12 @@ const ContactForm = () => {
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 font-semibold"
+              size="sm"
+              className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold"
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  <Loader2 className="w-3 h-3 animate-spin mr-2" />
                   שולח...
                 </>
               ) : (
@@ -178,7 +179,7 @@ const ContactForm = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-green-600 text-center font-medium"
+                className="text-green-600 text-center text-sm font-medium"
               >
                 הבקשה נשלחה בהצלחה! נחזור אליכם בהקדם.
               </motion.div>
@@ -188,13 +189,13 @@ const ContactForm = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-red-600 text-center font-medium"
+                className="text-red-600 text-center text-sm font-medium"
               >
                 אירעה שגיאה בשליחת הבקשה. אנא נסו שוב.
               </motion.div>
             )}
 
-            <p className="text-xs text-slate-500 text-center mt-2">
+            <p className="text-xs text-slate-500 text-center">
               * שדות חובה
             </p>
           </form>

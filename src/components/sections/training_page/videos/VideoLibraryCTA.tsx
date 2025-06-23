@@ -29,32 +29,39 @@ const VideoLibraryCTA = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: 0.5 }}
-      className="bg-gradient-to-l from-red-50 to-pink-50 rounded-xl p-6 mb-8 border border-red-100 text-center"
+      className="relative bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-6"
     >
-      <h3 className="text-xl font-bold text-slate-800 mb-3">
-        ספריית וידאו מקיפה
-      </h3>
-      <p className="text-base text-slate-600 leading-relaxed max-w-xl mx-auto mb-4">
-        גשו לספריית הוידאו המלאה שלנו עם סרטוני הדרכה מקצועיים
-      </p>
+      {/* Background accent */}
+      <div className="absolute inset-0 bg-gradient-to-r from-red-500/5 to-red-600/10" />
+      
+      <div className="relative p-4">
+        <div className="flex items-center justify-between">
+          {/* Content */}
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+              <span className="text-sm font-medium text-slate-700">ספריית הווידאו שלנו</span>
+            </div>
+            <div className="flex items-center gap-6 text-sm">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-red-600">{videoCount}</span>
+                <span className="text-slate-500">סרטונים</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-red-600">{totalHours}+</span>
+                <span className="text-slate-500">שעות צפייה</span>
+              </div>
+            </div>
+          </div>
 
-      <div className="flex justify-center mb-4">
-        <Button
-          onClick={handleViewAllVideos}
-          className="bg-red-600 hover:bg-red-700 text-white"
-        >
-          צפו בכל הסרטונים
-        </Button>
-      </div>
-
-      <div className="grid grid-cols-2 gap-6 text-center">
-        <div>
-          <div className="text-2xl font-bold text-red-600">{videoCount}</div>
-          <div className="text-sm text-slate-600">סרטוני הדרכה</div>
-        </div>
-        <div>
-          <div className="text-2xl font-bold text-red-600">{totalHours}+</div>
-          <div className="text-sm text-slate-600">שעות צפייה</div>
+          {/* CTA Button */}
+          <Button
+            onClick={handleViewAllVideos}
+            size="sm"
+            className="bg-red-600 hover:bg-red-700 text-white shadow-sm shrink-0"
+          >
+            עבור לספרייה
+          </Button>
         </div>
       </div>
     </motion.div>

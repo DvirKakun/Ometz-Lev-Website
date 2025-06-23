@@ -29,32 +29,39 @@ const ArticlesLibraryCTA = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: 0.5 }}
-      className="bg-gradient-to-l from-accent-50 to-orange-50 rounded-xl p-6 mb-8 border border-accent-100 text-center"
+      className="relative bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mb-6"
     >
-      <h3 className="text-xl font-bold text-slate-800 mb-3">
-        ספריית מאמרים מקיפה
-      </h3>
-      <p className="text-base text-slate-600 leading-relaxed max-w-xl mx-auto mb-4">
-        גשו לספריית המאמרים המלאה שלנו עם מדריכים מקצועיים ועצות מועילות
-      </p>
+      {/* Background accent */}
+      <div className="absolute inset-0 bg-gradient-to-r from-accent-500/5 to-orange-600/10" />
+      
+      <div className="relative p-4">
+        <div className="flex items-center justify-between">
+          {/* Content */}
+          <div className="flex-1">
+            <div className="flex items-center gap-3 mb-2">
+              <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse" />
+              <span className="text-sm font-medium text-slate-700">ספריית המאמרים שלנו</span>
+            </div>
+            <div className="flex items-center gap-6 text-sm">
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-accent-600">{articleCount}</span>
+                <span className="text-slate-500">מאמרים</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-accent-600">{totalHours > 0 ? `${totalHours}+` : `${totalMinutes}`}</span>
+                <span className="text-slate-500">{totalHours > 0 ? 'שעות קריאה' : 'דקות קריאה'}</span>
+              </div>
+            </div>
+          </div>
 
-      <div className="flex justify-center mb-4">
-        <Button
-          onClick={handleViewAllArticles}
-          className="bg-accent-600 hover:bg-accent-700 text-white"
-        >
-          צפו בכל המאמרים
-        </Button>
-      </div>
-
-      <div className="grid grid-cols-2 gap-6 text-center">
-        <div>
-          <div className="text-2xl font-bold text-accent-600">{articleCount}</div>
-          <div className="text-sm text-slate-600">מאמרי הדרכה</div>
-        </div>
-        <div>
-          <div className="text-2xl font-bold text-accent-600">{totalHours > 0 ? `${totalHours}+` : `${totalMinutes}`}</div>
-          <div className="text-sm text-slate-600">{totalHours > 0 ? 'שעות קריאה' : 'דקות קריאה'}</div>
+          {/* CTA Button */}
+          <Button
+            onClick={handleViewAllArticles}
+            size="sm"
+            className="bg-accent-600 hover:bg-accent-700 text-white shadow-sm shrink-0"
+          >
+            עבור לספרייה
+          </Button>
         </div>
       </div>
     </motion.div>

@@ -9,7 +9,7 @@ const HeaderLogo: React.FC = () => {
       whileTap={{ scale: 0.98 }}
       className="flex-shrink-0"
     >
-      <Link to="/" className="flex items-center space-x-4 space-x-reverse">
+      <Link to="/home" className="flex items-center space-x-4 space-x-reverse">
         <div className="w-12 h-12 lg:w-14 lg:h-14 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center shadow-2xl border-2 border-white relative overflow-hidden">
           <div
             className="w-6 h-6 lg:w-7 lg:h-7 relative z-10"
