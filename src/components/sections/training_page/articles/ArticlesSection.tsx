@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
+import { getDemoArticles } from "../../../../data/articles";
 import ArticlesHeader from "./ArticlesHeader";
 import ArticlesLibraryCTA from "./ArticlesLibraryCTA";
+import ArticleCard from "../../articles_library_page/ArticleCard";
 
 const ArticlesSection = () => {
+  const demoArticles = getDemoArticles();
+
   return (
     <section
       id="articles"
@@ -17,6 +21,26 @@ const ArticlesSection = () => {
           className="max-w-6xl mx-auto"
         >
           <ArticlesHeader />
+          
+          {/* Demo Articles Grid */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-12"
+          >
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {demoArticles.map((article, index) => (
+                <ArticleCard
+                  key={article.articleKey || index}
+                  article={article}
+                  index={index}
+                />
+              ))}
+            </div>
+          </motion.div>
+
           <ArticlesLibraryCTA />
         </motion.div>
       </div>

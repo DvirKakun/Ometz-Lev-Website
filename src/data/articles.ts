@@ -106,3 +106,22 @@ export const getTotalReadTime = (): string => {
 
   return `${totalMinutes} דקות`;
 };
+
+export const getDemoArticles = (): Article[] => {
+  // Select 3 articles from different categories for demo
+  const demoArticles = [
+    // Puppies category
+    articles.find(a => a.category === "puppies"),
+    // Behavior category
+    articles.find(a => a.category === "behavior"), 
+    // Training category
+    articles.find(a => a.category === "training"),
+  ].filter(Boolean) as Article[];
+
+  // If we don't have enough variety, fill with first 3 articles
+  if (demoArticles.length < 3) {
+    return articles.slice(0, 3);
+  }
+
+  return demoArticles;
+};

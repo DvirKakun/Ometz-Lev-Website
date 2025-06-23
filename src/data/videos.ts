@@ -157,3 +157,28 @@ export const getCategoryColor = (categoryId: string): string => {
   const category = categories.find((c) => c.id === categoryId);
   return category ? category.color : "slate";
 };
+
+export const getDemoVideos = (): Video[] => {
+  // Select 3 videos from different categories and levels for demo
+  const demoVideos = [
+    // Beginner - Basic Training
+    videos.find(
+      (v) => v.level === "beginner" && v.category === "basic-training"
+    ),
+    // Intermediate - Behavior Issues
+    videos.find(
+      (v) => v.level === "intermediate" && v.category === "behavior-issues"
+    ),
+    // Advanced - Advanced Training
+    videos.find(
+      (v) => v.level === "advanced" && v.category === "advanced-training"
+    ),
+  ].filter(Boolean) as Video[];
+
+  // If we don't have enough variety, fill with first 3 videos
+  if (demoVideos.length < 3) {
+    return videos.slice(0, 3);
+  }
+
+  return demoVideos;
+};
