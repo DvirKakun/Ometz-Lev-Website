@@ -4,9 +4,8 @@ import { useLocation } from "react-router-dom";
 import type { Service } from "../data/services";
 import CollapsibleFeatures from "../components/sections/training_page/collapsible_features/CollapsibleFeatures";
 import TrainingMethod from "../components/sections/training_page/training_method/TrainingMethod";
-import ArticlesSection from "../components/sections/training_page/articles/ArticlesSection";
-import VideosSection from "../components/sections/training_page/videos/VideosSection";
-import ContactSection from "../components/sections/training_page/contact/ContactSection";
+import ContentSection from "../components/sections/shared/content/ContentSection";
+import ContactSection from "../components/sections/shared/contact/ContactSection";
 
 interface TrainingPageProps {
   service: Service | undefined;
@@ -47,6 +46,29 @@ export default function TrainingPage({ service }: TrainingPageProps) {
     );
   }
 
+  // Configuration for training page content sections
+  const videosConfig = {
+    title: "מדריכי וידאו",
+    description: "סרטוני הדרכה מקצועיים לאילוף כלבים בבית",
+    libraryPath: "/videos-library",
+    libraryTitle: "ספריית הווידאו שלנו",
+    buttonText: "עבור לספרייה",
+    accentColor: "red",
+    gradientFrom: "from-red-500",
+    gradientTo: "to-red-600"
+  };
+
+  const articlesConfig = {
+    title: "מאמרי הדרכה",
+    description: "מאמרים מקצועיים ומדריכים לאילוף כלבים",
+    libraryPath: "/articles-library",
+    libraryTitle: "ספריית המאמרים שלנו",
+    buttonText: "עבור לספרייה",
+    accentColor: "accent",
+    gradientFrom: "from-accent-500",
+    gradientTo: "to-orange-600"
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -60,11 +82,19 @@ export default function TrainingPage({ service }: TrainingPageProps) {
       {/* Training Method Section (includes brief about) */}
       <TrainingMethod />
 
-      {/* Articles Section */}
-      <ArticlesSection />
-
       {/* Videos Section */}
-      <VideosSection />
+      <ContentSection
+        contentType="videos"
+        pageType="training"
+        sectionConfig={videosConfig}
+      />
+
+      {/* Articles Section */}
+      <ContentSection
+        contentType="articles"
+        pageType="training"
+        sectionConfig={articlesConfig}
+      />
 
       {/* Contact Section */}
       <ContactSection />

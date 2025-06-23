@@ -6,11 +6,14 @@ import { videos } from "../../../../data/videos";
 const VideoLibraryCTA = () => {
   const navigate = useNavigate();
 
+  // Get training videos specifically
+  const trainingVideos = videos.training;
+
   // Calculate video count (25+ if over 25)
-  const videoCount = videos.length > 25 ? "25+" : videos.length.toString();
+  const videoCount = trainingVideos.length > 25 ? "25+" : trainingVideos.length.toString();
 
   // Calculate total hours from duration strings
-  const totalMinutes = videos.reduce((total, video) => {
+  const totalMinutes = trainingVideos.reduce((total, video) => {
     const [minutes, seconds] = video.duration.split(":").map(Number);
     return total + minutes + seconds / 60;
   }, 0);

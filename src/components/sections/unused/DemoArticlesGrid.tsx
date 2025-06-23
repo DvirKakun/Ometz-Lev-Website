@@ -1,9 +1,9 @@
-import { getDemoArticles } from "../../../../data/articles";
+import { getDemoArticles } from "../../../data/articles";
 import { motion } from "framer-motion";
-import ArticleCard from "../../articles_library_page/ArticleCard";
+import ArticleCard from "../articles_library_page/ArticleCard";
 
 export default function DemoArticlesGrid() {
-  const demoArticles = getDemoArticles();
+  const demoArticles = getDemoArticles("training");
 
   return (
     <motion.div

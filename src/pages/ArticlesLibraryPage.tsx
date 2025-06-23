@@ -6,7 +6,7 @@ import ArticlesGrid from "../components/sections/articles_library_page/ArticlesG
 
 const ArticlesLibraryPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const filteredArticles = getArticlesByCategory(selectedCategory);
+  const filteredArticles = getArticlesByCategory(selectedCategory, "training");
 
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);

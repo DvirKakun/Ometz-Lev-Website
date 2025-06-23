@@ -32,7 +32,7 @@ const CategoryFilter = ({
   };
 
   const hasActiveFilters = selectedCategory !== "all";
-  const filteredArticleCount = getArticlesByCategory(selectedCategory).length;
+  const filteredArticleCount = getArticlesByCategory(selectedCategory, "training").length;
 
   return (
     <section className="py-8 bg-white border-b border-slate-200">
@@ -84,7 +84,7 @@ const CategoryFilter = ({
               >
                 {category.name}
                 <span className="mr-2 bg-white/20 px-2 py-0.5 rounded-full text-xs">
-                  {getArticlesByCategory(category.id).length}
+                  {getArticlesByCategory(category.id, "training").length}
                 </span>
               </Button>
             ))}

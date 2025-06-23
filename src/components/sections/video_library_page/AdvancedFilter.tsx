@@ -46,7 +46,8 @@ const AdvancedFilter = ({
     selectedLevel !== "all" || selectedCategory !== "all";
   const filteredVideoCount = getVideosByFilters(
     selectedLevel,
-    selectedCategory
+    selectedCategory,
+    "training"
   ).length;
 
   return (
@@ -102,7 +103,7 @@ const AdvancedFilter = ({
                 >
                   {category.name}
                   <span className="mr-2 bg-white/20 px-1.5 py-0.5 rounded-full text-xs">
-                    {getVideosByFilters(selectedLevel, category.id).length}
+                    {getVideosByFilters(selectedLevel, category.id, "training").length}
                   </span>
                 </Button>
               ))}
@@ -128,7 +129,7 @@ const AdvancedFilter = ({
                 >
                   {level.name}
                   <span className="mr-2 bg-white/20 px-1.5 py-0.5 rounded-full text-xs">
-                    {getVideosByFilters(level.id, selectedCategory).length}
+                    {getVideosByFilters(level.id, selectedCategory, "training").length}
                   </span>
                 </Button>
               ))}

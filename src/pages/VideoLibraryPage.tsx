@@ -7,7 +7,7 @@ import VideoGrid from "../components/sections/video_library_page/VideoGrid";
 const VideoLibraryPage = () => {
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const filteredVideos = getVideosByFilters(selectedLevel, selectedCategory);
+  const filteredVideos = getVideosByFilters(selectedLevel, selectedCategory, "training");
 
   const handleLevelChange = (levelId: string) => {
     setSelectedLevel(levelId);

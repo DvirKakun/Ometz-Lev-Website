@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import VideoCard from "../../video_library_page/VideoCard";
 
 export default function DemoVideosGrid() {
-  const demoVideos = getDemoVideos();
+  const demoVideos = getDemoVideos("training");
 
   return (
     <motion.div

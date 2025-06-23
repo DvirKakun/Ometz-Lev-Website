@@ -1,4 +1,12 @@
-import { Heart, BookOpen, Award, Users, Phone, FileText, Video } from "lucide-react";
+import {
+  Heart,
+  BookOpen,
+  Award,
+  Users,
+  Phone,
+  FileText,
+  Video,
+} from "lucide-react";
 import { type LucideIcon } from "lucide-react";
 
 export interface Feature {
@@ -48,7 +56,23 @@ export const services: Service[] = [
           "מגביר אמפתיה, הקשבה, ויכולת לעבוד בקבוצה דרך פעילות חווייתית עם הכלב.",
       },
     ],
-    cta: [],
+    cta: [
+      {
+        text: "שיחת התאמה ראשונה – ללא עלות",
+        icon: Phone,
+        href: "#contact",
+      },
+      {
+        text: "מדריכי וידאו",
+        icon: Video,
+        href: "#videos",
+      },
+      {
+        text: "מאמרים ומדריכים",
+        icon: FileText,
+        href: "#articles",
+      },
+    ],
   },
   {
     path: "/training",
@@ -90,18 +114,18 @@ export const services: Service[] = [
       {
         text: "שיחת התאמה ראשונה – ללא עלות",
         icon: Phone,
-        href: "#contact"
+        href: "#contact",
       },
       {
         text: "מדריכי וידאו",
         icon: Video,
-        href: "#videos"
+        href: "#videos",
       },
       {
         text: "מאמרים ומדריכים",
         icon: FileText,
-        href: "#articles"
-      }
+        href: "#articles",
+      },
     ],
   },
   {
