@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { User, Phone, Mail, Loader2 } from "lucide-react";
 import { Button } from "../../../ui/button";
-import { Card, CardContent, CardHeader } from "../../../ui/card";
+import { Card, CardContent } from "../../../ui/card";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 

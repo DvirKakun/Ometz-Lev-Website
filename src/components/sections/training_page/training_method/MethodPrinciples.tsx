@@ -1,30 +1,7 @@
 import { motion } from "framer-motion";
-import { Heart, Brain, Target, Shield } from "lucide-react";
+import { methodPrinciples } from "../../../../data/method_principles";
 
 const MethodPrinciples = () => {
-  const methodPrinciples = [
-    {
-      icon: Heart,
-      title: "חיזוק חיובי",
-      description: "שימוש בפרסים וחיזוקים חיוביים במקום עונשים",
-    },
-    {
-      icon: Brain,
-      title: "הבנת התנהגות",
-      description: "ניתוח מעמיק של הסיבות להתנהגות הכלב",
-    },
-    {
-      icon: Target,
-      title: "יעדים ברורים",
-      description: "הגדרת מטרות ספציפיות ומדידות לכל שלב",
-    },
-    {
-      icon: Shield,
-      title: "סביבה בטוחה",
-      description: "יצירת מרחב לימוד נוח ובטוח לכלב",
-    },
-  ];
-
   return (
     <div className="grid md:grid-cols-2 gap-6">
       {methodPrinciples.map((principle, index) => (

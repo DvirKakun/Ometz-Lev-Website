@@ -1,24 +1,7 @@
 import { motion } from "framer-motion";
+import { steps } from "../../../../data/process_steps";
 
 const ProcessSteps = () => {
-  const steps = [
-    {
-      step: "1",
-      title: "הערכה",
-      desc: "ניתוח התנהגות ובניית תוכנית",
-    },
-    {
-      step: "2",
-      title: "יישום",
-      desc: "אימונים מעשיים והדרכה",
-    },
-    {
-      step: "3",
-      title: "מעקב",
-      desc: "ליווי שוטף ושיפורים",
-    },
-  ];
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

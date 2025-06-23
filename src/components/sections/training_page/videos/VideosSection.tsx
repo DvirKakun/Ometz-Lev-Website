@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import VideosHeader from "./VideosHeader";
-import VideosGrid from "./VideosGrid";
 import VideoLibraryCTA from "./VideoLibraryCTA";
 
 const VideosSection = () => {
@@ -16,7 +15,6 @@ const VideosSection = () => {
         >
           <VideosHeader />
           <VideoLibraryCTA />
-          <VideosGrid />
         </motion.div>
       </div>
     </section>

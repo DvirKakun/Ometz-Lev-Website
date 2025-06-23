@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { User } from "lucide-react";
 import Elad_And_Boni from "../../../../assets/images/Elad_And_Boni.jpg";
 
 const AboutIntro = () => {
@@ -20,8 +19,8 @@ const AboutIntro = () => {
         className="flex-shrink-0"
       >
         <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-primary-200 shadow-lg">
-          <img 
-            src={Elad_And_Boni} 
+          <img
+            src={Elad_And_Boni}
             alt="אלעד - מדריך אילוף כלבים מקצועי"
             className="w-full h-full object-cover"
           />
@@ -37,7 +36,7 @@ const AboutIntro = () => {
         className="flex-1"
       >
         <p className="text-lg text-slate-700 leading-relaxed">
-          <strong>אלעד</strong> - מדריך אילוף כלבים מוסמך עם מעל 5 שנות ניסיון. 
+          <strong>אלעד</strong> - מדריך אילוף כלבים מוסמך עם מעל 5 שנות ניסיון.
           מתמחה בחיזוק חיובי ויצירת קשר מיוחד בין הכלב לבעליו.
         </p>
       </motion.div>

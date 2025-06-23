@@ -1,17 +1,24 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../../ui/button";
 import { videos } from "../../../../data/videos";
 
 const VideoLibraryCTA = () => {
+  const navigate = useNavigate();
+
   // Calculate video count (25+ if over 25)
   const videoCount = videos.length > 25 ? "25+" : videos.length.toString();
-  
+
   // Calculate total hours from duration strings
   const totalMinutes = videos.reduce((total, video) => {
-    const [minutes, seconds] = video.duration.split(':').map(Number);
-    return total + minutes + (seconds / 60);
+    const [minutes, seconds] = video.duration.split(":").map(Number);
+    return total + minutes + seconds / 60;
   }, 0);
   const totalHours = Math.round(totalMinutes / 60);
+
+  const handleViewAllVideos = () => {
+    navigate("/videos-library");
+  };
 
   return (
     <motion.div
@@ -29,7 +36,10 @@ const VideoLibraryCTA = () => {
       </p>
 
       <div className="flex justify-center mb-4">
-        <Button className="bg-red-600 hover:bg-red-700 text-white">
+        <Button
+          onClick={handleViewAllVideos}
+          className="bg-red-600 hover:bg-red-700 text-white"
+        >
           צפו בכל הסרטונים
         </Button>
       </div>

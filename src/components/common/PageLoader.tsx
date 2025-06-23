@@ -1,0 +1,32 @@
+import { useState, useEffect, type ReactNode } from "react";
+import { useLocation } from "react-router-dom";
+import LoadingPage from "../../pages/LoadingPage";
+
+interface PageLoaderProps {
+  children: ReactNode;
+  minLoadTime?: number; // Minimum loading time in milliseconds
+}
+
+const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
+
+  useEffect(() => {
+    // Reset loading state when route changes
+    setIsLoading(true);
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, minLoadTime);
+
+    return () => clearTimeout(timer);
+  }, [location.pathname, minLoadTime]); // Add location.pathname as dependency
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
+  return <>{children}</>;
+};
+
+export default PageLoader;

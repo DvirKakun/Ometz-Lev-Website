@@ -14,6 +14,8 @@ import SplashPage from "./pages/SplashPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import AccessibilityPage from "./pages/AccessibilityPage";
+import VideoLibraryPage from "./pages/VideoLibraryPage";
+import PageLoader from "./components/common/PageLoader";
 import { services } from "./data/services";
 
 const trainingService = services.find(
@@ -35,7 +37,16 @@ const router = createBrowserRouter([
   {
     path: "/therapy",
     element: <Layout />,
-    children: [{ index: true, element: <TherapyPage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <PageLoader>
+            <TherapyPage />
+          </PageLoader>
+        ),
+      },
+    ],
   },
   {
     path: "/training",
@@ -43,19 +54,46 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <TrainingPage service={trainingService} />,
+        element: (
+          <PageLoader>
+            <TrainingPage service={trainingService} />
+          </PageLoader>
+        ),
       },
     ],
   },
   {
     path: "/activities",
     element: <Layout />,
-    children: [{ index: true, element: <ActivitiesPage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <PageLoader>
+            <ActivitiesPage />
+          </PageLoader>
+        ),
+      },
+    ],
   },
   {
     path: "/schools",
     element: <Layout />,
-    children: [{ index: true, element: <SchoolsPage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <PageLoader>
+            <SchoolsPage />
+          </PageLoader>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/videos-library",
+    element: <Layout />,
+    children: [{ index: true, element: <VideoLibraryPage /> }],
   },
   {
     path: "/privacy",
