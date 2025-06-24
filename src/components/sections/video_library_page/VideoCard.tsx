@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { Play, Clock } from "lucide-react";
-import { type Video, getLevelName, getLevelColor, getCategoryName, getCategoryColor } from "../../../data/videos";
+import {
+  getLevelName,
+  getLevelColor,
+  getCategoryName,
+  getCategoryColor,
+} from "../../../data/videos";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
-
-interface VideoCardProps {
-  video: Video;
-  index: number;
-}
+import type { VideoCardProps } from "../../../types/videos";
 
 const VideoCard = ({ video, index }: VideoCardProps) => {
   const getColorClasses = (color: string) => {

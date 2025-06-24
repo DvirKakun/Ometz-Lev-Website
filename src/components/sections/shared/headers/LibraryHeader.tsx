@@ -2,11 +2,7 @@ import { motion } from "framer-motion";
 import { Video, BookOpen, ArrowRight } from "lucide-react";
 import { Button } from "../../../ui/button";
 import { useNavigate, useLocation } from "react-router-dom";
-import type { LibraryPageConfig } from "../../../../types/library";
-
-interface LibraryHeaderProps {
-  config: LibraryPageConfig;
-}
+import type { LibraryHeaderProps } from "../../../../types/headers";
 
 const LibraryHeader = ({ config }: LibraryHeaderProps) => {
   const navigate = useNavigate();

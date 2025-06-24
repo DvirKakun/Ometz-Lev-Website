@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import type { ProcessConfig } from "../../../../types/method";
-
-interface ProcessStepsProps {
-  config: ProcessConfig;
-}
+import type { ProcessStepsProps } from "../../../../types/method";
 
 const ProcessSteps = ({ config }: ProcessStepsProps) => {
   return (

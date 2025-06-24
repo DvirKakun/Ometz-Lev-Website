@@ -1,12 +1,7 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-
-interface HeaderMobileMenuProps {
-  isOpen: boolean;
-  onToggle: () => void;
-  children: React.ReactNode;
-}
+import type { HeaderMobileMenuProps } from "../../../types/headers";
 
 const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
   isOpen,
@@ -17,30 +12,30 @@ const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
-      if (isOpen && !target.closest('[data-mobile-menu]')) {
+      if (isOpen && !target.closest("[data-mobile-menu]")) {
         onToggle();
       }
     };
 
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
+      if (event.key === "Escape" && isOpen) {
         onToggle();
       }
     };
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-      document.addEventListener('keydown', handleEscape);
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscape);
       // Prevent body scroll when menu is open
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [isOpen, onToggle]);
 
@@ -101,14 +96,12 @@ const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               className="xl:hidden fixed left-4 right-4 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 z-50 max-h-[calc(100vh-8rem)] overflow-y-auto"
-              style={{ 
+              style={{
                 top: "6rem", // Position below header
-                maxHeight: "calc(100vh - 8rem)" // Ensure it doesn't overflow screen
+                maxHeight: "calc(100vh - 8rem)", // Ensure it doesn't overflow screen
               }}
             >
-              <div className="py-6 px-4">
-                {children}
-              </div>
+              <div className="py-6 px-4">{children}</div>
             </motion.div>
           </>
         )}

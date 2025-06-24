@@ -1,11 +1,7 @@
 import { motion } from "framer-motion";
-import { type Video } from "../../../data/videos";
 import VideoCard from "./VideoCard";
 import EmptyState from "./EmptyState";
-
-interface VideoGridProps {
-  videos: Video[];
-}
+import type { VideoGridProps } from "../../../types/videos";
 
 const VideoGrid = ({ videos }: VideoGridProps) => {
   return (

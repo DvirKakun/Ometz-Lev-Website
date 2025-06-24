@@ -1,11 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "../../../ui/button";
-import type { Service } from "../../../../data/services";
-
-interface CtaButtonsProps {
-  service: Service;
-  scrollToSection: (href: string) => void;
-}
+import type { CtaButtonsProps } from "../../../../types/collapsible_features";
 
 const CtaButtons = ({ service, scrollToSection }: CtaButtonsProps) => {
   return (
@@ -32,9 +27,7 @@ const CtaButtons = ({ service, scrollToSection }: CtaButtonsProps) => {
             variant="outline"
             className="w-full justify-between text-right p-4 h-auto border-primary-200 hover:border-primary-300 hover:bg-primary-50 transition-all duration-300"
           >
-            <span className="text-slate-700 font-medium">
-              {ctaItem.text}
-            </span>
+            <span className="text-slate-700 font-medium">{ctaItem.text}</span>
             <ctaItem.icon className="w-5 h-5 text-primary-600" />
           </Button>
         </motion.div>

@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
 import PhoneButton from "../../common/PhoneButton";
 import WhatsAppButton from "../../common/WhatsAppButton";
-
-interface HeaderCTAButtonsProps {
-  isMobile?: boolean;
-}
+import type { HeaderCTAButtonsProps } from "../../../types/headers";
 
 const HeaderCTAButtons: React.FC<HeaderCTAButtonsProps> = ({
   isMobile = false,

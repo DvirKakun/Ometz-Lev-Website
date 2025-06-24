@@ -3,14 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import WhatsAppIcon from "./WhatsAppIcon";
-
-interface WhatsAppButtonProps {
-  phoneNumber?: string;
-  message?: string;
-  className?: string;
-  variant?: "default" | "icon" | "outline";
-  size?: "sm" | "md" | "lg";
-}
+import type { WhatsAppButtonProps } from "../../types/whatsapp";
 
 const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   phoneNumber = "972524724700",

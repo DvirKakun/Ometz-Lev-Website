@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import type { MethodPrinciple } from "../../../../types/method";
-
-interface MethodPrinciplesProps {
-  principles: MethodPrinciple[];
-}
+import type { MethodPrinciplesProps } from "../../../../types/method";
 
 const MethodPrinciples = ({ principles }: MethodPrinciplesProps) => {
   return (

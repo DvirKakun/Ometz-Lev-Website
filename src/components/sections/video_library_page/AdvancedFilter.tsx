@@ -2,15 +2,7 @@ import { motion } from "framer-motion";
 import { Filter, X } from "lucide-react";
 import { levels, categories, getVideosByFilters } from "../../../data/videos";
 import { Button } from "../../ui/button";
-
-interface AdvancedFilterProps {
-  selectedLevel: string;
-  selectedCategory: string;
-  onLevelChange: (levelId: string) => void;
-  onCategoryChange: (categoryId: string) => void;
-  onClearFilters: () => void;
-  pageType: "training" | "therapy";
-}
+import type { AdvancedFilterProps } from "../../../types/library";
 
 const AdvancedFilter = ({
   selectedLevel,
@@ -105,7 +97,10 @@ const AdvancedFilter = ({
                 >
                   {category.name}
                   <span className="mr-2 bg-white/20 px-1.5 py-0.5 rounded-full text-xs">
-                    {getVideosByFilters(selectedLevel, category.id, pageType).length}
+                    {
+                      getVideosByFilters(selectedLevel, category.id, pageType)
+                        .length
+                    }
                   </span>
                 </Button>
               ))}
@@ -131,7 +126,10 @@ const AdvancedFilter = ({
                 >
                   {level.name}
                   <span className="mr-2 bg-white/20 px-1.5 py-0.5 rounded-full text-xs">
-                    {getVideosByFilters(level.id, selectedCategory, pageType).length}
+                    {
+                      getVideosByFilters(level.id, selectedCategory, pageType)
+                        .length
+                    }
                   </span>
                 </Button>
               ))}

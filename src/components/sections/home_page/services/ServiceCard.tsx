@@ -3,12 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "../../../ui/card";
 import { ArrowUpRight } from "lucide-react";
-import { type Service } from "../../../../data/services";
-
-interface ServiceCardProps {
-  service: Service;
-  index: number;
-}
+import type { ServiceCardProps } from "../../../../types/services";
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
   const [isHovered, setIsHovered] = useState(false);

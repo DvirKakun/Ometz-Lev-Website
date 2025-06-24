@@ -1,17 +1,13 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import type { Service } from "../../data/services";
 import CollapsibleFeatures from "../../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import ContentSection from "../../components/sections/shared/content/ContentSection";
 import ContactSection from "../../components/sections/shared/contact/ContactSection";
 import { trainingMethodConfig } from "../../data/training_method_config";
 import { trainingContentConfig } from "../../data/training_content_config";
-
-interface TrainingPageProps {
-  service: Service | undefined;
-}
+import type { TrainingPageProps } from "../../types/training_page";
 
 export default function TrainingPage({ service }: TrainingPageProps) {
   const location = useLocation();

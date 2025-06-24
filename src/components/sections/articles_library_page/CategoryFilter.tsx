@@ -2,13 +2,7 @@ import { motion } from "framer-motion";
 import { Filter, X } from "lucide-react";
 import { categories, getArticlesByCategory } from "../../../data/articles";
 import { Button } from "../../ui/button";
-
-interface CategoryFilterProps {
-  selectedCategory: string;
-  onCategoryChange: (categoryId: string) => void;
-  onClearFilters: () => void;
-  pageType: "training" | "therapy";
-}
+import type { CategoryFilterProps } from "../../../types/category";
 
 const CategoryFilter = ({
   selectedCategory,
@@ -26,15 +20,21 @@ const CategoryFilter = ({
         orange: "bg-orange-500 text-white",
         purple: "bg-purple-500 text-white",
       };
-      return selectedColorMap[color as keyof typeof selectedColorMap] || "bg-slate-500 text-white";
+      return (
+        selectedColorMap[color as keyof typeof selectedColorMap] ||
+        "bg-slate-500 text-white"
+      );
     }
-    
+
     // Default neutral styling for unselected buttons
     return "border-slate-300 text-slate-700 hover:bg-slate-50";
   };
 
   const hasActiveFilters = selectedCategory !== "all";
-  const filteredArticleCount = getArticlesByCategory(selectedCategory, pageType).length;
+  const filteredArticleCount = getArticlesByCategory(
+    selectedCategory,
+    pageType
+  ).length;
 
   return (
     <section className="py-8 bg-white border-b border-slate-200">
@@ -58,7 +58,7 @@ const CategoryFilter = ({
                 </span>
               )}
             </div>
-            
+
             {hasActiveFilters && (
               <Button
                 onClick={onClearFilters}

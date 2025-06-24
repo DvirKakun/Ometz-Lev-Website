@@ -1,9 +1,5 @@
 import React from "react";
-
-interface WhatsAppIconProps {
-  className?: string;
-  size?: number;
-}
+import type { WhatsAppIconProps } from "../../types/whatsapp";
 
 const WhatsAppIcon: React.FC<WhatsAppIconProps> = ({
   className = "w-5 h-5",

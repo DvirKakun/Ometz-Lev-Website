@@ -1,12 +1,7 @@
 import { motion } from "framer-motion";
-import { type Article } from "../../../data/articles";
 import ArticleCard from "./ArticleCard";
 import EmptyState from "./EmptyState";
-
-interface ArticlesGridProps {
-  articles: Article[];
-  selectedCategory: string;
-}
+import type { ArticlesGridProps } from "../../../types/articles";
 
 const ArticlesGrid = ({ articles, selectedCategory }: ArticlesGridProps) => {
   return (

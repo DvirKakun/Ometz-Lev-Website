@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import type { PhilosophyConfig } from "../../../../types/method";
-
-interface MethodPhilosophyProps {
-  config: PhilosophyConfig;
-}
+import type { MethodPhilosophyProps } from "../../../../types/method";
 
 const MethodPhilosophy = ({ config }: MethodPhilosophyProps) => {
   return (

@@ -5,13 +5,9 @@ import ContentSection from "../../components/sections/shared/content/ContentSect
 import ContactSection from "../../components/sections/shared/contact/ContactSection";
 import CollapsibleFeatures from "../../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
-import type { Service } from "../../data/services";
 import { therapyMethodConfig } from "../../data/therapy_method_config";
 import { therapyContentConfig } from "../../data/therapy_content_config";
-
-interface TherapygPageProps {
-  service: Service | undefined;
-}
+import type { TherapygPageProps } from "../../types/therapy_page";
 
 const TherapyPage = ({ service }: TherapygPageProps) => {
   const location = useLocation();

@@ -1,8 +1,5 @@
 import { motion } from "framer-motion";
-
-interface LoadingProgressProps {
-  color: string;
-}
+import type { LoadingProgressProps } from "../../../types/loading_page";
 
 const LoadingProgress = ({ color }: LoadingProgressProps) => {
   return (

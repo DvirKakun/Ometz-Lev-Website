@@ -1,9 +1,5 @@
 import React from "react";
-
-interface YouTubeIconProps {
-  className?: string;
-  size?: number;
-}
+import type { YouTubeIconProps } from "../../types/youtube";
 
 const YouTubeIcon: React.FC<YouTubeIconProps> = ({
   className = "w-5 h-5",

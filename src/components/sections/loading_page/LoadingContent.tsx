@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-
-interface LoadingContentProps {
-  title: string;
-  color: string;
-}
+import type { LoadingContentProps } from "../../../types/loading_page";
 
 const LoadingContent = ({ title, color }: LoadingContentProps) => {
   return (
@@ -16,7 +12,9 @@ const LoadingContent = ({ title, color }: LoadingContentProps) => {
       <h1 className="text-3xl md:text-4xl font-bold text-slate-800 mb-3">
         {title}
       </h1>
-      <div className={`w-16 h-1 bg-gradient-to-r ${color} rounded-full mx-auto mb-4`} />
+      <div
+        className={`w-16 h-1 bg-gradient-to-r ${color} rounded-full mx-auto mb-4`}
+      />
     </motion.div>
   );
 };

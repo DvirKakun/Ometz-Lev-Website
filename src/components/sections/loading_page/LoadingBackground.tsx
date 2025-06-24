@@ -1,11 +1,5 @@
 import { motion } from "framer-motion";
-import { type ReactNode } from "react";
-
-interface LoadingBackgroundProps {
-  children: ReactNode;
-  bgColor: string;
-  color: string;
-}
+import type { LoadingBackgroundProps } from "../../../types/loading_page";
 
 const LoadingBackground = ({
   children,

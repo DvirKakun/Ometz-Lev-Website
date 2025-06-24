@@ -3,13 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import FacebookIcon from "./FacebookIcon";
-
-interface FacebookButtonProps {
-  facebookUrl?: string;
-  className?: string;
-  variant?: "default" | "icon" | "outline";
-  size?: "sm" | "md" | "lg";
-}
+import type { FacebookButtonProps } from "../../types/facebook";
 
 const FacebookButton: React.FC<FacebookButtonProps> = ({
   facebookUrl = "https://www.facebook.com/share/1BZ6LUVmqB/",

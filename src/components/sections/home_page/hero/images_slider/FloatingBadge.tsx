@@ -1,13 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import dogIcon from "../../../../../assets/images/DogIcon.ico";
-
-interface FloatingBadgeProps {
-  currentImage: {
-    title: string;
-    subtitle: string;
-  };
-  currentImageIndex: number;
-}
+import type { FloatingBadgeProps } from "../../../../../types/floating_badge";
 
 export function FloatingBadge({
   currentImage,

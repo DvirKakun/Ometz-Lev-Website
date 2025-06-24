@@ -1,12 +1,8 @@
 import { motion } from "framer-motion";
 import { Clock, User } from "lucide-react";
 import { Card, CardContent } from "../../ui/card";
-import { type Article, getCategoryName, getCategoryColor } from "../../../data/articles";
-
-interface ArticleCardProps {
-  article: Article;
-  index: number;
-}
+import { getCategoryName, getCategoryColor } from "../../../data/articles";
+import type { ArticleCardProps } from "../../../types/articles";
 
 const ArticleCard = ({ article, index }: ArticleCardProps) => {
   const categoryName = getCategoryName(article.category);
@@ -38,14 +34,13 @@ const ArticleCard = ({ article, index }: ArticleCardProps) => {
         <div className="relative flex-shrink-0">
           <div className="aspect-video bg-gradient-to-br from-accent-50 to-orange-100 relative overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center bg-accent-800/10 group-hover:bg-accent-800/20 transition-colors">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="text-center"
-              >
+              <motion.div whileHover={{ scale: 1.05 }} className="text-center">
                 <div className="w-16 h-16 bg-accent-600 rounded-full flex items-center justify-center shadow-lg mb-2">
                   <span className="text-2xl text-white font-bold">א</span>
                 </div>
-                <span className="text-sm text-accent-700 font-medium">מאמר</span>
+                <span className="text-sm text-accent-700 font-medium">
+                  מאמר
+                </span>
               </motion.div>
             </div>
 

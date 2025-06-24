@@ -3,15 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../../ui/button";
 import { videos } from "../../../../data/videos";
 import { getArticleCount, getTotalReadTime } from "../../../../data/articles";
-
-interface LibraryCTAProps {
-  contentType: "videos" | "articles";
-  pageType: "training" | "therapy";
-  libraryPath: string;
-  title: string;
-  accentColor: string;
-  buttonText: string;
-}
+import type { LibraryCTAProps } from "../../../../types/library";
 
 const LibraryCTA = ({
   contentType,

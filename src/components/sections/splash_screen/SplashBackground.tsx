@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import { type ReactNode } from "react";
-
-interface SplashBackgroundProps {
-  children: ReactNode;
-}
+import type { SplashBackgroundProps } from "../../../types/splash";
 
 const SplashBackground = ({ children }: SplashBackgroundProps) => {
   return (

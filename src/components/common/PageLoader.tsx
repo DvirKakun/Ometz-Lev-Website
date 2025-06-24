@@ -1,11 +1,7 @@
-import { useState, useEffect, type ReactNode } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import LoadingPage from "../../pages/LoadingPage";
-
-interface PageLoaderProps {
-  children: ReactNode;
-  minLoadTime?: number; // Minimum loading time in milliseconds
-}
+import type { PageLoaderProps } from "../../types/page_loader";
 
 const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +10,7 @@ const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
   useEffect(() => {
     // Skip loading if returning from library
     const returnFromLibrary = location.state?.returnFromLibrary;
-    
+
     if (returnFromLibrary) {
       setIsLoading(false);
       return;

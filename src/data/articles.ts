@@ -1,11 +1,4 @@
-export interface Article {
-  title: string;
-  description: string;
-  readTime: string;
-  category: string;
-  author: string;
-  articleKey?: string;
-}
+import type { Article } from "../types/articles";
 
 export const categories = [
   { id: "all", name: "כל הקטגוריות", color: "slate" },
@@ -76,8 +69,7 @@ export const articles = {
   therapy: [
     {
       title: "יסודות הטיפול בכלבים",
-      description:
-        "מבוא לעולם הטיפול בכלבים והשפעתם החיובית על רווחת האדם",
+      description: "מבוא לעולם הטיפול בכלבים והשפעתם החיובית על רווחת האדם",
       category: "training",
       readTime: "12 דק׳",
       author: "אלעד",
@@ -85,8 +77,7 @@ export const articles = {
     },
     {
       title: "בחירת כלב לטיפול",
-      description:
-        "איך לבחור כלב מתאים לעבודת טיפול ומה התכונות הנדרשות",
+      description: "איך לבחור כלב מתאים לעבודת טיפול ומה התכונות הנדרשות",
       category: "training",
       readTime: "9 דק׳",
       author: "אלעד",
@@ -94,8 +85,7 @@ export const articles = {
     },
     {
       title: "טיפול בחרדה באמצעות כלבי טיפול",
-      description:
-        "שיטות להפחתת חרדה ומתח באמצעות אינטראקציה עם כלבי טיפול",
+      description: "שיטות להפחתת חרדה ומתח באמצעות אינטראקציה עם כלבי טיפול",
       category: "behavior",
       readTime: "15 דק׳",
       author: "אלעד",
@@ -103,8 +93,7 @@ export const articles = {
     },
     {
       title: "כלבי טיפול בבתי חולים",
-      description:
-        "התאמת כלבי טיפול לעבודה בסביבה רפואית ודרישות מיוחדות",
+      description: "התאמת כלבי טיפול לעבודה בסביבה רפואית ודרישות מיוחדות",
       category: "training",
       readTime: "11 דק׳",
       author: "אלעד",
@@ -119,10 +108,13 @@ export const articles = {
       author: "אלעד",
       articleKey: "therapeutic-activities",
     },
-  ]
+  ],
 };
 
-export const getArticlesByCategory = (categoryId: string, page: keyof typeof articles = "training"): Article[] => {
+export const getArticlesByCategory = (
+  categoryId: string,
+  page: keyof typeof articles = "training"
+): Article[] => {
   const pageArticles = articles[page];
   if (categoryId === "all") return pageArticles;
   return pageArticles.filter((article) => article.category === categoryId);
@@ -138,9 +130,13 @@ export const getCategoryColor = (categoryId: string): string => {
   return category ? category.color : "slate";
 };
 
-export const getArticleCount = (page: keyof typeof articles = "training"): number => articles[page].length;
+export const getArticleCount = (
+  page: keyof typeof articles = "training"
+): number => articles[page].length;
 
-export const getTotalReadTime = (page: keyof typeof articles = "training"): string => {
+export const getTotalReadTime = (
+  page: keyof typeof articles = "training"
+): string => {
   const pageArticles = articles[page];
   const totalMinutes = pageArticles.reduce((total, article) => {
     const minutes = parseInt(article.readTime.replace(/[^\d]/g, ""));
@@ -158,17 +154,19 @@ export const getTotalReadTime = (page: keyof typeof articles = "training"): stri
   return `${totalMinutes} דקות`;
 };
 
-export const getDemoArticles = (page: keyof typeof articles = "training"): Article[] => {
+export const getDemoArticles = (
+  page: keyof typeof articles = "training"
+): Article[] => {
   const pageArticles = articles[page];
-  
+
   // Select 3 articles from different categories for demo
   const demoArticles = [
     // Puppies category
-    pageArticles.find(a => a.category === "puppies"),
+    pageArticles.find((a) => a.category === "puppies"),
     // Behavior category
-    pageArticles.find(a => a.category === "behavior"), 
+    pageArticles.find((a) => a.category === "behavior"),
     // Training category
-    pageArticles.find(a => a.category === "training"),
+    pageArticles.find((a) => a.category === "training"),
   ].filter(Boolean) as Article[];
 
   // If we don't have enough variety, fill with first 3 articles

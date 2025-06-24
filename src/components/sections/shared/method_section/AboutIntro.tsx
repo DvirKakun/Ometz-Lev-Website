@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import type { AboutConfig } from "../../../../types/method";
-
-interface AboutIntroProps {
-  config: AboutConfig;
-}
+import type { AboutIntroProps } from "../../../../types/method";
 
 const AboutIntro = ({ config }: AboutIntroProps) => {
   return (

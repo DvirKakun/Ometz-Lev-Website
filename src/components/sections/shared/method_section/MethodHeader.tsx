@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import type { HeaderConfig } from "../../../../types/method";
-
-interface MethodHeaderProps {
-  config: HeaderConfig;
-}
+import type { MethodHeaderProps } from "../../../../types/method";
 
 const MethodHeader = ({ config }: MethodHeaderProps) => {
   return (

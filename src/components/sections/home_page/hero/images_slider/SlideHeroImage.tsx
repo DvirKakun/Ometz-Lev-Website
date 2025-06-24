@@ -1,44 +1,14 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
-import eladTrainingImage from "../../../../../assets/images/Elad_Training.jpg";
-import eladAndBoni from "../../../../../assets/images/Elad_And_Boni.jpg";
-import reviewsImage from "../../../../../assets/images/Reviews_Image.jpg";
 import { FloatingBadge } from "./FloatingBadge";
-
-interface SlideHeroImageProps {
-  className?: string;
-  autoSwitch?: boolean;
-  switchInterval?: number;
-}
+import type { SlideHeroImageProps } from "../../../../../types/slide_hero_image";
+import { images } from "../../../../../data/slide_hero_image";
 
 const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
   className = "",
   autoSwitch = true,
   switchInterval = 6000,
 }) => {
-  // Array of images with their descriptions
-  const images = [
-    {
-      src: eladTrainingImage,
-      alt: "אלעד באימון כלבים עם בוני ומייפל",
-      title: "אלעד שמעונוב",
-      subtitle: "אימון עם בוני ומייפל",
-    },
-    {
-      src: reviewsImage,
-      alt: "ביקורות מהורים על אלעד שמעונוב",
-      title: "ביקורות מהורים",
-      subtitle: "קייטנת כלבים 2024",
-    },
-    {
-      src: eladAndBoni,
-      alt: "אלעד עם הכלבה בוני",
-      title: "אלעד שמעונוב",
-      subtitle: "אלעד עם בוני",
-    },
-  ];
-
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [direction, setDirection] = useState(0);

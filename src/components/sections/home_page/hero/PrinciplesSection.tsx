@@ -1,31 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-
-interface Principle {
-  icon: string;
-  title: string;
-  description: string;
-}
+import { principles } from "../../../../data/principles";
 
 const PrinciplesSection: React.FC = () => {
-  const principles: Principle[] = [
-    {
-      icon: "🏆",
-      title: "מומחיות מקצועית",
-      description: "ניסיון רב שנים בתחום",
-    },
-    {
-      icon: "❤️",
-      title: "אילוף בשיטות חיוביות",
-      description: "גישה מכבדת ואוהבת",
-    },
-    {
-      icon: "🐾",
-      title: "קהילה מרוצה",
-      description: "לקוחות שחוזרים וממליצים",
-    },
-  ];
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

@@ -1,16 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "../../../ui/card";
-import type { LucideIcon } from "lucide-react";
-
-interface ValueCardProps {
-  value: {
-    icon: LucideIcon;
-    title: string;
-    description: string;
-  };
-  index: number;
-}
+import type { ValueCardProps } from "../../../../types/value_card";
 
 const ValueCard: React.FC<ValueCardProps> = ({ value, index }) => {
   return (

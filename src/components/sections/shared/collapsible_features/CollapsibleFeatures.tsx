@@ -1,12 +1,8 @@
 import { motion } from "framer-motion";
-import type { Service } from "../../../../data/services";
 import CtaButtons from "./CtaButtons";
 import ServiceHeader from "../headers/MainHeader";
 import FeaturesAccordion from "./FeaturesAccordion";
-
-interface CollapsibleFeaturesProps {
-  service: Service;
-}
+import type { CollapsibleFeaturesProps } from "../../../../types/collapsible_features";
 
 const scrollToSection = (href: string) => {
   const element = document.querySelector(href);

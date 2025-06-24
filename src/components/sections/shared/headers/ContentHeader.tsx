@@ -1,13 +1,5 @@
 import { motion } from "framer-motion";
-import { type LucideIcon } from "lucide-react";
-
-interface SectionHeaderProps {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-  gradientFrom: string;
-  gradientTo: string;
-}
+import type { SectionHeaderProps } from "../../../../types/headers";
 
 const SectionHeader = ({
   icon: Icon,

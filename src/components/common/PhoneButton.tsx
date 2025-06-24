@@ -3,13 +3,7 @@ import { motion } from "framer-motion";
 import { Phone } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { cn } from "../../lib/utils";
-
-interface PhoneButtonProps {
-  phoneNumber?: string;
-  className?: string;
-  variant?: "default" | "icon" | "outline";
-  size?: "sm" | "md" | "lg";
-}
+import type { PhoneButtonProps } from "../../types/phone_button";
 
 const PhoneButton: React.FC<PhoneButtonProps> = ({
   phoneNumber = "052-472-4700",

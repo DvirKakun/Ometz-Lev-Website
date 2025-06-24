@@ -3,13 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import YouTubeIcon from "./YoutubeIcon";
-
-interface YouTubeButtonProps {
-  youtubeUrl?: string;
-  className?: string;
-  variant?: "default" | "icon" | "outline";
-  size?: "sm" | "md" | "lg";
-}
+import type { YouTubeButtonProps } from "../../types/youtube";
 
 const YouTubeButton: React.FC<YouTubeButtonProps> = ({
   youtubeUrl = "https://youtube.com/@eladshimonov6820?si=4vYpdv5hN_Mox1tU",

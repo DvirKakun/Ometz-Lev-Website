@@ -3,16 +3,16 @@ import { getVideosByFilters } from "../data/videos";
 import LibraryHeader from "../components/sections/shared/headers/LibraryHeader";
 import AdvancedFilter from "../components/sections/video_library_page/AdvancedFilter";
 import VideoGrid from "../components/sections/video_library_page/VideoGrid";
-import type { VideoLibraryConfig } from "../types/library";
-
-interface VideoLibraryPageProps {
-  config: VideoLibraryConfig;
-}
+import type { VideoLibraryPageProps } from "../types/library";
 
 const VideoLibraryPage = ({ config }: VideoLibraryPageProps) => {
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const filteredVideos = getVideosByFilters(selectedLevel, selectedCategory, config.pageType);
+  const filteredVideos = getVideosByFilters(
+    selectedLevel,
+    selectedCategory,
+    config.pageType
+  );
 
   const handleLevelChange = (levelId: string) => {
     setSelectedLevel(levelId);
@@ -30,7 +30,7 @@ const VideoLibraryPage = ({ config }: VideoLibraryPageProps) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-primary-50/30">
       <LibraryHeader config={config} />
-      <AdvancedFilter 
+      <AdvancedFilter
         selectedLevel={selectedLevel}
         selectedCategory={selectedCategory}
         onLevelChange={handleLevelChange}
@@ -38,9 +38,7 @@ const VideoLibraryPage = ({ config }: VideoLibraryPageProps) => {
         onClearFilters={handleClearFilters}
         pageType={config.pageType}
       />
-      <VideoGrid 
-        videos={filteredVideos} 
-      />
+      <VideoGrid videos={filteredVideos} />
     </div>
   );
 };

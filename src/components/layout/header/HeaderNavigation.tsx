@@ -2,17 +2,8 @@ import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Heart, Award, BookOpen, Users, Home } from "lucide-react";
 import { cn } from "../../../lib/utils";
-
-interface NavItem {
-  to: string; // ABSOLUTE path
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-interface HeaderNavigationProps {
-  isMobile?: boolean;
-  onItemClick?: () => void;
-}
+import type { HeaderNavigationProps } from "../../../types/headers";
+import type { NavItem } from "../../../types/navigation_item";
 
 export default function HeaderNavigation({
   isMobile = false,

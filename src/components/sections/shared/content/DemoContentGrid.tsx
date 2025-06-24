@@ -1,13 +1,9 @@
 import { motion } from "framer-motion";
-import { getDemoVideos, type Video } from "../../../../data/videos";
-import { getDemoArticles, type Article } from "../../../../data/articles";
+import { getDemoVideos } from "../../../../data/videos";
+import { getDemoArticles } from "../../../../data/articles";
 import VideoCard from "../../video_library_page/VideoCard";
 import ArticleCard from "../../articles_library_page/ArticleCard";
-
-interface DemoContentGridProps {
-  contentType: "videos" | "articles";
-  pageType: "training" | "therapy";
-}
+import type { DemoContentGridProps } from "../../../../types/content";
 
 export default function DemoContentGrid({
   contentType,
@@ -15,7 +11,7 @@ export default function DemoContentGrid({
 }: DemoContentGridProps) {
   if (contentType === "videos") {
     const videos = getDemoVideos(pageType);
-    
+
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -36,7 +32,7 @@ export default function DemoContentGrid({
     );
   } else {
     const articles = getDemoArticles(pageType);
-    
+
     return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}

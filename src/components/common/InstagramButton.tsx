@@ -3,13 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import InstagramIcon from "./InstagramIcon";
-
-interface InstagramButtonProps {
-  instagramUrl?: string;
-  className?: string;
-  variant?: "default" | "icon" | "outline";
-  size?: "sm" | "md" | "lg";
-}
+import type { InstagramButtonProps } from "../../types/instagram";
 
 const InstagramButton: React.FC<InstagramButtonProps> = ({
   instagramUrl = "https://www.instagram.com/eladshimoniv_omets_lev",

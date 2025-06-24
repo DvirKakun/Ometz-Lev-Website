@@ -3,21 +3,7 @@ import { Video, BookOpen } from "lucide-react";
 import SectionHeader from "../headers/ContentHeader";
 import LibraryCTA from "../library_cta/LibraryCTA";
 import DemoContentGrid from "./DemoContentGrid";
-
-interface ContentSectionProps {
-  contentType: "videos" | "articles";
-  pageType: "training" | "therapy";
-  sectionConfig: {
-    title: string;
-    description: string;
-    libraryPath: string;
-    libraryTitle: string;
-    buttonText: string;
-    accentColor: string;
-    gradientFrom: string;
-    gradientTo: string;
-  };
-}
+import type { ContentSectionProps } from "../../../../types/content";
 
 const ContentSection = ({
   contentType,

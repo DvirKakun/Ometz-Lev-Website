@@ -40,3 +40,27 @@ export interface MethodConfig {
   principles: MethodPrinciple[];
   process: ProcessConfig;
 }
+
+export interface AboutIntroProps {
+  config: AboutConfig;
+}
+
+export interface MethodHeaderProps {
+  config: HeaderConfig;
+}
+
+export interface MethodPhilosophyProps {
+  config: PhilosophyConfig;
+}
+
+export interface MethodPrinciplesProps {
+  principles: MethodPrinciple[];
+}
+
+export interface MethodSectionProps {
+  config: MethodConfig;
+}
+
+export interface ProcessStepsProps {
+  config: ProcessConfig;
+}

@@ -5,11 +5,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../../../ui/accordion";
-import type { Service } from "../../../../data/services";
-
-interface FeaturesAccordionProps {
-  service: Service;
-}
+import type { FeaturesAccordionProps } from "../../../../types/collapsible_features";
 
 const FeaturesAccordion = ({ service }: FeaturesAccordionProps) => {
   return (

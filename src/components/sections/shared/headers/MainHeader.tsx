@@ -1,9 +1,5 @@
 import { motion } from "framer-motion";
-import type { Service } from "../../../../data/services";
-
-interface ServiceHeaderProps {
-  service: Service;
-}
+import type { ServiceHeaderProps } from "../../../../types/headers";
 
 const ServiceHeader = ({ service }: ServiceHeaderProps) => {
   return (

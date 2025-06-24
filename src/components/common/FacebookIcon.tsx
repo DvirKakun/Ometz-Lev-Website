@@ -1,9 +1,5 @@
 import React from "react";
-
-interface FacebookIconProps {
-  className?: string;
-  size?: number;
-}
+import type { FacebookIconProps } from "../../types/facebook";
 
 const FacebookIcon: React.FC<FacebookIconProps> = ({
   className = "w-5 h-5",

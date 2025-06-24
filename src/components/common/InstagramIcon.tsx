@@ -1,9 +1,5 @@
 import React from "react";
-
-interface InstagramIconProps {
-  className?: string;
-  size?: number;
-}
+import type { InstagramIconProps } from "../../types/instagram";
 
 const InstagramIcon: React.FC<InstagramIconProps> = ({
   className = "w-5 h-5",

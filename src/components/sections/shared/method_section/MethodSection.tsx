@@ -1,14 +1,10 @@
 import { motion } from "framer-motion";
-import type { MethodConfig } from "../../../../types/method";
+import type { MethodSectionProps } from "../../../../types/method";
 import AboutIntro from "./AboutIntro";
 import MethodHeader from "./MethodHeader";
 import MethodPhilosophy from "./MethodPhilosophy";
 import MethodPrinciples from "./MethodPrinciples";
 import ProcessSteps from "./ProcessSteps";
-
-interface MethodSectionProps {
-  config: MethodConfig;
-}
 
 const MethodSection = ({ config }: MethodSectionProps) => {
   return (
