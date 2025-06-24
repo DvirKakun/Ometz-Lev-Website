@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ServiceHeader from "../components/sections/shared/headers/MainHeader";
 import ActivitySection from "../components/sections/activities_page/ActivitySection";
 import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
+import { FAQSection } from "../components/sections/shared/faq";
 import { activities, activitiesPageConfig } from "../data/activities";
 
 export default function ActivitiesPage() {
@@ -56,6 +57,9 @@ export default function ActivitiesPage() {
             }
           />
         ))}
+
+        {/* FAQ Section */}
+        <FAQSection pageType="activities" />
       </motion.div>
 
       {/* Summer Camp Registration Modal */}

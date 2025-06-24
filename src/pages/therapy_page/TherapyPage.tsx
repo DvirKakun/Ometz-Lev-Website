@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import ContentSection from "../../components/sections/shared/content/ContentSection";
 import CollapsibleFeatures from "../../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
+import { FAQSection } from "../../components/sections/shared/faq";
 import { therapyMethodConfig } from "../../data/therapy_method_config";
 import { therapyContentConfig } from "../../data/therapy_content_config";
 import type { TherapygPageProps } from "../../types/therapy_page";
@@ -61,6 +62,9 @@ const TherapyPage = ({ service }: TherapygPageProps) => {
         pageType="therapy"
         sectionConfig={therapyContentConfig.articles}
       />
+
+      {/* FAQ Section */}
+      <FAQSection pageType="therapy" />
     </motion.div>
   );
 };

@@ -15,7 +15,7 @@ const FeaturesAccordion = ({ service }: FeaturesAccordionProps) => {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: 0.4 }}
     >
-      <Accordion type="multiple" className="w-full space-y-4" dir="rtl">
+      <Accordion type="single" collapsible className="w-full space-y-4" dir="rtl">
         {service.features.map((feature, index) => (
           <AccordionItem
             key={index}

@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import CollapsibleFeatures from "../../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import ContentSection from "../../components/sections/shared/content/ContentSection";
+import { FAQSection } from "../../components/sections/shared/faq";
 import { trainingMethodConfig } from "../../data/training_method_config";
 import { trainingContentConfig } from "../../data/training_content_config";
 import type { TrainingPageProps } from "../../types/training_page";
@@ -69,6 +70,9 @@ export default function TrainingPage({ service }: TrainingPageProps) {
         pageType="training"
         sectionConfig={trainingContentConfig.articles}
       />
+
+      {/* FAQ Section */}
+      <FAQSection pageType="training" />
     </motion.div>
   );
 }
