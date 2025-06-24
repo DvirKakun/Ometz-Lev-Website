@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import ScrollToTop from "../common/ScrollToTop";
+import ContactCTA from "./contact/ContactCTA";
 
 export default function Layout() {
   return (
@@ -21,6 +22,7 @@ export default function Layout() {
         <Outlet /> {/* ← page content goes right here */}
       </main>
 
+      <ContactCTA />
       <Footer />
     </div>
   );

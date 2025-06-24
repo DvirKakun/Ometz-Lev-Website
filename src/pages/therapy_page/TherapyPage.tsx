@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import ContentSection from "../../components/sections/shared/content/ContentSection";
-import ContactSection from "../../components/sections/shared/contact/ContactSection";
 import CollapsibleFeatures from "../../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import { therapyMethodConfig } from "../../data/therapy_method_config";
@@ -62,9 +61,6 @@ const TherapyPage = ({ service }: TherapygPageProps) => {
         pageType="therapy"
         sectionConfig={therapyContentConfig.articles}
       />
-
-      {/* Contact Section */}
-      <ContactSection />
     </motion.div>
   );
 };

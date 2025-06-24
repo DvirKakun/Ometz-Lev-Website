@@ -1,6 +1,5 @@
 import type { LucideIcon } from "lucide-react";
 import type { LibraryPageConfig } from "./library";
-import type { Service } from "./services";
 
 export interface HeaderCTAButtonsProps {
   isMobile?: boolean;
@@ -30,5 +29,6 @@ export interface LibraryHeaderProps {
 }
 
 export interface ServiceHeaderProps {
-  service: Service;
+  title: string;
+  description?: string;
 }
