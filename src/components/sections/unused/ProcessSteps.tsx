@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { steps } from "../../../../data/process_steps";
+import { steps } from "../../../data/process_steps";
 
 const ProcessSteps = () => {
   return (

@@ -1,10 +1,14 @@
 import { motion } from "framer-motion";
-import { methodPrinciples } from "../../../../data/method_principles";
+import type { MethodPrinciple } from "../../../../types/method";
 
-const MethodPrinciples = () => {
+interface MethodPrinciplesProps {
+  principles: MethodPrinciple[];
+}
+
+const MethodPrinciples = ({ principles }: MethodPrinciplesProps) => {
   return (
     <div className="grid md:grid-cols-2 gap-6">
-      {methodPrinciples.map((principle, index) => (
+      {principles.map((principle, index) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, y: 20 }}

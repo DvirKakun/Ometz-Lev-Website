@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { Service } from "../../../../data/services";
 import CtaButtons from "./CtaButtons";
-import ServiceHeader from "./ServiceHeader";
+import ServiceHeader from "../headers/MainHeader";
 import FeaturesAccordion from "./FeaturesAccordion";
 
 interface CollapsibleFeaturesProps {

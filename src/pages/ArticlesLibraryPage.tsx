@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { getArticlesByCategory } from "../data/articles";
-import ArticlesLibraryHeader from "../components/sections/articles_library_page/ArticlesLibraryHeader";
+import LibraryHeader from "../components/sections/shared/headers/LibraryHeader";
 import CategoryFilter from "../components/sections/articles_library_page/CategoryFilter";
 import ArticlesGrid from "../components/sections/articles_library_page/ArticlesGrid";
+import type { ArticleLibraryConfig } from "../types/library";
 
-const ArticlesLibraryPage = () => {
+interface ArticlesLibraryPageProps {
+  config: ArticleLibraryConfig;
+}
+
+const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const filteredArticles = getArticlesByCategory(selectedCategory, "training");
+  const filteredArticles = getArticlesByCategory(selectedCategory, config.pageType);
 
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
@@ -18,11 +23,12 @@ const ArticlesLibraryPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-accent-50/30 to-orange-50/50">
-      <ArticlesLibraryHeader />
+      <LibraryHeader config={config} />
       <CategoryFilter 
         selectedCategory={selectedCategory} 
         onCategoryChange={handleCategoryChange}
         onClearFilters={handleClearFilters}
+        pageType={config.pageType}
       />
       <ArticlesGrid 
         articles={filteredArticles} 

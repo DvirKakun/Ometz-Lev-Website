@@ -7,12 +7,14 @@ interface CategoryFilterProps {
   selectedCategory: string;
   onCategoryChange: (categoryId: string) => void;
   onClearFilters: () => void;
+  pageType: "training" | "therapy";
 }
 
 const CategoryFilter = ({
   selectedCategory,
   onCategoryChange,
   onClearFilters,
+  pageType,
 }: CategoryFilterProps) => {
   const getCategoryColorClasses = (color: string, isSelected: boolean) => {
     if (isSelected) {
@@ -32,7 +34,7 @@ const CategoryFilter = ({
   };
 
   const hasActiveFilters = selectedCategory !== "all";
-  const filteredArticleCount = getArticlesByCategory(selectedCategory, "training").length;
+  const filteredArticleCount = getArticlesByCategory(selectedCategory, pageType).length;
 
   return (
     <section className="py-8 bg-white border-b border-slate-200">
@@ -84,7 +86,7 @@ const CategoryFilter = ({
               >
                 {category.name}
                 <span className="mr-2 bg-white/20 px-2 py-0.5 rounded-full text-xs">
-                  {getArticlesByCategory(category.id, "training").length}
+                  {getArticlesByCategory(category.id, pageType).length}
                 </span>
               </Button>
             ))}

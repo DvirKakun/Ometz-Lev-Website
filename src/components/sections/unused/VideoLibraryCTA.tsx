@@ -22,7 +22,7 @@ const VideoLibraryCTA = () => {
 
   const handleViewAllVideos = () => {
     const scrollPosition = window.scrollY;
-    navigate("/videos-library", {
+    navigate("/training-videos-library", {
       state: { scrollPosition },
     });
   };

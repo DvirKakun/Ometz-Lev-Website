@@ -7,15 +7,17 @@ import {
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
 import ActivitiesPage from "./pages/ActivitiesPage";
-import TherapyPage from "./pages/TherapyPage";
-import TrainingPage from "./pages/TrainingPage";
+import TherapyPage from "./pages/therapy_page/TherapyPage";
+import TrainingPage from "./pages/training_page/TrainingPage";
 import SchoolsPage from "./pages/SchoolsPage";
 import SplashPage from "./pages/SplashPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import AccessibilityPage from "./pages/AccessibilityPage";
-import VideoLibraryPage from "./pages/VideoLibraryPage";
-import ArticlesLibraryPage from "./pages/ArticlesLibraryPage";
+import TrainingVideoLibraryPage from "./pages/training_page/TrainingVideoLibraryPage";
+import TrainingArticlesLibraryPage from "./pages/training_page/TrainingArticlesLibraryPage";
+import TherapyVideoLibraryPage from "./pages/therapy_page/TherapyVideoLibraryPage";
+import TherapyArticlesLibraryPage from "./pages/therapy_page/TherapyArticlesLibraryPage";
 import PageLoader from "./components/common/PageLoader";
 import { services } from "./data/services";
 
@@ -94,14 +96,24 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/videos-library",
+    path: "/training-videos-library",
     element: <Layout />,
-    children: [{ index: true, element: <VideoLibraryPage /> }],
+    children: [{ index: true, element: <TrainingVideoLibraryPage /> }],
   },
   {
-    path: "/articles-library",
+    path: "/training-articles-library",
     element: <Layout />,
-    children: [{ index: true, element: <ArticlesLibraryPage /> }],
+    children: [{ index: true, element: <TrainingArticlesLibraryPage /> }],
+  },
+  {
+    path: "/therapy-videos-library",
+    element: <Layout />,
+    children: [{ index: true, element: <TherapyVideoLibraryPage /> }],
+  },
+  {
+    path: "/therapy-articles-library",
+    element: <Layout />,
+    children: [{ index: true, element: <TherapyArticlesLibraryPage /> }],
   },
   {
     path: "/privacy",

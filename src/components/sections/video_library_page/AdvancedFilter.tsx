@@ -9,6 +9,7 @@ interface AdvancedFilterProps {
   onLevelChange: (levelId: string) => void;
   onCategoryChange: (categoryId: string) => void;
   onClearFilters: () => void;
+  pageType: "training" | "therapy";
 }
 
 const AdvancedFilter = ({
@@ -17,6 +18,7 @@ const AdvancedFilter = ({
   onLevelChange,
   onCategoryChange,
   onClearFilters,
+  pageType,
 }: AdvancedFilterProps) => {
   const getColorClasses = (color: string, isSelected: boolean) => {
     if (isSelected) {
@@ -47,7 +49,7 @@ const AdvancedFilter = ({
   const filteredVideoCount = getVideosByFilters(
     selectedLevel,
     selectedCategory,
-    "training"
+    pageType
   ).length;
 
   return (
@@ -103,7 +105,7 @@ const AdvancedFilter = ({
                 >
                   {category.name}
                   <span className="mr-2 bg-white/20 px-1.5 py-0.5 rounded-full text-xs">
-                    {getVideosByFilters(selectedLevel, category.id, "training").length}
+                    {getVideosByFilters(selectedLevel, category.id, pageType).length}
                   </span>
                 </Button>
               ))}
@@ -129,7 +131,7 @@ const AdvancedFilter = ({
                 >
                   {level.name}
                   <span className="mr-2 bg-white/20 px-1.5 py-0.5 rounded-full text-xs">
-                    {getVideosByFilters(level.id, selectedCategory, "training").length}
+                    {getVideosByFilters(level.id, selectedCategory, pageType).length}
                   </span>
                 </Button>
               ))}

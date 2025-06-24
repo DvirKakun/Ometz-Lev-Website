@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Video, BookOpen } from "lucide-react";
-import SectionHeader from "../headers/SectionHeader";
-import LibraryCTA from "../cta/LibraryCTA";
+import SectionHeader from "../headers/ContentHeader";
+import LibraryCTA from "../library_cta/LibraryCTA";
 import DemoContentGrid from "./DemoContentGrid";
 
 interface ContentSectionProps {
@@ -19,7 +19,11 @@ interface ContentSectionProps {
   };
 }
 
-const ContentSection = ({ contentType, pageType, sectionConfig }: ContentSectionProps) => {
+const ContentSection = ({
+  contentType,
+  pageType,
+  sectionConfig,
+}: ContentSectionProps) => {
   const icon = contentType === "videos" ? Video : BookOpen;
 
   return (
@@ -49,10 +53,7 @@ const ContentSection = ({ contentType, pageType, sectionConfig }: ContentSection
             buttonText={sectionConfig.buttonText}
           />
 
-          <DemoContentGrid
-            contentType={contentType}
-            pageType={pageType}
-          />
+          <DemoContentGrid contentType={contentType} pageType={pageType} />
         </motion.div>
       </div>
     </section>

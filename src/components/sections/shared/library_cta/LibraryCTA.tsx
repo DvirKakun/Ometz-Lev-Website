@@ -13,13 +13,13 @@ interface LibraryCTAProps {
   buttonText: string;
 }
 
-const LibraryCTA = ({ 
-  contentType, 
-  pageType, 
-  libraryPath, 
-  title, 
+const LibraryCTA = ({
+  contentType,
+  pageType,
+  libraryPath,
+  title,
   accentColor,
-  buttonText 
+  buttonText,
 }: LibraryCTAProps) => {
   const navigate = useNavigate();
 
@@ -27,32 +27,34 @@ const LibraryCTA = ({
   const getStats = () => {
     if (contentType === "videos") {
       const pageVideos = videos[pageType];
-      const videoCount = pageVideos.length > 25 ? "25+" : pageVideos.length.toString();
-      
+      const videoCount =
+        pageVideos.length > 25 ? "25+" : pageVideos.length.toString();
+
       const totalMinutes = pageVideos.reduce((total, video) => {
         const [minutes, seconds] = video.duration.split(":").map(Number);
         return total + minutes + seconds / 60;
       }, 0);
       const totalHours = Math.round(totalMinutes / 60);
-      
+
       return {
         count: videoCount,
         countLabel: "סרטונים",
         time: `${totalHours}+`,
-        timeLabel: "שעות צפייה"
+        timeLabel: "שעות צפייה",
       };
     } else {
       const articleCountNum = getArticleCount(pageType);
-      const articleCount = articleCountNum > 25 ? "25+" : articleCountNum.toString();
+      const articleCount =
+        articleCountNum > 25 ? "25+" : articleCountNum.toString();
       const totalReadTime = getTotalReadTime(pageType);
       const totalMinutes = parseInt(totalReadTime.replace(/[^\d]/g, ""));
       const totalHours = Math.round(totalMinutes / 60);
-      
+
       return {
         count: articleCount,
         countLabel: "מאמרים",
         time: totalHours > 0 ? `${totalHours}+` : `${totalMinutes}`,
-        timeLabel: totalHours > 0 ? 'שעות קריאה' : 'דקות קריאה'
+        timeLabel: totalHours > 0 ? "שעות קריאה" : "דקות קריאה",
       };
     }
   };
@@ -61,8 +63,8 @@ const LibraryCTA = ({
 
   const handleViewAll = () => {
     const scrollPosition = window.scrollY;
-    navigate(libraryPath, { 
-      state: { scrollPosition } 
+    navigate(libraryPath, {
+      state: { scrollPosition },
     });
   };
 
@@ -72,22 +74,16 @@ const LibraryCTA = ({
         bg: "from-red-500/5 to-red-600/10",
         pulse: "bg-red-500",
         text: "text-red-600",
-        button: "bg-red-600 hover:bg-red-700"
+        button: "bg-red-600 hover:bg-red-700",
       },
       accent: {
         bg: "from-accent-500/5 to-orange-600/10",
         pulse: "bg-accent-500",
         text: "text-accent-600",
-        button: "bg-accent-600 hover:bg-accent-700"
+        button: "bg-accent-600 hover:bg-accent-700",
       },
-      blue: {
-        bg: "from-blue-500/5 to-blue-600/10",
-        pulse: "bg-blue-500",
-        text: "text-blue-600",
-        button: "bg-blue-600 hover:bg-blue-700"
-      }
     };
-    
+
     return colorMap[accentColor as keyof typeof colorMap] || colorMap.red;
   };
 
@@ -103,18 +99,24 @@ const LibraryCTA = ({
     >
       {/* Background accent */}
       <div className={`absolute inset-0 bg-gradient-to-r ${colors.bg}`} />
-      
+
       <div className="relative p-4">
         <div className="flex items-center justify-between">
           {/* Content */}
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <div className={`w-2 h-2 ${colors.pulse} rounded-full animate-pulse`} />
-              <span className="text-sm font-medium text-slate-700">{title}</span>
+              <div
+                className={`w-2 h-2 ${colors.pulse} rounded-full animate-pulse`}
+              />
+              <span className="text-sm font-medium text-slate-700">
+                {title}
+              </span>
             </div>
             <div className="flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
-                <span className={`font-bold ${colors.text}`}>{stats.count}</span>
+                <span className={`font-bold ${colors.text}`}>
+                  {stats.count}
+                </span>
                 <span className="text-slate-500">{stats.countLabel}</span>
               </div>
               <div className="flex items-center gap-2">

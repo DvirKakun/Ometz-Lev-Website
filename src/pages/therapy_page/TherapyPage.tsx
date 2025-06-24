@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import ContentSection from "../components/sections/shared/content/ContentSection";
-import ContactSection from "../components/sections/shared/contact/ContactSection";
-import CollapsibleFeatures from "../components/sections/shared/collapsible_features/CollapsibleFeatures";
-import TrainingMethod from "../components/sections/training_page/training_method/TrainingMethod";
-import type { Service } from "../data/services";
+import ContentSection from "../../components/sections/shared/content/ContentSection";
+import ContactSection from "../../components/sections/shared/contact/ContactSection";
+import CollapsibleFeatures from "../../components/sections/shared/collapsible_features/CollapsibleFeatures";
+import MethodSection from "../../components/sections/shared/method_section/MethodSection";
+import type { Service } from "../../data/services";
+import { therapyMethodConfig } from "../../data/therapy_method_config";
+import { therapyContentConfig } from "../../data/therapy_content_config";
 
 interface TherapygPageProps {
   service: Service | undefined;
@@ -30,29 +32,6 @@ const TherapyPage = ({ service }: TherapygPageProps) => {
     }
   }, [location]);
 
-  // Configuration for therapy page content sections
-  const videosConfig = {
-    title: "סרטוני טיפול",
-    description: "סרטוני הדרכה מקצועיים לטיפול בכלבים",
-    libraryPath: "/therapy-videos-library",
-    libraryTitle: "ספריית סרטוני הטיפול שלנו",
-    buttonText: "עבור לספרייה",
-    accentColor: "red",
-    gradientFrom: "from-red-500",
-    gradientTo: "to-red-600",
-  };
-
-  const articlesConfig = {
-    title: "מאמרי טיפול",
-    description: "מאמרים מקצועיים ומדריכים לטיפול בכלבים",
-    libraryPath: "/therapy-articles-library",
-    libraryTitle: "ספריית מאמרי הטיפול שלנו",
-    buttonText: "עבור לספרייה",
-    accentColor: "accent",
-    gradientFrom: "from-accent-500",
-    gradientTo: "to-orange-600",
-  };
-
   if (!service) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -72,20 +51,20 @@ const TherapyPage = ({ service }: TherapygPageProps) => {
       <CollapsibleFeatures service={service} />
 
       {/* Therapy Method Section */}
-      <TrainingMethod />
+      <MethodSection config={therapyMethodConfig} />
 
       {/* Videos Section */}
       <ContentSection
         contentType="videos"
         pageType="therapy"
-        sectionConfig={videosConfig}
+        sectionConfig={therapyContentConfig.videos}
       />
 
       {/* Articles Section */}
       <ContentSection
         contentType="articles"
         pageType="therapy"
-        sectionConfig={articlesConfig}
+        sectionConfig={therapyContentConfig.articles}
       />
 
       {/* Contact Section */}
