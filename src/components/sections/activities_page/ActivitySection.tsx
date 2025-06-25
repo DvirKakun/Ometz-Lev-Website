@@ -62,7 +62,7 @@ const ActivitySection = ({
                 ))}
 
                 <div
-                  className={`bg-gradient-to-r ${activity.bgColor} p-4 rounded-lg border-r-4 border-primary-500`}
+                  className={`bg-gradient-to-r ${activity.bgColor} p-4 rounded-lg border-r-4 border-accent-500`}
                 >
                   <p className="text-slate-700 font-medium text-right">
                     <strong>מתאים לגילאי:</strong> {activity.details.ages}

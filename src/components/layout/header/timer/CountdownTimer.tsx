@@ -95,18 +95,18 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
     <motion.div
       className={cn(
         "flex flex-col items-center space-y-1 sm:space-y-1",
-        // Clean background with subtle gradient
-        "bg-white/80 backdrop-blur-sm",
-        // Simple elegant border
-        "border border-slate-200/60",
-        // Clean shadow without expanding size
-        "shadow-md shadow-slate-900/5",
+        // Attractive gradient background with primary colors
+        "bg-gradient-to-br from-primary-50 via-white to-accent-50",
+        // Subtle border with primary accent
+        "border border-primary-200/70",
+        // Enhanced shadow for prominence
+        "shadow-lg shadow-primary-900/10",
         // Rounded corners
-        "rounded-lg",
+        "rounded-xl",
         // Responsive padding - ultra compact for mobile, normal for desktop
         "px-1.5 py-0.5 sm:px-2 sm:py-1 xl:px-2 xl:py-1.5",
-        // Clickable styles
-        clickable && "cursor-pointer hover:bg-white/90 hover:shadow-lg transition-all duration-200 hover:scale-105",
+        // Clickable styles with more pronounced hover effects
+        clickable && "cursor-pointer hover:bg-gradient-to-br hover:from-primary-100 hover:via-white hover:to-accent-100 hover:shadow-xl hover:shadow-primary-900/15 hover:border-primary-300 transition-all duration-300 hover:scale-105",
         className
       )}
       initial={{ opacity: 0, scale: 0.95 }}

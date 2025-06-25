@@ -1,15 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
+import { AlertCircle, Calendar } from "lucide-react";
 import ServiceHeader from "../components/sections/shared/headers/MainHeader";
 import ActivitySection from "../components/sections/activities_page/ActivitySection";
 import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
 import { FAQSection } from "../components/sections/shared/faq";
-import { activities, activitiesPageConfig } from "../data/activities";
+import LoadingSpinner from "../components/common/StateLoadingSpinner";
+import StateDisplay from "../components/common/StateDisplay";
+import { getActivities, activitiesPageConfig } from "../data/activities";
+import type { Activity } from "../types/activities";
 
 export default function ActivitiesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const location = useLocation();
+  const scrollTargetRef = useRef<string | null>(null);
 
   useEffect(() => {
     document.title = "פעילויות מיוחדות | אומץ לב";
@@ -21,24 +29,103 @@ export default function ActivitiesPage() {
         "פעילויות חינוכיות מיוחדות עם כלבים לילדים. קייטנת החופש הגדול ופעילויות העצמה ולמידה יחד עם בעלי חיים."
       );
     }
+  }, []);
 
-    // Handle scrolling to specific activity if passed from timer
+  // Scroll to activity function using React patterns
+  const scrollToActivity = useCallback((activityId: string) => {
+    const element = document.getElementById(activityId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, []);
+
+  // Set scroll target from navigation state
+  useEffect(() => {
     const state = location.state as { scrollToActivity?: string } | null;
     if (state?.scrollToActivity) {
-      // Use a longer timeout to ensure the page is fully loaded and rendered
-      const timeoutId = setTimeout(() => {
-        const element = document.getElementById(state.scrollToActivity);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 500);
-
-      return () => clearTimeout(timeoutId);
+      scrollTargetRef.current = state.scrollToActivity;
     }
   }, [location]);
 
+  // Fetch activities from Strapi
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const activitiesData = await getActivities();
+        setActivities(activitiesData);
+
+        // If we have a scroll target and data is loaded, scroll immediately
+        if (scrollTargetRef.current && activitiesData.length > 0) {
+          // Use requestAnimationFrame to ensure DOM is updated
+          requestAnimationFrame(() => {
+            scrollToActivity(scrollTargetRef.current!);
+            scrollTargetRef.current = null; // Clear after scrolling
+          });
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "שגיאה בטעינת הפעילויות");
+        setActivities([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [scrollToActivity]);
+
   const handleRegisterClick = () => {
     setIsModalOpen(true);
+  };
+
+  // Render content based on state
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <LoadingSpinner
+          title="טוען פעילויות..."
+          description="אנא המתן בזמן שאנחנו מביאים עבורך את הפעילויות העדכניות"
+        />
+      );
+    }
+
+    if (error) {
+      return (
+        <StateDisplay
+          icon={AlertCircle}
+          title="שגיאה בטעינת הפעילויות"
+          description={error}
+          iconClassName="w-12 h-12 text-red-500 mb-4"
+          showAction={true}
+          actionText="נסה שוב"
+          actionVariant="default"
+          onAction={() => window.location.reload()}
+        />
+      );
+    }
+
+    if (activities.length === 0) {
+      return (
+        <StateDisplay
+          icon={Calendar}
+          title="אין פעילויות זמינות כרגע"
+          description="כרגע אין פעילויות מתוכננות. אנא חזור שוב בקרוב לעדכונים נוספים."
+          iconClassName="w-16 h-16 text-gray-400 mb-6"
+        />
+      );
+    }
+
+    // Success state - render activities
+    return activities.map((activity) => (
+      <ActivitySection
+        key={activity.id}
+        activity={activity}
+        onRegisterClick={
+          activity.hasRegistration ? handleRegisterClick : undefined
+        }
+      />
+    ));
   };
 
   return (
@@ -49,7 +136,7 @@ export default function ActivitiesPage() {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
-        {/* Header Section */}
+        {/* Header Section - Always rendered */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
@@ -63,18 +150,10 @@ export default function ActivitiesPage() {
           </div>
         </section>
 
-        {/* Activity Sections */}
-        {activities.map((activity) => (
-          <ActivitySection
-            key={activity.id}
-            activity={activity}
-            onRegisterClick={
-              activity.hasRegistration ? handleRegisterClick : undefined
-            }
-          />
-        ))}
+        {/* Dynamic Content */}
+        {renderContent()}
 
-        {/* FAQ Section */}
+        {/* FAQ Section - Always rendered */}
         <FAQSection pageType="activities" />
       </motion.div>
 

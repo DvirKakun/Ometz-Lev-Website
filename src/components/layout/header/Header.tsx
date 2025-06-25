@@ -31,7 +31,21 @@ const Header: React.FC = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   // Get closest activity for timer
-  const closestActivity = getClosestActivity();
+  const [closestActivity, setClosestActivity] = useState<any>(null);
+  
+  useEffect(() => {
+    const fetchClosestActivity = async () => {
+      try {
+        const activity = await getClosestActivity();
+        setClosestActivity(activity);
+      } catch (error) {
+        console.warn('Failed to fetch closest activity for timer');
+        setClosestActivity(null);
+      }
+    };
+    
+    fetchClosestActivity();
+  }, []);
   
   const handleTimerClick = () => {
     if (closestActivity) {

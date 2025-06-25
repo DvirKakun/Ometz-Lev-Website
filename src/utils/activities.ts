@@ -1,8 +1,11 @@
-import { activities } from "../data/activities";
+import { getActivities } from "../data/activities";
 import type { Activity } from "../types/activities";
 
-export const getClosestActivity = (): Activity | null => {
+export const getClosestActivity = async (): Promise<Activity | null> => {
   const now = new Date();
+  
+  // Get activities (from Strapi or fallback)
+  const activities = await getActivities();
   
   // Filter activities that are in the future
   const futureActivities = activities.filter(activity => activity.date > now);

@@ -22,11 +22,11 @@ const EventInfo: React.FC<EventInfoProps> = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2 }}
     >
-      <h3 className="text-[10px] xl:text-xs font-semibold text-slate-700 leading-tight">
+      <h3 className="text-[10px] xl:text-xs font-bold text-primary-800 leading-tight">
         {eventTitle}
       </h3>
       <p
-        className="text-xs text-slate-500 leading-tight"
+        className="text-xs text-primary-600 leading-tight font-medium"
         style={{ fontSize: "8px" }}
       >
         {formatDate(targetDate)}

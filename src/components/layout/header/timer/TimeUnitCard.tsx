@@ -29,7 +29,7 @@ const TimeUnitCard: React.FC<TimeUnitCardProps> = ({
         animate={isFlipping ? { scale: [1, 1.01, 1] } : {}}
         transition={{ duration: 0.2 }}
       >
-        <Card className="w-5 h-6 sm:w-6 sm:h-7 xl:w-7 xl:h-8 bg-gradient-to-b from-white to-slate-50 border border-slate-200 shadow-sm rounded">
+        <Card className="w-5 h-6 sm:w-6 sm:h-7 xl:w-7 xl:h-8 bg-gradient-to-b from-primary-500 to-primary-600 border border-primary-400 shadow-md shadow-primary-900/20 rounded">
           <CardContent className="p-0 flex items-center justify-center h-full">
             <AnimatePresence mode="wait">
               <motion.span
@@ -38,7 +38,7 @@ const TimeUnitCard: React.FC<TimeUnitCardProps> = ({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 3 }}
                 transition={{ duration: 0.15 }}
-                className="text-[10px] sm:text-xs font-bold text-slate-800 leading-none"
+                className="text-[10px] sm:text-xs font-bold text-white leading-none"
               >
                 {formattedValue}
               </motion.span>
@@ -58,7 +58,7 @@ const TimeUnitCard: React.FC<TimeUnitCardProps> = ({
       </motion.div>
 
       <motion.span
-        className="text-xs font-medium text-slate-600 mt-0.5 text-center leading-none"
+        className="text-xs font-semibold text-primary-700 mt-0.5 text-center leading-none"
         animate={isFlipping ? { scale: [1, 1.02, 1] } : {}}
         transition={{ duration: 0.2 }}
         style={{ fontSize: "9px" }}
