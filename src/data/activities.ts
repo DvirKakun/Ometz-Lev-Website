@@ -1,5 +1,8 @@
 import { Calendar } from "lucide-react";
 import SummerCampImage from "../assets/images/Summer_Camp.jpg";
+import EladAndBoni from "../assets/images/Elad_And_Boni.jpg";
+import EladTraining from "../assets/images/Elad_Training.jpg";
+import ReviewsImage from "../assets/images/Reviews_Image.jpg";
 import type { Activity } from "../types/activities";
 
 export const activities: Activity[] = [
@@ -17,6 +20,14 @@ export const activities: Activity[] = [
     },
     image: SummerCampImage,
     imageAlt: "פלייר קייטנת החופש הגדול - אומץ לב",
+    images: [
+      SummerCampImage,
+      EladAndBoni,
+      ReviewsImage,
+      EladTraining,
+      EladTraining,
+      EladTraining,
+    ],
     icon: Calendar,
     color: "from-accent-500 to-orange-500",
     bgColor: "from-accent-50 to-orange-50",

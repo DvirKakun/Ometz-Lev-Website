@@ -13,6 +13,7 @@ export interface Activity {
   details: ActivityDetails;
   image: string;
   imageAlt: string;
+  images?: string[];
   icon: LucideIcon;
   color: string;
   bgColor: string;
