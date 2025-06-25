@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import ServiceHeader from "../components/sections/shared/headers/MainHeader";
 import ActivitySection from "../components/sections/activities_page/ActivitySection";
 import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
@@ -8,6 +9,7 @@ import { activities, activitiesPageConfig } from "../data/activities";
 
 export default function ActivitiesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     document.title = "פעילויות מיוחדות | אומץ לב";
@@ -19,7 +21,21 @@ export default function ActivitiesPage() {
         "פעילויות חינוכיות מיוחדות עם כלבים לילדים. קייטנת החופש הגדול ופעילויות העצמה ולמידה יחד עם בעלי חיים."
       );
     }
-  }, []);
+
+    // Handle scrolling to specific activity if passed from timer
+    const state = location.state as { scrollToActivity?: string } | null;
+    if (state?.scrollToActivity) {
+      // Use a longer timeout to ensure the page is fully loaded and rendered
+      const timeoutId = setTimeout(() => {
+        const element = document.getElementById(state.scrollToActivity);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 500);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [location]);
 
   const handleRegisterClick = () => {
     setIsModalOpen(true);

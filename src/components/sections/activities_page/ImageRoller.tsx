@@ -1,13 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-
-interface ImageRollerProps {
-  images: string[];
-  alt: string;
-  onImageClick: (imageUrl: string, index: number) => void;
-  className?: string;
-}
+import type { ImageRollerProps } from "../../../types/image_roller";
 
 const ImageRoller: React.FC<ImageRollerProps> = ({
   images,

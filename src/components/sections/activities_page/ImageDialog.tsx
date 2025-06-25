@@ -3,15 +3,7 @@ import { X } from "lucide-react";
 import { motion } from "framer-motion";
 import { Dialog, DialogContent } from "../../ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
-
-interface ImageDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-  imageUrl: string;
-  alt: string;
-  imageIndex: number;
-  totalImages: number;
-}
+import type { ImageDialogProps } from "../../../types/image_roller";
 
 const ImageDialog: React.FC<ImageDialogProps> = ({
   isOpen,
@@ -32,16 +24,16 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
       img.onload = () => {
         const maxWidth = window.innerWidth * 0.9;
         const maxHeight = window.innerHeight * 0.9;
-        
+
         let { width, height } = img;
-        
+
         // Scale down if image is larger than viewport
         if (width > maxWidth || height > maxHeight) {
           const ratio = Math.min(maxWidth / width, maxHeight / height);
           width *= ratio;
           height *= ratio;
         }
-        
+
         setImageDimensions({ width, height });
       };
       img.src = imageUrl;
@@ -51,11 +43,13 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogTitle className="sr-only">תצוגת תמונה</DialogTitle>
-      <DialogContent 
+      <DialogContent
         className="p-0 bg-transparent border-0 shadow-none [&>button]:hidden"
         style={{
-          maxWidth: imageDimensions ? `${imageDimensions.width + 40}px` : '90vw',
-          width: imageDimensions ? `${imageDimensions.width + 40}px` : 'auto',
+          maxWidth: imageDimensions
+            ? `${imageDimensions.width + 40}px`
+            : "90vw",
+          width: imageDimensions ? `${imageDimensions.width + 40}px` : "auto",
         }}
       >
         {/* Custom Close Button */}
@@ -73,8 +67,8 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
           transition={{ duration: 0.2 }}
           className="relative bg-white rounded-lg overflow-hidden shadow-2xl"
           style={{
-            width: imageDimensions ? `${imageDimensions.width}px` : 'auto',
-            height: imageDimensions ? `${imageDimensions.height}px` : 'auto',
+            width: imageDimensions ? `${imageDimensions.width}px` : "auto",
+            height: imageDimensions ? `${imageDimensions.height}px` : "auto",
           }}
         >
           {/* Image container */}
@@ -84,11 +78,13 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
               alt={alt}
               className="w-full h-full object-contain"
               style={{
-                width: imageDimensions ? `${imageDimensions.width}px` : 'auto',
-                height: imageDimensions ? `${imageDimensions.height}px` : 'auto',
+                width: imageDimensions ? `${imageDimensions.width}px` : "auto",
+                height: imageDimensions
+                  ? `${imageDimensions.height}px`
+                  : "auto",
               }}
             />
-            
+
             {/* Image info */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3">
               <p className="text-white text-sm text-center font-medium">

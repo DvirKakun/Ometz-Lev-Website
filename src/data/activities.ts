@@ -33,6 +33,8 @@ export const activities: Activity[] = [
     bgColor: "from-accent-50 to-orange-50",
     buttonText: "הרשמה לקייטנה",
     hasRegistration: true,
+    timerTitle: "קייטנת החופש הגדול",
+    date: new Date("2025-07-15T09:00:00"),
   },
 ];
 

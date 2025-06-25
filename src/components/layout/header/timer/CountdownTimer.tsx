@@ -15,6 +15,8 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
   eventTitle,
   className,
   showEventInfo = true,
+  onClick,
+  clickable = false,
 }) => {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     days: 0,
@@ -103,11 +105,14 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
         "rounded-lg",
         // Responsive padding - ultra compact for mobile, normal for desktop
         "px-1.5 py-0.5 sm:px-2 sm:py-1 xl:px-2 xl:py-1.5",
+        // Clickable styles
+        clickable && "cursor-pointer hover:bg-white/90 hover:shadow-lg transition-all duration-200 hover:scale-105",
         className
       )}
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3 }}
+      onClick={clickable && onClick ? onClick : undefined}
     >
       {/* Event Info */}
       {showEventInfo && (

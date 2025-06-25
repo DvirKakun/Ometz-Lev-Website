@@ -16,6 +16,8 @@ export interface CountdownTimerProps {
   eventTitle?: string;
   className?: string;
   showEventInfo?: boolean;
+  onClick?: () => void;
+  clickable?: boolean;
 }
 
 export interface TimeUnitCardProps {

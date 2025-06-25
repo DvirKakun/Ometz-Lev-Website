@@ -19,6 +19,8 @@ export interface Activity {
   bgColor: string;
   buttonText: string;
   hasRegistration: boolean;
+  timerTitle: string;
+  date: Date;
 }
 
 export interface ActivitySectionProps {
