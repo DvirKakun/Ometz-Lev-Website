@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Filter, X } from "lucide-react";
-import { categories, getArticlesByCategory } from "../../../data/articles";
+import { useCategories, useArticlesByCategory, useArticleCountPerCategory } from "../../../hooks/useArticles";
 import { Button } from "../../ui/button";
 import type { CategoryFilterProps } from "../../../types/category";
 
@@ -10,6 +10,9 @@ const CategoryFilter = ({
   onClearFilters,
   pageType,
 }: CategoryFilterProps) => {
+  const { data: categories = [] } = useCategories();
+  const { data: filteredArticles = [] } = useArticlesByCategory(selectedCategory, pageType);
+  const { getCountForCategory } = useArticleCountPerCategory(pageType);
   const getCategoryColorClasses = (color: string, isSelected: boolean) => {
     if (isSelected) {
       const selectedColorMap = {
@@ -19,6 +22,15 @@ const CategoryFilter = ({
         green: "bg-green-500 text-white",
         orange: "bg-orange-500 text-white",
         purple: "bg-purple-500 text-white",
+        pink: "bg-pink-500 text-white",
+        indigo: "bg-indigo-500 text-white",
+        yellow: "bg-yellow-500 text-white",
+        teal: "bg-teal-500 text-white",
+        cyan: "bg-cyan-500 text-white",
+        emerald: "bg-emerald-500 text-white",
+        rose: "bg-rose-500 text-white",
+        amber: "bg-amber-500 text-white",
+        violet: "bg-violet-500 text-white",
       };
       return (
         selectedColorMap[color as keyof typeof selectedColorMap] ||
@@ -31,10 +43,7 @@ const CategoryFilter = ({
   };
 
   const hasActiveFilters = selectedCategory !== "all";
-  const filteredArticleCount = getArticlesByCategory(
-    selectedCategory,
-    pageType
-  ).length;
+  const filteredArticleCount = filteredArticles.length;
 
   return (
     <section className="py-8 bg-white border-b border-slate-200">
@@ -86,7 +95,7 @@ const CategoryFilter = ({
               >
                 {category.name}
                 <span className="mr-2 bg-white/20 px-2 py-0.5 rounded-full text-xs">
-                  {getArticlesByCategory(category.id, pageType).length}
+                  {getCountForCategory(category.id)}
                 </span>
               </Button>
             ))}

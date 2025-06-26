@@ -10,7 +10,6 @@ const DEFAULT_ACTIVITY_STYLING = {
 
 interface StrapiActivity {
   id: number;
-  activityId: string;
   title: string;
   description: Array<{ paragraph: string }>;
   details: {
@@ -31,7 +30,7 @@ interface StrapiActivity {
 
 const mapStrapiToActivity = (strapiActivity: StrapiActivity): Activity => {
   return {
-    id: strapiActivity.activityId,
+    id: strapiActivity.id.toString(),
     title: strapiActivity.title,
     description: strapiActivity.description.map((desc) => desc.paragraph),
     details: strapiActivity.details,

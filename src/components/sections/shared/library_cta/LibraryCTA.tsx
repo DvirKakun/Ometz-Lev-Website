@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../ui/button";
 import { videos } from "../../../../data/videos";
-import { getArticleCount, getTotalReadTime } from "../../../../data/articles";
+import { useArticleStats } from "../../../../hooks/useArticles";
 import type { LibraryCTAProps } from "../../../../types/library";
 
 const LibraryCTA = ({
@@ -14,6 +14,9 @@ const LibraryCTA = ({
   buttonText,
 }: LibraryCTAProps) => {
   const navigate = useNavigate();
+  
+  // Get article stats from Strapi
+  const { articleCount, totalReadTimeMinutes } = useArticleStats(pageType);
 
   // Calculate stats based on content type
   const getStats = () => {
@@ -35,18 +38,17 @@ const LibraryCTA = ({
         timeLabel: "שעות צפייה",
       };
     } else {
-      const articleCountNum = getArticleCount(pageType);
-      const articleCount =
-        articleCountNum > 25 ? "25+" : articleCountNum.toString();
-      const totalReadTime = getTotalReadTime(pageType);
-      const totalMinutes = parseInt(totalReadTime.replace(/[^\d]/g, ""));
-      const totalHours = Math.round(totalMinutes / 60);
-
+      const articleCountDisplay = articleCount > 25 ? "25+" : articleCount.toString();
+      const totalHours = Math.floor(totalReadTimeMinutes / 60);
+      const remainingMinutes = totalReadTimeMinutes % 60;
+      
       return {
-        count: articleCount,
+        count: articleCountDisplay,
         countLabel: "מאמרים",
-        time: totalHours > 0 ? `${totalHours}+` : `${totalMinutes}`,
-        timeLabel: totalHours > 0 ? "שעות קריאה" : "דקות קריאה",
+        time: totalHours > 0 
+          ? `${totalHours}:${remainingMinutes.toString().padStart(2, "0")}`
+          : totalReadTimeMinutes.toString(),
+        timeLabel: totalHours > 0 ? "שעות" : "דקות",
       };
     }
   };

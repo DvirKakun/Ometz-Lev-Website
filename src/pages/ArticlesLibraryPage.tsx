@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getArticlesByCategory } from "../data/articles";
+import { useArticlesByCategory } from "../hooks/useArticles";
 import LibraryHeader from "../components/sections/shared/headers/LibraryHeader";
 import CategoryFilter from "../components/sections/articles_library_page/CategoryFilter";
 import ArticlesGrid from "../components/sections/articles_library_page/ArticlesGrid";
@@ -7,10 +7,11 @@ import type { ArticlesLibraryPageProps } from "../types/library";
 
 const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const filteredArticles = getArticlesByCategory(
-    selectedCategory,
-    config.pageType
-  );
+  const { 
+    data: filteredArticles = [], 
+    isLoading, 
+    error 
+  } = useArticlesByCategory(selectedCategory, config.pageType);
 
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
@@ -32,6 +33,8 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
       <ArticlesGrid
         articles={filteredArticles}
         selectedCategory={selectedCategory}
+        isLoading={isLoading}
+        error={error}
       />
     </div>
   );
