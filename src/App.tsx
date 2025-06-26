@@ -3,6 +3,8 @@ import {
   RouterProvider,
   Navigate,
 } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
@@ -134,6 +136,23 @@ const router = createBrowserRouter([
   { path: "*", element: <Navigate to="/" replace /> },
 ]);
 
+// Create a query client instance
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 minutes default
+      gcTime: 10 * 60 * 1000, // 10 minutes garbage collection (was cacheTime)
+      refetchOnWindowFocus: false,
+      retry: 2,
+    },
+  },
+});
+
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 }

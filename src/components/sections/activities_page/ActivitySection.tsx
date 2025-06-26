@@ -112,8 +112,10 @@ const ActivitySection = ({
                   <img
                     src={activity.image}
                     alt={activity.imageAlt}
+                    loading="lazy"
                     className="w-full h-auto rounded-xl cursor-pointer"
                     onClick={() => handleImageClick(activity.image, 0)}
+                    crossOrigin="anonymous"
                   />
                 </div>
               </div>

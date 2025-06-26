@@ -22,7 +22,6 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
         const maxImages = Math.floor(containerWidth / imageWidth);
         // Ensure we show at least 1 image and at most 4
         const newVisibleImages = Math.max(1, maxImages);
-        console.log(maxImages);
         setVisibleImages(newVisibleImages);
       }
     };
@@ -89,6 +88,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
                 <img
                   src={image}
                   alt={`${alt} ${index + 1}`}
+                  loading="lazy"
                   className="w-full h-full object-contain bg-gray-50"
                 />
               </motion.div>

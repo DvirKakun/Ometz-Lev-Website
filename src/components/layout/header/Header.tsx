@@ -6,7 +6,7 @@ import HeaderNavigation from "./HeaderNavigation";
 import HeaderMobileMenu from "./HeaderMobileMenu";
 import HeaderCTAButtons from "./HeaderCTAButtons";
 import CountdownTimer from "./timer/CountdownTimer";
-import { getClosestActivity } from "../../../utils/activities";
+import { useClosestActivity } from "../../../hooks/useActivities";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,22 +30,8 @@ const Header: React.FC = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // Get closest activity for timer
-  const [closestActivity, setClosestActivity] = useState<any>(null);
-  
-  useEffect(() => {
-    const fetchClosestActivity = async () => {
-      try {
-        const activity = await getClosestActivity();
-        setClosestActivity(activity);
-      } catch (error) {
-        console.warn('Failed to fetch closest activity for timer');
-        setClosestActivity(null);
-      }
-    };
-    
-    fetchClosestActivity();
-  }, []);
+  // Get closest activity for timer using React Query
+  const { data: closestActivity } = useClosestActivity();
   
   const handleTimerClick = () => {
     if (closestActivity) {

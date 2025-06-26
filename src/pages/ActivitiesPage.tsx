@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { AlertCircle, Calendar } from "lucide-react";
@@ -8,16 +8,21 @@ import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
 import { FAQSection } from "../components/sections/shared/faq";
 import LoadingSpinner from "../components/common/StateLoadingSpinner";
 import StateDisplay from "../components/common/StateDisplay";
-import { getActivities, activitiesPageConfig } from "../data/activities";
-import type { Activity } from "../types/activities";
+import { useActivities } from "../hooks/useActivities";
+import { activitiesPageConfig } from "../data/activities";
 
 export default function ActivitiesPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const location = useLocation();
   const scrollTargetRef = useRef<string | null>(null);
+
+  // Use React Query for data fetching with caching
+  const {
+    data: activities = [],
+    isLoading: loading,
+    error,
+    refetch,
+  } = useActivities();
 
   useEffect(() => {
     document.title = "פעילויות מיוחדות | אומץ לב";
@@ -47,33 +52,16 @@ export default function ActivitiesPage() {
     }
   }, [location]);
 
-  // Fetch activities from Strapi
+  // Handle scrolling when data is loaded
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const activitiesData = await getActivities();
-        setActivities(activitiesData);
-
-        // If we have a scroll target and data is loaded, scroll immediately
-        if (scrollTargetRef.current && activitiesData.length > 0) {
-          // Use requestAnimationFrame to ensure DOM is updated
-          requestAnimationFrame(() => {
-            scrollToActivity(scrollTargetRef.current!);
-            scrollTargetRef.current = null; // Clear after scrolling
-          });
-        }
-      } catch (err) {
-        setError(err instanceof Error ? err.message : "שגיאה בטעינת הפעילויות");
-        setActivities([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [scrollToActivity]);
+    if (!loading && scrollTargetRef.current && activities.length > 0) {
+      // Use requestAnimationFrame to ensure DOM is updated
+      requestAnimationFrame(() => {
+        scrollToActivity(scrollTargetRef.current!);
+        scrollTargetRef.current = null; // Clear after scrolling
+      });
+    }
+  }, [loading, activities, scrollToActivity]);
 
   const handleRegisterClick = () => {
     setIsModalOpen(true);
@@ -95,12 +83,14 @@ export default function ActivitiesPage() {
         <StateDisplay
           icon={AlertCircle}
           title="שגיאה בטעינת הפעילויות"
-          description={error}
+          description={
+            error instanceof Error ? error.message : "שגיאה בטעינת הפעילויות"
+          }
           iconClassName="w-12 h-12 text-red-500 mb-4"
           showAction={true}
           actionText="נסה שוב"
           actionVariant="default"
-          onAction={() => window.location.reload()}
+          onAction={() => refetch()}
         />
       );
     }

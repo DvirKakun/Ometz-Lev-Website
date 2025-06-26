@@ -30,7 +30,6 @@ interface StrapiActivity {
 }
 
 const mapStrapiToActivity = (strapiActivity: StrapiActivity): Activity => {
-  console.log(strapiActivity);
   return {
     id: strapiActivity.activityId,
     title: strapiActivity.title,
