@@ -4,10 +4,15 @@ import { Card, CardContent } from "../../ui/card";
 import { useCategoryInfo } from "../../../hooks/useArticles";
 import type { ArticleCardProps } from "../../../types/articles";
 
+interface ArticleCardPropsWithOnClick extends ArticleCardProps {
+  onClick?: () => void;
+}
+
 const ArticleCard = ({
   article,
   index,
-}: ArticleCardProps) => {
+  onClick,
+}: ArticleCardPropsWithOnClick) => {
   const { name: categoryName, color: categoryColor } = useCategoryInfo(
     article.category
   );
@@ -42,7 +47,10 @@ const ArticleCard = ({
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="h-full"
     >
-      <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col">
+      <Card 
+        className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col"
+        onClick={onClick}
+      >
         {/* Article Header with Category Badge */}
         <div className="relative flex-shrink-0">
           <div className="aspect-video bg-gradient-to-br from-accent-50 to-orange-100 relative overflow-hidden">

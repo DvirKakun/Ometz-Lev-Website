@@ -1,6 +1,23 @@
 import { Calendar } from "lucide-react";
 import type { Activity } from "../types/activities";
 
+// Strapi API configuration
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
+const STRAPI_API_TOKEN = import.meta.env.VITE_STRAPI_API_TOKEN;
+
+// Create headers for Strapi requests
+function createStrapiHeaders(): HeadersInit {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+  };
+  
+  if (STRAPI_API_TOKEN) {
+    headers['Authorization'] = `Bearer ${STRAPI_API_TOKEN}`;
+  }
+  
+  return headers;
+}
+
 // Default styling configuration - same for all activities
 const DEFAULT_ACTIVITY_STYLING = {
   icon: Calendar,
@@ -34,16 +51,11 @@ const mapStrapiToActivity = (strapiActivity: StrapiActivity): Activity => {
     title: strapiActivity.title,
     description: strapiActivity.description.map((desc) => desc.paragraph),
     details: strapiActivity.details,
-    image: `${import.meta.env.VITE_STRAPI_URL || "http://localhost:1337"}${
-      strapiActivity.mainImage.url
-    }`,
+    image: `${STRAPI_URL}${strapiActivity.mainImage.url}`,
     imageAlt: strapiActivity.imageAlt,
     images:
       strapiActivity.galleryImages?.map(
-        (img) =>
-          `${import.meta.env.VITE_STRAPI_URL || "http://localhost:1337"}${
-            img.url
-          }`
+        (img) => `${STRAPI_URL}${img.url}`
       ) || [],
     buttonText: strapiActivity.buttonText,
     hasRegistration: strapiActivity.hasRegistration,
@@ -57,9 +69,10 @@ const mapStrapiToActivity = (strapiActivity: StrapiActivity): Activity => {
 export const fetchActivitiesFromStrapi = async (): Promise<Activity[]> => {
   try {
     const response = await fetch(
-      `${
-        import.meta.env.VITE_STRAPI_URL || "http://localhost:1337"
-      }/api/activities?populate=*&sort=activityDate:asc`
+      `${STRAPI_URL}/api/activities?populate=*&sort=activityDate:asc`,
+      {
+        headers: createStrapiHeaders(),
+      }
     );
 
     if (!response.ok) {

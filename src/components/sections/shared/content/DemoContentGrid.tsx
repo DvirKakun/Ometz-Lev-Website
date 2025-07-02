@@ -1,17 +1,34 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { getDemoVideos } from "../../../../data/videos";
 import { useDemoArticles } from "../../../../hooks/useArticles";
 import VideoCard from "../../video_library_page/VideoCard";
 import ArticleCard from "../../articles_library_page/ArticleCard";
+import ArticleModal from "../../../modals/article/ArticleModal";
 import LoadingSpinner from "../../../common/StateLoadingSpinner";
 import StateDisplay from "../../../common/StateDisplay";
 import { AlertCircle } from "lucide-react";
 import type { DemoContentGridProps } from "../../../../types/content";
+import type { Article } from "../../../../types/articles";
 
 export default function DemoContentGrid({
   contentType,
   pageType,
 }: DemoContentGridProps) {
+  // Modal state
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleArticleClick = (article: Article) => {
+    setSelectedArticle(article);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedArticle(null);
+  };
+
   // Always call hooks at the top level
   const { data: articles = [], isLoading, error } = useDemoArticles(pageType);
 
@@ -81,9 +98,16 @@ export default function DemoContentGrid({
               key={article.articleKey || index}
               article={article}
               index={index}
+              onClick={() => handleArticleClick(article)}
             />
           ))}
         </div>
+        
+        <ArticleModal
+          article={selectedArticle}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
       </motion.div>
     );
   }

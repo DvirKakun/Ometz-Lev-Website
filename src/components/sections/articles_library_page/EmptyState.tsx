@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { BookOpen, Search } from "lucide-react";
-import { getCategoryName } from "../../../data/articles";
+import { useCategoryInfo } from "../../../hooks/useArticles";
 import type { EmptyStateProps } from "../../../types/category";
 
 const EmptyState = ({ selectedCategory }: EmptyStateProps) => {
-  const categoryName = getCategoryName(selectedCategory);
+  const { name: categoryName } = useCategoryInfo(selectedCategory);
 
   return (
     <motion.div

@@ -25,7 +25,7 @@ export default function ActivitiesPage() {
   } = useActivities();
 
   useEffect(() => {
-    document.title = "פעילויות מיוחדות | אומץ לב";
+    document.title = "פעילויות | אומץ לב";
 
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {

@@ -1,6 +1,23 @@
 import { getCategoryColor } from "./category-colors";
 import type { Article } from "../types/articles";
 
+// Strapi API configuration
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
+const STRAPI_API_TOKEN = import.meta.env.VITE_STRAPI_API_TOKEN;
+
+// Create headers for Strapi requests
+function createStrapiHeaders(): HeadersInit {
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+  };
+  
+  if (STRAPI_API_TOKEN) {
+    headers['Authorization'] = `Bearer ${STRAPI_API_TOKEN}`;
+  }
+  
+  return headers;
+}
+
 // Strapi API interfaces
 interface StrapiCategory {
   id: number;
@@ -11,6 +28,7 @@ interface StrapiArticle {
   id: number;
   title: string;
   description: string;
+  content: string;
   readTime: number;
   author: string;
   page: "training" | "therapy";
@@ -31,6 +49,7 @@ export function mapStrapiArticle(strapiArticle: StrapiArticle): Article {
   return {
     title: strapiArticle.title,
     description: strapiArticle.description,
+    content: strapiArticle.content || '',
     category: strapiArticle.category.id.toString(),
     readTime: strapiArticle.readTime,
     author: strapiArticle.author,
@@ -46,9 +65,10 @@ export async function fetchCategoriesFromStrapi() {
     );
 
     const response = await fetch(
-      `${
-        import.meta.env.VITE_STRAPI_URL || "http://localhost:1337"
-      }/api/categories`
+      `${STRAPI_URL}/api/categories`,
+      {
+        headers: createStrapiHeaders(),
+      }
     );
 
     if (!response.ok) {
@@ -81,9 +101,10 @@ export async function fetchArticlesFromStrapi(
     );
 
     const response = await fetch(
-      `${
-        import.meta.env.VITE_STRAPI_URL || "http://localhost:1337"
-      }/api/articles?populate=category&filters[page][$eq]=${page}`
+      `${STRAPI_URL}/api/articles?populate=category&filters[page][$eq]=${page}`,
+      {
+        headers: createStrapiHeaders(),
+      }
     );
 
     if (!response.ok) {

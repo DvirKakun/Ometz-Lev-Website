@@ -1,6 +1,7 @@
 export interface Article {
   title: string;
   description: string;
+  content?: string;
   readTime: number;
   category: string;
   author: string;

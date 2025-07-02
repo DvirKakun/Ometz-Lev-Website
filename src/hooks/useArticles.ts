@@ -96,9 +96,12 @@ export function useArticleStats(page: "training" | "therapy" = "training") {
 
   const articleCount = articles.length;
 
-  const totalReadTimeMinutes = articles.reduce((total: number, article: Article) => {
-    return total + article.readTime;
-  }, 0);
+  const totalReadTimeMinutes = articles.reduce(
+    (total: number, article: Article) => {
+      return total + article.readTime;
+    },
+    0
+  );
 
   return {
     articleCount,

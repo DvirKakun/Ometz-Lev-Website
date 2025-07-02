@@ -1,12 +1,31 @@
 import { motion } from "framer-motion";
+import { useState } from "react";
 import ArticleCard from "./ArticleCard";
 import EmptyState from "./EmptyState";
 import LoadingSpinner from "../../common/StateLoadingSpinner";
 import StateDisplay from "../../common/StateDisplay";
+import ArticleModal from "../../modals/article/ArticleModal";
 import { AlertCircle } from "lucide-react";
-import type { ArticlesGridProps } from "../../../types/articles";
+import type { ArticlesGridProps, Article } from "../../../types/articles";
 
-const ArticlesGrid = ({ articles, selectedCategory, isLoading, error }: ArticlesGridProps) => {
+const ArticlesGrid = ({
+  articles,
+  selectedCategory,
+  isLoading,
+  error,
+}: ArticlesGridProps) => {
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleArticleClick = (article: Article) => {
+    setSelectedArticle(article);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedArticle(null);
+  };
   if (isLoading) {
     return (
       <section className="py-12">
@@ -51,6 +70,7 @@ const ArticlesGrid = ({ articles, selectedCategory, isLoading, error }: Articles
                   key={article.articleKey || index}
                   article={article}
                   index={index}
+                  onClick={() => handleArticleClick(article)}
                 />
               ))}
             </div>
@@ -58,6 +78,12 @@ const ArticlesGrid = ({ articles, selectedCategory, isLoading, error }: Articles
             <EmptyState selectedCategory={selectedCategory} />
           )}
         </motion.div>
+
+        <ArticleModal
+          article={selectedArticle}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
       </div>
     </section>
   );

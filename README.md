@@ -1,6 +1,28 @@
-# React + TypeScript + Vite
+# Dog Training Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript + Vite application for a professional dog training business with Strapi CMS integration.
+
+## Environment Setup
+
+1. **Copy the environment file:**
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Configure your Strapi connection:**
+   Update `.env` with your Strapi URL and API token:
+   ```env
+   VITE_STRAPI_URL=https://your-strapi-domain.com
+   VITE_STRAPI_API_TOKEN=your-api-token-here
+   ```
+
+3. **Getting your Strapi API Token:**
+   - Log into your Strapi admin panel
+   - Go to Settings → API Tokens
+   - Create a new token with appropriate permissions
+   - Copy the token and add it to your `.env` file
+
+## Development
 
 Currently, two official plugins are available:
 
