@@ -21,6 +21,7 @@ export interface Activity {
   hasRegistration: boolean;
   timerTitle: string;
   date: Date;
+  isPast?: boolean;
 }
 
 export interface ActivitySectionProps {

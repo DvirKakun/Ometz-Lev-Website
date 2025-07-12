@@ -29,7 +29,9 @@ const ActivitySection = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6 }}
-          className="max-w-6xl mx-auto"
+          className={`max-w-6xl mx-auto relative ${
+            activity.isPast ? "opacity-75" : ""
+          }`}
         >
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Content - Right side */}
@@ -74,23 +76,25 @@ const ActivitySection = ({
                 </div>
               </div>
 
-              {activity.hasRegistration && onRegisterClick && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.4 }}
-                >
-                  <Button
-                    onClick={onRegisterClick}
-                    size="lg"
-                    className={`bg-gradient-to-r ${activity.color} hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1`}
+              {activity.hasRegistration &&
+                !activity.isPast &&
+                onRegisterClick && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
                   >
-                    <activity.icon className="w-5 h-5 ml-2" />
-                    {activity.buttonText}
-                  </Button>
-                </motion.div>
-              )}
+                    <Button
+                      onClick={onRegisterClick}
+                      size="lg"
+                      className={`bg-gradient-to-r ${activity.color} hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1`}
+                    >
+                      <activity.icon className="w-5 h-5 ml-2" />
+                      {activity.buttonText}
+                    </Button>
+                  </motion.div>
+                )}
             </motion.div>
 
             {/* Images - Left side */}
@@ -113,10 +117,37 @@ const ActivitySection = ({
                     src={activity.image}
                     alt={activity.imageAlt}
                     loading="lazy"
-                    className="w-full h-auto rounded-xl cursor-pointer"
-                    onClick={() => handleImageClick(activity.image, 0)}
+                    className={`w-full h-auto rounded-xl ${
+                      activity.isPast
+                        ? "filter blur-md cursor-default"
+                        : "cursor-pointer"
+                    }`}
+                    onClick={
+                      activity.isPast
+                        ? undefined
+                        : () => handleImageClick(activity.image, 0)
+                    }
                     crossOrigin="anonymous"
                   />
+
+                  {/* Coming Soon Diagonal Banner */}
+                  {activity.isPast && (
+                    <div className="absolute inset-0 flex items-center justify-center rounded-xl overflow-hidden">
+                      {/* Diagonal banner */}
+                      <div className="absolute top-0 right-0 w-full h-full">
+                        <div className="absolute top-4 -right-12 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg">
+                          בקרוב
+                        </div>
+                      </div>
+
+                      {/* Center overlay with icon */}
+                      <div className="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center">
+                        <div className="bg-white/90 backdrop-blur-sm rounded-full p-4 shadow-lg">
+                          <activity.icon className="w-8 h-8 text-slate-600" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -129,7 +160,7 @@ const ActivitySection = ({
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-12 max-w-6xl mx-auto"
+              className={`mt-12 max-w-6xl mx-auto`}
             >
               <ImageRoller
                 images={activity.images}

@@ -1,17 +1,36 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FloatingBadge } from "./FloatingBadge";
-import type { SlideHeroImageProps } from "../../../../../types/slide_hero_image";
-import { images } from "../../../../../data/slide_hero_image";
+import { useSlideHeroImages } from "../../../../../hooks/useSlideHeroImages";
+import { images as fallbackImages } from "../../../../../data/slide_hero_image";
+import type { SlideHeroImageProps } from "../../../../../types/slide_hero_images";
 
 const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
   className = "",
   autoSwitch = true,
   switchInterval = 6000,
 }) => {
+  const { data: strapiImages, isLoading } = useSlideHeroImages();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [direction, setDirection] = useState(0);
+
+  // Use Strapi images if available, otherwise fallback to static images
+  const images = strapiImages && strapiImages.length > 0 ? strapiImages : fallbackImages;
+
+  // Reset current image index when images change
+  useEffect(() => {
+    setCurrentImageIndex(0);
+  }, [images]);
+
+  // Show loading state if Strapi is loading and we don't have fallback data
+  if (isLoading && (!fallbackImages || fallbackImages.length === 0)) {
+    return (
+      <div className={`relative w-full min-h-[300px] ${className} flex items-center justify-center`}>
+        <div className="animate-pulse bg-slate-200 rounded-2xl w-full h-full min-h-[300px]"></div>
+      </div>
+    );
+  }
 
   // Auto-switch images
   useEffect(() => {

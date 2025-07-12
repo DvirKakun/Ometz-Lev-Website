@@ -8,13 +8,13 @@ const STRAPI_API_TOKEN = import.meta.env.VITE_STRAPI_API_TOKEN;
 // Create headers for Strapi requests
 function createStrapiHeaders(): HeadersInit {
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   };
-  
+
   if (STRAPI_API_TOKEN) {
-    headers['Authorization'] = `Bearer ${STRAPI_API_TOKEN}`;
+    headers["Authorization"] = `Bearer ${STRAPI_API_TOKEN}`;
   }
-  
+
   return headers;
 }
 
@@ -49,7 +49,7 @@ export function mapStrapiArticle(strapiArticle: StrapiArticle): Article {
   return {
     title: strapiArticle.title,
     description: strapiArticle.description,
-    content: strapiArticle.content || '',
+    content: strapiArticle.content || "",
     category: strapiArticle.category.id.toString(),
     readTime: strapiArticle.readTime,
     author: strapiArticle.author,
@@ -60,16 +60,9 @@ export function mapStrapiArticle(strapiArticle: StrapiArticle): Article {
 // Fetch all categories from Strapi (global, not page-specific)
 export async function fetchCategoriesFromStrapi() {
   try {
-    console.log(
-      "🚀 FETCHING CATEGORIES FROM STRAPI - This should only appear once per 10 minutes!"
-    );
-
-    const response = await fetch(
-      `${STRAPI_URL}/api/categories`,
-      {
-        headers: createStrapiHeaders(),
-      }
-    );
+    const response = await fetch(`${STRAPI_URL}/api/categories`, {
+      headers: createStrapiHeaders(),
+    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
