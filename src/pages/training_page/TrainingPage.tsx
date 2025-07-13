@@ -5,12 +5,13 @@ import CollapsibleFeatures from "../../components/sections/shared/collapsible_fe
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import ContentSection from "../../components/sections/shared/content/ContentSection";
 import { FAQSection } from "../../components/sections/shared/faq";
-import { trainingMethodConfig } from "../../data/training_method_config";
+import { useTrainingMethodConfig } from "../../hooks/useTrainingMethodConfig";
 import { trainingContentConfig } from "../../data/training_content_config";
 import type { TrainingPageProps } from "../../types/training_page";
 
 export default function TrainingPage({ service }: TrainingPageProps) {
   const location = useLocation();
+  const { data: methodConfig } = useTrainingMethodConfig();
 
   useEffect(() => {
     document.title = "אילוף כלבים מקצועי | אומץ לב";
@@ -55,7 +56,7 @@ export default function TrainingPage({ service }: TrainingPageProps) {
       <CollapsibleFeatures service={service} />
 
       {/* Training Method Section (includes brief about) */}
-      <MethodSection config={trainingMethodConfig} />
+      <MethodSection config={methodConfig} />
 
       {/* Videos Section */}
       <ContentSection

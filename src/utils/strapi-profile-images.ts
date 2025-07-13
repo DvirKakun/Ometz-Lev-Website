@@ -1,5 +1,3 @@
-import type { SlideHeroImage } from "../types/slide_hero_images";
-
 // Strapi API configuration
 const STRAPI_URL = import.meta.env.VITE_STRAPI_URL;
 const STRAPI_API_TOKEN = import.meta.env.VITE_STRAPI_API_TOKEN;
@@ -28,43 +26,41 @@ function getImageUrl(imageUrl: string): string {
 }
 
 // Strapi API interfaces
-interface StrapiSlideHeroImage {
+interface StrapiProfileImage {
   id: number;
-  title: string;
-  subtitle: string;
   alt: string;
-  order: number;
   image: {
     url: string;
   };
 }
 
-// Transform Strapi slide hero image to our format
-export function mapStrapiSlideHeroImage(
-  strapiImage: StrapiSlideHeroImage
-): SlideHeroImage {
+// Profile image type
+export interface ProfileImage {
+  id: string;
+  imageSrc: string;
+  altText: string;
+}
+
+// Transform Strapi profile image to our format
+export function mapStrapiProfileImage(
+  strapiImage: StrapiProfileImage
+): ProfileImage {
   return {
     id: strapiImage.id.toString(),
-    src: getImageUrl(strapiImage.image.url),
-    alt: strapiImage.alt,
-    title: strapiImage.title,
-    subtitle: strapiImage.subtitle,
-    order: strapiImage.order,
+    imageSrc: getImageUrl(strapiImage.image.url),
+    altText: strapiImage.alt,
   };
 }
 
-// Fetch slide hero images from Strapi
-export async function fetchSlideHeroImagesFromStrapi(): Promise<
-  SlideHeroImage[]
-> {
+// Fetch profile image from Strapi
+export async function fetchProfileImageFromStrapi(): Promise<ProfileImage | null> {
   try {
-    console.log(
-      "🚀 FETCHING SLIDE HERO IMAGES FROM STRAPI - This should only appear once per 10 minutes!"
+    const response = await fetch(
+      `${STRAPI_URL}/api/profile-images?populate=image`,
+      {
+        headers: createStrapiHeaders(),
+      }
     );
-
-    const response = await fetch(`${STRAPI_URL}/api/slider-hero-images?populate=image&sort=order:asc`, {
-      headers: createStrapiHeaders(),
-    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -73,13 +69,13 @@ export async function fetchSlideHeroImagesFromStrapi(): Promise<
     const data = await response.json();
     console.log(data);
 
-    if (!data.data || !Array.isArray(data.data)) {
-      throw new Error("Invalid data format from Strapi");
+    if (!data.data) {
+      return null;
     }
 
-    return data.data.map(mapStrapiSlideHeroImage);
+    return mapStrapiProfileImage(data.data[0]);
   } catch (error) {
-    console.error("Error fetching slide hero images from Strapi:", error);
-    throw error;
+    console.error("Error fetching profile image from Strapi:", error);
+    return null;
   }
 }

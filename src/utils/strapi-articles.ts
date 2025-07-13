@@ -2,7 +2,7 @@ import { getCategoryColor } from "./category-colors";
 import type { Article } from "../types/articles";
 
 // Strapi API configuration
-const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL;
 const STRAPI_API_TOKEN = import.meta.env.VITE_STRAPI_API_TOKEN;
 
 // Create headers for Strapi requests

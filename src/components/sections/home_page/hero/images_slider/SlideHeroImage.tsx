@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FloatingBadge } from "./FloatingBadge";
 import { useSlideHeroImages } from "../../../../../hooks/useSlideHeroImages";
-import { images as fallbackImages } from "../../../../../data/slide_hero_image";
 import type { SlideHeroImageProps } from "../../../../../types/slide_hero_images";
 
 const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
@@ -10,31 +9,19 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
   autoSwitch = true,
   switchInterval = 6000,
 }) => {
-  const { data: strapiImages, isLoading } = useSlideHeroImages();
+  const { data: images, isLoading } = useSlideHeroImages();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [direction, setDirection] = useState(0);
-
-  // Use Strapi images if available, otherwise fallback to static images
-  const images = strapiImages && strapiImages.length > 0 ? strapiImages : fallbackImages;
 
   // Reset current image index when images change
   useEffect(() => {
     setCurrentImageIndex(0);
   }, [images]);
 
-  // Show loading state if Strapi is loading and we don't have fallback data
-  if (isLoading && (!fallbackImages || fallbackImages.length === 0)) {
-    return (
-      <div className={`relative w-full min-h-[300px] ${className} flex items-center justify-center`}>
-        <div className="animate-pulse bg-slate-200 rounded-2xl w-full h-full min-h-[300px]"></div>
-      </div>
-    );
-  }
-
   // Auto-switch images
   useEffect(() => {
-    if (!autoSwitch || isHovered || images.length <= 1) return;
+    if (!autoSwitch || isHovered || !images || images.length <= 1) return;
 
     const interval = setInterval(() => {
       setDirection(1);
@@ -44,7 +31,18 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
     }, switchInterval);
 
     return () => clearInterval(interval);
-  }, [autoSwitch, isHovered, images.length, switchInterval]);
+  }, [autoSwitch, isHovered, images?.length, switchInterval]);
+
+  // Show loading state if Strapi is loading and we don't have fallback data
+  if (isLoading || !images || images.length === 0) {
+    return (
+      <div
+        className={`relative w-full min-h-[300px] ${className} flex items-center justify-center`}
+      >
+        <div className="animate-pulse bg-slate-200 rounded-2xl w-full h-full min-h-[300px]"></div>
+      </div>
+    );
+  }
 
   const currentImage = images[currentImageIndex];
 
@@ -56,6 +54,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
   };
 
   const goToPrevious = () => {
+    if (!images) return;
     setDirection(1);
     setCurrentImageIndex(
       currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1
@@ -63,6 +62,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
   };
 
   const goToNext = () => {
+    if (!images) return;
     setDirection(-1);
     setCurrentImageIndex(
       currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1
@@ -118,8 +118,8 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
             <AnimatePresence initial={false} custom={direction}>
               <motion.img
                 key={currentImageIndex}
-                src={currentImage.src}
-                alt={currentImage.alt}
+                src={currentImage?.src || ""}
+                alt={currentImage?.alt || ""}
                 className="w-full h-full object-cover object-center rounded-xl sm:rounded-2xl absolute inset-0"
                 custom={direction}
                 variants={slideVariants}
@@ -139,7 +139,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
             </AnimatePresence>
 
             {/* Navigation Arrows - Responsive */}
-            {images.length > 1 && (
+            {images && images.length > 1 && (
               <AnimatePresence>
                 {isHovered && (
                   <>
@@ -196,7 +196,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
             )}
 
             {/* Image Indicators - Responsive */}
-            {images.length > 1 && (
+            {images && images.length > 1 && (
               <div className="absolute bottom-2 sm:bottom-3 lg:bottom-4 left-1/2 transform -translate-x-1/2 flex gap-1.5 sm:gap-2 z-10">
                 {images.map((_, index) => (
                   <button
@@ -215,24 +215,28 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
           </div>
 
           {/* Floating Badge - Responsive positioning */}
-          <div className="hidden sm:block">
-            <FloatingBadge
-              currentImage={currentImage}
-              currentImageIndex={currentImageIndex}
-            />
-          </div>
+          {currentImage && (
+            <div className="hidden sm:block">
+              <FloatingBadge
+                currentImage={currentImage}
+                currentImageIndex={currentImageIndex}
+              />
+            </div>
+          )}
         </motion.div>
       </div>
 
       {/* Mobile-only Badge (below image) */}
-      <div className="block sm:hidden mt-4">
-        <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 text-center">
-          <h4 className="text-sm font-bold text-white mb-1">
-            {currentImage.title}
-          </h4>
-          <p className="text-xs text-slate-300">{currentImage.subtitle}</p>
+      {currentImage && (
+        <div className="block sm:hidden mt-4">
+          <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 text-center">
+            <h4 className="text-sm font-bold text-white mb-1">
+              {currentImage.title}
+            </h4>
+            <p className="text-xs text-slate-300">{currentImage.subtitle}</p>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

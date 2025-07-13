@@ -15,8 +15,8 @@ export interface ProcessStep {
 export interface AboutConfig {
   name: string;
   description: string;
-  altText: string;
-  imageSrc: string;
+  altText?: string;
+  imageSrc?: string;
 }
 
 export interface HeaderConfig {

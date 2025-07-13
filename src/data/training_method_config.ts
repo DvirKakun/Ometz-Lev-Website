@@ -1,6 +1,5 @@
 import { Heart, Brain, Target, Shield } from "lucide-react";
 import type { MethodConfig } from "../types/method";
-import Elad_And_Boni from "../assets/images/Elad_And_Boni.jpg";
 
 export const trainingMethodConfig: MethodConfig = {
   header: {
@@ -11,8 +10,6 @@ export const trainingMethodConfig: MethodConfig = {
     name: "אלעד",
     description:
       "מדריך אילוף כלבים מוסמך עם מעל 5 שנות ניסיון. מתמחה בחיזוק חיובי ויצירת קשר מיוחד בין הכלב לבעליו",
-    altText: "אלעד - מדריך אילוף כלבים מקצועי",
-    imageSrc: Elad_And_Boni,
   },
   philosophy: {
     paragraphs: [

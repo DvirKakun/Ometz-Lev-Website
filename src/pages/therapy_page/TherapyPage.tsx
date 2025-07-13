@@ -5,12 +5,13 @@ import ContentSection from "../../components/sections/shared/content/ContentSect
 import CollapsibleFeatures from "../../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import { FAQSection } from "../../components/sections/shared/faq";
-import { therapyMethodConfig } from "../../data/therapy_method_config";
+import { useTherapyMethodConfig } from "../../hooks/useTherapyMethodConfig";
 import { therapyContentConfig } from "../../data/therapy_content_config";
 import type { TherapygPageProps } from "../../types/therapy_page";
 
 const TherapyPage = ({ service }: TherapygPageProps) => {
   const location = useLocation();
+  const { data: methodConfig } = useTherapyMethodConfig();
 
   useEffect(() => {
     document.title = "כלבנות טיפולית | אומץ לב";
@@ -47,7 +48,7 @@ const TherapyPage = ({ service }: TherapygPageProps) => {
       <CollapsibleFeatures service={service} />
 
       {/* Therapy Method Section */}
-      <MethodSection config={therapyMethodConfig} />
+      <MethodSection config={methodConfig} />
 
       {/* Videos Section */}
       <ContentSection

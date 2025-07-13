@@ -2,26 +2,26 @@ import { Calendar } from "lucide-react";
 import type { Activity } from "../types/activities";
 
 // Strapi API configuration
-const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL;
 const STRAPI_API_TOKEN = import.meta.env.VITE_STRAPI_API_TOKEN;
 
 // Create headers for Strapi requests
 function createStrapiHeaders(): HeadersInit {
   const headers: HeadersInit = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   };
-  
+
   if (STRAPI_API_TOKEN) {
-    headers['Authorization'] = `Bearer ${STRAPI_API_TOKEN}`;
+    headers["Authorization"] = `Bearer ${STRAPI_API_TOKEN}`;
   }
-  
+
   return headers;
 }
 
 // Helper function to construct proper image URLs
 function getImageUrl(imageUrl: string): string {
   // If the URL already starts with http/https, it's a full URL from Strapi Cloud
-  if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+  if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
     return imageUrl;
   }
   // Otherwise, it's a relative path that needs the Strapi URL
@@ -32,7 +32,11 @@ function getImageUrl(imageUrl: string): string {
 function isActivityPast(activityDate: Date): boolean {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const activityDay = new Date(activityDate.getFullYear(), activityDate.getMonth(), activityDate.getDate());
+  const activityDay = new Date(
+    activityDate.getFullYear(),
+    activityDate.getMonth(),
+    activityDate.getDate()
+  );
   return activityDay < today;
 }
 
@@ -41,11 +45,11 @@ function sortActivitiesByDate(activities: Activity[]): Activity[] {
   return activities.sort((a, b) => {
     const aIsPast = isActivityPast(a.date);
     const bIsPast = isActivityPast(b.date);
-    
+
     // If one is past and other is future, future comes first
     if (aIsPast && !bIsPast) return 1;
     if (!aIsPast && bIsPast) return -1;
-    
+
     // If both are future or both are past, sort by date (ascending)
     return a.date.getTime() - b.date.getTime();
   });
@@ -81,7 +85,7 @@ interface StrapiActivity {
 const mapStrapiToActivity = (strapiActivity: StrapiActivity): Activity => {
   const activityDate = new Date(strapiActivity.activityDate);
   const isPastActivity = isActivityPast(activityDate);
-  
+
   return {
     id: strapiActivity.id.toString(),
     title: strapiActivity.title,
@@ -90,9 +94,7 @@ const mapStrapiToActivity = (strapiActivity: StrapiActivity): Activity => {
     image: getImageUrl(strapiActivity.mainImage.url),
     imageAlt: strapiActivity.imageAlt,
     images:
-      strapiActivity.galleryImages?.map(
-        (img) => getImageUrl(img.url)
-      ) || [],
+      strapiActivity.galleryImages?.map((img) => getImageUrl(img.url)) || [],
     buttonText: strapiActivity.buttonText,
     hasRegistration: strapiActivity.hasRegistration,
     timerTitle: strapiActivity.timerTitle,

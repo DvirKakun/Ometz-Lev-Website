@@ -1,6 +1,5 @@
 import { Heart, Users, MessageCircle, Shield } from "lucide-react";
 import type { MethodConfig } from "../types/method";
-import Elad_And_Boni from "../assets/images/Elad_And_Boni.jpg";
 
 export const therapyMethodConfig: MethodConfig = {
   header: {
@@ -11,8 +10,6 @@ export const therapyMethodConfig: MethodConfig = {
     name: "אלעד",
     description:
       "מטפל בכלבנות טיפולית מוסמך עם מעל 5 שנות ניסיון. מתמחה בטיפול רגשי וחברתי באמצעות אינטראקציה עם כלבים מאומנים",
-    altText: "אלעד - מטפל בכלבנות טיפולית מקצועי",
-    imageSrc: Elad_And_Boni,
   },
   philosophy: {
     paragraphs: [
