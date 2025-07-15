@@ -1,8 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import PhoneButton from "../../common/PhoneButton";
+import SocialLinks from "./SocialLinks";
 
-const FooterCTA: React.FC = () => {
+interface FooterCTAProps {
+  showSocialLinks?: boolean;
+}
+
+const FooterCTA: React.FC<FooterCTAProps> = ({ showSocialLinks = false }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -23,6 +28,11 @@ const FooterCTA: React.FC = () => {
         size="sm"
         className="justify-center"
       />
+      {showSocialLinks && (
+        <div className="flex justify-center mt-6">
+          <SocialLinks />
+        </div>
+      )}
     </motion.div>
   );
 };

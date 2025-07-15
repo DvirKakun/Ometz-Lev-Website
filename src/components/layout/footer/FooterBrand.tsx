@@ -3,7 +3,13 @@ import { motion } from "framer-motion";
 import OmetzLevLogo from "../../../assets/icons/Ometz-Lev-Large-Logo.png";
 import SocialLinks from "./SocialLinks";
 
-const FooterBrand: React.FC = () => {
+interface FooterBrandProps {
+  showSocialLinks?: boolean;
+}
+
+const FooterBrand: React.FC<FooterBrandProps> = ({
+  showSocialLinks = true,
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -14,9 +20,9 @@ const FooterBrand: React.FC = () => {
     >
       <div className="h-[1.75rem] mb-6"></div>
 
-      <div className="flex justify-end">
+      <div className="flex lg:justify-end justify-start">
         <div
-          className="w-44 h-44 lg:w-52 lg:h-[6rem]"
+          className="w-60 h-40 lg:w-52 lg:h-[6rem]"
           style={{
             backgroundImage: `url(${OmetzLevLogo})`,
             backgroundSize: "contain",
@@ -25,9 +31,11 @@ const FooterBrand: React.FC = () => {
           }}
         />
       </div>
-      <div className="flex justify-end mt-8">
-        <SocialLinks />
-      </div>
+      {showSocialLinks && (
+        <div className="flex justify-end md:justify-end mt-8">
+          <SocialLinks />
+        </div>
+      )}
     </motion.div>
   );
 };
