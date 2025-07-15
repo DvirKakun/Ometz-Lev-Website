@@ -22,7 +22,7 @@ const ActivitySection = ({
     setSelectedImage(null);
   };
   return (
-    <section id={activity.id} className="py-16 bg-white">
+    <section id={activity.id} className="py-16 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -33,10 +33,10 @@ const ActivitySection = ({
             activity.isPast ? "opacity-75" : ""
           }`}
         >
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center overflow-hidden">
             {/* Content - Right side */}
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -99,7 +99,7 @@ const ActivitySection = ({
 
             {/* Images - Left side */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}

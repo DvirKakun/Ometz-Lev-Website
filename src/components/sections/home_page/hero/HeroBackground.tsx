@@ -2,11 +2,11 @@ const HeroBackground: React.FC = () => {
   return (
     <>
       {/* Animated Background Pattern */}
-      <div className="absolute inset-0">
-        {/* Large gradient orbs */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary-400/20 to-transparent rounded-full blur-3xl transform translate-x-32 -translate-y-32"></div>
-        <div className="absolute bottom-0 left-0 w-80 h-80 bg-gradient-to-tr from-accent-400/20 to-transparent rounded-full blur-3xl transform -translate-x-32 translate-y-32"></div>
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-primary-300/10 to-accent-300/10 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Large gradient orbs - responsive sizes and safe transforms */}
+        <div className="absolute top-0 right-0 w-32 h-32 sm:w-64 sm:h-64 lg:w-96 lg:h-96 bg-gradient-to-br from-primary-400/20 to-transparent rounded-full blur-3xl transform translate-x-4 -translate-y-4 sm:translate-x-16 sm:-translate-y-16 lg:translate-x-32 lg:-translate-y-32"></div>
+        <div className="absolute bottom-0 left-0 w-32 h-32 sm:w-64 sm:h-64 lg:w-80 lg:h-80 bg-gradient-to-tr from-accent-400/20 to-transparent rounded-full blur-3xl transform -translate-x-4 translate-y-4 sm:-translate-x-16 sm:translate-y-16 lg:-translate-x-32 lg:translate-y-32"></div>
+        <div className="absolute top-1/2 left-1/2 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-gradient-to-r from-primary-300/10 to-accent-300/10 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2"></div>
 
         {/* Subtle grid pattern */}
         <div className="absolute inset-0 opacity-5">

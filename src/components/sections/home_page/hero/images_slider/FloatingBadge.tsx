@@ -25,7 +25,7 @@ export function FloatingBadge({
           y: -2,
           transition: { duration: 0.3 },
         }}
-        className="absolute -bottom-5 -right-5 group cursor-default"
+        className="absolute -bottom-3 -right-3 sm:-bottom-5 sm:-right-5 group cursor-default"
       >
         {/* Enhanced backdrop glow effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary-300/40 via-primary-400/30 to-accent-400/40 rounded-2xl blur-lg scale-110 opacity-70 group-hover:opacity-90 group-hover:scale-115 transition-all duration-300"></div>

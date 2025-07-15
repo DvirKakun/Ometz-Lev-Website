@@ -17,7 +17,7 @@ const HeroSection: React.FC = () => {
 
           {/* Dynamic Image - Second on mobile, first on desktop (RTL) */}
           <motion.div
-            initial={{ opacity: 0, x: -50, scale: 0.95 }}
+            initial={{ opacity: 0, x: -20, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.8 }}
             className="order-1 lg:order-2 w-full"

@@ -91,9 +91,9 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Decorative Elements - Responsive */}
-      <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 lg:-top-6 lg:-right-6 w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-primary-200/50 rounded-full blur-xl sm:blur-2xl"></div>
-      <div className="absolute -bottom-2 -left-2 sm:-bottom-3 sm:-left-3 lg:-bottom-4 lg:-left-4 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-accent-200/50 rounded-full blur-xl sm:blur-2xl"></div>
+      {/* Decorative Elements - Responsive and safe positioning */}
+      <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 lg:-top-6 lg:-right-6 w-12 h-12 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-primary-200/50 rounded-full blur-xl sm:blur-2xl"></div>
+      <div className="absolute -bottom-1 -left-1 sm:-bottom-3 sm:-left-3 lg:-bottom-4 lg:-left-4 w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-accent-200/50 rounded-full blur-xl sm:blur-2xl"></div>
 
       {/* Main Image Container */}
       <div className="relative w-full">
