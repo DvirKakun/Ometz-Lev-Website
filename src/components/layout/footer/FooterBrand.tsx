@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import DogIcon from "../../../assets/images/DogIcon.ico";
+import OmetzLevLogo from "../../../assets/icons/Ometz-Lev-Large-Logo.png";
 import SocialLinks from "./SocialLinks";
 
 const FooterBrand: React.FC = () => {
@@ -12,28 +12,22 @@ const FooterBrand: React.FC = () => {
       viewport={{ once: true }}
       className="lg:col-span-1"
     >
-      <div className="flex items-center space-x-3 space-x-reverse mb-6">
-        <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center shadow-2xl border-2 border-white relative overflow-hidden">
-          <div
-            className="w-6 h-6 relative z-10"
-            style={{
-              backgroundImage: `url(${DogIcon})`,
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          />
-        </div>
-        <div>
-          <h3 className="text-xl font-bold text-white">אומץ לב</h3>
-          <p className="text-slate-400 text-sm">אילוף כלבים מקצועי</p>
-        </div>
+      <div className="h-[1.75rem] mb-6"></div>
+
+      <div className="flex justify-end">
+        <div
+          className="w-44 h-44 lg:w-52 lg:h-[6rem]"
+          style={{
+            backgroundImage: `url(${OmetzLevLogo})`,
+            backgroundSize: "contain",
+            backgroundPosition: "top right",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
       </div>
-      <p className="text-slate-300 leading-relaxed mb-6">
-        אנחנו מתמחים באילוף כלבים מקצועי, כלבנות טיפולית ואימונים אישיים. המטרה
-        שלנו היא ליצור קשר הרמוני בינכם לבין הכלב שלכם.
-      </p>
-      <SocialLinks />
+      <div className="flex justify-end mt-8">
+        <SocialLinks />
+      </div>
     </motion.div>
   );
 };

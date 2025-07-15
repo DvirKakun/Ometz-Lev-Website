@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import dogIcon from "../../../../../assets/images/DogIcon.ico";
+import ometzLevLogo from "../../../../../assets/icons/Ometz-Lev-Dogs-Logo.png";
 import type { FloatingBadgeProps } from "../../../../../types/floating_badge";
 
 export function FloatingBadge({
@@ -69,11 +69,11 @@ export function FloatingBadge({
               {/* Subtle inner glow */}
               <div className="absolute inset-0.5 bg-gradient-to-br from-primary-400/20 to-accent-400/20 rounded-lg"></div>
 
-              {/* Image layer */}
+              {/* Image layer - smaller image within the circle */}
               <div
-                className="absolute inset-0"
+                className="absolute inset-1"
                 style={{
-                  backgroundImage: `url(${dogIcon})`,
+                  backgroundImage: `url(${ometzLevLogo})`,
                   backgroundSize: "contain",
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",

@@ -1,12 +1,8 @@
 import { motion } from "framer-motion";
 import { Award } from "lucide-react";
+import { awardsWithDelay, type AwardWithDelay } from "../../../../data/awards";
 
 const AwardsBadges: React.FC = () => {
-  const awards = [
-    { text: "כלבן טיפולי", delay: 0.5 },
-    { text: "מאמן כלבים", delay: 0.6 },
-    { text: "מטפל התנהגותי", delay: 0.7 },
-  ];
 
   return (
     <motion.div
@@ -15,7 +11,7 @@ const AwardsBadges: React.FC = () => {
       transition={{ duration: 0.6, delay: 0.4 }}
       className="flex flex-wrap flex-row-reverse items-center justify-center lg:justify-end gap-3 mb-6"
     >
-      {awards.map((award, index) => (
+      {awardsWithDelay.map((award: AwardWithDelay, index: number) => (
         <motion.div
           key={index}
           initial={{ opacity: 0, scale: 0.8 }}

@@ -32,11 +32,11 @@ const Header: React.FC = () => {
 
   // Get closest activity for timer using React Query
   const { data: closestActivity } = useClosestActivity();
-  
+
   const handleTimerClick = () => {
     if (closestActivity) {
-      navigate('/activities', { 
-        state: { scrollToActivity: closestActivity.id } 
+      navigate("/activities", {
+        state: { scrollToActivity: closestActivity.id },
       });
     }
   };
@@ -51,7 +51,7 @@ const Header: React.FC = () => {
       )}
     >
       <nav className="w-full px-2 sm:px-4 lg:px-6">
-        <div className="flex items-center justify-between h-20 lg:h-24 gap-3 lg:gap-6">
+        <div className="flex items-center justify-between h-20 lg:h-24 gap-3 lg:gap-8">
           {/* Logo Component */}
           <div className="flex-shrink-0">
             <HeaderLogo />
