@@ -71,7 +71,7 @@ const ActivitySection = ({
                     <br />
                     <strong>משך כל מחזור:</strong> {activity.details.duration}
                     <br />
-                    <strong>{activity.details.note}</strong>
+                    <strong>{activity.details.note}</strong>D
                   </p>
                 </div>
               </div>

@@ -8,7 +8,15 @@ interface ArticleModalContentProps {
 
 export const ArticleModalContent = ({ article }: ArticleModalContentProps) => {
   return (
-    <div className="flex-1 overflow-y-auto p-6 bg-white min-h-0" dir="rtl">
+    <div 
+      className="flex-1 overflow-y-scroll p-4 sm:p-6 bg-white min-h-0 scroll-smooth custom-scrollbar" 
+      dir="ltr" 
+      style={{
+        scrollbarWidth: 'thin',
+        scrollbarColor: '#cbd5e1 #f1f5f9'
+      }}
+    >
+      <div dir="rtl">
       <DialogHeader className="mb-6 text-right">
         <DialogTitle className="text-3xl font-bold text-slate-900 mb-4 text-right leading-tight">
           {article.title}
@@ -33,12 +41,13 @@ export const ArticleModalContent = ({ article }: ArticleModalContentProps) => {
       </DialogHeader>
 
       {/* Article Content */}
-      <div className="bg-slate-50 rounded-lg p-6 border border-slate-200">
+      <div className="bg-slate-50 rounded-lg p-4 sm:p-6 border border-slate-200">
         <div className="max-w-none text-right" dir="rtl">
           <div className="text-slate-800 leading-relaxed whitespace-pre-wrap text-lg font-medium">
             {article.content || 'תוכן המאמר יתווסף בקרוב...'}
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
