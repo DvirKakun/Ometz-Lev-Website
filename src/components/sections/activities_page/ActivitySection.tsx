@@ -71,7 +71,7 @@ const ActivitySection = ({
                     <br />
                     <strong>משך כל מחזור:</strong> {activity.details.duration}
                     <br />
-                    <strong>{activity.details.note}</strong>D
+                    <strong>{activity.details.note}</strong>
                   </p>
                 </div>
               </div>
@@ -125,7 +125,7 @@ const ActivitySection = ({
                     onClick={
                       activity.isPast
                         ? undefined
-                        : () => handleImageClick(activity.image, 0)
+                        : () => handleImageClick(activity.image, -1)
                     }
                     crossOrigin="anonymous"
                   />
@@ -133,17 +133,17 @@ const ActivitySection = ({
                   {/* Coming Soon Diagonal Banner */}
                   {activity.isPast && (
                     <div className="absolute inset-0 flex items-center justify-center rounded-xl overflow-hidden">
-                      {/* Diagonal banner */}
-                      <div className="absolute top-0 right-0 w-full h-full">
-                        <div className="absolute top-4 -right-12 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg">
-                          בקרוב
-                        </div>
-                      </div>
-
                       {/* Center overlay with icon */}
                       <div className="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center">
                         <div className="bg-white/90 backdrop-blur-sm rounded-full p-4 shadow-lg">
                           <activity.icon className="w-8 h-8 text-slate-600" />
+                        </div>
+                      </div>
+
+                      {/* Diagonal banner - on top of overlay */}
+                      <div className="absolute top-0 right-0 w-full h-full z-10">
+                        <div className="absolute top-4 -right-12 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg">
+                          בקרוב
                         </div>
                       </div>
                     </div>

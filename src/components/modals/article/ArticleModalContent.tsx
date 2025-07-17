@@ -9,11 +9,11 @@ interface ArticleModalContentProps {
 export const ArticleModalContent = ({ article }: ArticleModalContentProps) => {
   return (
     <div 
-      className="flex-1 overflow-y-scroll p-4 sm:p-6 bg-white min-h-0 scroll-smooth custom-scrollbar" 
-      dir="ltr" 
+      className="overflow-y-auto p-4 sm:p-6 bg-white" 
+      dir="ltr"
       style={{
-        scrollbarWidth: 'thin',
-        scrollbarColor: '#cbd5e1 #f1f5f9'
+        WebkitOverflowScrolling: 'touch',
+        maxHeight: 'calc(90vh - 120px)'
       }}
     >
       <div dir="rtl">
