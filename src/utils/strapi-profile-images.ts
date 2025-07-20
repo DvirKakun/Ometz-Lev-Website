@@ -1,29 +1,9 @@
-// Strapi API configuration
-const STRAPI_URL = import.meta.env.VITE_STRAPI_URL;
-const STRAPI_API_TOKEN = import.meta.env.VITE_STRAPI_API_TOKEN;
-
-// Create headers for Strapi requests
-function createStrapiHeaders(): HeadersInit {
-  const headers: HeadersInit = {
-    "Content-Type": "application/json",
-  };
-
-  if (STRAPI_API_TOKEN) {
-    headers["Authorization"] = `Bearer ${STRAPI_API_TOKEN}`;
-  }
-
-  return headers;
-}
-
-// Helper function to construct proper image URLs
-function getImageUrl(imageUrl: string): string {
-  // If the URL already starts with http/https, it's a full URL from Strapi Cloud
-  if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
-    return imageUrl;
-  }
-  // Otherwise, it's a relative path that needs the Strapi URL
-  return `${STRAPI_URL}${imageUrl}`;
-}
+import { 
+  STRAPI_URL, 
+  createStrapiHeaders, 
+  getImageUrl, 
+  handleStrapiError 
+} from "./strapi-config";
 
 // Strapi API interfaces
 interface StrapiProfileImage {
@@ -75,7 +55,7 @@ export async function fetchProfileImageFromStrapi(): Promise<ProfileImage | null
 
     return mapStrapiProfileImage(data.data[0]);
   } catch (error) {
-    console.error("Error fetching profile image from Strapi:", error);
+    handleStrapiError(error, "profile image");
     return null;
   }
 }

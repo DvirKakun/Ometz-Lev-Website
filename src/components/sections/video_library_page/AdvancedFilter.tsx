@@ -58,13 +58,8 @@ const AdvancedFilter = ({
             <div className="flex items-center gap-4">
               <Filter className="w-5 h-5 text-slate-600" />
               <h2 className="text-lg font-semibold text-slate-800">
-                סינון וחיפוש
+                סינון לפי קטגוריה ורמת קושי
               </h2>
-              {hasActiveFilters && (
-                <span className="text-sm text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
-                  {filteredVideoCount} סרטונים
-                </span>
-              )}
             </div>
 
             {hasActiveFilters && (

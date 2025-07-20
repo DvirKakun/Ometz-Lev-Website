@@ -1,22 +1,11 @@
 import { getCategoryColor } from "./category-colors";
 import type { Article } from "../types/articles";
-
-// Strapi API configuration
-const STRAPI_URL = import.meta.env.VITE_STRAPI_URL;
-const STRAPI_API_TOKEN = import.meta.env.VITE_STRAPI_API_TOKEN;
-
-// Create headers for Strapi requests
-function createStrapiHeaders(): HeadersInit {
-  const headers: HeadersInit = {
-    "Content-Type": "application/json",
-  };
-
-  if (STRAPI_API_TOKEN) {
-    headers["Authorization"] = `Bearer ${STRAPI_API_TOKEN}`;
-  }
-
-  return headers;
-}
+import { 
+  STRAPI_URL, 
+  createStrapiHeaders, 
+  handleStrapiError, 
+  validateStrapiResponse 
+} from "./strapi-config";
 
 // Strapi API interfaces
 interface StrapiCategory {
@@ -69,17 +58,14 @@ export async function fetchCategoriesFromStrapi() {
     }
 
     const data = await response.json();
-
-    if (!data.data || !Array.isArray(data.data)) {
-      throw new Error("Invalid data format from Strapi");
-    }
+    validateStrapiResponse(data, "categories");
 
     const categories = data.data.map(mapStrapiCategory);
 
     // Always include "all" category at the beginning
     return [{ id: "all", name: "כל הקטגוריות", color: "slate" }, ...categories];
   } catch (error) {
-    console.error("Error fetching categories from Strapi:", error);
+    handleStrapiError(error, "categories");
     throw error;
   }
 }
@@ -105,14 +91,11 @@ export async function fetchArticlesFromStrapi(
     }
 
     const data = await response.json();
-
-    if (!data.data || !Array.isArray(data.data)) {
-      throw new Error("Invalid data format from Strapi");
-    }
+    validateStrapiResponse(data, "articles");
 
     return data.data.map(mapStrapiArticle);
   } catch (error) {
-    console.error("Error fetching articles from Strapi:", error);
+    handleStrapiError(error, "articles");
     throw error;
   }
 }

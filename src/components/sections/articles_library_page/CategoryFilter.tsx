@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { Filter, X } from "lucide-react";
-import { useCategories, useArticlesByCategory, useArticleCountPerCategory } from "../../../hooks/useArticles";
+import {
+  useCategories,
+  useArticlesByCategory,
+  useArticleCountPerCategory,
+} from "../../../hooks/useArticles";
 import { Button } from "../../ui/button";
 import type { CategoryFilterProps } from "../../../types/category";
 
@@ -11,7 +15,10 @@ const CategoryFilter = ({
   pageType,
 }: CategoryFilterProps) => {
   const { data: categories = [] } = useCategories();
-  const { data: filteredArticles = [] } = useArticlesByCategory(selectedCategory, pageType);
+  const { data: filteredArticles = [] } = useArticlesByCategory(
+    selectedCategory,
+    pageType
+  );
   const { getCountForCategory } = useArticleCountPerCategory(pageType);
   const getCategoryColorClasses = (color: string, isSelected: boolean) => {
     if (isSelected) {
@@ -61,11 +68,6 @@ const CategoryFilter = ({
               <h2 className="text-lg font-semibold text-slate-800">
                 סינון לפי קטגוריה
               </h2>
-              {hasActiveFilters && (
-                <span className="text-sm text-slate-500 bg-slate-100 px-2 py-1 rounded-full">
-                  {filteredArticleCount} מאמרים
-                </span>
-              )}
             </div>
 
             {hasActiveFilters && (
