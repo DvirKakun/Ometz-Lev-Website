@@ -57,7 +57,7 @@ const ActivitySection = ({
                 {activity.description.map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-lg text-slate-700 leading-relaxed"
+                    className="text-lg text-slate-700 leading-relaxed whitespace-pre-wrap"
                   >
                     {paragraph}
                   </p>

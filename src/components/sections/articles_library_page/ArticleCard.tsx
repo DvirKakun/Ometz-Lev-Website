@@ -47,7 +47,7 @@ const ArticleCard = ({
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="h-full"
     >
-      <Card 
+      <Card
         className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col"
         onClick={onClick}
       >

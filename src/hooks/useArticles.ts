@@ -1,15 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  fetchCategoriesFromStrapi,
-  fetchArticlesFromStrapi,
-} from "../utils/strapi-articles";
+import { fetchArticlesFromPrismic } from "../utils/prismic-articles";
+import { fetchCategoriesFromPrismic } from "../utils/prismic-categories";
 import type { Article } from "../types/articles";
 
 // Custom hook for fetching categories with caching (global categories)
 export function useCategories() {
   return useQuery({
     queryKey: ["categories"],
-    queryFn: () => fetchCategoriesFromStrapi(),
+    queryFn: () => fetchCategoriesFromPrismic(),
     staleTime: 10 * 60 * 1000, // 10 minutes
     gcTime: 30 * 60 * 1000, // 30 minutes
   });
@@ -18,8 +16,8 @@ export function useCategories() {
 // Custom hook for fetching articles with caching
 export function useArticles(page: "training" | "therapy" = "training") {
   return useQuery({
-    queryKey: ["articles", page],
-    queryFn: () => fetchArticlesFromStrapi(page),
+    queryKey: ["prismic-articles", page], // Changed key to avoid conflicts
+    queryFn: () => fetchArticlesFromPrismic(page),
     staleTime: 10 * 60 * 1000, // 10 minutes
     gcTime: 30 * 60 * 1000, // 30 minutes
   });
@@ -46,6 +44,7 @@ export function useArticlesByCategory(
 // Helper hook to get category name and color
 export function useCategoryInfo(categoryId: string) {
   const { data: categories = [] } = useCategories();
+  console.log(categories);
 
   const category = categories.find((c) => c.id === categoryId);
 
@@ -59,7 +58,7 @@ export function useCategoryInfo(categoryId: string) {
 export function useDemoArticles(page: "training" | "therapy" = "training") {
   const { data: articles = [], ...rest } = useArticles(page);
 
-  // Get unique categories represented in articles
+  // Get unique categories represented in articles (now by category name)
   const categoriesInArticles = [
     ...new Set(articles.map((article: Article) => article.category)),
   ];
@@ -67,8 +66,8 @@ export function useDemoArticles(page: "training" | "therapy" = "training") {
   // Try to get one article from each of the first 3 categories
   const demoArticles = categoriesInArticles
     .slice(0, 3)
-    .map((categoryId) =>
-      articles.find((article: Article) => article.category === categoryId)
+    .map((categoryName) =>
+      articles.find((article: Article) => article.category === categoryName)
     )
     .filter(Boolean) as Article[];
 
@@ -117,6 +116,7 @@ export function useArticleCountPerCategory(
 
   const getCountForCategory = (categoryId: string): number => {
     if (categoryId === "all") return articles.length;
+
     return articles.filter(
       (article: Article) => article.category === categoryId
     ).length;

@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Filter, X } from "lucide-react";
 import {
   useCategories,
-  useArticlesByCategory,
   useArticleCountPerCategory,
 } from "../../../hooks/useArticles";
 import { Button } from "../../ui/button";
@@ -15,10 +14,7 @@ const CategoryFilter = ({
   pageType,
 }: CategoryFilterProps) => {
   const { data: categories = [] } = useCategories();
-  const { data: filteredArticles = [] } = useArticlesByCategory(
-    selectedCategory,
-    pageType
-  );
+
   const { getCountForCategory } = useArticleCountPerCategory(pageType);
   const getCategoryColorClasses = (color: string, isSelected: boolean) => {
     if (isSelected) {
@@ -50,7 +46,6 @@ const CategoryFilter = ({
   };
 
   const hasActiveFilters = selectedCategory !== "all";
-  const filteredArticleCount = filteredArticles.length;
 
   return (
     <section className="py-8 bg-white border-b border-slate-200">

@@ -38,11 +38,6 @@ const AdvancedFilter = ({
 
   const hasActiveFilters =
     selectedLevel !== "all" || selectedCategory !== "all";
-  const filteredVideoCount = getVideosByFilters(
-    selectedLevel,
-    selectedCategory,
-    pageType
-  ).length;
 
   return (
     <section className="py-8 bg-white border-b border-slate-200">
