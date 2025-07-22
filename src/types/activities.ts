@@ -17,8 +17,7 @@ export interface Activity {
   title: string;
   description: string[];
   details: ActivityDetails;
-  image: string;
-  imageAlt: string;
+  main_image: ImageField;
   images?: PrismicGalleryImage[];
   icon: LucideIcon;
   color: string;

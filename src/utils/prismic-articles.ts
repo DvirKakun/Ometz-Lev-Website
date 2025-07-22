@@ -1,5 +1,6 @@
 import type { PrismicDocument } from "@prismicio/client";
 import type { Article } from "../types/articles";
+import { PRISMIC_PAGE_VALUES } from "../types/page";
 import {
   createPrismicClient,
   getPrismicText,
@@ -42,9 +43,10 @@ export async function fetchArticlesFromPrismic(
       fetchLinks: ["category.name"], // Fetch linked category data
     });
 
-    // Filter by page after fetching (since we're having filter syntax issues)
+    // Filter by page after fetching, using Hebrew values from Prismic
+    const hebrewPageValue = PRISMIC_PAGE_VALUES[page];
     const filteredResponse = response.filter((article: any) => {
-      return article.data.page === page;
+      return article.data.page === hebrewPageValue;
     });
 
     if (!filteredResponse || !Array.isArray(filteredResponse)) {

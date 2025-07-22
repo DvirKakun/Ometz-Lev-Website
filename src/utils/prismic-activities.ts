@@ -3,7 +3,6 @@ import type { Activity } from "../types/activities";
 import type { PrismicDocument } from "@prismicio/client";
 import {
   createPrismicClient,
-  getPrismicImageUrl,
   getPrismicText,
   getPrismicTitle,
   getPrismicDate,
@@ -75,7 +74,6 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
       })
       .filter((text: string) => text.length > 0) || [];
 
-  const imageAlt = getPrismicText(data.image_alt);
   const buttonText = getPrismicText(data.button_text);
   const timerTitle = getPrismicText(data.timer_title);
 
@@ -88,8 +86,7 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
       duration: String(details.duration),
       note: String(details.note),
     },
-    image: getPrismicImageUrl(data.main_image) || "",
-    imageAlt: String(imageAlt || "Activity image"),
+    main_image: data.main_image,
     images: data.gallery_images || [],
     // data.gallery_images?.map(
     //   (img: any) => getPrismicImageUrl(img.image) || "" // eslint-disable-line @typescript-eslint/no-explicit-any

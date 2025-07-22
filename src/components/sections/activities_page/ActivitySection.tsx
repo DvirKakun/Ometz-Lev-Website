@@ -115,8 +115,8 @@ const ActivitySection = ({
                 ></div>
                 <div className="relative bg-white p-2 rounded-2xl shadow-2xl">
                   <img
-                    src={activity.image}
-                    alt={activity.imageAlt}
+                    src={activity.main_image.url || ""}
+                    alt={activity.main_image.alt || "Activity image"}
                     loading="lazy"
                     className={`w-full h-auto rounded-xl ${
                       activity.isPast
@@ -126,7 +126,7 @@ const ActivitySection = ({
                     onClick={
                       activity.isPast
                         ? undefined
-                        : () => handleImageClick(activity.image, -1)
+                        : () => handleImageClick(activity.main_image.url || "", -1)
                     }
                     crossOrigin="anonymous"
                   />
@@ -178,7 +178,7 @@ const ActivitySection = ({
           isOpen={!!selectedImage}
           onClose={handleCloseDialog}
           imageUrl={selectedImage.url}
-          alt={activity.imageAlt}
+          alt={activity.main_image.alt || "Activity image"}
           imageIndex={selectedImage.index}
           totalImages={activity.images?.length || 1}
         />
