@@ -33,7 +33,9 @@ export function useArticlesByCategory(
   const filteredArticles =
     categoryId === "all"
       ? articles
-      : articles.filter((article: Article) => article.categories.includes(categoryId));
+      : articles.filter((article: Article) =>
+          article.categories.includes(categoryId)
+        );
 
   return {
     data: filteredArticles,
@@ -57,37 +59,11 @@ export function useCategoryInfo(categoryId: string) {
 export function useDemoArticles(page: "training" | "therapy" = "training") {
   const { data: articles = [], ...rest } = useArticles(page);
 
-  // Get unique categories represented in articles (now by category name)
-  const categoriesInArticles = [
-    ...new Set(articles.flatMap((article: Article) => article.categories)),
-  ];
-
-  // Try to get one article from each of the first 3 categories
-  const demoArticles = categoriesInArticles
-    .slice(0, 3)
-    .map((categoryName) =>
-      articles.find((article: Article) => article.categories.includes(categoryName))
-    )
-    .filter(Boolean) as Article[];
-
-  // If we don't have 3 articles, fill with first articles
-  if (demoArticles.length < 3) {
-    const remaining = 3 - demoArticles.length;
-    const additionalArticles = articles
-      .filter(
-        (article: Article) =>
-          !demoArticles.some((demo) => demo.articleKey === article.articleKey)
-      )
-      .slice(0, remaining);
-    demoArticles.push(...additionalArticles);
-  }
-
   return {
-    data: demoArticles.slice(0, 3),
+    data: articles.slice(0, 3),
     ...rest,
   };
 }
-
 // Helper hook for article statistics
 export function useArticleStats(page: "training" | "therapy" = "training") {
   const { data: articles = [] } = useArticles(page);
@@ -116,8 +92,8 @@ export function useArticleCountPerCategory(
   const getCountForCategory = (categoryId: string): number => {
     if (categoryId === "all") return articles.length;
 
-    return articles.filter(
-      (article: Article) => article.categories.includes(categoryId)
+    return articles.filter((article: Article) =>
+      article.categories.includes(categoryId)
     ).length;
   };
 
