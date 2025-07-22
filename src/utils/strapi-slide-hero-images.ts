@@ -1,10 +1,10 @@
 import type { SlideHeroImage } from "../types/slide_hero_images";
-import { 
-  STRAPI_URL, 
-  createStrapiHeaders, 
-  getImageUrl, 
-  handleStrapiError, 
-  validateStrapiResponse 
+import {
+  STRAPI_URL,
+  createStrapiHeaders,
+  getImageUrl,
+  handleStrapiError,
+  validateStrapiResponse,
 } from "./strapi-config";
 
 // Strapi API interfaces
@@ -38,20 +38,19 @@ export async function fetchSlideHeroImagesFromStrapi(): Promise<
   SlideHeroImage[]
 > {
   try {
-    console.log(
-      "🚀 FETCHING SLIDE HERO IMAGES FROM STRAPI - This should only appear once per 10 minutes!"
+    const response = await fetch(
+      `${STRAPI_URL}/api/slider-hero-images?populate=image&sort=order:asc`,
+      {
+        headers: createStrapiHeaders(),
+      }
     );
-
-    const response = await fetch(`${STRAPI_URL}/api/slider-hero-images?populate=image&sort=order:asc`, {
-      headers: createStrapiHeaders(),
-    });
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    console.log(data);
+
     validateStrapiResponse(data, "slide hero images");
 
     return data.data.map(mapStrapiSlideHeroImage);

@@ -1,4 +1,10 @@
 import type { LucideIcon } from "lucide-react";
+import type { ImageField } from "@prismicio/types";
+
+// Prismic gallery image structure
+export interface PrismicGalleryImage {
+  image: ImageField;
+}
 
 export interface ActivityDetails {
   ages: string;
@@ -13,7 +19,7 @@ export interface Activity {
   details: ActivityDetails;
   image: string;
   imageAlt: string;
-  images?: string[];
+  images?: PrismicGalleryImage[];
   icon: LucideIcon;
   color: string;
   bgColor: string;

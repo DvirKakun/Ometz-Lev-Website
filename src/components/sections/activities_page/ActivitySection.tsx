@@ -21,6 +21,7 @@ const ActivitySection = ({
   const handleCloseDialog = () => {
     setSelectedImage(null);
   };
+
   return (
     <section id={activity.id} className="py-16 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
@@ -164,7 +165,6 @@ const ActivitySection = ({
             >
               <ImageRoller
                 images={activity.images}
-                alt={activity.imageAlt}
                 onImageClick={handleImageClick}
               />
             </motion.div>

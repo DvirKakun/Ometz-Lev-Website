@@ -7,9 +7,10 @@ export interface ImageDialogProps {
   totalImages: number;
 }
 
+import type { PrismicGalleryImage } from "./activities";
+
 export interface ImageRollerProps {
-  images: string[];
-  alt: string;
+  images: PrismicGalleryImage[];
   onImageClick: (imageUrl: string, index: number) => void;
   className?: string;
 }

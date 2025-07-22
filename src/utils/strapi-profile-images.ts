@@ -1,8 +1,8 @@
-import { 
-  STRAPI_URL, 
-  createStrapiHeaders, 
-  getImageUrl, 
-  handleStrapiError 
+import {
+  STRAPI_URL,
+  createStrapiHeaders,
+  getImageUrl,
+  handleStrapiError,
 } from "./strapi-config";
 
 // Strapi API interfaces
@@ -47,7 +47,6 @@ export async function fetchProfileImageFromStrapi(): Promise<ProfileImage | null
     }
 
     const data = await response.json();
-    console.log(data);
 
     if (!data.data) {
       return null;

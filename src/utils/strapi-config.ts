@@ -42,10 +42,6 @@ export function validateStrapiResponse(data: any, context: string): void {
 // Generic fetch function for Strapi endpoints
 export async function fetchFromStrapi(endpoint: string, context: string) {
   try {
-    console.log(
-      `🚀 FETCHING ${context.toUpperCase()} FROM STRAPI - This should only appear once per 10 minutes!`
-    );
-
     const response = await fetch(`${STRAPI_URL}/api/${endpoint}`, {
       headers: createStrapiHeaders(),
     });

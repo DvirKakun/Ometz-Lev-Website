@@ -90,10 +90,10 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
     },
     image: getPrismicImageUrl(data.main_image) || "",
     imageAlt: String(imageAlt || "Activity image"),
-    images:
-      data.gallery_images?.map(
-        (img: any) => getPrismicImageUrl(img.image) || "" // eslint-disable-line @typescript-eslint/no-explicit-any
-      ) || [],
+    images: data.gallery_images || [],
+    // data.gallery_images?.map(
+    //   (img: any) => getPrismicImageUrl(img.image) || "" // eslint-disable-line @typescript-eslint/no-explicit-any
+    // ) || [],
     buttonText: String(buttonText || "Register"),
     hasRegistration: Boolean(data.has_registration),
     timerTitle: String(timerTitle || "Coming Soon"),

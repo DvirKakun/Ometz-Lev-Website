@@ -1,10 +1,10 @@
 import { getCategoryColor } from "./category-colors";
 import type { Article } from "../types/articles";
-import { 
-  STRAPI_URL, 
-  createStrapiHeaders, 
-  handleStrapiError, 
-  validateStrapiResponse 
+import {
+  STRAPI_URL,
+  createStrapiHeaders,
+  handleStrapiError,
+  validateStrapiResponse,
 } from "./strapi-config";
 
 // Strapi API interfaces
@@ -75,10 +75,6 @@ export async function fetchArticlesFromStrapi(
   page: "training" | "therapy" = "training"
 ) {
   try {
-    console.log(
-      `🚀 FETCHING ARTICLES FROM STRAPI (${page}) - This should only appear once per 10 minutes!`
-    );
-
     const response = await fetch(
       `${STRAPI_URL}/api/articles?populate=category&filters[page][$eq]=${page}`,
       {

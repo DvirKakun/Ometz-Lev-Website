@@ -44,7 +44,6 @@ export function useArticlesByCategory(
 // Helper hook to get category name and color
 export function useCategoryInfo(categoryId: string) {
   const { data: categories = [] } = useCategories();
-  console.log(categories);
 
   const category = categories.find((c) => c.id === categoryId);
 

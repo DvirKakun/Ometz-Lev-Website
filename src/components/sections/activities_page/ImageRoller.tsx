@@ -5,7 +5,6 @@ import type { ImageRollerProps } from "../../../types/image_roller";
 
 const ImageRoller: React.FC<ImageRollerProps> = ({
   images,
-  alt,
   onImageClick,
   className = "",
 }) => {
@@ -59,7 +58,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
   if (!images || images.length === 0) {
     return null;
   }
-
+  console.log(images);
   return (
     <div className={`relative ${className}`}>
       {/* Background container with shadow and separator */}
@@ -77,17 +76,17 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
               transform: `translateX(-${currentIndex * imageWidth}px)`,
             }}
           >
-            {images.map((image, index) => (
+            {images.map((galleryItem, index) => (
               <motion.div
                 key={index}
                 className="flex-shrink-0 w-48 h-36 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer bg-white"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => onImageClick(image, index)}
+                onClick={() => onImageClick(galleryItem.image.url || "", index)}
               >
                 <img
-                  src={image}
-                  alt={`${alt} ${index + 1}`}
+                  src={galleryItem.image.url || ""}
+                  alt={galleryItem.image.alt || "Gallery image"}
                   loading="lazy"
                   className="w-full h-full object-contain bg-gray-50"
                 />
