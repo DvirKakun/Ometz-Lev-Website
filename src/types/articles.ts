@@ -3,7 +3,7 @@ export interface Article {
   description: string;
   content?: string;
   readTime: number;
-  category: string;
+  categories: string[]; // All category IDs
   author: string;
   articleKey?: string;
 }

@@ -18,14 +18,17 @@ export function mapPrismicArticle(prismicArticle: PrismicArticle): Article {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = prismicArticle.data as any;
 
-  // Get category ID from the linked category document
-  const categoryId = data.category?.id ? String(data.category.id) : "all";
+  // Extract categories from the categories group
+  const categoriesGroup = data.categories || [];
+  const categoryIds = categoriesGroup
+    .map((item: any) => (item.category?.id ? String(item.category.id) : null))
+    .filter((id: string | null) => id !== null);
 
   return {
     title: getPrismicTitle(data.title) || "Untitled Article",
     description: getPrismicText(data.description) || "",
     content: getPrismicRichText(data.content) || "",
-    category: categoryId, // Now stores category ID for proper color matching
+    categories: categoryIds, // All categories
     readTime: Number(data.read_time) || 5,
     author: getPrismicText(data.author) || "Unknown Author",
     articleKey: String(prismicArticle.id),
@@ -40,7 +43,7 @@ export async function fetchArticlesFromPrismic(
     const client = createPrismicClient();
 
     const response = await client.getAllByType("article", {
-      fetchLinks: ["category.name"], // Fetch linked category data
+      fetchLinks: ["category.name"], // Fetch linked category data from group
     });
 
     // Filter by page after fetching, using Hebrew values from Prismic

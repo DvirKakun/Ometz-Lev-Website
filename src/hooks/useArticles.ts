@@ -33,7 +33,7 @@ export function useArticlesByCategory(
   const filteredArticles =
     categoryId === "all"
       ? articles
-      : articles.filter((article: Article) => article.category === categoryId);
+      : articles.filter((article: Article) => article.categories.includes(categoryId));
 
   return {
     data: filteredArticles,
@@ -59,14 +59,14 @@ export function useDemoArticles(page: "training" | "therapy" = "training") {
 
   // Get unique categories represented in articles (now by category name)
   const categoriesInArticles = [
-    ...new Set(articles.map((article: Article) => article.category)),
+    ...new Set(articles.flatMap((article: Article) => article.categories)),
   ];
 
   // Try to get one article from each of the first 3 categories
   const demoArticles = categoriesInArticles
     .slice(0, 3)
     .map((categoryName) =>
-      articles.find((article: Article) => article.category === categoryName)
+      articles.find((article: Article) => article.categories.includes(categoryName))
     )
     .filter(Boolean) as Article[];
 
@@ -117,7 +117,7 @@ export function useArticleCountPerCategory(
     if (categoryId === "all") return articles.length;
 
     return articles.filter(
-      (article: Article) => article.category === categoryId
+      (article: Article) => article.categories.includes(categoryId)
     ).length;
   };
 

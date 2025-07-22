@@ -6,9 +6,11 @@ interface ArticleModalHeaderProps {
 }
 
 export const ArticleModalHeader = ({ article }: ArticleModalHeaderProps) => {
-  const { name: categoryName, color: categoryColor } = useCategoryInfo(
-    article.category
-  );
+  // Get info for all categories
+  const categoriesInfo = article.categories.map((categoryId) => {
+    const { name, color } = useCategoryInfo(categoryId);
+    return { id: categoryId, name, color };
+  });
 
   const getCategoryColorClasses = (color: string) => {
     const colorMap = {
@@ -50,13 +52,18 @@ export const ArticleModalHeader = ({ article }: ArticleModalHeaderProps) => {
           {article.readTime} דק'
         </div>
 
-        {/* Category Badge */}
-        <div
-          className={`absolute top-4 left-4 px-4 py-2 rounded-full text-sm font-medium ${getCategoryColorClasses(
-            categoryColor
-          )}`}
-        >
-          {categoryName}
+        {/* Category Badges */}
+        <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-48">
+          {categoriesInfo.map((categoryInfo) => (
+            <div
+              key={categoryInfo.id}
+              className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColorClasses(
+                categoryInfo.color
+              )}`}
+            >
+              {categoryInfo.name}
+            </div>
+          ))}
         </div>
       </div>
     </div>

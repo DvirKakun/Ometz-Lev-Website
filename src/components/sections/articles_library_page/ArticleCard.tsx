@@ -13,9 +13,11 @@ const ArticleCard = ({
   index,
   onClick,
 }: ArticleCardPropsWithOnClick) => {
-  const { name: categoryName, color: categoryColor } = useCategoryInfo(
-    article.category
-  );
+  // Get info for all categories
+  const categoriesInfo = article.categories.map((categoryId) => {
+    const { name, color } = useCategoryInfo(categoryId);
+    return { id: categoryId, name, color };
+  });
 
   const getCategoryColorClasses = (color: string) => {
     const colorMap = {
@@ -70,13 +72,18 @@ const ArticleCard = ({
               {article.readTime} דק'
             </div>
 
-            {/* Category Badge */}
-            <div
-              className={`absolute top-3 left-3 px-3 py-1 rounded-full text-sm font-medium ${getCategoryColorClasses(
-                categoryColor
-              )}`}
-            >
-              {categoryName}
+            {/* Category Badges */}
+            <div className="absolute top-3 right-2 flex flex-wrap gap-1 max-w-32">
+              {categoriesInfo.map((categoryInfo) => (
+                <div
+                  key={categoryInfo.id}
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${getCategoryColorClasses(
+                    categoryInfo.color
+                  )}`}
+                >
+                  {categoryInfo.name}
+                </div>
+              ))}
             </div>
           </div>
         </div>
