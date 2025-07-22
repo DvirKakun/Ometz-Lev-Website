@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchProfileImageFromStrapi } from "../utils/strapi-profile-images";
+import { fetchProfileImageFromPrismic } from "../utils/prismic-profile-image";
 
 // Custom hook for fetching profile image with caching
 export function useProfileImage() {
   return useQuery({
     queryKey: ["profile-image"],
-    queryFn: () => fetchProfileImageFromStrapi(),
+    queryFn: () => fetchProfileImageFromPrismic(),
     staleTime: 10 * 60 * 1000, // 10 minutes
     gcTime: 30 * 60 * 1000, // 30 minutes
     retry: 3,

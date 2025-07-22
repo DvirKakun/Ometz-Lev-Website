@@ -16,7 +16,7 @@ export function useCategories() {
 // Custom hook for fetching articles with caching
 export function useArticles(page: "training" | "therapy" = "training") {
   return useQuery({
-    queryKey: ["prismic-articles", page], // Changed key to avoid conflicts
+    queryKey: ["articles", page], // Changed key to avoid conflicts
     queryFn: () => fetchArticlesFromPrismic(page),
     staleTime: 10 * 60 * 1000, // 10 minutes
     gcTime: 30 * 60 * 1000, // 30 minutes
