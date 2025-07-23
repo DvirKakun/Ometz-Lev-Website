@@ -99,3 +99,41 @@ export function useArticleCountPerCategory(
 
   return { getCountForCategory };
 }
+
+// Helper hook to get dynamic article count per category based on currently filtered articles
+export function useDynamicArticleCountPerCategory(
+  filteredArticles: Article[],
+  totalArticles: Article[]
+) {
+  const getCountForCategory = (categoryId: string): number => {
+    if (categoryId === "all") return totalArticles.length; // Always show total for "all"
+
+    return filteredArticles.filter((article: Article) =>
+      article.categories.includes(categoryId)
+    ).length;
+  };
+
+  return { getCountForCategory };
+}
+
+// Helper hook to get articles by multiple categories (articles must include ALL selected categories)
+export function useArticlesByMultipleCategories(
+  selectedCategories: string[],
+  page: "training" | "therapy" = "training"
+) {
+  const { data: articles = [], ...rest } = useArticles(page);
+
+  const filteredArticles =
+    selectedCategories.length === 0 || selectedCategories.includes("all")
+      ? articles // Show all articles if no categories selected or "all" is selected
+      : articles.filter((article: Article) =>
+          selectedCategories.every((categoryId) =>
+            article.categories.includes(categoryId)
+          )
+        );
+
+  return {
+    data: filteredArticles,
+    ...rest,
+  };
+}

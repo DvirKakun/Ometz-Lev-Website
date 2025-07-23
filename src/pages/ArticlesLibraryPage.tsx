@@ -1,38 +1,60 @@
 import { useState } from "react";
-import { useArticlesByCategory } from "../hooks/useArticles";
+import { useArticlesByMultipleCategories } from "../hooks/useArticles";
 import LibraryHeader from "../components/sections/shared/headers/LibraryHeader";
-import CategoryFilter from "../components/sections/articles_library_page/CategoryFilter";
+import MultipleCategoryFilter from "../components/sections/articles_library_page/MultipleCategoryFilter";
 import ArticlesGrid from "../components/sections/articles_library_page/ArticlesGrid";
 import type { ArticlesLibraryPageProps } from "../types/library";
 
 const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(["all"]);
   const { 
     data: filteredArticles = [], 
     isLoading, 
     error 
-  } = useArticlesByCategory(selectedCategory, config.pageType);
+  } = useArticlesByMultipleCategories(selectedCategories, config.pageType);
 
-  const handleCategoryChange = (categoryId: string) => {
-    setSelectedCategory(categoryId);
+  const handleCategoryToggle = (categoryId: string) => {
+    setSelectedCategories(prev => {
+      if (categoryId === "all") {
+        // If "All" is clicked, select only "All" and clear others
+        return ["all"];
+      } else {
+        // If any other category is clicked
+        const hasAll = prev.includes("all");
+        const hasCategory = prev.includes(categoryId);
+        
+        if (hasAll) {
+          // If "All" was selected, remove it and add the clicked category
+          return [categoryId];
+        } else if (hasCategory) {
+          // Remove the category if it's already selected
+          const newSelection = prev.filter(id => id !== categoryId);
+          // If no categories remain, default to "All"
+          return newSelection.length === 0 ? ["all"] : newSelection;
+        } else {
+          // Add the category to selection
+          return [...prev, categoryId];
+        }
+      }
+    });
   };
 
   const handleClearFilters = () => {
-    setSelectedCategory("all");
+    setSelectedCategories(["all"]);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-accent-50/30 to-orange-50/50">
       <LibraryHeader config={config} />
-      <CategoryFilter
-        selectedCategory={selectedCategory}
-        onCategoryChange={handleCategoryChange}
+      <MultipleCategoryFilter
+        selectedCategories={selectedCategories}
+        onCategoryToggle={handleCategoryToggle}
         onClearFilters={handleClearFilters}
         pageType={config.pageType}
       />
       <ArticlesGrid
         articles={filteredArticles}
-        selectedCategory={selectedCategory}
+        selectedCategory={selectedCategories.length === 0 ? "all" : "multiple"}
         isLoading={isLoading}
         error={error}
       />

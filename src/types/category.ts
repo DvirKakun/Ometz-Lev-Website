@@ -5,6 +5,9 @@ export interface CategoryFilterProps {
   pageType: "training" | "therapy";
 }
 
-export interface EmptyStateProps {
-  selectedCategory: string;
+export interface MultipleCategoryFilterProps {
+  selectedCategories: string[];
+  onCategoryToggle: (categoryId: string) => void;
+  onClearFilters: () => void;
+  pageType: "training" | "therapy";
 }

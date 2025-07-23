@@ -1,11 +1,7 @@
 import { motion } from "framer-motion";
 import { BookOpen, Search } from "lucide-react";
-import { useCategoryInfo } from "../../../hooks/useArticles";
-import type { EmptyStateProps } from "../../../types/category";
 
-const EmptyState = ({ selectedCategory }: EmptyStateProps) => {
-  const { name: categoryName } = useCategoryInfo(selectedCategory);
-
+const EmptyState = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -33,17 +29,6 @@ const EmptyState = ({ selectedCategory }: EmptyStateProps) => {
         >
           לא נמצאו מאמרים
         </motion.h3>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-slate-600 mb-6"
-        >
-          {selectedCategory === "all"
-            ? "אין מאמרים זמינים כרגע"
-            : `לא נמצאו מאמרים בקטגוריה "${categoryName}"`}
-        </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

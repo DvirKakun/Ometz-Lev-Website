@@ -48,16 +48,16 @@ export const ArticleModalHeader = ({ article }: ArticleModalHeaderProps) => {
         </div>
 
         {/* Read Time Badge */}
-        <div className="absolute bottom-4 right-4 bg-black/70 text-white px-3 py-2 rounded text-sm">
+        <div className="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-black/70 text-white px-2 py-1 sm:px-3 sm:py-2 rounded text-xs sm:text-sm">
           {article.readTime} דק'
         </div>
 
         {/* Category Badges */}
-        <div className="absolute top-4 left-4 flex flex-wrap gap-2 max-w-48">
+        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 flex flex-wrap gap-1 sm:gap-2 max-w-32 sm:max-w-48 md:max-w-56">
           {categoriesInfo.map((categoryInfo) => (
             <div
               key={categoryInfo.id}
-              className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryColorClasses(
+              className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium ${getCategoryColorClasses(
                 categoryInfo.color
               )}`}
             >
