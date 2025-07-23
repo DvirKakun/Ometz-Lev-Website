@@ -126,7 +126,8 @@ const ActivitySection = ({
                     onClick={
                       activity.isPast
                         ? undefined
-                        : () => handleImageClick(activity.main_image.url || "", -1)
+                        : () =>
+                            handleImageClick(activity.main_image.url || "", -1)
                     }
                     crossOrigin="anonymous"
                   />

@@ -4,9 +4,17 @@ import SplashBackground from "../components/sections/splash_screen/SplashBackgro
 import SplashLogo from "../components/sections/splash_screen/SplashLogo";
 import SplashContent from "../components/sections/splash_screen/SplashContent";
 import SplashProgress from "../components/sections/splash_screen/SplashProgress";
+import { usePrefetchHomePage } from "../hooks/usePrefetchData";
+import { useImagePreloader } from "../hooks/useImagePreloader";
 
 const SplashPage: React.FC = () => {
   const navigate = useNavigate();
+  
+  // Prefetch all homepage data during splash screen
+  usePrefetchHomePage();
+  
+  // Preload images from cached data
+  useImagePreloader();
 
   useEffect(() => {
     // Navigate to home after 3 seconds

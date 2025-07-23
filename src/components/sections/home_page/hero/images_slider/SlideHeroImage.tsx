@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FloatingBadge } from "./FloatingBadge";
 import { useSlideHeroImages } from "../../../../../hooks/useSlideHeroImages";
+import { useSwipeGesture } from "../../../../../hooks/useSwipeGesture";
 import type { SlideHeroImageProps } from "../../../../../types/slide_hero_images";
 
 const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
@@ -13,6 +14,15 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [direction, setDirection] = useState(0);
+  const [isTouching, setIsTouching] = useState(false);
+
+  // Touch/swipe gesture handlers - using existing navigation functions
+  const baseSwipeHandlers = useSwipeGesture({
+    onSwipeLeft: goToPrevious, // Swipe left = go to next (RTL)
+    onSwipeRight: goToNext, // Swipe right = go to previous (RTL)
+    minSwipeDistance: 30, // Reduced for easier mobile interaction
+    maxVerticalMovement: 120, // Slightly increased tolerance
+  });
 
   // Reset current image index when images change
   useEffect(() => {
@@ -21,7 +31,8 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
 
   // Auto-switch images
   useEffect(() => {
-    if (!autoSwitch || isHovered || !images || images.length <= 1) return;
+    if (!autoSwitch || isHovered || isTouching || !images || images.length <= 1)
+      return;
 
     const interval = setInterval(() => {
       setDirection(1);
@@ -31,7 +42,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
     }, switchInterval);
 
     return () => clearInterval(interval);
-  }, [autoSwitch, isHovered, images?.length, switchInterval]);
+  }, [autoSwitch, isHovered, isTouching, images, switchInterval]);
 
   // Show loading state if Strapi is loading and we don't have fallback data
   if (isLoading || !images || images.length === 0) {
@@ -47,26 +58,43 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
   const currentImage = images[currentImageIndex];
 
   // RTL Navigation Logic
-  const goToImage = (index: number) => {
+  function goToImage(index: number) {
     if (index === currentImageIndex) return;
     setDirection(index > currentImageIndex ? 1 : -1);
     setCurrentImageIndex(index);
-  };
+  }
 
-  const goToPrevious = () => {
+  function goToPrevious() {
     if (!images) return;
     setDirection(1);
     setCurrentImageIndex(
       currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1
     );
-  };
+  }
 
-  const goToNext = () => {
+  function goToNext() {
     if (!images) return;
     setDirection(-1);
     setCurrentImageIndex(
       currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1
     );
+  }
+
+  // Enhanced swipe handlers with touch state management
+  const swipeHandlers = {
+    ...baseSwipeHandlers,
+    onTouchStart: (e: React.TouchEvent) => {
+      setIsTouching(true);
+      baseSwipeHandlers.onTouchStart(e);
+    },
+    onTouchEnd: () => {
+      setIsTouching(false);
+      baseSwipeHandlers.onTouchEnd();
+    },
+    onTouchCancel: () => {
+      setIsTouching(false);
+      baseSwipeHandlers.onTouchCancel();
+    },
   };
 
   // RTL slide animation variants
@@ -109,12 +137,18 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
 
         {/* Image Container - Responsive */}
         <motion.div
-          className="relative bg-white p-1 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl transform -rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-500"
+          className={`relative bg-white p-1 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl transform -rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-500 ${
+            isTouching ? "scale-[0.98]" : ""
+          }`}
           whileHover={{ scale: 1.02 }}
           style={{ aspectRatio: "1/1" }}
         >
           {/* Image with Responsive Height */}
-          <div className="relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden">
+          <div
+            className="relative w-full h-full rounded-xl sm:rounded-2xl overflow-hidden select-none"
+            {...swipeHandlers}
+            style={{ touchAction: "pan-y pinch-zoom" }}
+          >
             <AnimatePresence initial={false} custom={direction}>
               <motion.img
                 key={currentImageIndex}
@@ -210,6 +244,22 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
                     aria-label={`עבור לתמונה ${index + 1}`}
                   />
                 ))}
+              </div>
+            )}
+
+            {/* Touch/Swipe Hint for Mobile - Only show if multiple images */}
+            {images && images.length > 1 && (
+              <div className="absolute top-2 left-2 sm:hidden bg-black/20 backdrop-blur-sm rounded-full px-2 py-1 z-10">
+                <div className="flex items-center gap-1 text-white text-xs">
+                  <svg
+                    className="w-3 h-3"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z" />
+                  </svg>
+                  <span>החלק</span>
+                </div>
               </div>
             )}
           </div>

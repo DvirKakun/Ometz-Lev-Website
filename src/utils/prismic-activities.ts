@@ -68,7 +68,7 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
   const description =
     data.description
       ?.map((desc: any) => {
-        // eslint-disable-line @typescript-eslint/no-explicit-any
+         
         const text = getPrismicRichText(desc.paragraph);
         return String(text || ""); // Force string conversion
       })
