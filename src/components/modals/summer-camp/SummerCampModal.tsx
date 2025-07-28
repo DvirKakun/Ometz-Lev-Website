@@ -5,7 +5,7 @@ import {
   DialogTitle,
 } from "../../ui/dialog";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SummerCampModalHeader from "./SummerCampModalHeader";
 import SummerCampModalForm from "./SummerCampModalForm";
 import SummerCampModalSuccess from "./SummerCampModalSuccess";
@@ -29,6 +29,24 @@ const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
   const handleError = () => {
     setSubmitStatus("error");
   };
+
+  // Handle mobile back button to close modal
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Add a simple history entry when modal opens
+    window.history.pushState(null, '', '');
+    
+    const handlePopState = () => {
+      onOpenChange(false);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isOpen, onOpenChange]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>

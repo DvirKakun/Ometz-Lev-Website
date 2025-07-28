@@ -1,6 +1,6 @@
 import { Dialog, DialogContent } from "../../ui/dialog";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import ContactModalHeader from "./ContactModalHeader";
 import ContactModalForm from "./ContactModalForm";
@@ -26,6 +26,24 @@ const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
   const handleError = () => {
     setSubmitStatus("error");
   };
+
+  // Handle mobile back button to close modal
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Add a simple history entry when modal opens
+    window.history.pushState(null, '', '');
+    
+    const handlePopState = () => {
+      onOpenChange(false);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isOpen, onOpenChange]);
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
