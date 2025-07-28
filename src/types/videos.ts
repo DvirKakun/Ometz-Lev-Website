@@ -1,18 +1,22 @@
 export interface Video {
   title: string;
+  subtitle?: string;
   description: string;
-  duration: string;
-  level: string;
-  category: string;
-  thumbnail: string;
-  videoKey?: string; // For storing video identifier/URL
+  videoUrl: string; // URL from Prismic media library
+  thumbnailUrl: string; // URL from Prismic image field
+  levelId: string; // Level ID for filtering
+  categories: string[]; // Category IDs
+  videoKey?: string; // Prismic document ID
 }
 
 export interface VideoCardProps {
   video: Video;
   index: number;
+  onClick?: (video: Video) => void;
 }
 
-export interface VideoGridProps {
+export interface VideosGridProps {
   videos: Video[];
+  isLoading?: boolean;
+  error?: Error | null;
 }

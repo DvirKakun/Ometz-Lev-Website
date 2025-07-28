@@ -63,9 +63,17 @@ export default function ActivitiesPage() {
     }
   }, [loading, activities, scrollToActivity]);
 
-  const handleRegisterClick = () => {
+  const handleRegisterClick = useCallback(() => {
     setIsModalOpen(true);
-  };
+  }, []);
+
+  const handleModalClose = useCallback(() => {
+    setIsModalOpen(false);
+  }, []);
+
+  const handleModalOpenChange = useCallback((open: boolean) => {
+    setIsModalOpen(open);
+  }, []);
 
   // Render content based on state
   const renderContent = () => {
@@ -148,7 +156,7 @@ export default function ActivitiesPage() {
       </motion.div>
 
       {/* Summer Camp Registration Modal */}
-      <SummerCampModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+      <SummerCampModal isOpen={isModalOpen} onOpenChange={handleModalOpenChange} />
     </>
   );
 }

@@ -1,16 +1,18 @@
 import { motion } from "framer-motion";
 import { Play, Clock } from "lucide-react";
-import {
-  getLevelName,
-  getLevelColor,
-  getCategoryName,
-  getCategoryColor,
-} from "../../../data/videos";
+import { useLevelInfo } from "../../../hooks/useLevels";
+import { useCategoryInfo } from "../../../hooks/useArticles";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import type { VideoCardProps } from "../../../types/videos";
 
-const VideoCard = ({ video, index }: VideoCardProps) => {
+const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
+  // Get level and category info from hooks
+  const { name: levelName, color: levelColor } = useLevelInfo(video.levelId);
+  const { name: categoryName, color: categoryColor } = useCategoryInfo(
+    video.categories[0] || ""
+  );
+
   const getColorClasses = (color: string) => {
     const colorMap = {
       slate: "bg-slate-500 text-white",
@@ -36,10 +38,23 @@ const VideoCard = ({ video, index }: VideoCardProps) => {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="h-full"
     >
-      <Card className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col">
+      <Card 
+        className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col"
+        onClick={() => onClick?.(video)}
+      >
         {/* Video Thumbnail */}
         <div className="relative flex-shrink-0">
-          <div className="aspect-video bg-gradient-to-br from-slate-200 to-slate-300 relative overflow-hidden">
+          <div className="aspect-video relative overflow-hidden">
+            {video.thumbnailUrl ? (
+              <img
+                src={video.thumbnailUrl}
+                alt={video.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300" />
+            )}
+
             <div className="absolute inset-0 flex items-center justify-center bg-slate-800/20 group-hover:bg-slate-800/30 transition-colors">
               <motion.div
                 whileHover={{ scale: 1.1 }}
@@ -49,28 +64,25 @@ const VideoCard = ({ video, index }: VideoCardProps) => {
               </motion.div>
             </div>
 
-            {/* Duration Badge */}
-            <div className="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-sm">
-              {video.duration}
-            </div>
-
             {/* Level Badge */}
             <div
               className={`absolute top-3 left-3 px-2 py-1 rounded-full text-xs font-medium ${getColorClasses(
-                getLevelColor(video.level)
+                levelColor
               )}`}
             >
-              {getLevelName(video.level)}
+              {levelName}
             </div>
 
-            {/* Category Badge */}
-            <div
-              className={`absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-medium ${getColorClasses(
-                getCategoryColor(video.category)
-              )}`}
-            >
-              {getCategoryName(video.category)}
-            </div>
+            {/* Category Badge - Only show if category exists */}
+            {video.categories.length > 0 && (
+              <div
+                className={`absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-medium ${getColorClasses(
+                  categoryColor
+                )}`}
+              >
+                {categoryName}
+              </div>
+            )}
           </div>
         </div>
 
@@ -78,6 +90,11 @@ const VideoCard = ({ video, index }: VideoCardProps) => {
           <h3 className="text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-red-600 transition-colors duration-300 line-clamp-2">
             {video.title}
           </h3>
+          {video.subtitle && (
+            <p className="text-slate-500 text-sm text-right mb-2 line-clamp-1">
+              {video.subtitle}
+            </p>
+          )}
           <p className="text-slate-600 leading-relaxed text-right text-sm mb-4 flex-1 line-clamp-3">
             {video.description}
           </p>
@@ -85,12 +102,16 @@ const VideoCard = ({ video, index }: VideoCardProps) => {
           <div className="flex items-center justify-between mt-auto">
             <div className="flex items-center gap-2 text-slate-500">
               <Clock className="w-4 h-4" />
-              <span className="text-sm">{video.duration}</span>
+              <span className="text-sm">וידאו</span>
             </div>
 
             <Button
               size="sm"
               className="bg-red-600 hover:bg-red-700 text-white"
+              onClick={(e) => {
+                e.stopPropagation();
+                onClick?.(video);
+              }}
             >
               צפה
               <Play className="w-4 h-4 mr-1" />

@@ -1,23 +1,22 @@
 import { motion } from "framer-motion";
 import { Dialog, DialogContent } from "../../ui/dialog";
-import { ArticleModalHeader } from "./ArticleModalHeader";
-import { ArticleModalContent } from "./ArticleModalContent";
-import type { Article } from "../../../types/articles";
+import { VideoModalHeader } from "./VideoModalHeader";
+import { VideoModalContent } from "./VideoModalContent";
+import type { Video } from "../../../types/videos";
 
-interface ArticleModalProps {
-  article: Article | null;
+interface VideoModalProps {
+  video: Video | null;
   isOpen: boolean;
   onClose: () => void;
 }
 
-const ArticleModal = ({ article, isOpen, onClose }: ArticleModalProps) => {
-
-  if (!article) return null;
+const VideoModal = ({ video, isOpen, onClose }: VideoModalProps) => {
+  if (!video) return null;
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
-        className="max-w-4xl max-h-[90vh] sm:max-h-[85vh] overflow-hidden p-0 bg-white border-0 shadow-2xl"
+        className="max-w-5xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden p-0 bg-white border-0 shadow-2xl"
         dir="rtl"
       >
         <motion.div
@@ -27,12 +26,12 @@ const ArticleModal = ({ article, isOpen, onClose }: ArticleModalProps) => {
           transition={{ duration: 0.2 }}
           className="flex flex-col bg-white rounded-lg overflow-hidden"
         >
-          <ArticleModalHeader article={article} />
-          <ArticleModalContent article={article} />
+          <VideoModalHeader video={video} />
+          <VideoModalContent video={video} />
         </motion.div>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default ArticleModal;
+export default VideoModal;

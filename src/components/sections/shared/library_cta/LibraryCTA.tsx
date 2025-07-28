@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../ui/button";
-import { videos } from "../../../../data/videos";
 import { useArticleStats } from "../../../../hooks/useArticles";
+import { useVideoStats } from "../../../../hooks/useVideos";
 import type { LibraryCTAProps } from "../../../../types/library";
 
 const LibraryCTA = ({
@@ -14,40 +14,35 @@ const LibraryCTA = ({
   buttonText,
 }: LibraryCTAProps) => {
   const navigate = useNavigate();
-  
-  // Get article stats from Strapi
+
+  // Get stats from Prismic
   const { articleCount, totalReadTimeMinutes } = useArticleStats(pageType);
+  const { videoCount } = useVideoStats(pageType);
 
   // Calculate stats based on content type
   const getStats = () => {
     if (contentType === "videos") {
-      const pageVideos = videos[pageType];
-      const videoCount =
-        pageVideos.length > 25 ? "25+" : pageVideos.length.toString();
-
-      const totalMinutes = pageVideos.reduce((total, video) => {
-        const [minutes, seconds] = video.duration.split(":").map(Number);
-        return total + minutes + seconds / 60;
-      }, 0);
-      const totalHours = Math.round(totalMinutes / 60);
+      const videoCountDisplay = videoCount > 25 ? "25+" : videoCount.toString();
 
       return {
-        count: videoCount,
+        count: videoCountDisplay,
         countLabel: "סרטונים",
-        time: `${totalHours}+`,
-        timeLabel: "שעות צפייה",
+        time: "זמין",
+        timeLabel: "לצפייה",
       };
     } else {
-      const articleCountDisplay = articleCount > 25 ? "25+" : articleCount.toString();
+      const articleCountDisplay =
+        articleCount > 25 ? "25+" : articleCount.toString();
       const totalHours = Math.floor(totalReadTimeMinutes / 60);
       const remainingMinutes = totalReadTimeMinutes % 60;
-      
+
       return {
         count: articleCountDisplay,
         countLabel: "מאמרים",
-        time: totalHours > 0 
-          ? `${totalHours}:${remainingMinutes.toString().padStart(2, "0")}`
-          : totalReadTimeMinutes.toString(),
+        time:
+          totalHours > 0
+            ? `${totalHours}:${remainingMinutes.toString().padStart(2, "0")}`
+            : totalReadTimeMinutes.toString(),
         timeLabel: totalHours > 0 ? "שעות" : "דקות",
       };
     }

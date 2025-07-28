@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Filter, X } from "lucide-react";
-import { levels, categories, getVideosByFilters } from "../../../data/videos";
+import { useLevels } from "../../../hooks/useLevels";
+import { useCategories } from "../../../hooks/useArticles";  
+import { useVideoCountPerCategory, useVideoCountPerLevel } from "../../../hooks/useVideos";
 import { Button } from "../../ui/button";
 import type { AdvancedFilterProps } from "../../../types/library";
 
@@ -12,6 +14,11 @@ const AdvancedFilter = ({
   onClearFilters,
   pageType,
 }: AdvancedFilterProps) => {
+  // Get data from Prismic
+  const { data: levels = [] } = useLevels();
+  const { data: categories = [] } = useCategories();
+  const { getCountForCategory } = useVideoCountPerCategory(pageType);
+  const { getCountForLevel } = useVideoCountPerLevel(pageType);
   const getColorClasses = (color: string, isSelected: boolean) => {
     if (isSelected) {
       const selectedColorMap = {
@@ -87,10 +94,7 @@ const AdvancedFilter = ({
                 >
                   {category.name}
                   <span className="mr-2 bg-white/20 px-1.5 py-0.5 rounded-full text-xs">
-                    {
-                      getVideosByFilters(selectedLevel, category.id, pageType)
-                        .length
-                    }
+                    {getCountForCategory(category.id)}
                   </span>
                 </Button>
               ))}
@@ -116,10 +120,7 @@ const AdvancedFilter = ({
                 >
                   {level.name}
                   <span className="mr-2 bg-white/20 px-1.5 py-0.5 rounded-full text-xs">
-                    {
-                      getVideosByFilters(level.id, selectedCategory, pageType)
-                        .length
-                    }
+                    {getCountForLevel(level.id)}
                   </span>
                 </Button>
               ))}

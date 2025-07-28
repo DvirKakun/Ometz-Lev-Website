@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getVideosByFilters } from "../data/videos";
+import { useVideosByCategoryAndLevel } from "../hooks/useVideos";
 import LibraryHeader from "../components/sections/shared/headers/LibraryHeader";
 import AdvancedFilter from "../components/sections/video_library_page/AdvancedFilter";
 import VideoGrid from "../components/sections/video_library_page/VideoGrid";
@@ -8,9 +8,11 @@ import type { VideoLibraryPageProps } from "../types/library";
 const VideoLibraryPage = ({ config }: VideoLibraryPageProps) => {
   const [selectedLevel, setSelectedLevel] = useState("all");
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const filteredVideos = getVideosByFilters(
-    selectedLevel,
+  
+  // Use Prismic data with filtering
+  const { data: filteredVideos = [], isLoading, error } = useVideosByCategoryAndLevel(
     selectedCategory,
+    selectedLevel,
     config.pageType
   );
 
@@ -38,7 +40,11 @@ const VideoLibraryPage = ({ config }: VideoLibraryPageProps) => {
         onClearFilters={handleClearFilters}
         pageType={config.pageType}
       />
-      <VideoGrid videos={filteredVideos} />
+      <VideoGrid 
+        videos={filteredVideos} 
+        isLoading={isLoading}
+        error={error}
+      />
     </div>
   );
 };

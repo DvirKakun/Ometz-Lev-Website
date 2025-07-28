@@ -40,8 +40,9 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
     }
   }, [isOpen, imageUrl]);
 
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogTitle className="sr-only">תצוגת תמונה</DialogTitle>
       <DialogContent
         className="p-0 bg-transparent border-0 shadow-none [&>button]:hidden max-w-[95vw] max-h-[95vh] flex items-center justify-center"
