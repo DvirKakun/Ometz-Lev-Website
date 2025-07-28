@@ -2,6 +2,7 @@ import { Play } from "lucide-react";
 import { useCategories } from "../../../hooks/useArticles";
 import { useLevelInfo } from "../../../hooks/useLevels";
 import { getCategoryColor } from "../../../utils/category-colors";
+import { getColorClasses } from "../../../utils/color-classes";
 import type { Video } from "../../../types/videos";
 
 interface VideoModalHeaderProps {
@@ -11,42 +12,20 @@ interface VideoModalHeaderProps {
 export const VideoModalHeader = ({ video }: VideoModalHeaderProps) => {
   // Get all categories from the hook
   const { data: allCategories = [] } = useCategories();
-  
+
   // Map video categories to their info
   const categoriesInfo = video.categories.map((categoryId) => {
-    const category = allCategories.find(cat => cat.id === categoryId);
+    const category = allCategories.find((cat) => cat.id === categoryId);
     return {
       id: categoryId,
       name: category?.name || categoryId,
-      color: category?.color || getCategoryColor(categoryId)
+      color: category?.color || getCategoryColor(categoryId),
     };
   });
 
   // Get level info
   const { name: levelName, color: levelColor } = useLevelInfo(video.levelId);
 
-  const getColorClasses = (color: string) => {
-    const colorMap = {
-      slate: "bg-slate-500 text-white",
-      blue: "bg-blue-500 text-white",
-      red: "bg-red-500 text-white",
-      green: "bg-green-500 text-white",
-      orange: "bg-orange-500 text-white",
-      purple: "bg-purple-500 text-white",
-      pink: "bg-pink-500 text-white",
-      indigo: "bg-indigo-500 text-white",
-      yellow: "bg-yellow-500 text-white",
-      teal: "bg-teal-500 text-white",
-      cyan: "bg-cyan-500 text-white",
-      emerald: "bg-emerald-500 text-white",
-      rose: "bg-rose-500 text-white",
-      amber: "bg-amber-500 text-white",
-      violet: "bg-violet-500 text-white",
-    };
-    return (
-      colorMap[color as keyof typeof colorMap] || "bg-slate-500 text-white"
-    );
-  };
 
   return (
     <div className="relative flex-shrink-0">
@@ -61,8 +40,10 @@ export const VideoModalHeader = ({ video }: VideoModalHeaderProps) => {
         </div>
 
         {/* Level Badge */}
-        <div 
-          className={`absolute bottom-2 right-2 sm:bottom-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-2 rounded text-xs sm:text-sm font-medium ${getColorClasses(levelColor)}`}
+        <div
+          className={`absolute bottom-2 right-2 sm:bottom-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-2 rounded text-xs sm:text-sm font-medium ${getColorClasses(
+            levelColor
+          )}`}
         >
           {levelName}
         </div>

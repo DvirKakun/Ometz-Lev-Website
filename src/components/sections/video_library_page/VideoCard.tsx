@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Play, Clock } from "lucide-react";
 import { useLevelInfo } from "../../../hooks/useLevels";
 import { useCategoryInfo } from "../../../hooks/useArticles";
+import { getColorClasses } from "../../../utils/color-classes";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import type { VideoCardProps } from "../../../types/videos";
@@ -13,23 +14,6 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
     video.categories[0] || ""
   );
 
-  const getColorClasses = (color: string) => {
-    const colorMap = {
-      slate: "bg-slate-500 text-white",
-      green: "bg-green-500 text-white",
-      yellow: "bg-yellow-500 text-white",
-      red: "bg-red-500 text-white",
-      purple: "bg-purple-500 text-white",
-      blue: "bg-blue-500 text-white",
-      orange: "bg-orange-500 text-white",
-      teal: "bg-teal-500 text-white",
-      indigo: "bg-indigo-500 text-white",
-      pink: "bg-pink-500 text-white",
-    };
-    return (
-      colorMap[color as keyof typeof colorMap] || "bg-slate-500 text-white"
-    );
-  };
 
   return (
     <motion.div

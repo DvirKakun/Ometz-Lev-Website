@@ -4,6 +4,7 @@ import {
   useCategories,
   useArticleCountPerCategory,
 } from "../../../hooks/useArticles";
+import { getInteractiveColorClasses } from "../../../utils/color-classes";
 import { Button } from "../../ui/button";
 import type { CategoryFilterProps } from "../../../types/category";
 
@@ -16,34 +17,6 @@ const CategoryFilter = ({
   const { data: categories = [] } = useCategories();
 
   const { getCountForCategory } = useArticleCountPerCategory(pageType);
-  const getCategoryColorClasses = (color: string, isSelected: boolean) => {
-    if (isSelected) {
-      const selectedColorMap = {
-        slate: "bg-slate-500 text-white",
-        blue: "bg-blue-500 text-white",
-        red: "bg-red-500 text-white",
-        green: "bg-green-500 text-white",
-        orange: "bg-orange-500 text-white",
-        purple: "bg-purple-500 text-white",
-        pink: "bg-pink-500 text-white",
-        indigo: "bg-indigo-500 text-white",
-        yellow: "bg-yellow-500 text-white",
-        teal: "bg-teal-500 text-white",
-        cyan: "bg-cyan-500 text-white",
-        emerald: "bg-emerald-500 text-white",
-        rose: "bg-rose-500 text-white",
-        amber: "bg-amber-500 text-white",
-        violet: "bg-violet-500 text-white",
-      };
-      return (
-        selectedColorMap[color as keyof typeof selectedColorMap] ||
-        "bg-slate-500 text-white"
-      );
-    }
-
-    // Default neutral styling for unselected buttons
-    return "border-slate-300 text-slate-700 hover:bg-slate-50";
-  };
 
   const hasActiveFilters = selectedCategory !== "all";
 
@@ -85,7 +58,7 @@ const CategoryFilter = ({
                 key={category.id}
                 onClick={() => onCategoryChange(category.id)}
                 variant="outline"
-                className={`transition-all duration-200 ${getCategoryColorClasses(
+                className={`transition-all duration-200 ${getInteractiveColorClasses(
                   category.color,
                   selectedCategory === category.id
                 )}`}

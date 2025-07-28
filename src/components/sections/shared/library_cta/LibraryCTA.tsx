@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../../ui/button";
 import { useArticleStats } from "../../../../hooks/useArticles";
 import { useVideoStats } from "../../../../hooks/useVideos";
+import { getCTAColorClasses } from "../../../../utils/color-classes";
 import type { LibraryCTAProps } from "../../../../types/library";
 
 const LibraryCTA = ({
@@ -57,26 +58,7 @@ const LibraryCTA = ({
     });
   };
 
-  const getColorClasses = () => {
-    const colorMap = {
-      red: {
-        bg: "from-red-500/5 to-red-600/10",
-        pulse: "bg-red-500",
-        text: "text-red-600",
-        button: "bg-red-600 hover:bg-red-700",
-      },
-      accent: {
-        bg: "from-accent-500/5 to-orange-600/10",
-        pulse: "bg-accent-500",
-        text: "text-accent-600",
-        button: "bg-accent-600 hover:bg-accent-700",
-      },
-    };
-
-    return colorMap[accentColor as keyof typeof colorMap] || colorMap.red;
-  };
-
-  const colors = getColorClasses();
+  const colors = getCTAColorClasses(accentColor);
 
   return (
     <motion.div

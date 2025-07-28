@@ -1,5 +1,6 @@
 import { useCategories } from "../../../hooks/useArticles";
 import { getCategoryColor } from "../../../utils/category-colors";
+import { getColorClasses } from "../../../utils/color-classes";
 import type { Article } from "../../../types/articles";
 
 interface ArticleModalHeaderProps {
@@ -20,28 +21,6 @@ export const ArticleModalHeader = ({ article }: ArticleModalHeaderProps) => {
     };
   });
 
-  const getCategoryColorClasses = (color: string) => {
-    const colorMap = {
-      slate: "bg-slate-500 text-white",
-      blue: "bg-blue-500 text-white",
-      red: "bg-red-500 text-white",
-      green: "bg-green-500 text-white",
-      orange: "bg-orange-500 text-white",
-      purple: "bg-purple-500 text-white",
-      pink: "bg-pink-500 text-white",
-      indigo: "bg-indigo-500 text-white",
-      yellow: "bg-yellow-500 text-white",
-      teal: "bg-teal-500 text-white",
-      cyan: "bg-cyan-500 text-white",
-      emerald: "bg-emerald-500 text-white",
-      rose: "bg-rose-500 text-white",
-      amber: "bg-amber-500 text-white",
-      violet: "bg-violet-500 text-white",
-    };
-    return (
-      colorMap[color as keyof typeof colorMap] || "bg-slate-500 text-white"
-    );
-  };
 
   return (
     <div className="relative flex-shrink-0">
@@ -65,7 +44,7 @@ export const ArticleModalHeader = ({ article }: ArticleModalHeaderProps) => {
           {categoriesInfo.map((categoryInfo) => (
             <div
               key={categoryInfo.id}
-              className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium ${getCategoryColorClasses(
+              className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium ${getColorClasses(
                 categoryInfo.color
               )}`}
             >

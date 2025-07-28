@@ -7,6 +7,7 @@ import {
   useArticlesByMultipleCategories,
 } from "../../../hooks/useArticles";
 import { Button } from "../../ui/button";
+import { getInteractiveColorClasses } from "../../../utils/color-classes";
 import type { MultipleCategoryFilterProps } from "../../../types/category";
 
 const MultipleCategoryFilter = ({
@@ -26,34 +27,6 @@ const MultipleCategoryFilter = ({
     totalArticles
   );
 
-  const getCategoryColorClasses = (color: string, isSelected: boolean) => {
-    if (isSelected) {
-      const selectedColorMap = {
-        slate: "bg-slate-500 text-white border-slate-500",
-        blue: "bg-blue-500 text-white border-blue-500",
-        red: "bg-red-500 text-white border-red-500",
-        green: "bg-green-500 text-white border-green-500",
-        orange: "bg-orange-500 text-white border-orange-500",
-        purple: "bg-purple-500 text-white border-purple-500",
-        pink: "bg-pink-500 text-white border-pink-500",
-        indigo: "bg-indigo-500 text-white border-indigo-500",
-        yellow: "bg-yellow-500 text-white border-yellow-500",
-        teal: "bg-teal-500 text-white border-teal-500",
-        cyan: "bg-cyan-500 text-white border-cyan-500",
-        emerald: "bg-emerald-500 text-white border-emerald-500",
-        rose: "bg-rose-500 text-white border-rose-500",
-        amber: "bg-amber-500 text-white border-amber-500",
-        violet: "bg-violet-500 text-white border-violet-500",
-      };
-      return (
-        selectedColorMap[color as keyof typeof selectedColorMap] ||
-        "bg-slate-500 text-white border-slate-500"
-      );
-    }
-
-    // Default neutral styling for unselected buttons
-    return "border-slate-300 text-slate-700 hover:bg-slate-50";
-  };
 
   const hasActiveFilters = selectedCategories.length > 0;
 
@@ -106,7 +79,7 @@ const MultipleCategoryFilter = ({
                   onClick={() => onCategoryToggle(category.id)}
                   variant="outline"
                   size="sm"
-                  className={`transition-all duration-200 relative text-xs sm:text-sm ${getCategoryColorClasses(
+                  className={`transition-all duration-200 relative text-xs sm:text-sm ${getInteractiveColorClasses(
                     category.color,
                     isSelected
                   )}`}
