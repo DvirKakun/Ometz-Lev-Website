@@ -12,7 +12,6 @@ export interface ProfileImage {
 export function mapPrismicProfileImage(
   prismicProfileImage: ImageField
 ): ProfileImage {
-  console.log(prismicProfileImage);
   return {
     id: String(prismicProfileImage.id),
     imageSrc: prismicProfileImage?.url || "",

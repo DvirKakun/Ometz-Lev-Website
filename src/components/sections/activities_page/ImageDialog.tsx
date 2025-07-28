@@ -22,8 +22,8 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
     if (isOpen && imageUrl) {
       const img = new Image();
       img.onload = () => {
-        const maxWidth = window.innerWidth * 0.9;
-        const maxHeight = window.innerHeight * 0.9;
+        const maxWidth = window.innerWidth * 0.95;
+        const maxHeight = window.innerHeight * 0.95;
 
         let { width, height } = img;
 
@@ -44,12 +44,14 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogTitle className="sr-only">תצוגת תמונה</DialogTitle>
       <DialogContent
-        className="p-0 bg-transparent border-0 shadow-none [&>button]:hidden"
+        className="p-0 bg-transparent border-0 shadow-none [&>button]:hidden max-w-[95vw] max-h-[95vh] flex items-center justify-center"
         style={{
           maxWidth: imageDimensions
-            ? `${imageDimensions.width + 40}px`
-            : "90vw",
-          width: imageDimensions ? `${imageDimensions.width + 40}px` : "auto",
+            ? `min(${imageDimensions.width + 40}px, 95vw)`
+            : "95vw",
+          width: imageDimensions
+            ? `min(${imageDimensions.width + 40}px, 95vw)`
+            : "auto",
         }}
       >
         {/* Custom Close Button */}
@@ -65,7 +67,7 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.2 }}
-          className="relative bg-white rounded-lg overflow-hidden shadow-2xl"
+          className="relative bg-white rounded-lg overflow-hidden shadow-2xl max-w-full max-h-full"
           style={{
             width: imageDimensions ? `${imageDimensions.width}px` : "auto",
             height: imageDimensions ? `${imageDimensions.height}px` : "auto",

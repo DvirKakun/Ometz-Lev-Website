@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { useSwipeGesture } from "../../../hooks/useSwipeGesture";
 import type { ImageRollerProps } from "../../../types/image_roller";
 
 const ImageRoller: React.FC<ImageRollerProps> = ({
@@ -21,6 +22,13 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
         const maxImages = Math.floor(containerWidth / imageWidth);
         // Ensure we show at least 1 image and at most 4
         const newVisibleImages = Math.max(1, maxImages);
+
+        // Adjust currentIndex if it would cause images to be out of view
+        if (newVisibleImages !== visibleImages) {
+          const maxIndex = Math.max(0, images.length - newVisibleImages);
+          setCurrentIndex((prev) => Math.min(prev, maxIndex));
+        }
+
         setVisibleImages(newVisibleImages);
       }
     };
@@ -28,10 +36,19 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
     calculateVisibleImages();
     window.addEventListener("resize", calculateVisibleImages);
     return () => window.removeEventListener("resize", calculateVisibleImages);
-  }, [imageWidth]);
+  }, [imageWidth, visibleImages, images.length]);
 
-  // Circular scroll left/right
-  const scrollLeft = () => {
+  // Touch/swipe gesture handling (matches Hero slider)
+  const swipeHandlers = useSwipeGesture({
+    onSwipeLeft: goToPrevious, // Swipe left = slide image left
+    onSwipeRight: goToNext, // Swipe right = slide image right
+    minSwipeDistance: 30, // Reduced for easier mobile interaction
+    maxVerticalMovement: 120, // Allow some vertical movement for scrolling
+  });
+
+  // RTL Navigation Logic (matches Hero slider)
+  function goToNext() {
+    // Slide right, indicator moves right to left (RTL)
     if (currentIndex === 0) {
       // Jump to the end
       const maxIndex = Math.max(0, images.length - visibleImages);
@@ -39,9 +56,10 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
     } else {
       setCurrentIndex((prev) => prev - 1);
     }
-  };
+  }
 
-  const scrollRight = () => {
+  function goToPrevious() {
+    // Slide left, indicator moves left to right (RTL)
     const maxIndex = Math.max(0, images.length - visibleImages);
     if (currentIndex >= maxIndex) {
       // Jump to the beginning
@@ -49,7 +67,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
     } else {
       setCurrentIndex((prev) => prev + 1);
     }
-  };
+  }
 
   // Always show arrows when there are more images than visible
   const canScrollLeft = images.length > visibleImages;
@@ -58,7 +76,6 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
   if (!images || images.length === 0) {
     return null;
   }
-  console.log(images);
   return (
     <div className={`relative ${className}`}>
       {/* Background container with shadow and separator */}
@@ -67,8 +84,13 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
         className="bg-slate-50 rounded-2xl p-6 shadow-lg border border-slate-200"
       >
         <div
-          className="relative overflow-hidden"
-          style={{ width: `${visibleImages * imageWidth}px`, margin: "0 auto" }}
+          className="relative overflow-hidden select-none"
+          style={{
+            width: `${visibleImages * imageWidth}px`,
+            margin: "0 auto",
+            touchAction: "pan-y pinch-zoom",
+          }}
+          {...swipeHandlers}
         >
           <div
             className="flex flex-row-reverse gap-4 transition-transform duration-300 ease-in-out"
@@ -97,7 +119,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
           {/* Left Arrow */}
           {canScrollLeft && (
             <button
-              onClick={scrollLeft}
+              onClick={goToNext}
               className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 z-10 border border-gray-200"
             >
               <ChevronLeft className="w-5 h-5 text-gray-700" />
@@ -107,7 +129,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
           {/* Right Arrow */}
           {canScrollRight && (
             <button
-              onClick={scrollRight}
+              onClick={goToPrevious}
               className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 z-10 border border-gray-200"
             >
               <ChevronRight className="w-5 h-5 text-gray-700" />

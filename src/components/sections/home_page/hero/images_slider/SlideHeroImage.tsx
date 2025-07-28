@@ -18,8 +18,8 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
 
   // Touch/swipe gesture handlers - using existing navigation functions
   const baseSwipeHandlers = useSwipeGesture({
-    onSwipeLeft: goToPrevious, // Swipe left = go to next (RTL)
-    onSwipeRight: goToNext, // Swipe right = go to previous (RTL)
+    onSwipeLeft: goToPrevious, // Swipe left = slide image left
+    onSwipeRight: goToNext, // Swipe right = slide image right
     minSwipeDistance: 30, // Reduced for easier mobile interaction
     maxVerticalMovement: 120, // Slightly increased tolerance
   });
@@ -35,14 +35,18 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
       return;
 
     const interval = setInterval(() => {
-      setDirection(1);
-      setCurrentImageIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
+      goToNext();
     }, switchInterval);
 
     return () => clearInterval(interval);
-  }, [autoSwitch, isHovered, isTouching, images, switchInterval]);
+  }, [
+    autoSwitch,
+    isHovered,
+    isTouching,
+    images,
+    switchInterval,
+    currentImageIndex,
+  ]);
 
   // Show loading state if Strapi is loading and we don't have fallback data
   if (isLoading || !images || images.length === 0) {
@@ -64,17 +68,17 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
     setCurrentImageIndex(index);
   }
 
-  function goToPrevious() {
+  function goToNext() {
     if (!images) return;
-    setDirection(1);
+    setDirection(-1); // Slide from left to right (image pushes right)
     setCurrentImageIndex(
       currentImageIndex === images.length - 1 ? 0 : currentImageIndex + 1
     );
   }
 
-  function goToNext() {
+  function goToPrevious() {
     if (!images) return;
-    setDirection(-1);
+    setDirection(1); // Slide from right to left (image pushes left)
     setCurrentImageIndex(
       currentImageIndex === 0 ? images.length - 1 : currentImageIndex - 1
     );
@@ -182,7 +186,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -20 }}
-                      onClick={goToPrevious}
+                      onClick={goToNext}
                       className="absolute left-2 sm:left-3 lg:left-4 top-1/2 transform -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110 z-10"
                       aria-label="תמונה הבאה (RTL)"
                     >
@@ -206,7 +210,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 20 }}
-                      onClick={goToNext}
+                      onClick={goToPrevious}
                       className="absolute right-2 sm:right-3 lg:right-4 top-1/2 transform -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 lg:w-10 lg:h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110 z-10"
                       aria-label="תמונה קודמת (RTL)"
                     >
