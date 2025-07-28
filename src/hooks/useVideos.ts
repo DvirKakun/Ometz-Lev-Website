@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchVideosFromPrismic } from "../utils/prismic-videos";
-import { fetchLevelsFromPrismic } from "../utils/prismic-levels";
 import type { Video } from "../types/videos";
 
 // Custom hook for fetching videos with caching

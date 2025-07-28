@@ -67,9 +67,6 @@ export default function ActivitiesPage() {
     setIsModalOpen(true);
   }, []);
 
-  const handleModalClose = useCallback(() => {
-    setIsModalOpen(false);
-  }, []);
 
   const handleModalOpenChange = useCallback((open: boolean) => {
     setIsModalOpen(open);

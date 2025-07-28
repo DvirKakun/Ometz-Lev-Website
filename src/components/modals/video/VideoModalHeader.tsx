@@ -1,6 +1,7 @@
 import { Play } from "lucide-react";
-import { useCategoryInfo } from "../../../hooks/useArticles";
+import { useCategories } from "../../../hooks/useArticles";
 import { useLevelInfo } from "../../../hooks/useLevels";
+import { getCategoryColor } from "../../../utils/category-colors";
 import type { Video } from "../../../types/videos";
 
 interface VideoModalHeaderProps {
@@ -8,10 +9,17 @@ interface VideoModalHeaderProps {
 }
 
 export const VideoModalHeader = ({ video }: VideoModalHeaderProps) => {
-  // Get info for all categories
+  // Get all categories from the hook
+  const { data: allCategories = [] } = useCategories();
+  
+  // Map video categories to their info
   const categoriesInfo = video.categories.map((categoryId) => {
-    const { name, color } = useCategoryInfo(categoryId);
-    return { id: categoryId, name, color };
+    const category = allCategories.find(cat => cat.id === categoryId);
+    return {
+      id: categoryId,
+      name: category?.name || categoryId,
+      color: category?.color || getCategoryColor(categoryId)
+    };
   });
 
   // Get level info

@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { Clock, User } from "lucide-react";
 import { Card, CardContent } from "../../ui/card";
-import { useCategoryInfo } from "../../../hooks/useArticles";
+import { useCategories } from "../../../hooks/useArticles";
+import { getCategoryColor } from "../../../utils/category-colors";
 import type { ArticleCardProps } from "../../../types/articles";
 
 interface ArticleCardPropsWithOnClick extends ArticleCardProps {
@@ -13,10 +14,17 @@ const ArticleCard = ({
   index,
   onClick,
 }: ArticleCardPropsWithOnClick) => {
-  // Get info for all categories
+  // Get all categories from the hook
+  const { data: allCategories = [] } = useCategories();
+  
+  // Map article categories to their info
   const categoriesInfo = article.categories.map((categoryId) => {
-    const { name, color } = useCategoryInfo(categoryId);
-    return { id: categoryId, name, color };
+    const category = allCategories.find(cat => cat.id === categoryId);
+    return {
+      id: categoryId,
+      name: category?.name || categoryId,
+      color: category?.color || getCategoryColor(categoryId)
+    };
   });
 
   const getCategoryColorClasses = (color: string) => {
