@@ -1,4 +1,4 @@
-import { useCategories } from "../../../hooks/useArticles";
+import { useCategories } from "../../../hooks/useCategories";
 import { getCategoryColor } from "../../../utils/category-colors";
 import { getColorClasses } from "../../../utils/color-classes";
 import type { Article } from "../../../types/articles";

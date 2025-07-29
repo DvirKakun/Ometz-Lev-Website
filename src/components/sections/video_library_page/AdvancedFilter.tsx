@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Filter, X } from "lucide-react";
 import { useLevels } from "../../../hooks/useLevels";
-import { useCategories } from "../../../hooks/useArticles";
+import { useCategories } from "../../../hooks/useCategories";
 import {
   useVideoCountPerCategory,
   useVideoCountPerLevel,

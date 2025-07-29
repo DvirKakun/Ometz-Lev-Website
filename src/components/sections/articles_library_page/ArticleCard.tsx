@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Clock, User } from "lucide-react";
 import { Card, CardContent } from "../../ui/card";
-import { useCategories } from "../../../hooks/useArticles";
+import { useCategories } from "../../../hooks/useCategories";
 import { getCategoryColor } from "../../../utils/category-colors";
 import { getColorClasses } from "../../../utils/color-classes";
 import type { ArticleCardProps } from "../../../types/articles";
@@ -76,10 +76,10 @@ const ArticleCard = ({
         </div>
 
         <CardContent className="p-4 flex-1 flex flex-col">
-          <h3 className="text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-accent-600 transition-colors duration-300 line-clamp-2">
+          <h3 className="text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-accent-600 transition-colors duration-300 line-clamp-2 whitespace-pre-wrap">
             {article.title}
           </h3>
-          <p className="text-slate-600 leading-relaxed text-right text-sm mb-4 flex-1 line-clamp-3">
+          <p className="text-slate-600 leading-relaxed text-right text-sm mb-4 flex-1 line-clamp-3 whitespace-pre-wrap">
             {article.description}
           </p>
 

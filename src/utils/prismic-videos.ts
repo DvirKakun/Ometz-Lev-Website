@@ -8,13 +8,14 @@ import {
   getPrismicImageUrl,
   handlePrismicError,
 } from "./prismic-config";
+import { getVideoDuration } from "./video-duration";
 
 // Type for the complete Prismic video document
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PrismicVideo = PrismicDocument<Record<string, any>>;
 
 // Transform Prismic video to our format
-export function mapPrismicVideo(prismicVideo: PrismicVideo): Video {
+export async function mapPrismicVideo(prismicVideo: PrismicVideo): Promise<Video> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = prismicVideo.data as any;
 
@@ -33,6 +34,17 @@ export function mapPrismicVideo(prismicVideo: PrismicVideo): Video {
   // Get level ID from content relationship
   const levelId = data.level?.id ? String(data.level.id) : "";
 
+  // Calculate video duration
+  let duration: string | undefined;
+  try {
+    if (videoUrl) {
+      duration = await getVideoDuration(videoUrl);
+    }
+  } catch (error) {
+    console.warn(`Failed to get duration for video ${prismicVideo.id}:`, error);
+    duration = undefined;
+  }
+
   return {
     title: getPrismicTitle(data.title) || "Untitled Video",
     subtitle: getPrismicText(data.subtitle) || "",
@@ -41,6 +53,7 @@ export function mapPrismicVideo(prismicVideo: PrismicVideo): Video {
     thumbnailUrl,
     levelId,
     categories: categoryIds,
+    duration,
     videoKey: String(prismicVideo.id),
   };
 }
@@ -73,7 +86,7 @@ export async function fetchVideosFromPrismic(
       return [];
     }
 
-    return filteredResponse.map(mapPrismicVideo);
+    return Promise.all(filteredResponse.map(mapPrismicVideo));
   } catch (error) {
     handlePrismicError(error, "videos");
     return [];

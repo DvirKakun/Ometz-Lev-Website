@@ -8,7 +8,7 @@ import ArticleModal from "../../modals/article/ArticleModal";
 import { AlertCircle } from "lucide-react";
 import type { ArticlesGridProps, Article } from "../../../types/articles";
 
-const ArticlesGrid = ({ articles, isLoading, error }: ArticlesGridProps) => {
+const ArticlesGrid = ({ articles, isLoading, error, hasActiveFilters = false, totalArticlesCount = 0 }: ArticlesGridProps) => {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -70,7 +70,10 @@ const ArticlesGrid = ({ articles, isLoading, error }: ArticlesGridProps) => {
               ))}
             </div>
           ) : (
-            <EmptyState />
+            <EmptyState 
+              hasActiveFilters={hasActiveFilters}
+              totalArticlesCount={totalArticlesCount}
+            />
           )}
         </motion.div>
 

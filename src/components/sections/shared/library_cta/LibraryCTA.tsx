@@ -18,18 +18,23 @@ const LibraryCTA = ({
 
   // Get stats from Prismic
   const { articleCount, totalReadTimeMinutes } = useArticleStats(pageType);
-  const { videoCount } = useVideoStats(pageType);
+  const { videoCount, totalWatchTimeMinutes } = useVideoStats(pageType);
 
   // Calculate stats based on content type
   const getStats = () => {
     if (contentType === "videos") {
       const videoCountDisplay = videoCount > 25 ? "25+" : videoCount.toString();
+      const totalHours = Math.floor(totalWatchTimeMinutes / 60);
+      const remainingMinutes = totalWatchTimeMinutes % 60;
 
       return {
         count: videoCountDisplay,
         countLabel: "סרטונים",
-        time: "זמין",
-        timeLabel: "לצפייה",
+        time:
+          totalHours > 0
+            ? `${totalHours}:${remainingMinutes.toString().padStart(2, "0")}`
+            : totalWatchTimeMinutes.toString(),
+        timeLabel: totalHours > 0 ? "שעות" : "דקות",
       };
     } else {
       const articleCountDisplay =

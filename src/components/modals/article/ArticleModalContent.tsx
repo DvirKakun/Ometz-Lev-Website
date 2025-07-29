@@ -18,7 +18,7 @@ export const ArticleModalContent = ({ article }: ArticleModalContentProps) => {
     >
       <div dir="rtl" className="p-4 sm:p-6 pb-8">
         <DialogHeader className="mb-6 text-right">
-          <DialogTitle className="text-3xl font-bold text-slate-900 mb-4 text-right leading-tight">
+          <DialogTitle className="text-3xl font-bold text-slate-900 mb-4 text-right leading-tight whitespace-pre-wrap">
             {article.title}
           </DialogTitle>
           
@@ -35,7 +35,7 @@ export const ArticleModalContent = ({ article }: ArticleModalContentProps) => {
             </div>
           </div>
 
-          <p className="text-slate-600 leading-relaxed text-right text-base mb-6" dir="rtl">
+          <p className="text-slate-600 leading-relaxed text-right text-base mb-6 whitespace-pre-wrap" dir="rtl">
             {article.description}
           </p>
         </DialogHeader>

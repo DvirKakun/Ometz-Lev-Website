@@ -1,19 +1,29 @@
 import { motion } from "framer-motion";
 import { Play, Clock } from "lucide-react";
 import { useLevelInfo } from "../../../hooks/useLevels";
-import { useCategoryInfo } from "../../../hooks/useArticles";
+import { useCategories } from "../../../hooks/useCategories";
+import { getCategoryColor } from "../../../utils/category-colors";
 import { getColorClasses } from "../../../utils/color-classes";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import type { VideoCardProps } from "../../../types/videos";
 
 const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
-  // Get level and category info from hooks
+  // Get level info from hook
   const { name: levelName, color: levelColor } = useLevelInfo(video.levelId);
-  const { name: categoryName, color: categoryColor } = useCategoryInfo(
-    video.categories[0] || ""
-  );
 
+  // Get all categories from the hook
+  const { data: allCategories = [] } = useCategories();
+
+  // Map video categories to their info
+  const categoriesInfo = video.categories.map((categoryId) => {
+    const category = allCategories.find((cat) => cat.id === categoryId);
+    return {
+      id: categoryId,
+      name: category?.name || categoryId,
+      color: category?.color || getCategoryColor(categoryId),
+    };
+  });
 
   return (
     <motion.div
@@ -22,7 +32,7 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="h-full"
     >
-      <Card 
+      <Card
         className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col"
         onClick={() => onClick?.(video)}
       >
@@ -57,36 +67,43 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
               {levelName}
             </div>
 
-            {/* Category Badge - Only show if category exists */}
-            {video.categories.length > 0 && (
-              <div
-                className={`absolute top-3 right-3 px-2 py-1 rounded-full text-xs font-medium ${getColorClasses(
-                  categoryColor
-                )}`}
-              >
-                {categoryName}
+            {/* Duration Badge */}
+            {video.duration && (
+              <div className="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-sm">
+                {video.duration}
               </div>
             )}
+
+            {/* Category Badges */}
+            <div className="absolute top-3 right-2 flex flex-wrap gap-1 max-w-32">
+              {categoriesInfo.map((categoryInfo) => (
+                <div
+                  key={categoryInfo.id}
+                  className={`px-2 py-1 rounded-full text-xs font-medium ${getColorClasses(
+                    categoryInfo.color
+                  )}`}
+                >
+                  {categoryInfo.name}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         <CardContent className="p-4 flex-1 flex flex-col">
-          <h3 className="text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-red-600 transition-colors duration-300 line-clamp-2">
+          <h3 className="text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-red-600 transition-colors duration-300 line-clamp-2 whitespace-pre-wrap">
             {video.title}
           </h3>
           {video.subtitle && (
-            <p className="text-slate-500 text-sm text-right mb-2 line-clamp-1">
+            <p className="text-slate-600 leading-relaxed text-right text-sm mb-4 flex-1 line-clamp-3 whitespace-pre-wrap">
               {video.subtitle}
             </p>
           )}
-          <p className="text-slate-600 leading-relaxed text-right text-sm mb-4 flex-1 line-clamp-3">
-            {video.description}
-          </p>
 
           <div className="flex items-center justify-between mt-auto">
             <div className="flex items-center gap-2 text-slate-500">
               <Clock className="w-4 h-4" />
-              <span className="text-sm">וידאו</span>
+              <span className="text-sm">{video.duration || "וידאו"}</span>
             </div>
 
             <Button

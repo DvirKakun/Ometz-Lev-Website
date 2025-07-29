@@ -6,6 +6,7 @@ export interface Video {
   thumbnailUrl: string; // URL from Prismic image field
   levelId: string; // Level ID for filtering
   categories: string[]; // Category IDs
+  duration?: string; // Duration in MM:SS or HH:MM:SS format
   videoKey?: string; // Prismic document ID
 }
 
@@ -19,4 +20,6 @@ export interface VideosGridProps {
   videos: Video[];
   isLoading?: boolean;
   error?: Error | null;
+  hasActiveFilters?: boolean;
+  totalVideosCount?: number;
 }

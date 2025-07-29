@@ -49,7 +49,7 @@ const ActivitySection = ({
                 >
                   <activity.icon className="w-6 h-6 text-white" />
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 text-right">
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 text-right whitespace-pre-wrap">
                   {activity.title}
                 </h2>
               </div>

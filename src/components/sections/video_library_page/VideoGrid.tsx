@@ -8,7 +8,7 @@ import VideoModal from "../../modals/video/VideoModal";
 import { AlertCircle } from "lucide-react";
 import type { VideosGridProps, Video } from "../../../types/videos";
 
-const VideoGrid = ({ videos, isLoading, error }: VideosGridProps) => {
+const VideoGrid = ({ videos, isLoading, error, hasActiveFilters = false, totalVideosCount = 0 }: VideosGridProps) => {
   // Modal state
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,7 +74,10 @@ const VideoGrid = ({ videos, isLoading, error }: VideosGridProps) => {
               ))}
             </div>
           ) : (
-            <EmptyState />
+            <EmptyState 
+              hasActiveFilters={hasActiveFilters}
+              totalVideosCount={totalVideosCount}
+            />
           )}
         </motion.div>
 

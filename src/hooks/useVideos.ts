@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchVideosFromPrismic } from "../utils/prismic-videos";
+import { calculateTotalDuration } from "../utils/video-duration";
 import type { Video } from "../types/videos";
 
 // Custom hook for fetching videos with caching
@@ -92,9 +93,15 @@ export function useVideoStats(page: "training" | "therapy" = "training") {
     return acc;
   }, {});
 
+  // Calculate total duration
+  const durations = videos.map((video: Video) => video.duration);
+  const { totalMinutes: totalWatchTimeMinutes, formattedDuration } = calculateTotalDuration(durations);
+
   return {
     videoCount,
     videosByLevel,
+    totalWatchTimeMinutes,
+    formattedDuration,
   };
 }
 
@@ -150,4 +157,63 @@ export function useVideosByMultipleCategories(
     data: filteredVideos,
     ...rest,
   };
+}
+
+// Helper hook to get videos by multiple categories AND level
+export function useVideosByMultipleCategoriesAndLevel(
+  selectedCategories: string[],
+  selectedLevel: string,
+  page: "training" | "therapy" = "training"
+) {
+  const { data: videos = [], ...rest } = useVideos(page);
+
+  const filteredVideos = videos.filter((video: Video) => {
+    // Filter by categories
+    const matchesCategories = 
+      selectedCategories.length === 0 || selectedCategories.includes("all")
+        ? true
+        : selectedCategories.every((categoryId) =>
+            video.categories.includes(categoryId)
+          );
+    
+    // Filter by level
+    const matchesLevel = selectedLevel === "all" || video.levelId === selectedLevel;
+    
+    return matchesCategories && matchesLevel;
+  });
+
+  return {
+    data: filteredVideos,
+    ...rest,
+  };
+}
+
+// Helper hook for dynamic video counts per category (used in VideoAdvancedFilter)
+export function useDynamicVideoCountPerCategory(
+  filteredVideos: Video[],
+  totalVideos: Video[]
+) {
+  const getCountForCategory = (categoryId: string): number => {
+    if (categoryId === "all") return totalVideos.length; // Always show total for "all"
+
+    return filteredVideos.filter((video: Video) =>
+      video.categories.includes(categoryId)
+    ).length;
+  };
+
+  return { getCountForCategory };
+}
+
+// Helper hook for dynamic video counts per level (used in VideoAdvancedFilter)
+export function useDynamicVideoCountPerLevel(
+  filteredVideos: Video[],
+  totalVideos: Video[]
+) {
+  const getCountForLevel = (levelId: string): number => {
+    if (levelId === "all") return totalVideos.length; // Always show total for "all"
+
+    return filteredVideos.filter((video: Video) => video.levelId === levelId).length;
+  };
+
+  return { getCountForLevel };
 }

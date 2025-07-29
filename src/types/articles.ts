@@ -18,4 +18,6 @@ export interface ArticlesGridProps {
   selectedCategory: string;
   isLoading?: boolean;
   error?: Error | null;
+  hasActiveFilters?: boolean;
+  totalArticlesCount?: number;
 }

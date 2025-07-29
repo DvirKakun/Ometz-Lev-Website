@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useArticlesByMultipleCategories } from "../hooks/useArticles";
+import { useArticlesByMultipleCategories, useArticles } from "../hooks/useArticles";
 import LibraryHeader from "../components/sections/shared/headers/LibraryHeader";
 import MultipleCategoryFilter from "../components/sections/articles_library_page/MultipleCategoryFilter";
 import ArticlesGrid from "../components/sections/articles_library_page/ArticlesGrid";
@@ -12,6 +12,12 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
     isLoading, 
     error 
   } = useArticlesByMultipleCategories(selectedCategories, config.pageType);
+  
+  // Get total articles count for empty state
+  const { data: totalArticles = [] } = useArticles(config.pageType);
+  
+  // Determine if there are active filters
+  const hasActiveFilters = !selectedCategories.includes("all") && selectedCategories.length > 0;
 
   const handleCategoryToggle = (categoryId: string) => {
     setSelectedCategories(prev => {
@@ -57,6 +63,8 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
         selectedCategory={selectedCategories.length === 0 ? "all" : "multiple"}
         isLoading={isLoading}
         error={error}
+        hasActiveFilters={hasActiveFilters}
+        totalArticlesCount={totalArticles.length}
       />
     </div>
   );

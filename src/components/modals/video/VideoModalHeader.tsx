@@ -1,5 +1,5 @@
 import { Play } from "lucide-react";
-import { useCategories } from "../../../hooks/useArticles";
+import { useCategories } from "../../../hooks/useCategories";
 import { useLevelInfo } from "../../../hooks/useLevels";
 import { getCategoryColor } from "../../../utils/category-colors";
 import { getColorClasses } from "../../../utils/color-classes";

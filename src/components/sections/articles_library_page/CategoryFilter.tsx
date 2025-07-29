@@ -1,9 +1,7 @@
 import { motion } from "framer-motion";
 import { Filter, X } from "lucide-react";
-import {
-  useCategories,
-  useArticleCountPerCategory,
-} from "../../../hooks/useArticles";
+import { useCategories } from "../../../hooks/useCategories";
+import { useArticleCountPerCategory } from "../../../hooks/useArticles";
 import { getInteractiveColorClasses } from "../../../utils/color-classes";
 import { Button } from "../../ui/button";
 import type { CategoryFilterProps } from "../../../types/category";

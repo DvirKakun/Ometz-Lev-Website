@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Filter, X, Check } from "lucide-react";
+import { useCategories } from "../../../hooks/useCategories";
 import {
-  useCategories,
   useArticles,
   useDynamicArticleCountPerCategory,
   useArticlesByMultipleCategories,
