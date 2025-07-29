@@ -1,8 +1,11 @@
 import React from "react";
 import ContactHero from "./ContactHero";
 import ContactInfo from "./ContactInfo";
+import ContactModal from "../../modals/contact/ContactModal";
+import { useContactModal } from "../../../hooks/useContactModal";
 
 const ContactCTA: React.FC = () => {
+  const { isOpen, openModal, onOpenChange } = useContactModal();
   return (
     <section className="py-16 lg:py-24 bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 text-white relative overflow-hidden">
       {/* Background Pattern */}
@@ -14,9 +17,11 @@ const ContactCTA: React.FC = () => {
       <div className="container-max section-padding relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <ContactHero />
-          <ContactInfo />
+          <ContactInfo onTrustBadgeClick={openModal} />
         </div>
       </div>
+      
+      <ContactModal isOpen={isOpen} onOpenChange={onOpenChange} />
     </section>
   );
 };

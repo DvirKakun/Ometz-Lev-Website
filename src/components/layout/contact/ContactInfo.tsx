@@ -3,7 +3,11 @@ import { motion } from "framer-motion";
 import WorkingHours from "./WorkingHours";
 import TrustBadge from "./TrustBadge";
 
-const ContactInfo: React.FC = () => {
+interface ContactInfoProps {
+  onTrustBadgeClick?: () => void;
+}
+
+const ContactInfo: React.FC<ContactInfoProps> = ({ onTrustBadgeClick }) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: 50 }}
@@ -13,7 +17,7 @@ const ContactInfo: React.FC = () => {
       className="space-y-6"
     >
       <WorkingHours />
-      <TrustBadge />
+      <TrustBadge onClick={onTrustBadgeClick} />
     </motion.div>
   );
 };
