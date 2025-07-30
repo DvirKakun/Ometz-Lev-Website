@@ -78,14 +78,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
             </div>
 
             {/* CTA Button */}
-            <motion.div
-              className={`mt-auto pt-2`}
-            >
+            <motion.div className={`mt-auto pt-2`}>
               <motion.div
                 className={`px-4 py-3 rounded-xl bg-gradient-to-r from-white to-slate-50 border-2 shadow-lg cursor-pointer transition-all duration-300 ${
-                  isHovered 
-                    ? `border-opacity-100 shadow-xl -translate-y-1 bg-gradient-to-r from-slate-50 to-slate-100` 
-                    : 'border-slate-200 hover:shadow-xl hover:-translate-y-0.5'
+                  isHovered
+                    ? `border-opacity-100 shadow-xl -translate-y-1 bg-gradient-to-r from-slate-50 to-slate-100`
+                    : "border-slate-200 hover:shadow-xl hover:-translate-y-0.5"
                 }`}
                 animate={{
                   borderColor: isHovered

@@ -11,11 +11,7 @@ const LoadingCard = ({ children }: LoadingCardProps) => {
       className="relative z-10 bg-white/90 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl border border-white/50 max-w-md mx-4"
     >
       {/* Sparkle Decorations */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute -top-4 -right-4"
-      >
+      <div className="absolute -top-4 -right-4">
         <Sparkles
           className="w-8 h-8"
           style={{
@@ -24,7 +20,7 @@ const LoadingCard = ({ children }: LoadingCardProps) => {
             WebkitTextFillColor: "transparent",
           }}
         />
-      </motion.div>
+      </div>
 
       {children}
 

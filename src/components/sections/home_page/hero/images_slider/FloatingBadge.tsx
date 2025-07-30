@@ -28,7 +28,7 @@ export function FloatingBadge({
         className="absolute -bottom-3 -right-3 sm:-bottom-5 sm:-right-5 group cursor-default"
       >
         {/* Enhanced backdrop glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-300/40 via-primary-400/30 to-accent-400/40 rounded-2xl blur-lg scale-110 opacity-70 group-hover:opacity-90 group-hover:scale-115 transition-all duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-300/40 via-primary-400/30 to-accent-400/40 rounded-2xl blur-lg scale-110 opacity-70"></div>
 
         {/* Main badge container - smaller and more refined */}
         <div className="relative bg-white/95 backdrop-blur-xl border border-white/60 shadow-xl rounded-2xl p-4 min-w-[140px]">
@@ -86,8 +86,8 @@ export function FloatingBadge({
           <div className="absolute -top-0.5 -left-0.5 w-2 h-2 bg-gradient-to-br from-primary-400 to-primary-500 rounded-full opacity-80"></div>
           <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-gradient-to-br from-accent-400 to-accent-500 rounded-full opacity-70"></div>
 
-          {/* Subtle animated border effect */}
-          <motion.div
+          {/* Static border effect */}
+          <div
             className="absolute inset-0 rounded-2xl"
             style={{
               background: `linear-gradient(90deg, 
@@ -95,18 +95,6 @@ export function FloatingBadge({
                 transparent 50%, 
                 rgba(249, 115, 22, 0.15) 100%)`,
               padding: "1px",
-            }}
-            animate={{
-              background: [
-                "linear-gradient(90deg, rgba(20, 184, 166, 0.15) 0%, transparent 50%, rgba(249, 115, 22, 0.15) 100%)",
-                "linear-gradient(90deg, rgba(249, 115, 22, 0.15) 0%, transparent 50%, rgba(20, 184, 166, 0.15) 100%)",
-                "linear-gradient(90deg, rgba(20, 184, 166, 0.15) 0%, transparent 50%, rgba(249, 115, 22, 0.15) 100%)",
-              ],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
             }}
           />
 
