@@ -10,17 +10,16 @@ interface ArticleModalHeaderProps {
 export const ArticleModalHeader = ({ article }: ArticleModalHeaderProps) => {
   // Get all categories from the hook
   const { data: allCategories = [] } = useCategories();
-  
+
   // Map article categories to their info
   const categoriesInfo = article.categories.map((categoryId) => {
-    const category = allCategories.find(cat => cat.id === categoryId);
+    const category = allCategories.find((cat) => cat.id === categoryId);
     return {
       id: categoryId,
       name: category?.name || categoryId,
-      color: category?.color || getCategoryColor(categoryId)
+      color: category?.color || getCategoryColor(categoryId),
     };
   });
-
 
   return (
     <div className="relative flex-shrink-0">
@@ -40,7 +39,7 @@ export const ArticleModalHeader = ({ article }: ArticleModalHeaderProps) => {
         </div>
 
         {/* Category Badges */}
-        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 flex flex-wrap gap-1 sm:gap-2 max-w-32 sm:max-w-48 md:max-w-56">
+        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 flex flex-wrap justify-end gap-1 sm:gap-2 max-w-32 sm:max-w-48 md:max-w-56">
           {categoriesInfo.map((categoryInfo) => (
             <div
               key={categoryInfo.id}

@@ -26,7 +26,6 @@ export const VideoModalHeader = ({ video }: VideoModalHeaderProps) => {
   // Get level info
   const { name: levelName, color: levelColor } = useLevelInfo(video.levelId);
 
-
   return (
     <div className="relative flex-shrink-0">
       <div className="h-32 bg-gradient-to-r from-red-50 to-orange-100 relative overflow-hidden">
@@ -49,7 +48,7 @@ export const VideoModalHeader = ({ video }: VideoModalHeaderProps) => {
         </div>
 
         {/* Category Badges */}
-        <div className="absolute top-2 left-2 sm:top-4 sm:left-4 flex flex-wrap gap-1 sm:gap-2 max-w-32 sm:max-w-48 md:max-w-56">
+        <div className="absolute top-2 left-2 sm:top-4 sm:left-2 flex flex-wrap justify-end gap-1 sm:gap-2 max-w-32 sm:max-w-48 md:max-w-56">
           {categoriesInfo.map((categoryInfo) => (
             <div
               key={categoryInfo.id}
