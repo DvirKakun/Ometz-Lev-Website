@@ -2,18 +2,31 @@ import { motion } from "framer-motion";
 
 const HeroSubtitle: React.FC = () => {
   return (
-    <motion.p
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.8 }}
-      className="text-xl lg:text-2xl text-slate-200 leading-relaxed mb-8 max-w-2xl mx-auto lg:mx-0"
+      className="text-lg lg:text-xl text-slate-200 leading-relaxed mb-8 max-w-3xl mx-auto lg:mx-0 space-y-4"
     >
-      אילוף כלבים מקצועי, כלבנות טיפולית ואימונים אישיים
-      <br />
-      <span className="text-primary-300 font-semibold">
-        ליצירת קשר הרמוני בינכם לבין הכלב שלכם
-      </span>
-    </motion.p>
+      <p>
+        <span className="text-primary-300 font-semibold">באומץ לב</span> אני
+        מאמין שתקשורת אמיתית מתחילה בהבנה.
+      </p>
+      <p>
+        <span className="text-primary-300 font-semibold">באילוף חיובי</span> אני
+        בונה איתכם ועם הכלב שלכם שפה משותפת <br /> נטולת עונשים המבוססת על אמון
+        וכבוד.
+      </p>
+      <p>
+        <span className="text-primary-300 font-semibold">בטיפול התנהגותי</span>{" "}
+        אני מאבחן את שורש הבעיה של הכלב שלכם ובונה תוכנית עבודה מותאמת אישית.
+      </p>
+      <p>
+        <span className="text-primary-300 font-semibold">ובכלבנות טיפולית</span>{" "}
+        אני משלב כלבים בתהליכים חינוכיים וטיפוליים ליצירת מרחב בטוח ומחזק לילדים
+        ולבוגרים כאחד.
+      </p>
+    </motion.div>
   );
 };
 

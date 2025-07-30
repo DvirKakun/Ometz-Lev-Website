@@ -73,7 +73,7 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
           target="_blank"
           rel="noopener noreferrer"
         >
-          <span className="hidden md:inline">שלחו הודעה</span>
+          <span className="inline">שלחו הודעה</span>
           <motion.div
             whileHover={{ rotate: [0, -10, 10, 0] }}
             transition={{ duration: 0.4 }}

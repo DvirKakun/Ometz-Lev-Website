@@ -19,12 +19,12 @@ export const services: Service[] = [
     hoverColor: "hover:shadow-red-200/50",
     features: [
       {
-        title: "טיפול בחרדות ודיכאון",
+        title: "אימון אישי",
         description:
           "מפגש עם הכלב מסייע בהתמודדות עם חרדות ודיכאון באמצעות קשר חיובי וביטחון רגשי.",
       },
       {
-        title: "שיקום רגשי וחברתי",
+        title: "חיזוק הביטחון העצמי",
         description:
           "מפתח כישורי תקשורת ומעודד בניית קשרים חברתיים דרך עבודת צוות עם הכלב.",
       },
@@ -115,16 +115,16 @@ export const services: Service[] = [
     hoverColor: "hover:shadow-accent-200/50",
     features: [
       {
-        title: "ליווי אישי מותאם",
-        description: "פעילויות לפי צורכי הכלב והמשפחה, בקצב אישי ויחס מותאם.",
+        title: "קייטנת כלבים",
+        description: "",
       },
       {
-        title: "פיתוח מיומנויות הדרכה",
-        description: "תהליך הדרכתי לכלבים ומדריכים לפיתוח כישורים מתקדמים.",
+        title: "חוגי אילוף לילדים ",
+        description: "",
       },
       {
-        title: "הדרכה מקצועית מתקדמת",
-        description: "רמות מתקדמות של אילוף והעשרת הידע לבעלי כלבים מנוסים.",
+        title: "אירועים מיוחדים",
+        description: "",
       },
     ],
     cta: [],

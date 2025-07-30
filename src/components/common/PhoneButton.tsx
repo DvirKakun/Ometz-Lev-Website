@@ -65,7 +65,7 @@ const PhoneButton: React.FC<PhoneButtonProps> = ({
         )}
       >
         <a href={`tel:${formatPhoneForTel(phoneNumber)}`}>
-          <span className="hidden md:inline">התקשרו עכשיו</span>
+          <span className="inline">התקשרו עכשיו</span>
           <motion.div
             whileHover={{ rotate: [0, -10, 10, 0] }}
             transition={{ duration: 0.4 }}

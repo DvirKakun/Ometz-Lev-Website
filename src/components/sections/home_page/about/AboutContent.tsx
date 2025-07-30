@@ -1,7 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import AchievementsList from "./AchievementsList";
-import CertificationBadge from "./CertificationBadge";
 
 const AboutContent: React.FC = () => {
   return (
@@ -12,24 +10,46 @@ const AboutContent: React.FC = () => {
       viewport={{ once: true }}
       className="order-2 lg:order-1"
     >
-      <h3 className="text-2xl md:text-3xl font-bold text-slate-800 mb-6">
-        אלעד שמעונוב - המאמן שלכם
-      </h3>
-      <div className="prose prose-lg text-slate-600 space-y-4 mb-8">
-        <p className="leading-relaxed">
-          שלום! אני אלעד, מאמן כלבים מוסמך עם מעל עשר שנות ניסיון בתחום.
-          התחלתי את הדרך שלי מתוך אהבה עמוקה לכלבים ורצון עז לעזור למשפחות
-          ליצור קשר הרמוני עם חברי הכלבים שלהן.
-        </p>
-        <p className="leading-relaxed">
-          הגישה שלי מבוססת על הבנה, סבלנות ושיטות חיוביות. אני מאמין שכל
-          כלב יכול ללמוד ולהשתפר, בתנאי שמקבלים אותו בהבנה ונותנים לו את
-          הכלים הנכונים.
-        </p>
-      </div>
+      <div className="space-y-8 mb-8">
+        <div className="pb-6 border-b border-slate-100">
+          <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3 tracking-tight">
+            אלעד שמעונוב
+          </h3>
+          <p className="text-primary-600 font-semibold text-lg">
+            מאלף כלבים ומטפל התנהגותי
+          </p>
+        </div>
 
-      <AchievementsList />
-      <CertificationBadge />
+        <div className="prose prose-lg max-w-none">
+          <div className="space-y-6 text-slate-700 leading-relaxed">
+            <p className="text-xl font-medium text-slate-800">
+              שמי אלעד שמעונוב, אני מתמחה בכלבנות טיפולית, אימון אישי ותכניות
+              ייחודיות במסגרת תכנית "גפן".
+            </p>
+
+            <p>
+              אני מאמין שכל קשר עם כלב הוא הזדמנות לצמיחה אישית ולחיזוק ביטחון
+              עצמי. באילוף הכלבים אני עובד
+              <span className="font-semibold text-slate-800">
+                {" "}
+                בגישה חיובית, נעימה ומותאמת אישית
+              </span>{" "}
+              לכל לקוח.
+            </p>
+
+            <p>
+              יחד אני בונה תהליך משמעותי שבו הכלבים הופכים לשותפים מלאים בדרך
+              לשיפור איכות החיים שלכם ושלהם. בין אם מדובר בילדים, מבוגרים או
+              במשפחות שלמות, המטרה שלי היא לספק לכם את הכלים הטובים ביותר כדי
+              שתוכלו ליהנות מקשר עמוק, בריא ומאוזן עם הכלב שלכם.
+            </p>
+
+            <p className="text-primary-700 font-medium italic pt-2">
+              מוזמנים להצטרף למסע המיוחד הזה איתי.
+            </p>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 };
