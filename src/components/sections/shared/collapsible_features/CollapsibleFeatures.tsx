@@ -45,7 +45,10 @@ const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
             {/* Header with CTA Buttons */}
             <div className="grid lg:grid-cols-2 gap-8 items-start mb-12">
               {/* Title - Right Side */}
-              <ServiceHeader title={service.title} />
+              <ServiceHeader
+                title={service.title}
+                description={service.description}
+              />
 
               {/* CTA Buttons - Left Side */}
               <CtaButtons service={service} scrollToSection={scrollToSection} />
@@ -56,7 +59,7 @@ const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
           </motion.div>
         </div>
       </section>
-      
+
       <ContactModal isOpen={isOpen} onOpenChange={onOpenChange} />
     </>
   );
