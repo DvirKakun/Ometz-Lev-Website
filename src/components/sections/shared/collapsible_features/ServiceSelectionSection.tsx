@@ -3,9 +3,9 @@ import { Card, CardContent } from "../../../ui/card";
 import { Avatar, AvatarFallback } from "../../../ui/avatar";
 import WhatsAppButton from "../../../common/WhatsAppButton";
 import { Heart, BookOpen, Award, Users } from "lucide-react";
-import type { FeaturesAccordionProps } from "../../../../types/collapsible_features";
+import type { ServiceSelectionSectionProps } from "../../../../types/collapsible_features";
 
-const ServiceSelectionSection = ({ service }: FeaturesAccordionProps) => {
+const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
   // Map service paths to icons
   const getServiceIcon = () => {
     switch (service.path) {

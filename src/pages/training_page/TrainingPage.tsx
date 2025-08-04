@@ -7,9 +7,9 @@ import ContentSection from "../../components/sections/shared/content/ContentSect
 import { FAQSection } from "../../components/sections/shared/faq";
 import { useTrainingMethodConfig } from "../../hooks/useTrainingMethodConfig";
 import { trainingContentConfig } from "../../data/training_content_config";
-import type { TrainingPageProps } from "../../types/training_page";
+import type { ServicePageProps } from "../../types/service_page";
 
-export default function TrainingPage({ service }: TrainingPageProps) {
+export default function TrainingPage({ service }: ServicePageProps) {
   const location = useLocation();
   const { data: methodConfig } = useTrainingMethodConfig();
 

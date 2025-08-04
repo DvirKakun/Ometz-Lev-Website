@@ -7,9 +7,9 @@ import MethodSection from "../../components/sections/shared/method_section/Metho
 import { FAQSection } from "../../components/sections/shared/faq";
 import { useTherapyMethodConfig } from "../../hooks/useTherapyMethodConfig";
 import { therapyContentConfig } from "../../data/therapy_content_config";
-import type { TherapygPageProps } from "../../types/therapy_page";
+import type { ServicePageProps } from "../../types/service_page";
 
-const TherapyPage = ({ service }: TherapygPageProps) => {
+const TherapyPage = ({ service }: ServicePageProps) => {
   const location = useLocation();
   const { data: methodConfig } = useTherapyMethodConfig();
 

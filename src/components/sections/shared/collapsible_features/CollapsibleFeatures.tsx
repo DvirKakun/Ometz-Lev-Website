@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import CtaButtons from "./CtaButtons";
 import ServiceHeader from "../headers/MainHeader";
-import FeaturesAccordion from "./FeaturesAccordion";
+import ServiceSelectionSection from "./ServiceSelectionSection";
 import ContactModal from "../../../modals/contact/ContactModal";
 import { useContactModal } from "../../../../hooks/useContactModal";
 import type { CollapsibleFeaturesProps } from "../../../../types/collapsible_features";
@@ -54,8 +54,8 @@ const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
               <CtaButtons service={service} scrollToSection={scrollToSection} />
             </div>
 
-            {/* Features Accordion */}
-            <FeaturesAccordion service={service} />
+            {/* Service Selection Section */}
+            <ServiceSelectionSection service={service} />
           </motion.div>
         </div>
       </section>

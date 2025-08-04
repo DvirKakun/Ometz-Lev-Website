@@ -9,6 +9,6 @@ export interface CtaButtonsProps {
   scrollToSection: (href: string) => void;
 }
 
-export interface FeaturesAccordionProps {
+export interface ServiceSelectionSectionProps {
   service: Service;
 }

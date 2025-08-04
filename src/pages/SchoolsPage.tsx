@@ -4,9 +4,10 @@ import { ExternalLink, School, Users, Clock, MapPin, BookOpen, Target, Award } f
 import MainHeader from "../components/sections/shared/headers/MainHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
-import { schoolProgram, schoolsPageConfig } from "../data/schools";
+import { schoolProgram } from "../data/schools";
+import type { ServicePageProps } from "../types/service_page";
 
-export default function SchoolsPage() {
+export default function SchoolsPage({ service }: ServicePageProps) {
   useEffect(() => {
     document.title = "תכנית גפן | אומץ לב";
 
@@ -32,8 +33,8 @@ export default function SchoolsPage() {
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <MainHeader
-                title={schoolsPageConfig.title}
-                description={schoolsPageConfig.description}
+                title={service?.title || "תכנית גפן"}
+                description={service?.description || "תוכנית חינוכית ייחודית בבתי ספר"}
               />
             </div>
           </div>

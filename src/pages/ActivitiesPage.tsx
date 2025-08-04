@@ -9,9 +9,9 @@ import { FAQSection } from "../components/sections/shared/faq";
 import LoadingSpinner from "../components/common/StateLoadingSpinner";
 import StateDisplay from "../components/common/StateDisplay";
 import { useActivities } from "../hooks/useActivities";
-import { activitiesPageConfig } from "../data/activities";
+import type { ServicePageProps } from "../types/service_page";
 
-export default function ActivitiesPage() {
+export default function ActivitiesPage({ service }: ServicePageProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const scrollTargetRef = useRef<string | null>(null);
@@ -137,8 +137,8 @@ export default function ActivitiesPage() {
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <ServiceHeader
-                  title={activitiesPageConfig.title}
-                  description={activitiesPageConfig.description}
+                  title={service?.title || "פעילויות"}
+                  description={service?.description || "מגוון פעילויות חווייתיות עם כלבים"}
                 />
               </div>
             </div>

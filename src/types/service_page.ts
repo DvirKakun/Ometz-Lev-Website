@@ -1,5 +1,5 @@
 import type { Service } from "./services";
 
-export interface TrainingPageProps {
+export interface ServicePageProps {
   service: Service | undefined;
 }

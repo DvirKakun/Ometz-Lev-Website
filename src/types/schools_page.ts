@@ -55,7 +55,3 @@ export interface TargetAudience {
   educationType: string;
 }
 
-export interface SchoolsPageConfig {
-  title: string;
-  description: string;
-}

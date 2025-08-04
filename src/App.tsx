@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { LoadingProvider } from "./contexts/LoadingContext";
 
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
@@ -28,6 +29,12 @@ const trainingService = services.find(
 );
 
 const therapyService = services.find((service) => service.path === "/therapy");
+
+const activitiesService = services.find(
+  (service) => service.path === "/activities"
+);
+
+const schoolsService = services.find((service) => service.path === "/schools");
 
 const router = createBrowserRouter([
   {
@@ -77,7 +84,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PageLoader>
-            <ActivitiesPage />
+            <ActivitiesPage service={activitiesService} />
           </PageLoader>
         ),
       },
@@ -91,7 +98,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PageLoader>
-            <SchoolsPage />
+            <SchoolsPage service={schoolsService} />
           </PageLoader>
         ),
       },
@@ -151,8 +158,10 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <ReactQueryDevtools initialIsOpen={false} />
+      <LoadingProvider>
+        <RouterProvider router={router} />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </LoadingProvider>
     </QueryClientProvider>
   );
 }
