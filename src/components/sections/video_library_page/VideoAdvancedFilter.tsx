@@ -63,24 +63,22 @@ const VideoAdvancedFilter = ({
           className="max-w-6xl mx-auto"
         >
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0 mb-4 sm:mb-6">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <Filter className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600" />
-                <h2 className="text-base sm:text-lg font-semibold text-slate-800">
-                  סינון לפי קטגוריות ורמת קושי
-                </h2>
-              </div>
+          <div className="flex items-center justify-between gap-2 mb-4 sm:mb-6">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+              <Filter className="w-4 h-4 sm:w-5 sm:h-5 text-slate-600" />
+              <h2 className="text-base sm:text-lg font-semibold text-slate-800">
+                סינון
+              </h2>
               {hasActiveFilters && (
-                <div className="flex gap-2 self-start sm:self-auto">
+                <div className="flex gap-2">
                   {!selectedCategories.includes("all") &&
                     selectedCategories.length > 0 && (
-                      <span className="bg-accent-100 text-accent-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium">
+                      <span className="bg-accent-100 text-accent-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
                         {selectedCategories.length} קטגוריות נבחרו
                       </span>
                     )}
                   {selectedLevel !== "all" && (
-                    <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium">
+                    <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
                       רמה נבחרה
                     </span>
                   )}
@@ -93,7 +91,7 @@ const VideoAdvancedFilter = ({
                 onClick={onClearFilters}
                 variant="outline"
                 size="sm"
-                className="text-slate-600 hover:text-slate-800 w-full sm:w-auto"
+                className="text-slate-600 hover:text-slate-800 shrink-0"
               >
                 <X className="w-4 h-4 ml-1" />
                 <span className="hidden sm:inline">נקה סינונים</span>
