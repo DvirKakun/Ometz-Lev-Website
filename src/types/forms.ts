@@ -5,7 +5,8 @@ export interface FormInputProps {
   icon?: LucideIcon;
   placeholder: string;
   required?: boolean;
-  type?: "text" | "email" | "tel";
+  type?: "text" | "email" | "tel" | "number";
+  inputMode?: "numeric" | "decimal" | "tel" | "search" | "email" | "url";
   register: any;
   error?: string;
   className?: string;
@@ -35,6 +36,18 @@ export interface FormSubmitButtonProps {
   icon?: LucideIcon;
   className?: string;
   size?: "icon" | "sm" | "lg" | "default" | null | undefined;
+}
+
+export interface FormSelectProps {
+  label: string;
+  icon?: LucideIcon;
+  placeholder: string;
+  options: string[];
+  required?: boolean;
+  register: any;
+  error?: string;
+  className?: string;
+  selectClassName?: string;
 }
 
 export interface FormTextareaProps {

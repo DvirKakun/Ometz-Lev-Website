@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -8,11 +8,27 @@ import emailjs from "@emailjs/browser";
 import type { SummerCampModalFormProps } from "../../../types/modals";
 import {
   FormInput,
+  FormSelect,
   FormRadioGroup,
   FormTextarea,
   FormSubmitButton,
   FormSection,
 } from "../../forms";
+
+const GRADE_OPTIONS = [
+  "א׳",
+  "ב׳",
+  "ג׳",
+  "ד׳",
+  "ה׳",
+  "ו׳",
+  "ז׳",
+  "ח׳",
+  "ט׳",
+  "י׳",
+  "יא׳",
+  "יב׳",
+];
 
 const formSchema = z
   .object({
@@ -25,13 +41,31 @@ const formSchema = z
       .min(1, "שם הילד/ה הוא שדה חובה")
       .regex(/^[\u0590-\u05FF\s]+$/, "השם חייב להכיל רק אותיות בעברית"),
     age: z
-      .string()
-      .min(1, "גיל הוא שדה חובה")
-      .regex(/^[0-9]+$/, "גיל חייב להכיל רק מספרים"),
-    grade: z
-      .string()
-      .min(1, "כיתה היא שדה חובה")
-      .regex(/^[\u0590-\u05FF\s]+$/, "הכיתה חייבת להכיל רק אותיות בעברית"),
+      .number({
+        required_error: "גיל הוא שדה חובה",
+        invalid_type_error: "גיל חייב להיות מספר",
+      })
+      .min(1, "גיל חייב להיות לפחות 1"),
+    grade: z.enum(
+      [
+        "א׳",
+        "ב׳",
+        "ג׳",
+        "ד׳",
+        "ה׳",
+        "ו׳",
+        "ז׳",
+        "ח׳",
+        "ט׳",
+        "י׳",
+        "יא׳",
+        "יב׳",
+      ],
+      {
+        required_error: "יש לבחור כיתה",
+        invalid_type_error: "יש לבחור כיתה",
+      }
+    ),
     motherName: z
       .string()
       .optional()
@@ -121,6 +155,25 @@ const SummerCampModalForm = ({
   const watchHealthIssues = watch("healthIssues");
   const watchDogFearScale = watch("dogFearScale");
 
+  // Clear dependent fields when parent field changes to "no"
+  useEffect(() => {
+    if (watchDogFear === "לא") {
+      setValue("dogFearScale", undefined);
+    }
+  }, [watchDogFear, setValue]);
+
+  useEffect(() => {
+    if (watchAllergies === "אין") {
+      setValue("allergiesText", "");
+    }
+  }, [watchAllergies, setValue]);
+
+  useEffect(() => {
+    if (watchHealthIssues === "אין") {
+      setValue("healthIssuesText", "");
+    }
+  }, [watchHealthIssues, setValue]);
+
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
 
@@ -195,27 +248,29 @@ const SummerCampModalForm = ({
             register={register("childName")}
             error={errors.childName?.message}
             required
-            className="col-span-6"
+            className="col-span-12 sm:col-span-6"
           />
 
           <FormInput
             label="גיל"
             icon={Baby}
             placeholder="גיל"
-            register={register("age")}
+            inputMode="numeric"
+            register={register("age", { valueAsNumber: true })}
             error={errors.age?.message}
             required
-            className="col-span-3"
+            className="col-span-6 sm:col-span-3"
           />
 
-          <FormInput
+          <FormSelect
             label="כיתה"
             icon={GraduationCap}
-            placeholder="כיתה"
+            placeholder="בחר כיתה"
+            options={GRADE_OPTIONS}
             register={register("grade")}
             error={errors.grade?.message}
             required
-            className="col-span-3"
+            className="col-span-6 sm:col-span-3"
           />
         </div>
       </FormSection>

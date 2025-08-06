@@ -7,6 +7,7 @@ const FormInput: React.FC<FormInputProps> = ({
   placeholder,
   required = false,
   type = "text",
+  inputMode,
   register,
   error,
   className = "",
@@ -21,6 +22,7 @@ const FormInput: React.FC<FormInputProps> = ({
         <input
           {...register}
           type={type}
+          inputMode={inputMode}
           className={`w-full px-2 py-1 ${
             Icon ? "pr-7" : ""
           } bg-white/10 border border-white/20 rounded text-white placeholder-white/60 focus:outline-none focus:ring-1 focus:ring-white/30 text-right text-xs ${
