@@ -33,7 +33,7 @@ const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg w-[90vw] max-h-[90vh] p-0 bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 border-0 text-white overflow-hidden [&>button]:hidden">
+      <DialogContent className="max-w-lg w-[90vw] max-h-[90vh] p-0 bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 border-0 text-white overflow-y-auto overflow-x-hidden [&>button]:hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-32 h-32 bg-white rounded-full blur-3xl transform -translate-x-16 -translate-y-16" />
