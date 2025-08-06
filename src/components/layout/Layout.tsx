@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import ScrollToTop from "../common/ScrollToTop";
@@ -7,9 +7,14 @@ import { useLoading } from "../../contexts/LoadingContext";
 
 export default function Layout() {
   const { isLoading } = useLoading();
+  const location = useLocation();
+  
+  // Pages that should never show loading state
+  const noLoadingPages = ['/home'];
+  const shouldShowLoading = isLoading && !noLoadingPages.includes(location.pathname);
 
   return (
-    <div className={isLoading ? "flex h-screen flex-col" : "flex min-h-screen flex-col"}>
+    <div className={shouldShowLoading ? "flex h-screen flex-col" : "flex min-h-screen flex-col"}>
       <ScrollToTop />
       {/* Skip Links for Accessibility */}
       <a
@@ -29,7 +34,7 @@ export default function Layout() {
         <Outlet /> {/* ← page content goes right here */}
       </main>
 
-      {!isLoading && (
+      {!shouldShowLoading && (
         <>
           <ContactCTA />
           <Footer />

@@ -59,9 +59,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
               {service.title}
             </h3>
 
-            {/* Features */}
+            {/* Offerings */}
             <div className="space-y-3 flex-1 mb-6">
-              {service.features.slice(0, 3).map((feature, idx) => (
+              {service.offerings.slice(0, 3).map((offering, idx) => (
                 <motion.div
                   key={idx}
                   className="flex items-center text-sm text-slate-600"
@@ -72,7 +72,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
                   <div
                     className={`w-2 h-2 bg-gradient-to-br ${service.color} rounded-full ml-3 flex-shrink-0`}
                   />
-                  <span className="leading-relaxed">{feature.title}</span>
+                  <span className="leading-relaxed">{offering.title}</span>
                 </motion.div>
               ))}
             </div>

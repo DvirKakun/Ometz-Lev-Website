@@ -5,6 +5,12 @@ import { fetchCategoriesFromPrismic } from "../utils/prismic-categories";
 import { fetchActivitiesFromPrismic } from "../utils/prismic-activities";
 import { fetchProfileImageFromPrismic } from "../utils/prismic-profile-image";
 import { fetchHeroSlidesFromPrismic } from "../utils/prismic-hero-slides";
+import { 
+  fetchTherapyOfferings,
+  fetchTrainingOfferings,
+  fetchActivitiesOfferings,
+  fetchSchoolsOfferings
+} from "../utils/prismic-service-offerings";
 
 // Types for prefetching options
 type PrefetchOptions = {
@@ -15,6 +21,10 @@ type PrefetchOptions = {
   activities?: boolean;
   profileImage?: boolean;
   heroSlides?: boolean;
+  therapyOfferings?: boolean;
+  trainingOfferings?: boolean;
+  activitiesOfferings?: boolean;
+  schoolsOfferings?: boolean;
 };
 
 // Hook for prefetching data during loading screens
@@ -90,6 +100,50 @@ export function usePrefetchData(options: PrefetchOptions = {}) {
       );
     }
 
+    // Prefetch therapy offerings
+    if (options.therapyOfferings) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["therapy-offerings"],
+          queryFn: fetchTherapyOfferings,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
+    // Prefetch training offerings
+    if (options.trainingOfferings) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["training-offerings"],
+          queryFn: fetchTrainingOfferings,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
+    // Prefetch activities offerings
+    if (options.activitiesOfferings) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["activities-offerings"],
+          queryFn: fetchActivitiesOfferings,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
+    // Prefetch schools offerings
+    if (options.schoolsOfferings) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["schools-offerings"],
+          queryFn: fetchSchoolsOfferings,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
     // Execute all prefetch operations in parallel
     Promise.all(prefetchPromises).catch((error) => {
       console.warn("Some data prefetching failed:", error);
@@ -106,6 +160,10 @@ export function usePrefetchHomePage() {
     activities: true,
     articles: true, // Both training and therapy for demo articles
     categories: true,
+    therapyOfferings: true, // For therapy service card
+    trainingOfferings: true, // For training service card
+    activitiesOfferings: true, // For activities service card
+    schoolsOfferings: true, // For schools service card
   });
 }
 
@@ -114,6 +172,7 @@ export function usePrefetchTrainingPage() {
     trainingArticles: true,
     categories: true,
     profileImage: true,
+    trainingOfferings: true, // For training page offerings
   });
 }
 
@@ -122,6 +181,7 @@ export function usePrefetchTherapyPage() {
     therapyArticles: true,
     categories: true,
     profileImage: true,
+    therapyOfferings: true, // For therapy page offerings
   });
 }
 
@@ -129,6 +189,14 @@ export function usePrefetchActivitiesPage() {
   return usePrefetchData({
     activities: true,
     profileImage: true,
+    activitiesOfferings: true, // For activities page offerings
+  });
+}
+
+export function usePrefetchSchoolsPage() {
+  return usePrefetchData({
+    profileImage: true,
+    schoolsOfferings: true, // For schools page offerings
   });
 }
 
@@ -166,6 +234,7 @@ export function usePrefetchForRoute(pathname: string) {
   const isTraining = pathname.startsWith("/training") && !isTrainingArticles;
   const isTherapy = pathname.startsWith("/therapy") && !isTherapyArticles;
   const isActivities = pathname.startsWith("/activities");
+  const isSchools = pathname.startsWith("/schools");
 
   // Always call all hooks, but with conditional options
   usePrefetchData({
@@ -173,6 +242,10 @@ export function usePrefetchForRoute(pathname: string) {
     therapyArticles: isTherapyArticles || isTherapy,
     categories: isTrainingArticles || isTherapyArticles || isTraining || isTherapy,
     activities: isActivities,
-    profileImage: isTraining || isTherapy || isActivities,
+    profileImage: isTraining || isTherapy || isActivities || isSchools,
+    therapyOfferings: isTherapy, // Prefetch therapy offerings for therapy page
+    trainingOfferings: isTraining, // Prefetch training offerings for training page
+    activitiesOfferings: isActivities, // Prefetch activities offerings for activities page
+    schoolsOfferings: isSchools, // Prefetch schools offerings for schools page
   });
 }

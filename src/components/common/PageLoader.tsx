@@ -28,7 +28,11 @@ const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
       setGlobalLoading(false);
     }, minLoadTime);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      // Always reset loading state when component unmounts
+      setGlobalLoading(false);
+    };
   }, [location.pathname, location.state, minLoadTime, setGlobalLoading]);
 
   if (isLoading) {

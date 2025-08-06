@@ -1,6 +1,7 @@
 import type { LucideIcon } from "lucide-react";
+import type { ProcessedFullOffering, ProcessedSimpleOffering } from "./service_offerings";
 
-export interface Feature {
+export interface Offering {
   title: string;
   description: string;
   whatsappMessage: string;
@@ -21,7 +22,7 @@ export interface Service {
   color: string;
   bgColor: string;
   hoverColor: string;
-  features: Feature[];
+  offerings: (ProcessedFullOffering | ProcessedSimpleOffering)[];
   cta: CtaItem[];
 }
 

@@ -3,8 +3,35 @@ import { motion } from "framer-motion";
 import ServicesHeader from "./ServicesHeader";
 import ServiceCard from "./ServiceCard";
 import { services } from "../../../../data/services";
+import { 
+  useTherapyPrimaryOfferings,
+  useTrainingPrimaryOfferings,
+  useActivitiesPrimaryOfferings,
+  useSchoolsPrimaryOfferings
+} from "../../../../hooks/useServiceOfferings";
 
 const ServicesGrid: React.FC = () => {
+  const { data: therapyPrimaryOfferings } = useTherapyPrimaryOfferings();
+  const { data: trainingPrimaryOfferings } = useTrainingPrimaryOfferings();
+  const { data: activitiesPrimaryOfferings } = useActivitiesPrimaryOfferings();
+  const { data: schoolsPrimaryOfferings } = useSchoolsPrimaryOfferings();
+
+  // Create services array with Prismic data merged for all services
+  const servicesWithPrismic = services.map(service => {
+    switch (service.path) {
+      case "/therapy":
+        return { ...service, offerings: therapyPrimaryOfferings };
+      case "/training":
+        return { ...service, offerings: trainingPrimaryOfferings };
+      case "/activities":
+        return { ...service, offerings: activitiesPrimaryOfferings };
+      case "/schools":
+        return { ...service, offerings: schoolsPrimaryOfferings };
+      default:
+        return service;
+    }
+  });
+
   return (
     <section className="py-16 lg:py-24 bg-white">
       <div className="container-max section-padding">
@@ -17,7 +44,7 @@ const ServicesGrid: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          {services.map((service, index) => (
+          {servicesWithPrismic.map((service, index) => (
             <div
               key={service.path}
               className="w-full max-w-72 md:max-w-xs lg:max-w-none"

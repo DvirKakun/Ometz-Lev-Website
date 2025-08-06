@@ -56,7 +56,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PageLoader>
-            <TherapyPage service={therapyService} />
+            <TherapyPage service={therapyService!} />
           </PageLoader>
         ),
       },
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PageLoader>
-            <TrainingPage service={trainingService} />
+            <TrainingPage service={trainingService!} />
           </PageLoader>
         ),
       },
@@ -84,7 +84,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PageLoader>
-            <ActivitiesPage service={activitiesService} />
+            <ActivitiesPage service={activitiesService!} />
           </PageLoader>
         ),
       },
@@ -98,7 +98,7 @@ const router = createBrowserRouter([
         index: true,
         element: (
           <PageLoader>
-            <SchoolsPage service={schoolsService} />
+            <SchoolsPage service={schoolsService!} />
           </PageLoader>
         ),
       },

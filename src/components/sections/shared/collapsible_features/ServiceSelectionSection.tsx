@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback } from "../../../ui/avatar";
 import WhatsAppButton from "../../../common/WhatsAppButton";
 import { Heart, BookOpen, Award, Users } from "lucide-react";
 import type { ServiceSelectionSectionProps } from "../../../../types/collapsible_features";
+import type { ProcessedFullOffering } from "../../../../types/service_offerings";
 
 const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
   // Map service paths to icons
@@ -52,7 +53,7 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
 
       {/* Services Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-        {service.features.map((feature, index) => (
+        {(service.offerings as ProcessedFullOffering[]).map((offering, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 30 }}
@@ -69,7 +70,7 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
               <CardContent className="p-8 h-full flex flex-col">
                 {/* Service Header */}
                 <h4 className="text-2xl font-bold text-slate-800 text-center mb-6">
-                  {feature.title}
+                  {offering.title}
                 </h4>
 
                 {/* Service Description - Fixed Height with Elegant Scroll */}
@@ -80,7 +81,7 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
                       style={{ direction: "ltr" }}
                     >
                       <div style={{ direction: "rtl" }}>
-                        {feature.description}
+                        {offering.description}
                       </div>
                     </div>
                   </div>
@@ -95,12 +96,12 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
                     <div className="relative z-10 text-center space-y-4">
                       <div className="space-y-3">
                         <h5 className="text-slate-800 text-sm font-bold leading-tight">
-                          {feature.ctaTitle}
+                          {offering.ctaTitle}
                         </h5>
                       </div>
 
                       <WhatsAppButton
-                        message={feature.whatsappMessage}
+                        message={offering.whatsappMessage}
                         variant="default"
                         size="lg"
                         className="w-full py-4 text-base font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 border-2 border-green-600 hover:border-green-700"

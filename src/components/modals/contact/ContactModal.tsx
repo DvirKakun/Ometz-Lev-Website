@@ -27,7 +27,6 @@ const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
     setSubmitStatus("error");
   };
 
-
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTitle className="sr-only">
@@ -53,9 +52,13 @@ const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
               ) : (
                 <motion.div
                   key="form"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
+                  initial={{ opacity: 0, scale: 0.95, rotateX: 10 }}
+                  animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                  exit={{ opacity: 0, scale: 0.95, rotateX: -10 }}
+                  transition={{
+                    duration: 0.25,
+                    ease: [0.23, 1, 0.32, 1],
+                  }}
                 >
                   <ContactModalHeader />
                   <ContactModalForm

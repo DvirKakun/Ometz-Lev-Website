@@ -6,12 +6,20 @@ import CollapsibleFeatures from "../../components/sections/shared/collapsible_fe
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import { FAQSection } from "../../components/sections/shared/faq";
 import { useTherapyMethodConfig } from "../../hooks/useTherapyMethodConfig";
+import { useTherapyOfferings } from "../../hooks/useServiceOfferings";
 import { therapyContentConfig } from "../../data/therapy_content_config";
 import type { ServicePageProps } from "../../types/service_page";
 
 const TherapyPage = ({ service }: ServicePageProps) => {
   const location = useLocation();
   const { data: methodConfig } = useTherapyMethodConfig();
+  const { data: therapyOfferingsData } = useTherapyOfferings();
+  
+  // Merge Prismic offerings with service data
+  const serviceWithOfferings = {
+    ...service,
+    offerings: therapyOfferingsData?.offerings || []
+  };
 
   useEffect(() => {
     document.title = "כלבנות טיפולית | אומץ לב";
@@ -45,7 +53,7 @@ const TherapyPage = ({ service }: ServicePageProps) => {
       className="min-h-screen"
     >
       {/* Features Section */}
-      <CollapsibleFeatures service={service} />
+      <CollapsibleFeatures service={serviceWithOfferings} />
 
       {/* Therapy Method Section */}
       <MethodSection config={methodConfig} />

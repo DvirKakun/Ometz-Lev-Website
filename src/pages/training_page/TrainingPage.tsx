@@ -6,12 +6,20 @@ import MethodSection from "../../components/sections/shared/method_section/Metho
 import ContentSection from "../../components/sections/shared/content/ContentSection";
 import { FAQSection } from "../../components/sections/shared/faq";
 import { useTrainingMethodConfig } from "../../hooks/useTrainingMethodConfig";
+import { useTrainingOfferings } from "../../hooks/useServiceOfferings";
 import { trainingContentConfig } from "../../data/training_content_config";
 import type { ServicePageProps } from "../../types/service_page";
 
 export default function TrainingPage({ service }: ServicePageProps) {
   const location = useLocation();
   const { data: methodConfig } = useTrainingMethodConfig();
+  const { data: trainingOfferingsData } = useTrainingOfferings();
+
+  // Merge Prismic offerings with service data
+  const serviceWithOfferings = {
+    ...service,
+    offerings: trainingOfferingsData?.offerings || []
+  };
 
   useEffect(() => {
     document.title = "אילוף כלבים מקצועי | אומץ לב";
@@ -53,7 +61,7 @@ export default function TrainingPage({ service }: ServicePageProps) {
       className="min-h-screen"
     >
       {/* Collapsible Features Section */}
-      <CollapsibleFeatures service={service} />
+      <CollapsibleFeatures service={serviceWithOfferings} />
 
       {/* Training Method Section (includes brief about) */}
       <MethodSection config={methodConfig} />
