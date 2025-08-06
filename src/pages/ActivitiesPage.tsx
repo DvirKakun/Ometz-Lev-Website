@@ -25,13 +25,13 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
   } = useActivities();
 
   useEffect(() => {
-    document.title = "פעילויות | אומץ לב";
+    document.title = "פעילויות וקייטנות כלבים לילדים | אומץ לב";
 
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute(
         "content",
-        "פעילויות חינוכיות מיוחדות עם כלבים לילדים. קייטנת החופש הגדול ופעילויות העצמה ולמידה יחד עם בעלי חיים."
+        "פעילויות חינוכיות מיוחדות עם כלבים לילדים. קייטנת החופש הגדול, חוגי אילוף ופעילויות העצמה וחברתיות שמפתחות אחריות ואמפתיה אצל הילדים."
       );
     }
   }, []);

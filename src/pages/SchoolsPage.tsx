@@ -9,13 +9,13 @@ import type { ServicePageProps } from "../types/service_page";
 
 export default function SchoolsPage({ service }: ServicePageProps) {
   useEffect(() => {
-    document.title = "תכנית גפן | אומץ לב";
+    document.title = "תכנית גפן - תוכנית חינוכית לבתי ספר עם כלבים | אומץ לב";
 
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
       metaDescription.setAttribute(
         "content",
-        "תכנית גפן - תכנית חינוכית לפיתוח אומץ לב, אמפתיה ואחריות דרך אילוף וטיפול באמצעות כלבים"
+        "תכנית גפן - תוכנית חינוכית ייחודית לבתי ספר המשלבת עבודה עם כלבים לפיתוח ערכים, אמפתיה ואחריות אצל ילדים. תוכנית מאושרת במערכת החינוך."
       );
     }
   }, []);

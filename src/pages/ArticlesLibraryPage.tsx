@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useArticlesByMultipleCategories, useArticles } from "../hooks/useArticles";
 import LibraryHeader from "../components/sections/shared/headers/LibraryHeader";
 import MultipleCategoryFilter from "../components/sections/articles_library_page/MultipleCategoryFilter";
@@ -7,6 +7,29 @@ import type { ArticlesLibraryPageProps } from "../types/library";
 
 const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>(["all"]);
+  
+  // SEO metadata setup
+  useEffect(() => {
+    const seoData = {
+      training: {
+        title: "מאמרי אילוף כלבים | מדריכים וטיפים מקצועיים | אומץ לב",
+        description: "קיראו מאמרי הדרכה מקצועיים לאילוף כלבים. מדריכים מפורטים, טכניקות מתקדמות ועצות מעמליים מומחים לפתרון כל בעיה התנהגותית."
+      },
+      therapy: {
+        title: "מאמרי טיפול בכלבים | מדריכים טיפוליים מקצועיים | אומץ לב",
+        description: "קיראו מאמרים מקצועיים על טיפול באמצעות כלבים. שיטות טיפול, עבודה עם חרדות וטכניקות לשיקום רגשי וחברתי עם כלבים מאומנים."
+      }
+    };
+
+    const currentSEO = seoData[config.pageType];
+    document.title = currentSEO.title;
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute("content", currentSEO.description);
+    }
+  }, [config.pageType]);
+
   const { 
     data: filteredArticles = [], 
     isLoading, 

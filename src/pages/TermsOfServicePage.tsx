@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 const TermsOfServicePage: React.FC = () => {
+  useEffect(() => {
+    document.title = "תנאי שירות | אומץ לב - אילוף כלבים";
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "תנאי השירות של אומץ לב - מרכז אילוף כלבים מקצועי. מדיניות תשלומים, ביטולים ואחריות לשירותי אילוף וטיפול בכלבים."
+      );
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-50 py-16 lg:py-24">
       <div className="container-max section-padding">

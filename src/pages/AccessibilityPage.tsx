@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 const AccessibilityPage: React.FC = () => {
+  useEffect(() => {
+    document.title = "הצהרת נגישות | אומץ לב - אילוף כלבים";
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "הצהרת נגישות של אתר אומץ לב. מידע על תכונות נגישות, תמיכה בטכנולוגיות מסייעות והתאמות לאנשים עם מוגבלויות."
+      );
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-50 py-16 lg:py-24">
       <div className="container-max section-padding">

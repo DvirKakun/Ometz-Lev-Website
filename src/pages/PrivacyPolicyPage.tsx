@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion } from "framer-motion";
 
 const PrivacyPolicyPage: React.FC = () => {
+  useEffect(() => {
+    document.title = "מדיניות פרטיות | אומץ לב - אילוף כלבים";
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "מדיניות פרטיות של אומץ לב - מרכז אילוף כלבים וכלבנות טיפולית. מידע על שמירה על נתונים אישיים ושימוש באתר."
+      );
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-50 py-16 lg:py-24">
       <div className="container-max section-padding">
