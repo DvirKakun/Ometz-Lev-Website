@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-
-<url>
-  <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/</loc>
-  <lastmod>2025-08-06T10:10:26+00:00</lastmod>
-</url>
-
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/</loc>
+  </url>
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/home</loc>
+  </url>
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/training</loc>
+  </url>
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/therapy</loc>
+  </url>
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/activities</loc>
+  </url>
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/schools</loc>
+  </url>
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/training-videos-library</loc>
+  </url>
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/training-articles-library</loc>
+  </url>
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/therapy-videos-library</loc>
+  </url>
+  <url>
+    <loc>https://xn--4dbcl2aj6b.xn--4dbrk0ce/therapy-articles-library</loc>
+  </url>
 
 </urlset>
