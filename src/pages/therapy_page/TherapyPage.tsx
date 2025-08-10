@@ -5,6 +5,7 @@ import ContentSection from "../../components/sections/shared/content/ContentSect
 import CollapsibleFeatures from "../../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import { FAQSection } from "../../components/sections/shared/faq";
+import FaqSchema from "../../components/seo/FaqSchema";
 import { useTherapyMethodConfig } from "../../hooks/useTherapyMethodConfig";
 import { useTherapyOfferings } from "../../hooks/useServiceOfferings";
 import { therapyContentConfig } from "../../data/therapy_content_config";
@@ -74,6 +75,9 @@ const TherapyPage = ({ service }: ServicePageProps) => {
 
       {/* FAQ Section */}
       <FAQSection pageType="therapy" />
+      
+      {/* SEO: FAQ Structured Data */}
+      <FaqSchema pageType="therapy" />
     </motion.div>
   );
 };

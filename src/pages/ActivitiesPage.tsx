@@ -6,6 +6,7 @@ import ServiceHeader from "../components/sections/shared/headers/MainHeader";
 import ActivitySection from "../components/sections/activities_page/ActivitySection";
 import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
 import { FAQSection } from "../components/sections/shared/faq";
+import FaqSchema from "../components/seo/FaqSchema";
 import LoadingSpinner from "../components/common/StateLoadingSpinner";
 import StateDisplay from "../components/common/StateDisplay";
 import { useActivities } from "../hooks/useActivities";
@@ -150,6 +151,9 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
 
         {/* FAQ Section - Always rendered */}
         <FAQSection pageType="activities" />
+        
+        {/* SEO: FAQ Structured Data */}
+        <FaqSchema pageType="activities" />
       </motion.div>
 
       {/* Summer Camp Registration Modal */}

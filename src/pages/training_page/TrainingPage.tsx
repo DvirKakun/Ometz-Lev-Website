@@ -5,6 +5,7 @@ import CollapsibleFeatures from "../../components/sections/shared/collapsible_fe
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import ContentSection from "../../components/sections/shared/content/ContentSection";
 import { FAQSection } from "../../components/sections/shared/faq";
+import FaqSchema from "../../components/seo/FaqSchema";
 import { useTrainingMethodConfig } from "../../hooks/useTrainingMethodConfig";
 import { useTrainingOfferings } from "../../hooks/useServiceOfferings";
 import { trainingContentConfig } from "../../data/training_content_config";
@@ -82,6 +83,9 @@ export default function TrainingPage({ service }: ServicePageProps) {
 
       {/* FAQ Section */}
       <FAQSection pageType="training" />
+      
+      {/* SEO: FAQ Structured Data */}
+      <FaqSchema pageType="training" />
     </motion.div>
   );
 }

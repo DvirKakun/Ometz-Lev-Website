@@ -4,6 +4,8 @@ import { ExternalLink, School, Users, Clock, MapPin, BookOpen, Target, Award } f
 import MainHeader from "../components/sections/shared/headers/MainHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
+import { FAQSection } from "../components/sections/shared/faq";
+import FaqSchema from "../components/seo/FaqSchema";
 import { schoolProgram } from "../data/schools";
 import type { ServicePageProps } from "../types/service_page";
 
@@ -231,6 +233,12 @@ export default function SchoolsPage({ service }: ServicePageProps) {
           </div>
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <FAQSection pageType="schools" />
+      
+      {/* SEO: FAQ Structured Data */}
+      <FaqSchema pageType="schools" />
     </motion.div>
   );
 }
