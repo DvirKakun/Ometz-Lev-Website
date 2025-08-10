@@ -8,10 +8,10 @@ The `FaqSchema` component automatically generates JSON-LD structured data for FA
 
 ### Features
 
-- ✅ **Automatic JSON-LD Generation**: Creates proper FAQ structured data
+- ✅ **Immediate Render**: Uses react-helmet to inject JSON-LD during initial render (not useEffect)
 - ✅ **Google Rich Snippets**: Helps your FAQ appear as rich snippets in Google search
 - ✅ **Dynamic Content**: Automatically pulls FAQ data from your existing data layer
-- ✅ **Clean Mounting/Unmounting**: Properly manages script tags in document head
+- ✅ **Proper Head Management**: React Helmet ensures proper script injection to document head
 - ✅ **TypeScript Support**: Fully typed with existing FAQ interfaces
 
 ### Usage
@@ -34,8 +34,8 @@ import FaqSchema from "../components/seo/FaqSchema";
 
 1. **Data Source**: Pulls FAQ data from `src/data/faq.ts` using `getFAQsByPageType()`
 2. **Schema Generation**: Creates Schema.org FAQPage markup
-3. **DOM Injection**: Adds JSON-LD script to document head
-4. **Cleanup**: Removes script when component unmounts
+3. **React Helmet**: Injects JSON-LD script into document head during render
+4. **Immediate Availability**: Script is present from initial page load for optimal SEO
 
 ### Generated Schema Example
 
