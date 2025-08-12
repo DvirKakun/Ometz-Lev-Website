@@ -235,7 +235,7 @@ export default function SchoolsPage({ service }: ServicePageProps) {
       </section>
 
       {/* FAQ Section */}
-      <FAQSection pageType="schools" />
+      <FAQSection pageType="schools" service={service} />
       
       {/* SEO: FAQ Structured Data */}
       <FaqSchema pageType="schools" />

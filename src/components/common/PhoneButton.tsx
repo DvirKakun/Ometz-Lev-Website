@@ -29,10 +29,10 @@ const PhoneButton: React.FC<PhoneButtonProps> = ({
 
   const variants = {
     default:
-      "bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white shadow-soft hover:shadow-soft-lg",
-    icon: "bg-gradient-to-r from-accent-400 to-accent-500 hover:from-accent-500 hover:to-accent-600 text-white shadow-soft hover:shadow-soft-lg",
+      "bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white shadow-soft hover:shadow-soft-lg",
+    icon: "bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white shadow-soft hover:shadow-soft-lg",
     outline:
-      "border-2 border-accent-500 text-accent-600 hover:bg-accent-50 bg-transparent shadow-soft hover:shadow-soft-lg",
+      "border-2 border-primary-500 text-primary-600 hover:bg-primary-50 bg-transparent shadow-soft hover:shadow-soft-lg",
   };
 
   if (variant === "icon") {

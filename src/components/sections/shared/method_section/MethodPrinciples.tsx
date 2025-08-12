@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { MethodPrinciplesProps } from "../../../../types/method";
 
-const MethodPrinciples = ({ principles }: MethodPrinciplesProps) => {
+const MethodPrinciples = ({ principles, service }: MethodPrinciplesProps) => {
   return (
     <div className="grid md:grid-cols-2 gap-6">
       {principles.map((principle, index) => (
@@ -11,10 +11,10 @@ const MethodPrinciples = ({ principles }: MethodPrinciplesProps) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-          className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-300"
+          className={`bg-white rounded-xl p-6 border-2 ${service.borderColor} ${service.hoverBorderColor} shadow-sm hover:shadow-md transition-all duration-300`}
         >
           <div className="flex items-start gap-4 text-right">
-            <div className="w-12 h-12 bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className={`w-12 h-12 bg-gradient-to-r ${service.color} rounded-xl flex items-center justify-center flex-shrink-0`}>
               <principle.icon className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">

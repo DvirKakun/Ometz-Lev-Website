@@ -25,10 +25,10 @@ const CtaButtons = ({ service, scrollToSection }: CtaButtonsProps) => {
           <Button
             onClick={() => scrollToSection(ctaItem.href)}
             variant="outline"
-            className="w-full justify-between text-right p-4 h-auto border-primary-200 hover:border-primary-300 hover:bg-primary-50 transition-all duration-300"
+            className={`w-full justify-between text-right p-4 h-auto border-2 ${service.borderColor} ${service.hoverBorderColor} hover:bg-gradient-to-r ${service.bgColor} ${service.hoverColor} transition-all duration-300 group`}
           >
-            <span className="text-slate-700 font-medium">{ctaItem.text}</span>
-            <ctaItem.icon className="w-5 h-5 text-primary-600" />
+            <span className={`text-slate-700 font-medium group-hover:font-semibold group-hover:${service.hoverTextColor} transition-all duration-300`}>{ctaItem.text}</span>
+            <ctaItem.icon className={`w-5 h-5 text-slate-600 group-hover:${service.hoverTextColor} transition-all duration-300`} />
           </Button>
         </motion.div>
       ))}

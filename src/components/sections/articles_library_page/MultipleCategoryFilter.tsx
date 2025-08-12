@@ -46,7 +46,7 @@ const MultipleCategoryFilter = ({
                 סינון
               </h2>
               {hasActiveFilters && !selectedCategories.includes("all") && (
-                <span className="bg-accent-100 text-accent-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
+                <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
                   {selectedCategories.length} קטגוריות נבחרו
                 </span>
               )}

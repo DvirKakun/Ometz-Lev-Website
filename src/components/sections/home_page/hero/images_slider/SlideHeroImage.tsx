@@ -131,9 +131,9 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
       <div className="relative w-full">
         {/* Gradient Border - Responsive */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-primary-500 via-primary-600 to-accent-500 rounded-2xl sm:rounded-3xl transform rotate-2 sm:rotate-3"
+          className="absolute inset-0 bg-gradient-to-br from-primary-500 via-primary-600 to-primary-700 rounded-2xl sm:rounded-3xl"
           animate={{
-            rotate: isHovered ? 1 : [2, 3],
+            rotate: isHovered ? 0 : 3,
             scale: isHovered ? 1.02 : 1,
           }}
           transition={{ duration: 0.3 }}
@@ -141,7 +141,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
 
         {/* Image Container - Responsive */}
         <motion.div
-          className={`relative bg-white p-1 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl transform -rotate-1 sm:-rotate-2 hover:rotate-0 transition-transform duration-500 ${
+          className={`relative bg-white p-1 sm:p-2 rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl ${
             isTouching ? "scale-[0.98]" : ""
           }`}
           whileHover={{ scale: 1.02 }}

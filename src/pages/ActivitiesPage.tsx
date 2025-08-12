@@ -150,7 +150,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
         {renderContent()}
 
         {/* FAQ Section - Always rendered */}
-        <FAQSection pageType="activities" />
+        <FAQSection pageType="activities" service={service} />
         
         {/* SEO: FAQ Structured Data */}
         <FaqSchema pageType="activities" />

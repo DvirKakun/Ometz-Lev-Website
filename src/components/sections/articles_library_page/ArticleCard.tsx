@@ -42,13 +42,13 @@ const ArticleCard = ({
       >
         {/* Article Header with Category Badge */}
         <div className="relative flex-shrink-0">
-          <div className="aspect-video bg-gradient-to-br from-accent-50 to-orange-100 relative overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center bg-accent-800/10 group-hover:bg-accent-800/20 transition-colors">
+          <div className="aspect-video bg-gradient-to-br from-orange-50 to-orange-100 relative overflow-hidden">
+            <div className="absolute inset-0 flex items-center justify-center bg-orange-800/10 group-hover:bg-orange-800/20 transition-colors">
               <motion.div whileHover={{ scale: 1.05 }} className="text-center">
-                <div className="w-16 h-16 bg-accent-600 rounded-full flex items-center justify-center shadow-lg mb-2">
+                <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center shadow-lg mb-2">
                   <span className="text-2xl text-white font-bold">א</span>
                 </div>
-                <span className="text-sm text-accent-700 font-medium">
+                <span className="text-sm text-orange-700 font-medium">
                   מאמר
                 </span>
               </motion.div>
@@ -76,7 +76,7 @@ const ArticleCard = ({
         </div>
 
         <CardContent className="p-4 flex-1 flex flex-col">
-          <h3 className="text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-accent-600 transition-colors duration-300 line-clamp-2 whitespace-pre-wrap">
+          <h3 className="text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-orange-600 transition-colors duration-300 line-clamp-2 whitespace-pre-wrap">
             {article.title}
           </h3>
           <p className="text-slate-600 leading-relaxed text-right text-sm mb-4 flex-1 line-clamp-3 whitespace-pre-wrap">

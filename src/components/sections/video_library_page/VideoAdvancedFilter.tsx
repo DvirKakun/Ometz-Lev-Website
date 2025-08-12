@@ -73,7 +73,7 @@ const VideoAdvancedFilter = ({
                 <div className="flex gap-2">
                   {!selectedCategories.includes("all") &&
                     selectedCategories.length > 0 && (
-                      <span className="bg-accent-100 text-accent-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
+                      <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
                         {selectedCategories.length} קטגוריות נבחרו
                       </span>
                     )}

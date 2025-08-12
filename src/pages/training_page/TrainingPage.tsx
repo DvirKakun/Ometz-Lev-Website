@@ -65,7 +65,7 @@ export default function TrainingPage({ service }: ServicePageProps) {
       <CollapsibleFeatures service={serviceWithOfferings} />
 
       {/* Training Method Section (includes brief about) */}
-      <MethodSection config={methodConfig} />
+      <MethodSection config={methodConfig} service={service} />
 
       {/* Videos Section */}
       <ContentSection
@@ -82,7 +82,7 @@ export default function TrainingPage({ service }: ServicePageProps) {
       />
 
       {/* FAQ Section */}
-      <FAQSection pageType="training" />
+      <FAQSection pageType="training" service={service} />
       
       {/* SEO: FAQ Structured Data */}
       <FaqSchema pageType="training" />

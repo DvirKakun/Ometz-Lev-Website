@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { MethodHeaderProps } from "../../../../types/method";
 
-const MethodHeader = ({ config }: MethodHeaderProps) => {
+const MethodHeader = ({ config, service }: MethodHeaderProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -13,7 +13,7 @@ const MethodHeader = ({ config }: MethodHeaderProps) => {
       <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
         {config.title}
       </h2>
-      <div className="w-20 h-1 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full mx-auto mb-6"></div>
+      <div className={`w-20 h-1 bg-gradient-to-r ${service.color} rounded-full mx-auto mb-6`}></div>
       <p className="text-xl text-slate-600">{config.subtitle}</p>
     </motion.div>
   );

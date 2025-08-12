@@ -27,13 +27,10 @@ export function FloatingBadge({
         }}
         className="absolute -bottom-3 -right-3 sm:-bottom-5 sm:-right-5 group cursor-default"
       >
-        {/* Enhanced backdrop glow effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-300/40 via-primary-400/30 to-accent-400/40 rounded-2xl blur-lg scale-110 opacity-70"></div>
-
         {/* Main badge container - smaller and more refined */}
         <div className="relative bg-white/95 backdrop-blur-xl border border-white/60 shadow-xl rounded-2xl p-4 min-w-[140px]">
-          {/* Refined gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-br from-primary-50/80 via-primary-100/40 to-accent-50/60 rounded-2xl"></div>
+          {/* Refined overlay */}
+          <div className="absolute inset-0 bg-yellow-50/60 rounded-2xl"></div>
 
           {/* Content */}
           <div className="relative flex items-center space-x-3 space-x-reverse">
@@ -57,19 +54,25 @@ export function FloatingBadge({
               </motion.div>
             </div>
 
-            {/* Icon container - smaller and no rotation */}
+            {/* Icon container - inset design */}
             <motion.div
-              className="flex-shrink-0 w-10 h-10 rounded-xl shadow-md relative overflow-hidden"
+              className="flex-shrink-0 w-10 h-10 rounded-xl relative"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              {/* Enhanced gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-500 via-primary-600 to-accent-500"></div>
+              {/* Inset well background */}
+              <div className="absolute inset-0 bg-gray-100 border-2 border-gray-300 rounded-xl shadow-inner"></div>
 
-              {/* Subtle inner glow */}
-              <div className="absolute inset-0.5 bg-gradient-to-br from-primary-400/20 to-accent-400/20 rounded-lg"></div>
+              {/* Inner shadow enhancement for deeper inset look */}
+              <div
+                className="absolute inset-0 rounded-xl"
+                style={{
+                  boxShadow:
+                    "inset 2px 2px 4px rgba(0,0,0,0.15), inset -1px -1px 2px rgba(255,255,255,0.8)",
+                }}
+              ></div>
 
-              {/* Image layer - smaller image within the circle */}
+              {/* Image layer */}
               <div
                 className="absolute inset-1"
                 style={{
@@ -81,51 +84,6 @@ export function FloatingBadge({
               />
             </motion.div>
           </div>
-
-          {/* Refined decorative elements */}
-          <div className="absolute -top-0.5 -left-0.5 w-2 h-2 bg-gradient-to-br from-primary-400 to-primary-500 rounded-full opacity-80"></div>
-          <div className="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 bg-gradient-to-br from-accent-400 to-accent-500 rounded-full opacity-70"></div>
-
-          {/* Static border effect */}
-          <div
-            className="absolute inset-0 rounded-2xl"
-            style={{
-              background: `linear-gradient(90deg, 
-                rgba(20, 184, 166, 0.15) 0%, 
-                transparent 50%, 
-                rgba(249, 115, 22, 0.15) 100%)`,
-              padding: "1px",
-            }}
-          />
-
-          {/* Refined success indicator */}
-          <motion.div
-            className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full flex items-center justify-center shadow-md border-2 border-white"
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{
-              delay: 0.7,
-              type: "spring",
-              stiffness: 500,
-              damping: 15,
-            }}
-            whileHover={{ scale: 1.1 }}
-          >
-            <svg
-              className="w-2.5 h-2.5 text-white"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </motion.div>
-
-          {/* Additional subtle highlight */}
-          <div className="absolute top-1 left-1 w-4 h-1 bg-gradient-to-r from-white/40 to-transparent rounded-full"></div>
         </div>
       </motion.div>
     </AnimatePresence>

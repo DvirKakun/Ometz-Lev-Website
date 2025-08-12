@@ -7,30 +7,79 @@ export default {
         heebo: ["Heebo", "sans-serif"],
       },
       colors: {
-        // ============ ORIGINAL COLORS (Turquoise & Orange) - COMMENTED OUT ============
+        // ============ CUSTOM BRAND COLORS BASED ON #da9a52 ============
         primary: {
+          50: "#fef8f0",
+          100: "#fdefdc",
+          200: "#fbddb8",
+          300: "#f8c68a",
+          400: "#f4a85a",
+          500: "#da9a52", // Main brand color
+          600: "#c8823a",
+          700: "#a66a2d",
+          800: "#85552a",
+          900: "#6d4626",
+        },
+        accent: {
           50: "#f0fdfc",
           100: "#ccfbf1",
           200: "#99f6e4",
           300: "#5eead4",
           400: "#2dd4bf",
-          500: "#14b8a6", // Main turquoise
+          500: "#14b8a6", // Turquoise
           600: "#0d9488",
           700: "#0f766e",
           800: "#115e59",
           900: "#134e4a",
         },
-        accent: {
-          50: "#fff7ed",
-          100: "#ffedd5",
-          200: "#fed7aa",
-          300: "#fdba74",
-          400: "#fb923c",
-          500: "#f97316", // Warm orange
-          600: "#ea580c",
-          700: "#c2410c",
-          800: "#9a3412",
-          900: "#7c2d12",
+        // ============ SERVICE-SPECIFIC COLOR PALETTES ============
+        therapy: {
+          50: "#fdf2f8",
+          100: "#fce7f3",
+          200: "#fbcfe8",
+          300: "#f9a8d4",
+          400: "#f472b6", // Main therapy pink
+          500: "#ec4899",
+          600: "#db2777",
+          700: "#be185d",
+          800: "#9d174d",
+          900: "#831843",
+        },
+        schools: {
+          50: "#f5f3ff",
+          100: "#ede9fe",
+          200: "#ddd6fe",
+          300: "#c4b5fd",
+          400: "#a78bfa",
+          500: "#8b5cf6", // Main schools purple
+          600: "#7c3aed",
+          700: "#6d28d9",
+          800: "#5b21b6",
+          900: "#4c1d95",
+        },
+        activities: {
+          50: "#fefce8",
+          100: "#fef3c7",
+          200: "#fde68a",
+          300: "#fcd34d",
+          400: "#f9d71c", // Main activities softer yellow
+          500: "#eab308",
+          600: "#ca8a04",
+          700: "#a16207",
+          800: "#92400e",
+          900: "#78350f",
+        },
+        training: {
+          50: "#f0fdfc",
+          100: "#ccfbf1",
+          200: "#99f6e4",
+          300: "#5eead4",
+          400: "#2dd4bf",
+          500: "#14b8a6", // Main training turquoise (same as accent)
+          600: "#0d9488",
+          700: "#0f766e",
+          800: "#115e59",
+          900: "#134e4a",
         },
         //  ============ NEW DOG-TRAINING OPTIMIZED PALETTES ============
         // 🐕 OPTION 1: Golden Retriever & Forest (Matches your logo perfectly!)

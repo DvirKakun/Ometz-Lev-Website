@@ -9,33 +9,37 @@ interface TrustBadgeProps {
 const TrustBadge: React.FC<TrustBadgeProps> = ({ onClick }) => {
   return (
     <motion.button
-      initial={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      whileHover={{
-        scale: 1.05,
-        transition: { duration: 0.15, ease: "easeOut" },
-      }}
-      whileTap={{ scale: 0.98, transition: { duration: 0.1, ease: "easeOut" } }}
       transition={{
-        duration: 0.3,
-        delay: 0.8,
+        duration: 0.5,
         ease: [0.25, 0.46, 0.45, 0.94],
-        scale: { duration: 0.3 }, // Only apply main timing to initial scale
+        type: "spring",
+        stiffness: 300,
+        damping: 30,
+      }}
+      whileHover={{
+        scale: 1.08,
+        y: -2,
+        transition: {
+          duration: 0.2,
+          ease: [0.25, 0.46, 0.45, 0.94],
+          type: "spring",
+          stiffness: 400,
+          damping: 25,
+        },
+      }}
+      whileTap={{
+        scale: 0.95,
+        y: 0,
+        transition: { duration: 0.1, ease: "easeInOut" },
       }}
       viewport={{ once: true }}
       onClick={onClick}
-      className="w-full p-6 bg-white/20 hover:bg-white/30 backdrop-blur-sm border-2 border-white/30 hover:border-white/50 rounded-xl shadow-lg hover:shadow-xl cursor-pointer transition-[background-color,border-color,box-shadow] duration-300 text-center flex flex-col items-center justify-center"
+      className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-accent-400 to-accent-500 hover:from-accent-500 hover:to-accent-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl cursor-pointer transition-colors duration-300"
     >
-      <div className="flex items-center justify-center gap-2 mb-3">
-        <h3 className="text-lg font-bold text-white">ייעוץ ראשון חינם</h3>
-        <Heart className="w-5 h-5 text-accent-200" />
-      </div>
-
-      <p className="text-white/90 text-sm mb-2">פגישת הכרות ללא התחייבות</p>
-
-      <p className="text-accent-200 text-xs font-medium">
-        כי כל מסע מתחיל בצעד אחד
-      </p>
+      <span className="text-sm whitespace-nowrap">ייעוץ ראשון חינם</span>
+      <Heart className="w-4 h-4 text-white" />
     </motion.button>
   );
 };

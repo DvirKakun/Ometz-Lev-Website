@@ -21,7 +21,10 @@ export interface Service {
   icon: LucideIcon;
   color: string;
   bgColor: string;
+  borderColor: string;
+  hoverBorderColor: string;
   hoverColor: string;
+  hoverTextColor: string;
   offerings: (ProcessedFullOffering | ProcessedSimpleOffering)[];
   cta: CtaItem[];
 }

@@ -17,8 +17,8 @@ export const therapyContentConfig: PageContentConfig = {
     libraryPath: "/therapy-articles-library",
     libraryTitle: "ספריית מאמרי הטיפול שלנו",
     buttonText: "עבור לספרייה",
-    accentColor: "accent",
-    gradientFrom: "from-accent-500",
+    accentColor: "orange",
+    gradientFrom: "from-orange-500",
     gradientTo: "to-orange-600",
   },
 };

@@ -15,11 +15,11 @@ const TherapyPage = ({ service }: ServicePageProps) => {
   const location = useLocation();
   const { data: methodConfig } = useTherapyMethodConfig();
   const { data: therapyOfferingsData } = useTherapyOfferings();
-  
+
   // Merge Prismic offerings with service data
   const serviceWithOfferings = {
     ...service,
-    offerings: therapyOfferingsData?.offerings || []
+    offerings: therapyOfferingsData?.offerings || [],
   };
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const TherapyPage = ({ service }: ServicePageProps) => {
       <CollapsibleFeatures service={serviceWithOfferings} />
 
       {/* Therapy Method Section */}
-      <MethodSection config={methodConfig} />
+      <MethodSection config={methodConfig} service={service} />
 
       {/* Videos Section */}
       <ContentSection
@@ -74,8 +74,8 @@ const TherapyPage = ({ service }: ServicePageProps) => {
       />
 
       {/* FAQ Section */}
-      <FAQSection pageType="therapy" />
-      
+      <FAQSection pageType="therapy" service={service} />
+
       {/* SEO: FAQ Structured Data */}
       <FaqSchema pageType="therapy" />
     </motion.div>

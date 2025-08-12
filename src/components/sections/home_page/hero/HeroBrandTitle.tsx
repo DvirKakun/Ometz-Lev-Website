@@ -25,9 +25,9 @@ const HeroBrandTitle: React.FC = () => {
         }}
       >
         <span
-          className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent drop-shadow-lg"
+          className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary-500 drop-shadow-lg"
           style={{
-            filter: "drop-shadow(0 0 20px rgba(20, 184, 166, 0.4))",
+            filter: "drop-shadow(0 0 20px rgba(234, 179, 8, 0.4))",
           }}
         >
           אומץ לב

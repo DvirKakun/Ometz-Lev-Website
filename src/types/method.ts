@@ -1,4 +1,5 @@
 import { type LucideIcon } from "lucide-react";
+import type { Service } from "./services";
 
 export interface MethodPrinciple {
   icon: LucideIcon;
@@ -43,24 +44,30 @@ export interface MethodConfig {
 
 export interface AboutIntroProps {
   config: AboutConfig;
+  service: Service;
 }
 
 export interface MethodHeaderProps {
   config: HeaderConfig;
+  service: Service;
 }
 
 export interface MethodPhilosophyProps {
   config: PhilosophyConfig;
+  service: Service;
 }
 
 export interface MethodPrinciplesProps {
   principles: MethodPrinciple[];
+  service: Service;
 }
 
 export interface MethodSectionProps {
   config: MethodConfig;
+  service: Service;
 }
 
 export interface ProcessStepsProps {
   config: ProcessConfig;
+  service: Service;
 }

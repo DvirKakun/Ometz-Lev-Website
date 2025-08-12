@@ -2,7 +2,7 @@ import React from "react";
 import FooterBrand from "./FooterBrand";
 import FooterQuickLinks from "./FooterQuickLinks";
 import FooterContact from "./FooterContact";
-import FooterCTA from "./FooterCTA";
+import FooterWorkingHours from "./FooterWorkingHours";
 
 const FooterMain: React.FC = () => {
   return (
@@ -19,8 +19,8 @@ const FooterMain: React.FC = () => {
           {/* Contact third on mobile */}
           <FooterContact />
 
-          {/* CTA fourth on mobile */}
-          <FooterCTA showSocialLinks={true} />
+          {/* Working Hours fourth on mobile */}
+          <FooterWorkingHours showSocialLinks={true} />
         </div>
       </div>
 
@@ -30,7 +30,7 @@ const FooterMain: React.FC = () => {
           <FooterBrand showSocialLinks={false} />
           <FooterQuickLinks />
           <FooterContact />
-          <FooterCTA showSocialLinks={true} />
+          <FooterWorkingHours showSocialLinks={true} />
         </div>
       </div>
 
@@ -40,7 +40,7 @@ const FooterMain: React.FC = () => {
           <FooterBrand showSocialLinks={true} />
           <FooterQuickLinks />
           <FooterContact />
-          <FooterCTA showSocialLinks={false} />
+          <FooterWorkingHours showSocialLinks={false} />
         </div>
       </div>
     </div>

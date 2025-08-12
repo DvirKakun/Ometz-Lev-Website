@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { AboutIntroProps } from "../../../../types/method";
 
-const AboutIntro = ({ config }: AboutIntroProps) => {
+const AboutIntro = ({ config, service }: AboutIntroProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -19,7 +19,7 @@ const AboutIntro = ({ config }: AboutIntroProps) => {
         className="flex-shrink-0"
       >
         {config.imageSrc && (
-          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-primary-200 shadow-lg">
+          <div className={`w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 ${service.borderColor} shadow-lg`}>
             <img
               src={config.imageSrc}
               alt={config.altText || config.name}

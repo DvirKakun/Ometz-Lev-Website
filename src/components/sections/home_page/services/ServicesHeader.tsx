@@ -18,10 +18,7 @@ const ServicesHeader: React.FC = () => {
           letterSpacing: "-0.02em",
         }}
       >
-        פתרונות{" "}
-        <span className="bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">
-          מקצועיים וחווייתיים
-        </span>
+        פתרונות <span className="text-primary-500">מקצועיים וחווייתיים</span>
       </h2>
       <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-6">
         מגוון שירותים מקצועיים המותאמים לצרכים השונים שלכם ושל הכלב שלכם

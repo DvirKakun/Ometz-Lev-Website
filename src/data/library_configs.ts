@@ -32,7 +32,7 @@ export const trainingArticleLibraryConfig: ArticleLibraryConfig = {
   description: "מאמרי הדרכה מקצועיים ומדריכים לאילוף כלבים",
   returnPath: "/training",
   returnLabel: "חזרה לעמוד האילוף",
-  gradientColors: "from-accent-600 via-orange-600 to-orange-700",
+  gradientColors: "from-orange-500 via-orange-600 to-orange-700",
   backgroundPattern: false,
 };
 
@@ -43,6 +43,6 @@ export const therapyArticleLibraryConfig: ArticleLibraryConfig = {
   description: "מאמרי הדרכה מקצועיים ומדריכים לטיפול בכלבים",
   returnPath: "/therapy",
   returnLabel: "חזרה לעמוד הטיפול",
-  gradientColors: "from-accent-600 via-orange-600 to-orange-700",
+  gradientColors: "from-orange-500 via-orange-600 to-orange-700",
   backgroundPattern: false,
 };

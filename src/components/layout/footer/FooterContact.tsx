@@ -23,7 +23,7 @@ const FooterContact: React.FC = () => {
       <h4 className="text-lg font-semibold mb-6 text-primary-300">
         יצירת קשר
       </h4>
-      <ul className="space-y-4">
+      <ul className="space-y-3">
         {contactInfo.map((contact, index) => (
           <li key={index}>
             <a

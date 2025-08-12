@@ -1,3 +1,5 @@
+import type { Service } from './services';
+
 export type FAQPageType = 'therapy' | 'training' | 'activities' | 'schools';
 
 export interface FAQItem {
@@ -9,6 +11,7 @@ export interface FAQItem {
 
 export interface FAQSectionProps {
   pageType: FAQPageType;
+  service?: Service;
   className?: string;
 }
 
@@ -20,5 +23,6 @@ export interface FAQAccordionProps {
 export interface FAQHeaderProps {
   title: string;
   description: string;
+  service?: Service;
   className?: string;
 }

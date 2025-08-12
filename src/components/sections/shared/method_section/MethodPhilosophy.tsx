@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
 import type { MethodPhilosophyProps } from "../../../../types/method";
 
-const MethodPhilosophy = ({ config }: MethodPhilosophyProps) => {
+const MethodPhilosophy = ({ config, service }: MethodPhilosophyProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: 0.6 }}
-      className="bg-gradient-to-l from-primary-50 to-white rounded-2xl p-8 border border-primary-100/50 shadow-sm"
+      className={`bg-gradient-to-l ${service.bgColor} to-white rounded-2xl p-8 border-2 ${service.borderColor} shadow-sm`}
     >
       <div className="text-right space-y-4">
         {config.paragraphs.map((paragraph, index) => (

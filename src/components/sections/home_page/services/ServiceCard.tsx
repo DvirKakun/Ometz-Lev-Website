@@ -8,22 +8,6 @@ import type { ServiceCardProps } from "../../../../types/services";
 const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Map service colors to text colors for hover states
-  const getHoverTextColor = () => {
-    switch (service.path) {
-      case "/therapy":
-        return "text-red-500";
-      case "/training":
-        return "text-primary-600";
-      case "/activities":
-        return "text-accent-600";
-      case "/schools":
-        return "text-purple-600";
-      default:
-        return "text-primary-600";
-    }
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -53,7 +37,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
             {/* Title */}
             <h3
               className={`text-xl font-bold mb-4 transition-colors duration-300 ${
-                isHovered ? getHoverTextColor() : "text-slate-800"
+                isHovered ? service.hoverTextColor : "text-slate-800"
               }`}
             >
               {service.title}
@@ -99,7 +83,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
                 <div className="flex items-center justify-between">
                   <span
                     className={`text-sm font-bold transition-colors duration-300 ${
-                      isHovered ? getHoverTextColor() : "text-slate-800"
+                      isHovered ? service.hoverTextColor : "text-slate-800"
                     }`}
                   >
                     לפרטים נוספים

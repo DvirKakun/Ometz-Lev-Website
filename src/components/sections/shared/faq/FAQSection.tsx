@@ -5,7 +5,7 @@ import { getFAQsByPageType, getFAQSectionConfig } from "../../../../data/faq";
 import FAQHeader from "./FAQHeader";
 import FAQAccordion from "./FAQAccordion";
 
-const FAQSection: React.FC<FAQSectionProps> = ({ pageType, className = "" }) => {
+const FAQSection: React.FC<FAQSectionProps> = ({ pageType, service, className = "" }) => {
   const faqItems = getFAQsByPageType(pageType);
   const config = getFAQSectionConfig(pageType);
 
@@ -26,6 +26,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ pageType, className = "" }) => 
           <FAQHeader 
             title={config.title}
             description={config.description}
+            service={service}
             className="mb-10"
           />
           

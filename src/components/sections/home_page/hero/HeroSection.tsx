@@ -1,13 +1,10 @@
 import { motion } from "framer-motion";
 import SlideHeroImage from "./images_slider/SlideHeroImage";
-import HeroBackground from "./HeroBackground";
 import HeroContent from "./HeroContent";
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="relative py-8 sm:py-12 lg:py-16 bg-gradient-to-br from-slate-900 via-primary-900 to-accent-900 overflow-hidden min-h-[80vh] flex items-center">
-      <HeroBackground />
-
+    <section className="relative py-8 sm:py-12 lg:py-16 bg-slate-900 overflow-hidden min-h-[80vh] flex items-center">
       <div className="container-max section-padding relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
           {/* Content - First on mobile, second on desktop */}

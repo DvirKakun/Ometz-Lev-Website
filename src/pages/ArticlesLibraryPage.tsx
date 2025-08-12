@@ -73,7 +73,7 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-accent-50/30 to-orange-50/50">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50/30 to-orange-50/50">
       <LibraryHeader config={config} />
       <MultipleCategoryFilter
         selectedCategories={selectedCategories}

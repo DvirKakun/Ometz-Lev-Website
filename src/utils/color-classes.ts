@@ -74,6 +74,12 @@ export function getCTAColorClasses(accentColor: string) {
       text: "text-red-600",
       button: "bg-red-600 hover:bg-red-700",
     },
+    orange: {
+      bg: "from-orange-500/5 to-orange-600/10",
+      pulse: "bg-orange-500",
+      text: "text-orange-600",
+      button: "bg-orange-600 hover:bg-orange-700",
+    },
     accent: {
       bg: "from-accent-500/5 to-orange-600/10",
       pulse: "bg-accent-500",

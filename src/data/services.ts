@@ -16,9 +16,12 @@ export const services: Service[] = [
     description:
       "כלבנות טיפולית היא מפגש מודרך שבו אני משלב כלבים כדי לעזור לילדים, בני נוער ומבוגרים לפתח ביטחון, כישורי תקשורת ורגש חיובי. במהלך המפגש אנו לומדים לקרוא את שפת הגוף של הכלב, מבצעים תרגילי שיתוף פעולה ומשחקים שמחזקים סבלנות ואחריות. החוויה מאפשרת מרחב בטוח, נעים ומעצים שבו המשתתפים יוצאים עם תחושת הצלחה וחיבור אמיתי.",
     icon: Heart,
-    color: "from-red-400 to-pink-500",
-    bgColor: "from-red-50 to-pink-50",
-    hoverColor: "hover:shadow-red-200/50",
+    color: "from-therapy-400 to-therapy-500",
+    bgColor: "from-therapy-50 to-therapy-100",
+    borderColor: "border-therapy-200",
+    hoverBorderColor: "hover:border-therapy-300",
+    hoverColor: "hover:shadow-therapy-200/50",
+    hoverTextColor: "text-therapy-600",
     offerings: [], // All offerings come from Prismic therapy_offerings
     cta: [
       {
@@ -44,9 +47,12 @@ export const services: Service[] = [
     description:
       "הדרכה מקצועית לאילוף כלבים בשיטות חיוביות, הכוללת אימון אישי, פתרון בעיות התנהגות וליווי מתמשך לבעלי כלבים.",
     icon: BookOpen,
-    color: "from-primary-500 to-primary-600",
-    bgColor: "from-primary-50 to-primary-100/50",
-    hoverColor: "hover:shadow-primary-200/50",
+    color: "from-training-500 to-training-600",
+    bgColor: "from-training-50 to-training-100",
+    borderColor: "border-training-200",
+    hoverBorderColor: "hover:border-training-300",
+    hoverColor: "hover:shadow-training-200/50",
+    hoverTextColor: "text-training-600",
     offerings: [], // All offerings come from Prismic training_offerings
     cta: [
       {
@@ -72,9 +78,12 @@ export const services: Service[] = [
     description:
       "מגוון פעילויות חווייתיות עם כלבים לכל המשפחה, כולל קייטנות, חוגי אילוף לילדים ואירועים מיוחדים.",
     icon: Award,
-    color: "from-accent-500 to-orange-500",
-    bgColor: "from-accent-50 to-orange-50",
-    hoverColor: "hover:shadow-accent-200/50",
+    color: "from-activities-400 to-activities-500",
+    bgColor: "from-activities-50 to-activities-100",
+    borderColor: "border-activities-200",
+    hoverBorderColor: "hover:border-activities-300",
+    hoverColor: "hover:shadow-activities-200/50",
+    hoverTextColor: "text-activities-600",
     offerings: [], // All offerings come from Prismic activities_offerings
     cta: [],
   },
@@ -84,9 +93,12 @@ export const services: Service[] = [
     description:
       "תוכנית חינוכית ייחודית בבתי ספר המשלבת עבודה עם כלבים לפיתוח ערכים, אמפתיה וכישורים חברתיים אצל ילדים.",
     icon: Users,
-    color: "from-purple-500 to-indigo-500",
-    bgColor: "from-purple-50 to-indigo-50",
-    hoverColor: "hover:shadow-purple-200/50",
+    color: "from-schools-400 to-schools-500",
+    bgColor: "from-schools-50 to-schools-100",
+    borderColor: "border-schools-200",
+    hoverBorderColor: "hover:border-schools-300",
+    hoverColor: "hover:shadow-schools-200/50",
+    hoverTextColor: "text-schools-600",
     offerings: [], // All offerings come from Prismic schools_offerings
     cta: [],
   },

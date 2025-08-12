@@ -19,7 +19,7 @@ const AboutHeader: React.FC = () => {
         }}
       >
         קצת{" "}
-        <span className="bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent drop-shadow-lg">
+        <span className="bg-primary-500 bg-clip-text text-transparent drop-shadow-lg">
           עליי...
         </span>
       </h2>
