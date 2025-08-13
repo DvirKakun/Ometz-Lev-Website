@@ -64,30 +64,28 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
     return () => clearInterval(timer);
   }, [targetDate]);
 
-  if (!isActive) {
-    return null;
-  }
+  // Always show the timer, but with different content when not active
 
   const timeUnits: TimeUnit[] = [
     {
-      value: timeLeft.seconds,
+      value: isActive ? timeLeft.seconds : 0,
       label: "שניות",
-      previousValue: previousTimeLeft.seconds,
+      previousValue: isActive ? previousTimeLeft.seconds : 0,
     },
     {
-      value: timeLeft.minutes,
+      value: isActive ? timeLeft.minutes : 0,
       label: "דקות",
-      previousValue: previousTimeLeft.minutes,
+      previousValue: isActive ? previousTimeLeft.minutes : 0,
     },
     {
-      value: timeLeft.hours,
+      value: isActive ? timeLeft.hours : 0,
       label: "שעות",
-      previousValue: previousTimeLeft.hours,
+      previousValue: isActive ? previousTimeLeft.hours : 0,
     },
     {
-      value: timeLeft.days,
+      value: isActive ? timeLeft.days : 0,
       label: "ימים",
-      previousValue: previousTimeLeft.days,
+      previousValue: isActive ? previousTimeLeft.days : 0,
     },
   ];
 
@@ -106,7 +104,8 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
         // Responsive padding - ultra compact for mobile, normal for desktop
         "px-1.5 py-0.5 sm:px-2 sm:py-1 xl:px-2 xl:py-1.5",
         // Clickable styles with more pronounced hover effects
-        clickable && "cursor-pointer hover:bg-gradient-to-br hover:from-primary-100 hover:via-white hover:to-accent-100 hover:shadow-xl hover:shadow-primary-900/15 hover:border-primary-300 transition-all duration-300 hover:scale-105",
+        clickable &&
+          "cursor-pointer hover:bg-gradient-to-br hover:from-primary-100 hover:via-white hover:to-accent-100 hover:shadow-xl hover:shadow-primary-900/15 hover:border-primary-300 transition-all duration-300 hover:scale-105",
         className
       )}
       initial={{ opacity: 0, scale: 0.95 }}
@@ -118,7 +117,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
       {showEventInfo && (
         <EventInfo
           targetDate={targetDate}
-          eventTitle={eventTitle}
+          eventTitle={isActive ? eventTitle : "אין פעילויות בקרוב"}
           className="mb-0.5 xl:mb-1"
         />
       )}

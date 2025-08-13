@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet";
 import { getFAQsByPageType } from "../../data/faq";
 import type { FAQPageType } from "../../types/faq";
 
@@ -23,8 +22,9 @@ export default function FaqSchema({ pageType }: Props) {
   };
 
   return (
-    <Helmet>
-      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-    </Helmet>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+    />
   );
 }

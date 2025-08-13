@@ -40,8 +40,8 @@ function sortActivitiesByDate(activities: Activity[]): Activity[] {
 // Default styling configuration - same for all activities
 const DEFAULT_ACTIVITY_STYLING = {
   icon: Calendar,
-  color: "from-accent-500 to-accent-600",
-  bgColor: "from-accent-50 to-accent-100",
+  color: "from-activities-400 to-activities-500",
+  bgColor: "from-activities-50 to-activities-100",
 };
 
 // Type for the complete Prismic document with any data

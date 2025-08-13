@@ -65,7 +65,7 @@ const ActivitySection = ({
                 ))}
 
                 <div
-                  className={`bg-gradient-to-r ${activity.bgColor} p-4 rounded-lg border-r-4 border-accent-500`}
+                  className={`bg-gradient-to-r ${activity.bgColor} p-4 rounded-lg border-r-4 border-activities-500`}
                 >
                   <p className="text-slate-700 font-medium text-right">
                     <strong>מתאים לגילאי:</strong> {activity.details.ages}
@@ -144,7 +144,7 @@ const ActivitySection = ({
 
                       {/* Diagonal banner - on top of overlay */}
                       <div className="absolute top-0 right-0 w-full h-full z-10">
-                        <div className="absolute top-4 -right-12 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg">
+                        <div className="absolute top-4 -right-12 bg-gradient-to-r from-activities-400 to-activities-500 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg">
                           בקרוב
                         </div>
                       </div>
