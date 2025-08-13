@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../../lib/utils";
+import { cn } from "../../lib/utils";
 import {
   type TimeLeft,
   type TimeUnit,
   type CountdownTimerProps,
-} from "../../../../types/timer";
+} from "../../types/timer";
 import TimeUnitCard from "./TimeUnitCard";
 import TimeSeparator from "./TimeSeparator";
 import EventInfo from "./EventInfo";
@@ -96,7 +96,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
         // Attractive gradient background with primary colors
         "bg-gradient-to-br from-primary-50 via-white to-accent-50",
         // Subtle border with primary accent
-        "border border-primary-200/70",
+        "border-[0.2rem] border-primary-200/70 ",
         // Enhanced shadow for prominence
         "shadow-lg shadow-primary-900/10",
         // Rounded corners

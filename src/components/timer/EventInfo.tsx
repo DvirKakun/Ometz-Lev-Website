@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { cn } from "../../../../lib/utils";
-import { type EventInfoProps } from "../../../../types/timer";
+import { cn } from "../../lib/utils";
+import { type EventInfoProps } from "../../types/timer";
 
 const EventInfo: React.FC<EventInfoProps> = ({
   targetDate,

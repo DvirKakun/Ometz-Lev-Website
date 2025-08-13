@@ -10,9 +10,6 @@ const FooterMain: React.FC = () => {
       {/* Mobile layout (single column) */}
       <div className="block md:hidden">
         <div className="space-y-8">
-          {/* Logo first on mobile, aligned right */}
-          <FooterBrand showSocialLinks={false} />
-
           {/* QuickLinks second on mobile */}
           <FooterQuickLinks />
 
@@ -21,26 +18,29 @@ const FooterMain: React.FC = () => {
 
           {/* Working Hours fourth on mobile */}
           <FooterWorkingHours showSocialLinks={true} />
+
+          {/* Logo first on mobile, aligned right */}
+          <FooterBrand showSocialLinks={false} />
         </div>
       </div>
 
       {/* Tablet layout (2 columns) */}
       <div className="hidden md:block lg:hidden">
         <div className="grid md:grid-cols-2 gap-8">
-          <FooterBrand showSocialLinks={false} />
           <FooterQuickLinks />
           <FooterContact />
           <FooterWorkingHours showSocialLinks={true} />
+          <FooterBrand showSocialLinks={false} />
         </div>
       </div>
 
       {/* Desktop layout (4 columns) */}
       <div className="hidden lg:block">
         <div className="grid lg:grid-cols-4 gap-8 lg:gap-12">
-          <FooterBrand showSocialLinks={true} />
           <FooterQuickLinks />
           <FooterContact />
           <FooterWorkingHours showSocialLinks={false} />
+          <FooterBrand showSocialLinks={true} />
         </div>
       </div>
     </div>

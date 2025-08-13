@@ -17,18 +17,42 @@ const CtaButtons = ({ service, scrollToSection }: CtaButtonsProps) => {
       {service.cta.map((ctaItem, index) => (
         <motion.div
           key={index}
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, x: -20, scale: 1 }}
+          whileInView={{ opacity: 1, x: 0, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
+          transition={{
+            opacity: { duration: 0.4, delay: 0.3 + index * 0.1 },
+            x: { duration: 0.4, delay: 0.3 + index * 0.1 },
+            scale: { duration: 0.15 },
+          }}
+          whileHover={{
+            scale: 1.02,
+            transition: { duration: 0.15 },
+          }}
+          whileTap={{
+            scale: 0.98,
+            transition: { duration: 0.1 },
+          }}
         >
           <Button
             onClick={() => scrollToSection(ctaItem.href)}
-            variant="outline"
-            className={`w-full justify-between text-right p-4 h-auto border-2 ${service.borderColor} ${service.hoverBorderColor} hover:bg-gradient-to-r ${service.bgColor} ${service.hoverColor} transition-all duration-300 group`}
+            variant="default"
+            className={`w-full justify-between text-right p-4 h-auto ${
+              service.color.includes("therapy")
+                ? "bg-therapy-100"
+                : service.color.includes("training")
+                ? "bg-training-100"
+                : "bg-primary-100"
+            } hover:opacity-90 border-none shadow-md rounded-lg font-medium transition-all duration-150 group `}
           >
-            <span className={`text-slate-700 font-medium group-hover:font-semibold group-hover:${service.hoverTextColor} transition-all duration-300`}>{ctaItem.text}</span>
-            <ctaItem.icon className={`w-5 h-5 text-slate-600 group-hover:${service.hoverTextColor} transition-all duration-300`} />
+            <span
+              className={`text-gray-800 font-medium group-hover:font-semibold transition-all duration-150`}
+            >
+              {ctaItem.text}
+            </span>
+            <ctaItem.icon
+              className={`w-5 h-5 text-gray-800 transition-all duration-150`}
+            />
           </Button>
         </motion.div>
       ))}

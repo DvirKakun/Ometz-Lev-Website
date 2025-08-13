@@ -123,10 +123,6 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Decorative Elements - Responsive and safe positioning */}
-      <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 lg:-top-6 lg:-right-6 w-12 h-12 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-primary-200/50 rounded-full blur-xl sm:blur-2xl"></div>
-      <div className="absolute -bottom-1 -left-1 sm:-bottom-3 sm:-left-3 lg:-bottom-4 lg:-left-4 w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32 bg-accent-200/50 rounded-full blur-xl sm:blur-2xl"></div>
-
       {/* Main Image Container */}
       <div className="relative w-full">
         {/* Gradient Border - Responsive */}
@@ -270,17 +266,15 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
 
           {/* Floating Badge - Responsive positioning */}
           {currentImage && (
-            <div className="hidden sm:block">
-              <FloatingBadge
-                currentImage={currentImage}
-                currentImageIndex={currentImageIndex}
-              />
-            </div>
+            <FloatingBadge
+              currentImage={currentImage}
+              currentImageIndex={currentImageIndex}
+            />
           )}
         </motion.div>
       </div>
 
-      {/* Mobile-only Badge (below image) */}
+      {/* Mobile-only Badge (below image)
       {currentImage && (
         <div className="block sm:hidden mt-4">
           <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-4 text-center">
@@ -290,7 +284,7 @@ const SlideHeroImage: React.FC<SlideHeroImageProps> = ({
             <p className="text-xs text-slate-300">{currentImage.subtitle}</p>
           </div>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

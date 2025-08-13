@@ -36,7 +36,7 @@ const TrustBadge: React.FC<TrustBadgeProps> = ({ onClick }) => {
       }}
       viewport={{ once: true }}
       onClick={onClick}
-      className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-accent-400 to-accent-500 hover:from-accent-500 hover:to-accent-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl cursor-pointer transition-colors duration-300"
+      className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl cursor-pointer transition-colors duration-300"
     >
       <span className="text-sm whitespace-nowrap">ייעוץ ראשון חינם</span>
       <Heart className="w-4 h-4 text-white" />

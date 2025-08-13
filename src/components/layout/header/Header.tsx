@@ -5,6 +5,7 @@ import HeaderLogo from "./HeaderLogo";
 import HeaderNavigation from "./HeaderNavigation";
 import HeaderMobileMenu from "./HeaderMobileMenu";
 import HeaderCTAButtons from "./HeaderCTAButtons";
+import OmetzLevLogo from "../../../assets/icons/Ometz-Lev-Logo.png";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,8 +49,14 @@ const Header: React.FC = () => {
             <HeaderNavigation />
           </div>
 
-          {/* Spacer for center alignment */}
-          <div className="flex-1"></div>
+          {/* Center Logo */}
+          <div className="flex-1 flex justify-center">
+            <img
+              src={OmetzLevLogo}
+              alt="Ometz Lev Logo"
+              className="h-12 w-auto"
+            />
+          </div>
 
           {/* Contact Buttons Component (Desktop) - Hidden on smaller screens */}
           <div className="hidden xl:block flex-shrink-0">

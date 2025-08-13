@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Card, CardContent } from "../../../ui/card";
-import { cn } from "../../../../lib/utils";
-import { type TimeUnitCardProps } from "../../../../types/timer";
+import { Card, CardContent } from "../ui/card";
+import { cn } from "../../lib/utils";
+import { type TimeUnitCardProps } from "../../types/timer";
 
 const TimeUnitCard: React.FC<TimeUnitCardProps> = ({
   value,

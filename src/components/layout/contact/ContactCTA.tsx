@@ -7,12 +7,12 @@ import { useContactModal } from "../../../hooks/useContactModal";
 const ContactCTA: React.FC = () => {
   const { isOpen, openModal, onOpenChange } = useContactModal();
   return (
-    <section className="py-12 lg:py-16 bg-gradient-to-br from-primary-500 to-primary-600 text-white relative overflow-hidden">
+    <section className="py-12 lg:py-16 bg-white  text-gray-900 relative overflow-hidden">
       <div className="container-max section-padding relative z-10">
         <div className="max-w-2xl mx-auto">
           {/* Main CTA Content */}
           <div className="text-center mb-6">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -20,14 +20,14 @@ const ContactCTA: React.FC = () => {
               className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight"
             >
               בואו נתחיל לדבר
-              <span className="text-accent-200"> בשפת הכלבים!</span>
+              <span className="text-primary-500"> בשפת הכלבים!</span>
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="text-base md:text-lg text-primary-100 leading-relaxed mb-4 max-w-xl mx-auto"
+              className="text-base md:text-lg text-gray-600 leading-relaxed mb-4 max-w-xl mx-auto"
             >
               צרו קשר עכשיו לקביעת פגישת ייעוץ ראשונה ונתחיל יחד את המסע ליצירת
               קשר בינכם לבין הכלב שלכם
@@ -35,7 +35,7 @@ const ContactCTA: React.FC = () => {
           </div>
 
           {/* Trust Badge Button */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
