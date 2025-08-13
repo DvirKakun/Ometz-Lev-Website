@@ -1,28 +1,45 @@
-import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, School, Users, Clock, MapPin, BookOpen, Target, Award } from "lucide-react";
 import MainHeader from "../components/sections/shared/headers/MainHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { FAQSection } from "../components/sections/shared/faq";
-import FaqSchema from "../components/seo/FaqSchema";
+import SEOMeta from "../components/seo/SEOMeta";
+import SEOJsonLD from "../components/seo/SEOJsonLD";
+import { getKeywordsForPage } from "../data/seo-keywords";
 import { schoolProgram } from "../data/schools";
 import type { ServicePageProps } from "../types/service_page";
 
 export default function SchoolsPage({ service }: ServicePageProps) {
-  useEffect(() => {
-    document.title = "תכנית גפן - תוכנית חינוכית לבתי ספר עם כלבים | אומץ לב";
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        "content",
-        "תכנית גפן - תוכנית חינוכית ייחודית לבתי ספר המשלבת עבודה עם כלבים לפיתוח ערכים, אמפתיה ואחריות אצל ילדים. תוכנית מאושרת במערכת החינוך."
-      );
-    }
-  }, []);
+  // SEO Configuration for Schools Page
+  const seoConfig = {
+    title: "תכנית גפן - תכניות חינוכיות עם כלבים לבתי ספר | אלעד שמעונוב - אומץ לב",
+    description: "אלעד שמעונוב - תכניות חינוכיות מותאמות לגילאים שונים עם כלבים. תכנית גפן לבתי ספר, סדנאות חינוכיות, פיתוח אחריות ואמפתיה. תכנית מאושרת במערכת החינוך. צרו קשר!",
+    keywords: getKeywordsForPage("schools"),
+    imageUrl: "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageAlt: "תלמידים בתכנית חינוכית עם כלב במסגרת תכנית גפן",
+  };
 
   return (
+    <>
+      {/* SEO Meta Tags */}
+      <SEOMeta
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        imageUrl={seoConfig.imageUrl}
+        imageAlt={seoConfig.imageAlt}
+        type="service"
+      />
+
+      {/* SEO Structured Data */}
+      <SEOJsonLD
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        pageType="schools"
+        imageUrl={seoConfig.imageUrl}
+      />
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -236,9 +253,7 @@ export default function SchoolsPage({ service }: ServicePageProps) {
 
       {/* FAQ Section */}
       <FAQSection pageType="schools" service={service} />
-      
-      {/* SEO: FAQ Structured Data */}
-      <FaqSchema pageType="schools" />
-    </motion.div>
+      </motion.div>
+    </>
   );
 }

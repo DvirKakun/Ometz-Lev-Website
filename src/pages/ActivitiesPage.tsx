@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useRef, useCallback, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { AlertCircle, Calendar } from "lucide-react";
@@ -6,7 +6,9 @@ import ServiceHeader from "../components/sections/shared/headers/MainHeader";
 import ActivitySection from "../components/sections/activities_page/ActivitySection";
 import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
 import { FAQSection } from "../components/sections/shared/faq";
-import FaqSchema from "../components/seo/FaqSchema";
+import SEOMeta from "../components/seo/SEOMeta";
+import SEOJsonLD from "../components/seo/SEOJsonLD";
+import { getKeywordsForPage } from "../data/seo-keywords";
 import LoadingSpinner from "../components/common/StateLoadingSpinner";
 import StateDisplay from "../components/common/StateDisplay";
 import { useActivities } from "../hooks/useActivities";
@@ -17,6 +19,17 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
   const location = useLocation();
   const scrollTargetRef = useRef<string | null>(null);
 
+  // SEO Configuration for Activities Page
+  const seoConfig = {
+    title: "פעילויות וקייטנות כלבים לילדים | אלעד שמעונוב - אומץ לב",
+    description:
+      "פעילויות חינוכיות עם כלבים לילדים בני 4-16. קייטנת החופש הגדול, חוגי אילוף ופעילויות העצמה וחברתיות. מפתחות אחריות ואמפתיה. הרשמה פתוחה!",
+    keywords: getKeywordsForPage("activities"),
+    imageUrl:
+      "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageAlt: "ילדים משחקים ולומדים עם כלבים טיפוליים בפעילות חינוכית",
+  };
+
   // Use React Query for data fetching with caching
   const {
     data: activities = [],
@@ -24,18 +37,6 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
     error,
     refetch,
   } = useActivities();
-
-  useEffect(() => {
-    document.title = "פעילויות וקייטנות כלבים לילדים | אומץ לב";
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        "content",
-        "פעילויות חינוכיות מיוחדות עם כלבים לילדים. קייטנת החופש הגדול, חוגי אילוף ופעילויות העצמה וחברתיות שמפתחות אחריות ואמפתיה אצל הילדים."
-      );
-    }
-  }, []);
 
   // Scroll to activity function using React patterns
   const scrollToActivity = useCallback((activityId: string) => {
@@ -67,7 +68,6 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
   const handleRegisterClick = useCallback(() => {
     setIsModalOpen(true);
   }, []);
-
 
   const handleModalOpenChange = useCallback((open: boolean) => {
     setIsModalOpen(open);
@@ -126,6 +126,25 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
 
   return (
     <>
+      {/* SEO Meta Tags */}
+      <SEOMeta
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        imageUrl={seoConfig.imageUrl}
+        imageAlt={seoConfig.imageAlt}
+        type="service"
+      />
+
+      {/* SEO Structured Data */}
+      <SEOJsonLD
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        pageType="activities"
+        imageUrl={seoConfig.imageUrl}
+      />
+
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -139,7 +158,9 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
               <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <ServiceHeader
                   title={service?.title || "פעילויות"}
-                  description={service?.description || "מגוון פעילויות חווייתיות עם כלבים"}
+                  description={
+                    service?.description || "מגוון פעילויות חווייתיות עם כלבים"
+                  }
                 />
               </div>
             </div>
@@ -151,13 +172,13 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
 
         {/* FAQ Section - Always rendered */}
         <FAQSection pageType="activities" service={service} />
-        
-        {/* SEO: FAQ Structured Data */}
-        <FaqSchema pageType="activities" />
       </motion.div>
 
       {/* Summer Camp Registration Modal */}
-      <SummerCampModal isOpen={isModalOpen} onOpenChange={handleModalOpenChange} />
+      <SummerCampModal
+        isOpen={isModalOpen}
+        onOpenChange={handleModalOpenChange}
+      />
     </>
   );
 }

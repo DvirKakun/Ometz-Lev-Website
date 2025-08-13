@@ -5,7 +5,9 @@ import CollapsibleFeatures from "../../components/sections/shared/collapsible_fe
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import ContentSection from "../../components/sections/shared/content/ContentSection";
 import { FAQSection } from "../../components/sections/shared/faq";
-import FaqSchema from "../../components/seo/FaqSchema";
+import SEOMeta from "../../components/seo/SEOMeta";
+import SEOJsonLD from "../../components/seo/SEOJsonLD";
+import { getKeywordsForPage } from "../../data/seo-keywords";
 import { useTrainingMethodConfig } from "../../hooks/useTrainingMethodConfig";
 import { useTrainingOfferings } from "../../hooks/useServiceOfferings";
 import { trainingContentConfig } from "../../data/training_content_config";
@@ -16,6 +18,15 @@ export default function TrainingPage({ service }: ServicePageProps) {
   const { data: methodConfig } = useTrainingMethodConfig();
   const { data: trainingOfferingsData } = useTrainingOfferings();
 
+  // SEO Configuration for Training Page
+  const seoConfig = {
+    title: "אילוף כלבים מקצועי | אלעד שמעונוב - מאמן כלבים פרטי | אומץ לב",
+    description: "אלעד שמעונוב - מאמן כלבים מקצועי ואישי. אילוף בבית הלקוח, פתרון בעיות התנהגות, אילוף גורים וטיפול באגרסיביות. שיטות מתקדמות ותוצאות מובטחות. ייעוץ חינם!",
+    keywords: getKeywordsForPage("training"),
+    imageUrl: "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageAlt: "אלעד שמעונוב מאמן כלבים מקצועי במהלך אילוף כלב",
+  };
+
   // Merge Prismic offerings with service data
   const serviceWithOfferings = {
     ...service,
@@ -23,17 +34,6 @@ export default function TrainingPage({ service }: ServicePageProps) {
   };
 
   useEffect(() => {
-    document.title = "אילוף כלבים מקצועי | אומץ לב";
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        "content",
-        "אילוף כלבים מקצועי ואישי עם הדרכה מותאמת לכל כלב. מדריך מוסמך, שיטות מתקדמות ותוצאות מובטחות. הזמינו ייעוץ חינם!"
-      );
-    }
-
     // Restore scroll position if returning from library
     const returnFromLibrary = location.state?.returnFromLibrary;
     const scrollPosition = location.state?.scrollPosition;
@@ -55,12 +55,32 @@ export default function TrainingPage({ service }: ServicePageProps) {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="min-h-screen"
-    >
+    <>
+      {/* SEO Meta Tags */}
+      <SEOMeta
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        imageUrl={seoConfig.imageUrl}
+        imageAlt={seoConfig.imageAlt}
+        type="service"
+      />
+
+      {/* SEO Structured Data */}
+      <SEOJsonLD
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        pageType="training"
+        imageUrl={seoConfig.imageUrl}
+      />
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="min-h-screen"
+      >
       {/* Collapsible Features Section */}
       <CollapsibleFeatures service={serviceWithOfferings} />
 
@@ -83,9 +103,7 @@ export default function TrainingPage({ service }: ServicePageProps) {
 
       {/* FAQ Section */}
       <FAQSection pageType="training" service={service} />
-      
-      {/* SEO: FAQ Structured Data */}
-      <FaqSchema pageType="training" />
-    </motion.div>
+      </motion.div>
+    </>
   );
 }

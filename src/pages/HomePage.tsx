@@ -1,39 +1,61 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import HeroSection from "../components/sections/home_page/hero/HeroSection";
 import AboutSection from "../components/sections/home_page/about/AboutSection";
 import ServicesGrid from "../components/sections/home_page/services/ServicesGrid";
+import SEOMeta from "../components/seo/SEOMeta";
+import SEOJsonLD from "../components/seo/SEOJsonLD";
+import { getKeywordsForPage } from "../data/seo-keywords";
 
 const HomePage: React.FC = () => {
-  useEffect(() => {
-    document.title =
-      "אומץ לב - אילוף כלבים ותרפיה בכלבים | מרכז הדרכה מוביל בישראל";
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        "content",
-        "מרכז אילוף כלבים וכלבנות טיפולית מוביל בישראל. אילוף מקצועי, טיפול בחרדות, פעילויות לילדים ותכניות חינוכיות. ייעוץ ראשון חינם - התקשרו עוד היום!"
-      );
-    }
-  }, []);
+  // SEO Configuration for Homepage
+  const seoConfig = {
+    title: "אלעד שמעונוב - אילוף כלבים מקצועי וכלבנות טיפולית | אומץ לב",
+    description:
+      "אלעד שמעונוב - מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אילוף בבית הלקוח, טיפול בפחדים בעזרת כלבים, קייטנות קיץ לילדים. ייעוץ ראשון חינם!",
+    keywords: getKeywordsForPage("homepage"),
+    imageUrl:
+      "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png", // Replace with actual image
+    imageAlt: "אלעד שמעונוב מאמן כלבים מקצועי עם כלבים טיפוליים",
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="min-h-screen"
-    >
-      {/* Hero Section with Owner Image */}
-      <HeroSection />
+    <>
+      {/* SEO Meta Tags */}
+      <SEOMeta
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        imageUrl={seoConfig.imageUrl}
+        imageAlt={seoConfig.imageAlt}
+        type="website"
+      />
 
-      {/* Services Grid */}
-      <ServicesGrid />
+      {/* SEO Structured Data */}
+      <SEOJsonLD
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        isHomePage={true}
+        imageUrl={seoConfig.imageUrl}
+      />
 
-      {/* About Section */}
-      <AboutSection />
-    </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="min-h-screen"
+      >
+        {/* Hero Section with Owner Image */}
+        <HeroSection />
+
+        {/* Services Grid */}
+        <ServicesGrid />
+
+        {/* About Section */}
+        <AboutSection />
+      </motion.div>
+    </>
   );
 };
 

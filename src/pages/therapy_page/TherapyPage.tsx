@@ -5,7 +5,9 @@ import ContentSection from "../../components/sections/shared/content/ContentSect
 import CollapsibleFeatures from "../../components/sections/shared/collapsible_features/CollapsibleFeatures";
 import MethodSection from "../../components/sections/shared/method_section/MethodSection";
 import { FAQSection } from "../../components/sections/shared/faq";
-import FaqSchema from "../../components/seo/FaqSchema";
+import SEOMeta from "../../components/seo/SEOMeta";
+import SEOJsonLD from "../../components/seo/SEOJsonLD";
+import { getKeywordsForPage } from "../../data/seo-keywords";
 import { useTherapyMethodConfig } from "../../hooks/useTherapyMethodConfig";
 import { useTherapyOfferings } from "../../hooks/useServiceOfferings";
 import { therapyContentConfig } from "../../data/therapy_content_config";
@@ -16,6 +18,15 @@ const TherapyPage = ({ service }: ServicePageProps) => {
   const { data: methodConfig } = useTherapyMethodConfig();
   const { data: therapyOfferingsData } = useTherapyOfferings();
 
+  // SEO Configuration for Therapy Page
+  const seoConfig = {
+    title: "כלבנות טיפולית | כלבי טיפול | אלעד שמעונוב - פט תרפיה | אומץ לב",
+    description: "אלעד שמעונוב - כלבנות טיפולית מקצועית לטיפול בחרדות, דיכאון ופוסט טראומה. כלבי טיפול מאומנים לילדים ומבוגרים. טיפול בעזרת בעלי חיים להתגברות על פחדים. קבעו פגישה!",
+    keywords: getKeywordsForPage("therapy"),
+    imageUrl: "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageAlt: "כלב טיפולי במהלך פגישת טיפול עם אלעד שמעונוב",
+  };
+
   // Merge Prismic offerings with service data
   const serviceWithOfferings = {
     ...service,
@@ -23,16 +34,6 @@ const TherapyPage = ({ service }: ServicePageProps) => {
   };
 
   useEffect(() => {
-    document.title = "כלבנות טיפולית | אומץ לב";
-
-    const metaDescription = document.querySelector('meta[name="description"]');
-    if (metaDescription) {
-      metaDescription.setAttribute(
-        "content",
-        "כלבנות טיפולית מקצועית לטיפול בחרדות, שיקום רגשי ופיתוח כישורים חברתיים. טיפול מותאם אישית עם כלבים מאומנים."
-      );
-    }
-
     if (location.state?.scrollPosition) {
       window.scrollTo(0, location.state.scrollPosition);
     }
@@ -47,12 +48,32 @@ const TherapyPage = ({ service }: ServicePageProps) => {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className="min-h-screen"
-    >
+    <>
+      {/* SEO Meta Tags */}
+      <SEOMeta
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        imageUrl={seoConfig.imageUrl}
+        imageAlt={seoConfig.imageAlt}
+        type="service"
+      />
+
+      {/* SEO Structured Data */}
+      <SEOJsonLD
+        title={seoConfig.title}
+        description={seoConfig.description}
+        keywords={seoConfig.keywords}
+        pageType="therapy"
+        imageUrl={seoConfig.imageUrl}
+      />
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="min-h-screen"
+      >
       {/* Features Section */}
       <CollapsibleFeatures service={serviceWithOfferings} />
 
@@ -75,10 +96,8 @@ const TherapyPage = ({ service }: ServicePageProps) => {
 
       {/* FAQ Section */}
       <FAQSection pageType="therapy" service={service} />
-
-      {/* SEO: FAQ Structured Data */}
-      <FaqSchema pageType="therapy" />
-    </motion.div>
+      </motion.div>
+    </>
   );
 };
 
