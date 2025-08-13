@@ -123,8 +123,13 @@ export default function SEOJsonLD({
     alternateName: "Ometz Lev - Elad Shimonov",
     url: baseUrl,
     logo: `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`,
+    image: [
+      `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`,
+      `${baseUrl}/assets/icons/Ometz-Lev-Dogs-Logo.png`
+    ],
     description:
       "אלעד שמעונוב - מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. מתמחה באילוף כלבים, טיפול בחרדות ופחדים בעזרת כלבים טיפוליים, וקייטנות קיץ לילדים",
+    telephone: "+972-52-472-4700",
     founder: {
       "@type": "Person",
       name: "אלעד שמעונוב",
