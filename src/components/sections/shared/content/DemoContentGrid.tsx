@@ -86,7 +86,7 @@ export default function DemoContentGrid({
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
           {videos.map((video, index) => (
             <VideoCard
               key={video.videoKey || index}
@@ -144,7 +144,7 @@ export default function DemoContentGrid({
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4">
           {articles.map((article, index) => (
             <ArticleCard
               key={article.articleKey || index}
