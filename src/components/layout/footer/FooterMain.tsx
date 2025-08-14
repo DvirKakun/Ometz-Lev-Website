@@ -1,5 +1,4 @@
 import React from "react";
-import FooterBrand from "./FooterBrand";
 import FooterQuickLinks from "./FooterQuickLinks";
 import FooterContact from "./FooterContact";
 import FooterWorkingHours from "./FooterWorkingHours";
@@ -10,37 +9,18 @@ const FooterMain: React.FC = () => {
       {/* Mobile layout (single column) */}
       <div className="block md:hidden">
         <div className="space-y-8">
-          {/* QuickLinks second on mobile */}
-          <FooterQuickLinks />
-
-          {/* Contact third on mobile */}
-          <FooterContact />
-
-          {/* Working Hours fourth on mobile */}
-          <FooterWorkingHours showSocialLinks={true} />
-
-          {/* Logo first on mobile, aligned right */}
-          <FooterBrand showSocialLinks={false} />
-        </div>
-      </div>
-
-      {/* Tablet layout (2 columns) */}
-      <div className="hidden md:block lg:hidden">
-        <div className="grid md:grid-cols-2 gap-8">
           <FooterQuickLinks />
           <FooterContact />
           <FooterWorkingHours showSocialLinks={true} />
-          <FooterBrand showSocialLinks={false} />
         </div>
       </div>
 
-      {/* Desktop layout (4 columns) */}
-      <div className="hidden lg:block">
-        <div className="grid lg:grid-cols-4 gap-8 lg:gap-12">
+      {/* Tablet and Desktop layout (3 columns) */}
+      <div className="hidden md:block">
+        <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
           <FooterQuickLinks />
           <FooterContact />
-          <FooterWorkingHours showSocialLinks={false} />
-          <FooterBrand showSocialLinks={true} />
+          <FooterWorkingHours showSocialLinks={true} />
         </div>
       </div>
     </div>
