@@ -49,15 +49,6 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
               <div className="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300" />
             )}
 
-            <div className="absolute inset-0 flex items-center justify-center bg-black/30 group-hover:bg-black/40 transition-colors">
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg"
-              >
-                <Play className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white ml-0.5 sm:ml-0.5 md:ml-1" />
-              </motion.div>
-            </div>
-
             {/* Level Badge */}
             <div
               className={`absolute top-2 left-2 px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium ${getColorClasses(
@@ -103,23 +94,23 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
           )}
 
           <div className="flex items-center justify-between mt-auto pt-2">
-            <div className="flex items-center gap-2 text-slate-500">
-              <Clock className="w-4 h-4" />
-              <span className="text-sm font-medium">
+            <div className="flex items-center gap-1 sm:gap-2 text-slate-500">
+              <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="text-xs sm:text-sm font-medium">
                 {video.duration || "וידאו"}
               </span>
             </div>
 
             <Button
               size="sm"
-              className="bg-red-600 hover:bg-red-700 text-white text-sm px-4 py-2 h-8 font-medium"
+              className="bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 h-7 sm:h-8 font-medium"
               onClick={(e) => {
                 e.stopPropagation();
                 onClick?.(video);
               }}
             >
               צפה
-              <Play className="w-4 h-4 mr-1" />
+              <Play className="w-3 h-3 sm:w-4 sm:h-4 mr-0.5 sm:mr-1" />
             </Button>
           </div>
         </CardContent>
