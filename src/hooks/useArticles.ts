@@ -32,12 +32,12 @@ export function useArticlesByCategory(
   };
 }
 
-// Helper hook for demo articles (3 articles from different categories)
+// Helper hook for demo articles (4 articles from different categories)
 export function useDemoArticles(page: "training" | "therapy" = "training") {
   const { data: articles = [], ...rest } = useArticles(page);
 
   return {
-    data: articles.slice(0, 3),
+    data: articles.slice(0, 4),
     ...rest,
   };
 }

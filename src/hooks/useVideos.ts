@@ -71,12 +71,12 @@ export function useVideosByCategoryAndLevel(
   };
 }
 
-// Helper hook for demo videos (3 videos from different categories/levels)
+// Helper hook for demo videos (4 videos from different categories/levels)
 export function useDemoVideos(page: "training" | "therapy" = "training") {
   const { data: videos = [], ...rest } = useVideos(page);
 
   return {
-    data: videos.slice(0, 3),
+    data: videos.slice(0, 4),
     ...rest,
   };
 }
