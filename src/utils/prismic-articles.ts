@@ -44,6 +44,12 @@ export async function fetchArticlesFromPrismic(
 
     const response = await client.getAllByType("article", {
       fetchLinks: ["category.name"], // Fetch linked category data from group
+      orderings: [
+        {
+          field: "document.first_publication_date",
+          direction: "desc"
+        }
+      ],
     });
 
     // Filter by page after fetching, using Hebrew values from Prismic

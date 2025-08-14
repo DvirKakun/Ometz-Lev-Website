@@ -15,7 +15,9 @@ import { getVideoDuration } from "./video-duration";
 type PrismicVideo = PrismicDocument<Record<string, any>>;
 
 // Transform Prismic video to our format
-export async function mapPrismicVideo(prismicVideo: PrismicVideo): Promise<Video> {
+export async function mapPrismicVideo(
+  prismicVideo: PrismicVideo
+): Promise<Video> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = prismicVideo.data as any;
 
@@ -27,10 +29,10 @@ export async function mapPrismicVideo(prismicVideo: PrismicVideo): Promise<Video
 
   // Get video URL from Link to Media field
   const videoUrl = data.video_file?.url || "";
-  
+
   // Get thumbnail URL from Image field
   const thumbnailUrl = getPrismicImageUrl(data.thumbnail) || "";
-  
+
   // Get level ID from content relationship
   const levelId = data.level?.id ? String(data.level.id) : "";
 
@@ -68,7 +70,13 @@ export async function fetchVideosFromPrismic(
     const response = await client.getAllByType("video", {
       fetchLinks: [
         "category.name", // Fetch linked category data from group
-        "level.name"     // Fetch linked level data
+        "level.name", // Fetch linked level data
+      ],
+      orderings: [
+        {
+          field: "document.first_publication_date",
+          direction: "desc",
+        },
       ],
     });
 
