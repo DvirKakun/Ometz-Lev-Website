@@ -6,6 +6,7 @@ import {
   getPrismicText,
   getPrismicTitle,
   getPrismicRichText,
+  getPrismicImageUrl,
   handlePrismicError,
 } from "./prismic-config";
 
@@ -24,6 +25,10 @@ export function mapPrismicArticle(prismicArticle: PrismicArticle): Article {
     .map((item: any) => (item.category?.id ? String(item.category.id) : null))
     .filter((id: string | null) => id !== null);
 
+  // Get thumbnail URL and alt text from Image field
+  const thumbnailUrl = getPrismicImageUrl(data.thumbnail) || "";
+  const thumbnailAlt = data.thumbnail?.alt || "";
+
   return {
     title: getPrismicTitle(data.title) || "Untitled Article",
     description: getPrismicText(data.description) || "",
@@ -31,6 +36,8 @@ export function mapPrismicArticle(prismicArticle: PrismicArticle): Article {
     categories: categoryIds, // All categories
     readTime: Number(data.read_time) || 5,
     author: getPrismicText(data.author) || "Unknown Author",
+    thumbnailUrl,
+    thumbnailAlt,
     articleKey: String(prismicArticle.id),
   };
 }

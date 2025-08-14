@@ -30,8 +30,9 @@ export async function mapPrismicVideo(
   // Get video URL from Link to Media field
   const videoUrl = data.video_file?.url || "";
 
-  // Get thumbnail URL from Image field
+  // Get thumbnail URL and alt text from Image field
   const thumbnailUrl = getPrismicImageUrl(data.thumbnail) || "";
+  const thumbnailAlt = data.thumbnail?.alt || "";
 
   // Get level ID from content relationship
   const levelId = data.level?.id ? String(data.level.id) : "";
@@ -53,6 +54,7 @@ export async function mapPrismicVideo(
     description: getPrismicText(data.description) || "",
     videoUrl,
     thumbnailUrl,
+    thumbnailAlt,
     levelId,
     categories: categoryIds,
     duration,

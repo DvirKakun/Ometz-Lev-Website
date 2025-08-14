@@ -42,7 +42,7 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
             {video.thumbnailUrl ? (
               <img
                 src={video.thumbnailUrl}
-                alt={video.title}
+                alt={video.thumbnailAlt || video.title}
                 className="w-full h-full object-cover"
               />
             ) : (

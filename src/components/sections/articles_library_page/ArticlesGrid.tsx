@@ -59,7 +59,7 @@ const ArticlesGrid = ({ articles, isLoading, error, hasActiveFilters = false, to
           className="max-w-6xl mx-auto"
         >
           {articles.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
               {articles.map((article, index) => (
                 <ArticleCard
                   key={article.articleKey || index}

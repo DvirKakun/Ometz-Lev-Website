@@ -37,34 +37,33 @@ const ArticleCard = ({
       className="h-full"
     >
       <Card
-        className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col"
+        className="h-full min-h-[340px] sm:min-h-[300px] md:min-h-[320px] lg:min-h-[340px] overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col"
         onClick={onClick}
       >
-        {/* Article Header with Category Badge */}
+        {/* Article Thumbnail */}
         <div className="relative flex-shrink-0">
-          <div className="aspect-video bg-gradient-to-br from-orange-50 to-orange-100 relative overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center bg-orange-800/10 group-hover:bg-orange-800/20 transition-colors">
-              <motion.div whileHover={{ scale: 1.05 }} className="text-center">
-                <div className="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center shadow-lg mb-2">
-                  <span className="text-2xl text-white font-bold">א</span>
-                </div>
-                <span className="text-sm text-orange-700 font-medium">
-                  מאמר
-                </span>
-              </motion.div>
-            </div>
+          <div className="aspect-video relative overflow-hidden">
+            {article.thumbnailUrl ? (
+              <img
+                src={article.thumbnailUrl}
+                alt={article.thumbnailAlt || article.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-orange-50 to-orange-100" />
+            )}
 
             {/* Read Time Badge */}
-            <div className="absolute bottom-3 right-3 bg-black/70 text-white px-2 py-1 rounded text-sm">
+            <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded-md text-[8px] sm:text-sm font-medium">
               {article.readTime} דק'
             </div>
 
             {/* Category Badges */}
-            <div className="absolute top-3 right-2 flex flex-wrap gap-1 max-w-32">
-              {categoriesInfo.map((categoryInfo) => (
+            <div className="absolute top-2 right-2 flex flex-col gap-1">
+              {categoriesInfo.slice(0, 2).map((categoryInfo) => (
                 <div
                   key={categoryInfo.id}
-                  className={`px-2 py-1 rounded-full text-xs font-medium ${getColorClasses(
+                  className={`w-fit inline-flex px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium ${getColorClasses(
                     categoryInfo.color
                   )}`}
                 >
@@ -75,23 +74,27 @@ const ArticleCard = ({
           </div>
         </div>
 
-        <CardContent className="p-4 flex-1 flex flex-col">
-          <h3 className="text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-orange-600 transition-colors duration-300 line-clamp-2 whitespace-pre-wrap">
+        <CardContent className="p-3 sm:p-4 flex-1 flex flex-col min-h-0">
+          <h3 className="text-sm sm:text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-orange-600 transition-colors duration-300 leading-tight">
             {article.title}
           </h3>
-          <p className="text-slate-600 leading-relaxed text-right text-sm mb-4 flex-1 line-clamp-3 whitespace-pre-wrap">
-            {article.description}
-          </p>
+          {article.description && (
+            <div className="flex-1 mb-3 sm:mb-4">
+              <p className="text-slate-600 text-xs sm:text-sm text-right leading-relaxed">
+                {article.description}
+              </p>
+            </div>
+          )}
 
-          <div className="flex items-center justify-between mt-auto">
-            <div className="flex items-center gap-2 text-slate-500">
-              <User className="w-4 h-4" />
-              <span className="text-sm">{article.author}</span>
+          <div className="flex items-center justify-between mt-auto pt-2">
+            <div className="flex items-center gap-1 sm:gap-2 text-slate-500">
+              <User className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="text-xs sm:text-sm font-medium">{article.author}</span>
             </div>
 
-            <div className="flex items-center gap-2 text-slate-500">
-              <Clock className="w-4 h-4" />
-              <span className="text-sm">{article.readTime} דק'</span>
+            <div className="flex items-center gap-1 sm:gap-2 text-slate-500">
+              <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="text-xs sm:text-sm font-medium">{article.readTime} דק'</span>
             </div>
           </div>
         </CardContent>

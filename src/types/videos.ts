@@ -4,6 +4,7 @@ export interface Video {
   description: string;
   videoUrl: string; // URL from Prismic media library
   thumbnailUrl: string; // URL from Prismic image field
+  thumbnailAlt?: string; // Alt text from Prismic image field
   levelId: string; // Level ID for filtering
   categories: string[]; // Category IDs
   duration?: string; // Duration in MM:SS or HH:MM:SS format

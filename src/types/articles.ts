@@ -5,6 +5,8 @@ export interface Article {
   readTime: number;
   categories: string[]; // All category IDs
   author: string;
+  thumbnailUrl?: string;
+  thumbnailAlt?: string;
   articleKey?: string;
 }
 
