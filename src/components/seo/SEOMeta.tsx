@@ -92,15 +92,17 @@ export default function SEOMeta({
     // Canonical URL
     updateLinkTag("canonical", currentUrl);
 
-    // Open Graph meta tags
+    // Open Graph meta tags - Always explicitly set
     updateMetaTag("og:title", title, "property");
     updateMetaTag("og:description", description, "property");
     updateMetaTag("og:type", type, "property");
     updateMetaTag("og:url", currentUrl, "property");
-    updateMetaTag("og:image", finalImageUrl, "property");
+    updateMetaTag("og:image", finalImageUrl, "property"); // Always explicitly provided
+    updateMetaTag("og:image:secure_url", finalImageUrl, "property"); // HTTPS version
     updateMetaTag("og:image:alt", finalImageAlt, "property");
     updateMetaTag("og:image:width", "1200", "property");
     updateMetaTag("og:image:height", "630", "property");
+    updateMetaTag("og:image:type", "image/png", "property");
     updateMetaTag(
       "og:site_name",
       "אומץ לב - אילוף כלבים מקצועי, כלבנות טיפולית ופעילויות חברתיות",

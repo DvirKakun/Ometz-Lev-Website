@@ -21,7 +21,7 @@ const ServicesHeader: React.FC = () => {
         פתרונות <span className="text-primary-500">מקצועיים וחווייתיים</span>
       </h2>
       <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-6">
-        מגוון שירותים מקצועיים המותאמים לצרכים השונים שלכם ושל הכלב שלכם
+        אומץ לב מציע מגוון שירותים מקצועיים המותאמים לצרכים השונים שלכם ושל הכלב שלכם
         <br /> מהכלב הפרטי ועד המסגרת החינוכית והטיפולית.
       </p>
     </motion.div>

@@ -10,9 +10,9 @@ import { getKeywordsForPage } from "../data/seo-keywords";
 const HomePage: React.FC = () => {
   // SEO Configuration for Homepage
   const seoConfig = {
-    title: "אלעד שמעונוב - אילוף כלבים מקצועי וכלבנות טיפולית | אומץ לב",
+    title: "אומץ לב - אלעד שמעונוב | אילוף כלבים מקצועי וכלבנות טיפולית",
     description:
-      "אלעד שמעונוב - מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אילוף בבית הלקוח, טיפול בפחדים בעזרת כלבים, קייטנות קיץ לילדים. ייעוץ ראשון חינם!",
+      "אומץ לב - אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אילוף בבית הלקוח, טיפול בפחדים בעזרת כלבים, קייטנות קיץ לילדים. אומץ לב - ייעוץ ראשון חינם!",
     keywords: getKeywordsForPage("homepage"),
     imageUrl:
       "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png", // Replace with actual image

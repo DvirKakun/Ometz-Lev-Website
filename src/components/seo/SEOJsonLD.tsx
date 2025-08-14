@@ -95,10 +95,10 @@ export default function SEOJsonLD({
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "אומץ לב - אילוף כלבים מקצועי, כלבנות טיפולית ופעילויות חברתיות",
-    alternateName: "Ometz Lev - Elad Shimonov Dog Training & Therapy",
+    alternateName: ["אומץ לב", "Ometz Lev", "אומץ לב אלעד שמעונוב", "Ometz Lev - Elad Shimonov Dog Training & Therapy"],
     url: baseUrl,
     description:
-      "אלעד שמעונוב - מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אילוף כלבים מקצועי, טיפול בעזרת כלבים להתגברות על פחדים, קייטנות קיץ ופעילויות חברתיות לילדים ומבוגרים",
+      "אומץ לב - אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אומץ לב מציע אילוף כלבים מקצועי, טיפול בעזרת כלבים להתגברות על פחדים, קייטנות קיץ ופעילויות חברתיות לילדים ומבוגרים. אומץ לב - הפתרון המקצועי לכל צרכי הכלב שלכם",
     potentialAction: {
       "@type": "SearchAction",
       target: {
@@ -110,6 +110,7 @@ export default function SEOJsonLD({
     publisher: {
       "@type": "Organization",
       name: "אומץ לב",
+      alternateName: ["אומץ לב אלעד שמעונוב", "Ometz Lev"],
       url: baseUrl,
     },
     inLanguage: "he-IL",
@@ -120,7 +121,7 @@ export default function SEOJsonLD({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "אומץ לב - אילוף כלבים מקצועי, כלבנות טיפולית ופעילויות חברתיות",
-    alternateName: "Ometz Lev - Elad Shimonov",
+    alternateName: ["אומץ לב", "Ometz Lev", "אומץ לב אלעד שמעונוב", "Ometz Lev - Elad Shimonov"],
     url: baseUrl,
     logo: `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`,
     image: [
@@ -128,7 +129,7 @@ export default function SEOJsonLD({
       `${baseUrl}/assets/icons/Ometz-Lev-Dogs-Logo.png`
     ],
     description:
-      "אלעד שמעונוב - מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. מתמחה באילוף כלבים, טיפול בחרדות ופחדים בעזרת כלבים טיפוליים, וקייטנות קיץ לילדים",
+      "אומץ לב - אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אומץ לב מתמחה באילוף כלבים, טיפול בחרדות ופחדים בעזרת כלבים טיפוליים, וקייטנות קיץ לילדים. אומץ לב - השירות המקצועי והאמין לכלב שלכם",
     telephone: "+972-52-472-4700",
     founder: {
       "@type": "Person",
