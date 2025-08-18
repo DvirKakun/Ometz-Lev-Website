@@ -1,5 +1,6 @@
 import type { PrismicDocument } from "@prismicio/client";
 import { getCategoryColor } from "./category-colors";
+import { PRISMIC_PAGE_VALUES } from "../types/page";
 import {
   createPrismicClient,
   getPrismicText,
@@ -23,11 +24,13 @@ export function mapPrismicCategory(prismicCategory: PrismicCategory) {
   const data = prismicCategory.data as any;
 
   const name = getPrismicText(data.name[0].text) || "";
+  const page = data.page || "";
 
   return {
     id: String(prismicCategory.id),
     name,
     color: getCategoryColor(name),
+    page,
   };
 }
 
@@ -44,6 +47,33 @@ export async function fetchCategoriesFromPrismic() {
     return [DEFAULT_ALL_CATEGORY, ...categories];
   } catch (error) {
     handlePrismicError(error, "categories");
+    return [DEFAULT_ALL_CATEGORY];
+  }
+}
+
+// Fetch categories filtered by page
+export async function fetchCategoriesByPage(pageType: "training" | "therapy") {
+  try {
+    const client = createPrismicClient();
+    const response = await client.getAllByType("category");
+
+    if (!response || !Array.isArray(response) || response.length === 0) {
+      return [DEFAULT_ALL_CATEGORY];
+    }
+
+    const targetPage = PRISMIC_PAGE_VALUES[pageType];
+    
+    // Filter categories by page field and map them
+    const categories = response
+      .filter((category) => {
+        const data = category.data as any;
+        return data.page === targetPage;
+      })
+      .map(mapPrismicCategory);
+
+    return [DEFAULT_ALL_CATEGORY, ...categories];
+  } catch (error) {
+    handlePrismicError(error, `categories for ${pageType} page`);
     return [DEFAULT_ALL_CATEGORY];
   }
 }

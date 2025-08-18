@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Filter, X, Check } from "lucide-react";
-import { useCategories } from "../../../hooks/useCategories";
+import { useCategoriesByPage } from "../../../hooks/useCategories";
 import {
   useArticles,
   useDynamicArticleCountPerCategory,
@@ -16,7 +16,7 @@ const MultipleCategoryFilter = ({
   onClearFilters,
   pageType,
 }: MultipleCategoryFilterProps) => {
-  const { data: categories = [] } = useCategories();
+  const { data: categories = [] } = useCategoriesByPage(pageType);
   const { data: totalArticles = [] } = useArticles(pageType);
   const { data: filteredArticles = [] } = useArticlesByMultipleCategories(
     selectedCategories,

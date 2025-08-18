@@ -68,7 +68,6 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
   const description =
     data.description
       ?.map((desc: any) => {
-         
         const text = getPrismicRichText(desc.paragraph);
         return String(text || ""); // Force string conversion
       })

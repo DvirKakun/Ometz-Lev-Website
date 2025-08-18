@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Filter, X, Check } from "lucide-react";
 import { useLevels } from "../../../hooks/useLevels";
-import { useCategories } from "../../../hooks/useCategories";
+import { useCategoriesByPage } from "../../../hooks/useCategories";
 import {
   useVideos,
   useVideosByMultipleCategoriesAndLevel,
@@ -28,7 +28,7 @@ const VideoAdvancedFilter = ({
   onClearFilters,
   pageType,
 }: VideoAdvancedFilterProps) => {
-  const { data: categories = [] } = useCategories();
+  const { data: categories = [] } = useCategoriesByPage(pageType);
   const { data: levels = [] } = useLevels();
   const { data: totalVideos = [] } = useVideos(pageType);
 
