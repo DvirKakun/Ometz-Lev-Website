@@ -25,7 +25,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
         onBlur={() => setIsHovered(false)}
         aria-label={`למידע נוסף על ${service.title}`}
       >
-        <Card className="h-full bg-white border-2 border-slate-200 shadow-lg hover:shadow-xl hover:border-slate-300 transition-all duration-300 group-hover:-translate-y-1 sm:group-hover:-translate-y-2">
+        <Card className="h-full min-h-[280px] sm:min-h-[300px] md:min-h-[320px] lg:min-h-[340px] bg-white border-2 border-slate-200 shadow-lg hover:shadow-xl hover:border-slate-300 transition-all duration-300 group-hover:-translate-y-1 sm:group-hover:-translate-y-2">
           <CardContent className="p-3 sm:p-4 md:p-6 h-full flex flex-col">
             {/* Icon - responsive sizing */}
             <motion.div
