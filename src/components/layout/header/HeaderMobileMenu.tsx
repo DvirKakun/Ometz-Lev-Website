@@ -67,7 +67,36 @@ const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
     }
   }, []);
 
-  /* ─────────────── 3️⃣  Attach listeners when menu opens ─────────────── */
+  /* ─────────────── 3️⃣  Auto-scroll when content changes ─────────────── */
+  useEffect(() => {
+    if (!isOpen || !panelRef.current) return;
+
+    const panel = panelRef.current;
+
+    // Simple mutation observer to detect any DOM changes (dropdown opening)
+    const observer = new MutationObserver(() => {
+      // Auto-scroll down a bit when dropdown opens
+      setTimeout(() => {
+        panel.scrollBy({
+          top: 80,
+          behavior: "smooth",
+        });
+      }, 300);
+    });
+
+    // Watch for changes in the menu content
+    observer.observe(panel, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [isOpen]);
+
+  /* ─────────────── 4️⃣  Attach listeners when menu opens ─────────────── */
   useEffect(() => {
     if (!isOpen) return;
 
