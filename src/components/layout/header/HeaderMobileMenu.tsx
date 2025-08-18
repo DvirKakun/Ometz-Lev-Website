@@ -95,10 +95,10 @@ const HeaderMobileMenu: React.FC<HeaderMobileMenuProps> = ({
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -20, scale: 0.95 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="xl:hidden fixed left-4 right-4 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 z-50 max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain"
+              className="xl:hidden fixed left-4 right-4 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 z-50 max-h-[calc(100vh-6rem)] overflow-y-auto overscroll-contain"
               style={{
                 top: "6rem",
-                maxHeight: "calc(100vh - 8rem)",
+                maxHeight: "calc(100vh - 6rem)",
               }}
             >
               <div className="py-6 px-4">{children}</div>
