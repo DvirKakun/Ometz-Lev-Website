@@ -39,14 +39,14 @@ const ServicesGrid: React.FC = () => {
 
         {/* Mobile-first responsive grid: 2 cols mobile → 2 cols tablet → 4 cols desktop */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 max-w-7xl mx-auto"
+          className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4 md:gap-6 lg:gap-8 max-w-7xl mx-auto items-stretch"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
           {servicesWithPrismic.map((service, index) => (
-            <div key={service.path} className="w-full">
+            <div key={service.path} className="w-full h-full flex">
               <ServiceCard service={service} index={index} />
             </div>
           ))}
