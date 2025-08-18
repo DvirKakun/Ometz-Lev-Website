@@ -28,9 +28,9 @@ const AboutValues: React.FC = () => {
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="order-1 lg:order-2 space-y-6 pb-6"
+      className="order-1 lg:order-2 space-y-4 sm:space-y-6 pb-4 sm:pb-6 px-4 sm:px-0"
     >
-      <h3 className="text-2xl md:text-3xl font-bold text-slate-800 mb-8 text-center lg:text-right">
+      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 mb-6 sm:mb-8 lg:text-right">
         הערכים שלנו
       </h3>
       {values.map((value, index) => (

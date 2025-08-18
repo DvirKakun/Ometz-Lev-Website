@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import ServicesHeader from "./ServicesHeader";
 import ServiceCard from "./ServiceCard";
 import { services } from "../../../../data/services";
-import { 
+import {
   useTherapyPrimaryOfferings,
   useTrainingPrimaryOfferings,
   useActivitiesPrimaryOfferings,
-  useSchoolsPrimaryOfferings
+  useSchoolsPrimaryOfferings,
 } from "../../../../hooks/useServiceOfferings";
 
 const ServicesGrid: React.FC = () => {
@@ -17,7 +17,7 @@ const ServicesGrid: React.FC = () => {
   const { data: schoolsPrimaryOfferings } = useSchoolsPrimaryOfferings();
 
   // Create services array with Prismic data merged for all services
-  const servicesWithPrismic = services.map(service => {
+  const servicesWithPrismic = services.map((service) => {
     switch (service.path) {
       case "/therapy":
         return { ...service, offerings: therapyPrimaryOfferings };
@@ -33,22 +33,20 @@ const ServicesGrid: React.FC = () => {
   });
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-24 bg-white">
       <div className="container-max section-padding">
         <ServicesHeader />
 
+        {/* Mobile-first responsive grid: 2 cols mobile → 2 cols tablet → 4 cols desktop */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto justify-items-center"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 max-w-7xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
           {servicesWithPrismic.map((service, index) => (
-            <div
-              key={service.path}
-              className="w-full max-w-72 md:max-w-xs lg:max-w-none"
-            >
+            <div key={service.path} className="w-full">
               <ServiceCard service={service} index={index} />
             </div>
           ))}

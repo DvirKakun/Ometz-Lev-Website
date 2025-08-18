@@ -8,21 +8,21 @@ const AboutContent: React.FC = () => {
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="order-2 lg:order-1"
+      className="order-1 lg:order-1 px-4 sm:px-0"
     >
-      <div className="space-y-8 mb-8">
-        <div className="pb-6 border-b border-slate-100">
-          <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3 tracking-tight">
+      <div className="space-y-6 sm:space-y-8 mb-6 sm:mb-8">
+        <div className="pb-4 sm:pb-6 border-b border-slate-100">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2 sm:mb-3 tracking-tight">
             אלעד שמעונוב
           </h3>
-          <p className="text-primary-600 font-semibold text-lg">
+          <p className="text-primary-600 font-semibold text-base sm:text-lg">
             מאלף כלבים ומטפל התנהגותי
           </p>
         </div>
 
-        <div className="prose prose-lg max-w-none">
-          <div className="space-y-6 text-slate-700 leading-relaxed">
-            <p className="text-xl font-medium text-slate-800">
+        <div className="prose prose-base sm:prose-lg max-w-none">
+          <div className="space-y-4 sm:space-y-6 text-slate-700 leading-relaxed">
+            <p className="text-lg sm:text-xl font-medium text-slate-800">
               שמי אלעד שמעונוב, אני מתמחה בכלבנות טיפולית, אימון אישי ותכניות
               ייחודיות במסגרת תכנית "גפן".
             </p>
@@ -44,7 +44,7 @@ const AboutContent: React.FC = () => {
               שתוכלו ליהנות מקשר עמוק, בריא ומאוזן עם הכלב שלכם.
             </p>
 
-            <p className="text-primary-700 font-medium italic pt-2">
+            <p className="text-primary-700 font-medium italic pt-2 text-sm sm:text-base">
               מוזמנים להצטרף למסע המיוחד הזה איתי.
             </p>
           </div>

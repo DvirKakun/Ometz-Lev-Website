@@ -8,7 +8,7 @@ const AboutHeader: React.FC = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="text-center mb-16"
+      className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16"
     >
       <h2
         className="font-bold leading-none mb-6 text-slate-800"
@@ -23,7 +23,7 @@ const AboutHeader: React.FC = () => {
           עליי...
         </span>
       </h2>
-      <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+      <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
         באמצעות אהבה, סבלנות ושיטות אילוף חיוביות, אני עוזר לכם ולכלב שלכם לבנות
         קשר חזק ומלא אמון
       </p>

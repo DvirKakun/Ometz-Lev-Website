@@ -10,7 +10,7 @@ const FooterContact: React.FC = () => {
       label: "Eladshi1326@gmail.com",
       href: "mailto:Eladshi1326@gmail.com",
     },
-    { icon: MapPin, label: "ראשון לציון, ישראל", href: "#" },
+    { icon: MapPin, label: "ראשון לציון, ישראל", href: undefined },
   ];
 
   return (
@@ -20,9 +20,7 @@ const FooterContact: React.FC = () => {
       transition={{ duration: 0.6, delay: 0.2 }}
       viewport={{ once: true }}
     >
-      <h4 className="text-lg font-semibold mb-6 text-primary-300">
-        יצירת קשר
-      </h4>
+      <h4 className="text-lg font-semibold mb-6 text-primary-300">יצירת קשר</h4>
       <ul className="space-y-3">
         {contactInfo.map((contact, index) => (
           <li key={index}>

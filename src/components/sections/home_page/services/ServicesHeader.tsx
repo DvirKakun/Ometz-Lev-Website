@@ -8,7 +8,7 @@ const ServicesHeader: React.FC = () => {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="text-center mb-8"
+      className="text-center mb-6 sm:mb-8"
     >
       <h2
         className="font-bold leading-tight mb-6 text-slate-800"
@@ -20,7 +20,7 @@ const ServicesHeader: React.FC = () => {
       >
         פתרונות <span className="text-primary-500">מקצועיים וחווייתיים</span>
       </h2>
-      <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-6">
+      <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-6 sm:leading-7 px-4 sm:px-0">
         אומץ לב מציע מגוון שירותים מקצועיים המותאמים לצרכים השונים שלכם ושל הכלב שלכם
         <br /> מהכלב הפרטי ועד המסגרת החינוכית והטיפולית.
       </p>
