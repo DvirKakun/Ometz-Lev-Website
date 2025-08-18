@@ -33,6 +33,14 @@ const HeroBrandTitle: React.FC = () => {
           אומץ לב
         </span>
       </motion.h1>
+
+      <motion.div
+        initial={{ opacity: 0, width: 0 }}
+        animate={{ opacity: 1, width: "auto" }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+        className="h-1 bg-gradient-to-r from-primary-400 to-primary-600 rounded-full mx-auto lg:mx-0 lg:mr-0"
+        style={{ width: "clamp(80px, 25vw, 120px)" }}
+      />
     </motion.div>
   );
 };
