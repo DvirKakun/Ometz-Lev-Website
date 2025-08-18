@@ -6,6 +6,7 @@ import {
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { LoadingProvider } from "./contexts/LoadingContext";
+import { TimerProvider } from "./contexts/TimerContext";
 
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
@@ -159,8 +160,10 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <LoadingProvider>
-        <RouterProvider router={router} />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <TimerProvider>
+          <RouterProvider router={router} />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </TimerProvider>
       </LoadingProvider>
     </QueryClientProvider>
   );

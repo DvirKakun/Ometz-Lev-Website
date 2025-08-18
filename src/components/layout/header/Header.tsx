@@ -6,11 +6,13 @@ import HeaderNavigation from "./HeaderNavigation";
 import HeaderMobileMenu from "./HeaderMobileMenu";
 import HeaderCTAButtons from "./HeaderCTAButtons";
 import OmetzLevLogo from "../../../assets/icons/Ometz-Lev-Logo.png";
+import { useTimer } from "../../../contexts/TimerContext";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const { hideTimer, showTimer } = useTimer();
 
   // Handle scroll effect
   useEffect(() => {
@@ -25,6 +27,15 @@ const Header: React.FC = () => {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
+
+  // Hide/show timer when mobile menu opens/closes
+  useEffect(() => {
+    if (isMenuOpen) {
+      hideTimer();
+    } else {
+      showTimer();
+    }
+  }, [isMenuOpen, hideTimer, showTimer]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 

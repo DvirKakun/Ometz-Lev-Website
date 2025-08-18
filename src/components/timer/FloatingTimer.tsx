@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 import { useClosestActivity } from "../../hooks/useActivities";
+import { useTimer } from "../../contexts/TimerContext";
 
 const FloatingTimer: React.FC = () => {
   const navigate = useNavigate();
   const { data: closestActivity } = useClosestActivity();
+  const { isTimerClosed, isTimerHidden, closeTimer } = useTimer();
   const [isVisible, setIsVisible] = useState(true);
-  const [isHidden, setIsHidden] = useState(false);
 
   useEffect(() => {
     let ticking = false;
@@ -59,12 +60,12 @@ const FloatingTimer: React.FC = () => {
 
   const handleClose = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setIsHidden(true);
+    closeTimer();
   };
 
   return (
     <AnimatePresence>
-      {isVisible && !isHidden && (
+      {isVisible && !isTimerClosed && !isTimerHidden && (
         <motion.div
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1.25, y: 0 }}
