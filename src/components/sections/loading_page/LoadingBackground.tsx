@@ -8,7 +8,7 @@ const LoadingBackground = ({
 }: LoadingBackgroundProps) => {
   return (
     <motion.div
-      className={`fixed inset-0 w-screen h-screen flex items-center justify-center bg-gradient-to-br ${bgColor} relative overflow-hidden`}
+      className={`absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-gradient-to-br ${bgColor} relative`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

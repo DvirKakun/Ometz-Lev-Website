@@ -42,11 +42,9 @@ export default function Layout() {
         <>
           <ContactCTA />
           <Footer />
+          <FloatingTimer />
         </>
       )}
-
-      {/* Floating Timer - Always visible except during loading */}
-      {!shouldShowLoading && <FloatingTimer />}
     </div>
   );
 }
