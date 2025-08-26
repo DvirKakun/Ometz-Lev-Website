@@ -11,6 +11,12 @@ import {
   fetchActivitiesOfferings,
   fetchSchoolsOfferings
 } from "../utils/prismic-service-offerings";
+import {
+  fetchTherapyFAQs,
+  fetchTrainingFAQs,
+  fetchActivitiesFAQs,
+  fetchSchoolsFAQs,
+} from "../utils/prismic-faq";
 
 // Types for prefetching options
 type PrefetchOptions = {
@@ -25,6 +31,10 @@ type PrefetchOptions = {
   trainingOfferings?: boolean;
   activitiesOfferings?: boolean;
   schoolsOfferings?: boolean;
+  therapyFAQs?: boolean;
+  trainingFAQs?: boolean;
+  activitiesFAQs?: boolean;
+  schoolsFAQs?: boolean;
 };
 
 // Hook for prefetching data during loading screens
@@ -144,6 +154,50 @@ export function usePrefetchData(options: PrefetchOptions = {}) {
       );
     }
 
+    // Prefetch therapy FAQs
+    if (options.therapyFAQs) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["faqs-therapy"],
+          queryFn: fetchTherapyFAQs,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
+    // Prefetch training FAQs
+    if (options.trainingFAQs) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["faqs-training"],
+          queryFn: fetchTrainingFAQs,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
+    // Prefetch activities FAQs
+    if (options.activitiesFAQs) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["faqs-activities"],
+          queryFn: fetchActivitiesFAQs,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
+    // Prefetch schools FAQs
+    if (options.schoolsFAQs) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["faqs-schools"],
+          queryFn: fetchSchoolsFAQs,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
     // Execute all prefetch operations in parallel
     Promise.all(prefetchPromises).catch((error) => {
       console.warn("Some data prefetching failed:", error);
@@ -173,6 +227,7 @@ export function usePrefetchTrainingPage() {
     categories: true,
     profileImage: true,
     trainingOfferings: true, // For training page offerings
+    trainingFAQs: true, // For training page FAQs
   });
 }
 
@@ -182,6 +237,7 @@ export function usePrefetchTherapyPage() {
     categories: true,
     profileImage: true,
     therapyOfferings: true, // For therapy page offerings
+    therapyFAQs: true, // For therapy page FAQs
   });
 }
 
@@ -190,6 +246,7 @@ export function usePrefetchActivitiesPage() {
     activities: true,
     profileImage: true,
     activitiesOfferings: true, // For activities page offerings
+    activitiesFAQs: true, // For activities page FAQs
   });
 }
 
@@ -197,6 +254,7 @@ export function usePrefetchSchoolsPage() {
   return usePrefetchData({
     profileImage: true,
     schoolsOfferings: true, // For schools page offerings
+    schoolsFAQs: true, // For schools page FAQs
   });
 }
 
@@ -247,5 +305,9 @@ export function usePrefetchForRoute(pathname: string) {
     trainingOfferings: isTraining, // Prefetch training offerings for training page
     activitiesOfferings: isActivities, // Prefetch activities offerings for activities page
     schoolsOfferings: isSchools, // Prefetch schools offerings for schools page
+    therapyFAQs: isTherapy, // Prefetch therapy FAQs for therapy page
+    trainingFAQs: isTraining, // Prefetch training FAQs for training page
+    activitiesFAQs: isActivities, // Prefetch activities FAQs for activities page
+    schoolsFAQs: isSchools, // Prefetch schools FAQs for schools page
   });
 }

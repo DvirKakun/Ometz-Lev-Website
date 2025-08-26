@@ -81,15 +81,22 @@ export const useSchoolsPrimaryOfferings = () => {
 
 // Generic hook for primary offerings by service type
 export const usePrimaryOfferingsByType = (serviceType: ServiceType) => {
+  // Always call all hooks to maintain hook order
+  const therapyResult = useTherapyPrimaryOfferings();
+  const trainingResult = useTrainingPrimaryOfferings();
+  const activitiesResult = useActivitiesPrimaryOfferings();
+  const schoolsResult = useSchoolsPrimaryOfferings();
+
+  // Return the appropriate result based on service type
   switch (serviceType) {
     case "therapy":
-      return useTherapyPrimaryOfferings();
+      return therapyResult;
     case "training":
-      return useTrainingPrimaryOfferings();
+      return trainingResult;
     case "activities":
-      return useActivitiesPrimaryOfferings();
+      return activitiesResult;
     case "schools":
-      return useSchoolsPrimaryOfferings();
+      return schoolsResult;
     default:
       throw new Error(`Unsupported service type: ${serviceType}`);
   }

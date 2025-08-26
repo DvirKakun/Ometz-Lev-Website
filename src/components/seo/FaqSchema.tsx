@@ -1,12 +1,12 @@
-import { getFAQsByPageType } from "../../data/faq";
+import { useFAQItems } from "../../hooks/useFAQ";
 import type { FAQPageType } from "../../types/faq";
 
 type Props = { pageType: FAQPageType };
 
 export default function FaqSchema({ pageType }: Props) {
-  const items = getFAQsByPageType(pageType);
+  const { data: items, isLoading } = useFAQItems(pageType);
 
-  if (!items || items.length === 0) return null;
+  if (isLoading || !items || items.length === 0) return null;
 
   const jsonLd = {
     "@context": "https://schema.org",
