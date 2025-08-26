@@ -33,8 +33,8 @@ const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
 
   return (
     <>
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="py-6 sm:py-8 lg:py-16 bg-white">
+        <div className="container mx-auto px-3 sm:px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -42,16 +42,20 @@ const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
             transition={{ duration: 0.6 }}
             className="max-w-6xl mx-auto"
           >
-            {/* Header with CTA Buttons */}
-            <div className="grid lg:grid-cols-2 gap-8 items-start mb-12">
-              {/* Title - Right Side */}
-              <ServiceHeader
-                title={service.title}
-                description={service.description}
-              />
+            {/* Mobile-First Header Layout */}
+            <div className="flex flex-col gap-6 sm:gap-8 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start mb-8 sm:mb-10 lg:mb-12">
+              {/* Title - Mobile: Top, Desktop: Right */}
+              <div className="order-1">
+                <ServiceHeader
+                  title={service.title}
+                  description={service.description}
+                />
+              </div>
 
-              {/* CTA Buttons - Left Side */}
-              <CtaButtons service={service} scrollToSection={scrollToSection} />
+              {/* CTA Buttons - Mobile: Below title for better flow */}
+              <div className="order-2">
+                <CtaButtons service={service} scrollToSection={scrollToSection} />
+              </div>
             </div>
 
             {/* Service Selection Section */}

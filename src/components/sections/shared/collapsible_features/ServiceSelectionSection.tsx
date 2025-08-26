@@ -1,13 +1,38 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "../../../ui/card";
 import { Avatar, AvatarFallback } from "../../../ui/avatar";
+import { Button } from "../../../ui/button";
 import WhatsAppButton from "../../../common/WhatsAppButton";
-import { Heart, BookOpen, Award, Users } from "lucide-react";
+import { Heart, BookOpen, Award, Users, Info } from "lucide-react";
+import OfferingDetailsModal from "../../../modals/offering/OfferingDetailsModal";
 import type { ServiceSelectionSectionProps } from "../../../../types/collapsible_features";
 import type { ProcessedFullOffering } from "../../../../types/service_offerings";
 
+/**
+ * Mobile-first + RTL-friendly service grid
+ *
+ * ✱  Layout: 2-col auto-fill grid on phones → 4-col on large
+ * ✱  Scroll containers: `dir="ltr"` so scrollbar stays right even in RTL
+ * ✱  Touch targets ≥ 44 px
+ * ✱  Fluid typography via clamp()
+ * ✱  `dir="rtl"` on root for Hebrew
+ */
 const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
-  // Map service paths to icons
+  const [selectedOffering, setSelectedOffering] =
+    useState<ProcessedFullOffering | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOfferingDetails = (offering: ProcessedFullOffering) => {
+    setSelectedOffering(offering);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedOffering(null);
+  };
+
   const getServiceIcon = () => {
     switch (service.path) {
       case "/therapy":
@@ -27,134 +52,190 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
 
   return (
     <motion.div
+      dir="rtl" // RTL root
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: 0.4 }}
-      className="space-y-12"
+      className="space-y-8 sm:space-y-10 lg:space-y-12"
     >
-      {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto">
-        <div className="flex items-center justify-center mb-4">
+      {/* ───── Section header ───── */}
+      <header className="text-center max-w-4xl mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-center mb-4 sm:mb-6">
           <div
-            className={`p-3 rounded-2xl bg-gradient-to-br ${service.color} text-white shadow-lg`}
+            className={`p-4 sm:p-5 rounded-3xl bg-gradient-to-br ${service.color} text-white shadow-xl ring-4 ring-white/10`}
           >
-            <ServiceIcon className="w-8 h-8" />
+            <ServiceIcon className="w-7 h-7 sm:w-9 sm:h-9" />
           </div>
         </div>
-        <h3 className="text-3xl font-bold text-slate-800 mb-4">
+
+        <h3
+          className="font-bold text-slate-900 mb-4 sm:mb-5 leading-tight tracking-tight"
+          style={{ fontSize: "clamp(1.25rem, 2.5vw, 2rem)" }} // fluid type
+        >
           השירותים שלנו ב{service.title}
         </h3>
-        <p className="text-lg text-slate-600 leading-relaxed">
-          בחרו את השירות המושלם עבורכם. כל שירות מותאם אישית לצרכים שלכם ומלווה
-          בתמיכה מקצועית
+
+        <p
+          className="text-slate-600 leading-relaxed max-w-3xl mx-auto font-medium"
+          style={{ fontSize: "clamp(0.95rem, 2.1vw, 1.25rem)" }}
+        >
+          בחרו את השירות המושלם עבורכם.<br></br> כל שירות מותאם אישית לצרכים
+          שלכם ומלווה בתמיכה מקצועית.
         </p>
-      </div>
+      </header>
 
-      {/* Services Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-        {(service.offerings as ProcessedFullOffering[]).map((offering, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.15 }}
-          >
-            <Card className="group relative overflow-hidden h-full border-2 border-slate-200 hover:border-slate-300 transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-              {/* Gradient Overlay */}
-              <div
-                className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${service.color}`}
-              />
+      {/* ───── Responsive grid ───── */}
+      <div
+        className="
+          grid auto-rows-fr gap-3 sm:gap-4 md:gap-5 lg:gap-6
+          px-4 sm:px-6 md:px-8 lg:px-4 max-w-7xl mx-auto
+          grid-cols-[repeat(auto-fill,minmax(160px,1fr))]  // 2-col+ on mobile
+          sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3
+        "
+      >
+        {(service.offerings as ProcessedFullOffering[]).map(
+          (offering, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: index * 0.12 }}
+            >
+              <Card className="group relative h-full overflow-hidden rounded-lg sm:rounded-xl md:rounded-2xl border border-slate-200 bg-white shadow-md hover:shadow-lg transition-shadow duration-200 min-h-[180px] sm:min-h-[200px] md:min-h-[220px]">
+                {/* Top accent bar */}
+                <div
+                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${service.color}`}
+                />
 
-              <CardContent className="p-8 h-full flex flex-col">
-                {/* Service Header */}
-                <h4 className="text-2xl font-bold text-slate-800 text-center mb-6">
-                  {offering.title}
-                </h4>
+                <CardContent className="flex h-full flex-col p-2.5 sm:p-3 md:p-4 lg:p-5">
+                  {/* Service title */}
+                  <h4
+                    className="
+          mb-2 sm:mb-3 text-center font-bold leading-tight tracking-tight line-clamp-2
+          text-slate-900
+          text-[clamp(0.85rem,1.8vw,1.1rem)]
+          sm:text-[clamp(1rem,2vw,1.25rem)]
+          md:text-[clamp(1.1rem,1.8vw,1.35rem)]
+        "
+                  >
+                    {offering.title}
+                  </h4>
 
-                {/* Service Description - Fixed Height with Elegant Scroll */}
-                <div className="flex-1 mb-6">
-                  <div className="relative">
-                    <div
-                      className="text-slate-600 leading-relaxed text-right whitespace-pre-wrap text-base h-56 overflow-y-auto px-6 py-4 rounded-xl bg-gradient-to-b from-white to-slate-50/50 border border-slate-200/60 shadow-inner"
-                      style={{ direction: "ltr" }}
+                  {/* CTA title beneath the title */}
+                  <h5
+                    className="
+          mb-4 sm:mb-5 text-slate-600 leading-tight text-center
+          text-[0.75rem] sm:text-sm md:text-base
+          line-clamp-2
+        "
+                  >
+                    {offering.ctaTitle}
+                  </h5>
+
+                  {/* Spacer to push buttons to bottom */}
+                  <div className="flex-1"></div>
+
+                  {/* Buttons section */}
+                  <div className="space-y-1.5 sm:space-y-2">
+                    {/* Info button above WhatsApp button */}
+                    <Button
+                      onClick={() => handleOfferingDetails(offering)}
+                      variant="outline"
+                      size="sm"
+                      className="
+                        w-full rounded-md sm:rounded-lg border-slate-300 hover:bg-slate-100
+                        py-1.5 sm:py-2.5 md:py-3
+                        text-xs sm:text-sm md:text-base font-medium text-slate-700
+                        h-8 sm:h-10 md:h-11
+                        transition-colors duration-200
+                        flex items-center justify-center gap-1.5 sm:gap-2
+                        hover:border-slate-400
+                      "
                     >
-                      <div style={{ direction: "rtl" }}>
-                        {offering.description}
-                      </div>
-                    </div>
+                      למידע נוסף
+                      <Info className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                    </Button>
+
+                    {/* WhatsApp Button (≥44 px touch-target) */}
+                    <WhatsAppButton
+                      message={offering.whatsappMessage}
+                      variant="default"
+                      size="sm"
+                      className="
+            w-full rounded-md sm:rounded-lg bg-gradient-to-r from-green-500 to-green-600
+            py-1.5 sm:py-2 md:py-2.5
+            text-xs sm:text-sm md:text-base font-bold text-white
+            shadow hover:shadow-md hover:from-green-600 hover:to-green-700
+            active:scale-95 transition-transform
+            !h-8 sm:!h-10 md:!h-11
+          "
+                    />
                   </div>
-                </div>
-
-                {/* CTA Section */}
-                <div className="mt-auto pt-6">
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border-2 border-green-200/60 relative overflow-hidden group-hover:border-green-300/80 transition-all duration-300">
-                    {/* Subtle glow effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-green-100/20 to-emerald-100/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                    <div className="relative z-10 text-center space-y-4">
-                      <div className="space-y-3">
-                        <h5 className="text-slate-800 text-sm font-bold leading-tight">
-                          {offering.ctaTitle}
-                        </h5>
-                      </div>
-
-                      <WhatsAppButton
-                        message={offering.whatsappMessage}
-                        variant="default"
-                        size="lg"
-                        className="w-full py-4 text-base font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 border-2 border-green-600 hover:border-green-700"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
+                </CardContent>
+              </Card>
+            </motion.div>
+          )
+        )}
       </div>
 
-      {/* Bottom CTA */}
+      {/* ───── Bottom CTA ───── */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.8 }}
-        className="text-center bg-gradient-to-r from-slate-50 to-white rounded-3xl p-8 border border-slate-200 max-w-4xl mx-auto"
+        className="text-center bg-gradient-to-br from-white to-slate-50/90 rounded-3xl sm:rounded-[2rem] p-6 sm:p-8 lg:p-10 border-2 border-slate-200/60 shadow-xl max-w-4xl mx-auto backdrop-blur-sm"
       >
-        <div className="flex items-center justify-center mb-6">
+        <div className="flex items-center justify-center mb-5 sm:mb-7">
           <div className="flex">
-            <Avatar className="h-12 w-12 border-2 border-white shadow-md relative z-30 -ml-4">
-              <AvatarFallback className="bg-gradient-to-br from-green-400 to-green-500 text-white font-bold text-lg">
+            <Avatar className="h-12 w-12 sm:h-14 sm:w-14 border-3 border-white shadow-xl ring-2 ring-slate-100 relative z-30 -ml-4 rtl:-mr-4 rtl:ml-0">
+              <AvatarFallback className="bg-gradient-to-br from-green-400 to-green-600 text-white font-bold text-lg sm:text-xl">
                 ✓
               </AvatarFallback>
             </Avatar>
-            <Avatar className="h-12 w-12 border-2 border-white shadow-md relative z-20 -ml-4">
-              <AvatarFallback className="bg-gradient-to-br from-blue-400 to-blue-500 text-white font-bold text-lg">
+            <Avatar className="h-12 w-12 sm:h-14 sm:w-14 border-3 border-white shadow-xl ring-2 ring-slate-100 relative z-20 -ml-4 rtl:-mr-4 rtl:ml-0">
+              <AvatarFallback className="bg-gradient-to-br from-blue-400 to-blue-600 text-white font-bold text-lg sm:text-xl">
                 ★
               </AvatarFallback>
             </Avatar>
-            <Avatar className="h-12 w-12 border-2 border-white shadow-md relative z-10 ">
-              <AvatarFallback className="bg-gradient-to-br from-purple-400 to-purple-500 text-white font-bold text-lg">
+            <Avatar className="h-12 w-12 sm:h-14 sm:w-14 border-3 border-white shadow-xl ring-2 ring-slate-100 relative z-10 rtl:-mr-4">
+              <AvatarFallback className="bg-gradient-to-br from-purple-400 to-purple-600 text-white font-bold text-lg sm:text-xl">
                 ♡
               </AvatarFallback>
             </Avatar>
           </div>
         </div>
-        <h4 className="text-xl font-bold text-slate-800 mb-2">
+
+        <h4
+          className="font-bold text-slate-900 mb-3 sm:mb-4 tracking-tight"
+          style={{ fontSize: "clamp(1.1rem, 2.4vw, 1.75rem)" }}
+        >
           לא בטוחים איזה שירות מתאים לכם?
         </h4>
-        <p className="text-slate-600 mb-6">
+
+        <p
+          className="text-slate-600 mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto font-medium"
+          style={{ fontSize: "clamp(0.95rem, 2.1vw, 1.25rem)" }}
+        >
           שלחו לנו הודעה ונעזור לכם לבחור את השירות המושלם בהתאם לצרכים שלכם
         </p>
+
         <WhatsAppButton
           message={`שלום! אשמח לקבל ייעוץ לגבי השירותים שלכם ב${service.title}. איזה שירות הכי מתאים בשבילי?`}
-          variant="outline"
+          variant="default"
           size="lg"
-          className="px-8 py-4 font-medium"
+          className="min-h-[56px] sm:min-h-[60px] px-8 sm:px-10 lg:px-12 py-4 sm:py-5 font-bold bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 rounded-2xl sm:rounded-3xl focus:ring-4 focus:ring-green-200 w-full sm:w-auto"
         />
       </motion.div>
+
+      {/* Modal */}
+      <OfferingDetailsModal
+        offering={selectedOffering}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </motion.div>
   );
 };

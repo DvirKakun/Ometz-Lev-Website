@@ -54,19 +54,17 @@ const Header: React.FC = () => {
           <div className="flex-shrink-0">
             <HeaderLogo />
           </div>
-
-          {/* Desktop Navigation Component - Hidden on smaller screens to make room */}
-          <div className="hidden xl:block">
-            <HeaderNavigation />
-          </div>
-
           {/* Center Logo */}
-          <div className="flex-1 flex justify-center">
+          <div className="flex-1 flex justify-start">
             <img
               src={OmetzLevLogo}
               alt="Ometz Lev Logo"
               className="h-12 w-auto"
             />
+          </div>
+          {/* Desktop Navigation Component - Hidden on smaller screens to make room */}
+          <div className="hidden xl:block">
+            <HeaderNavigation />
           </div>
 
           {/* Contact Buttons Component (Desktop) - Hidden on smaller screens */}

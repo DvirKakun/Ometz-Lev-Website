@@ -58,7 +58,7 @@ const PhoneButton: React.FC<PhoneButtonProps> = ({
       <Button
         asChild
         className={cn(
-          "font-medium rounded-2xl transition-all duration-200 flex items-center space-x-2 space-x-reverse",
+          "font-medium rounded-2xl transition-all duration-200 flex items-center space-x-reverse",
           variants[variant],
           sizeClasses[size],
           className
