@@ -54,7 +54,10 @@ const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
 
               {/* CTA Buttons - Mobile: Below title for better flow */}
               <div className="order-2">
-                <CtaButtons service={service} scrollToSection={scrollToSection} />
+                <CtaButtons
+                  service={service}
+                  scrollToSection={scrollToSection}
+                />
               </div>
             </div>
 

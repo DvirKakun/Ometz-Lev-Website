@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import HeroBrandTitle from "./HeroBrandTitle";
 import HeroSubtitle from "./HeroSubtitle";
 import HeroCTAButtons from "./HeroCTAButtons";
 
@@ -11,7 +10,7 @@ const HeroContent: React.FC = () => {
       transition={{ duration: 0.8, delay: 0.2 }}
       className="flex-1 text-center lg:text-right order-2 lg:order-1"
     >
-      <HeroBrandTitle />
+      {/* <HeroBrandTitle /> */}
       <HeroSubtitle />
       <HeroCTAButtons />
     </motion.div>

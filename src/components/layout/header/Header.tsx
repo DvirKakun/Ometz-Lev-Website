@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
 import HeaderLogo from "./HeaderLogo";
 import HeaderNavigation from "./HeaderNavigation";
@@ -12,7 +13,18 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { hideTimer, showTimer } = useTimer();
+
+  const handleLogoClick = () => {
+    if (location.pathname === "/home") {
+      // Scroll to top if already on home page
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      // Navigate to home page
+      navigate("/home");
+    }
+  };
 
   // Handle scroll effect
   useEffect(() => {
@@ -52,15 +64,23 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between h-20 lg:h-24 gap-3 lg:gap-8">
           {/* Logo Component */}
           <div className="flex-shrink-0">
-            <HeaderLogo />
+            <HeaderLogo onClick={handleLogoClick} />
           </div>
           {/* Center Logo */}
           <div className="flex-1 flex justify-start">
-            <img
-              src={OmetzLevLogo}
-              alt="Ometz Lev Logo"
-              className="h-12 w-auto"
-            />
+            <motion.button
+              onClick={handleLogoClick}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="cursor-pointer focus:outline-none "
+              aria-label="Navigate to home page"
+            >
+              <img
+                src={OmetzLevLogo}
+                alt="Ometz Lev Logo"
+                className="h-12 w-auto"
+              />
+            </motion.button>
           </div>
           {/* Desktop Navigation Component - Hidden on smaller screens to make room */}
           <div className="hidden xl:block">

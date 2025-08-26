@@ -37,16 +37,16 @@ const ModalHeader: React.FC<ModalHeaderProps> = ({
     <div className={`text-center ${marginBottom} ${className}`}>
       {/* Icon */}
       <div
-        className={`${iconSizes.container} bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mx-auto mb-2`}
+        className={`${iconSizes.container} bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-2`}
       >
-        <IconComponent className={`${iconSizes.icon} text-white`} />
+        <IconComponent className={`${iconSizes.icon} text-slate-600`} />
       </div>
 
       {/* Title */}
-      <h2 className={`${titleSize} font-bold text-white mb-1`}>{title}</h2>
+      <h2 className={`${titleSize} font-bold text-slate-900 mb-1`}>{title}</h2>
 
       {/* Subtitle */}
-      <p className={`${subtitleSize} text-white/80`}>{subtitle}</p>
+      <p className={`${subtitleSize} text-slate-600`}>{subtitle}</p>
     </div>
   );
 };

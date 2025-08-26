@@ -15,7 +15,7 @@ const FormSubmitButton: React.FC<FormSubmitButtonProps> = ({
     <Button
       type="submit"
       disabled={isSubmitting}
-      className={`w-full bg-white text-primary-700 hover:bg-white/90 font-semibold py-2 rounded transition-all duration-200 mt-3 ${className}`}
+      className={`w-full bg-primary-600 text-white hover:bg-primary-700 font-semibold py-2 rounded transition-all duration-200 mt-3 ${className}`}
       size={size}
     >
       {isSubmitting ? (

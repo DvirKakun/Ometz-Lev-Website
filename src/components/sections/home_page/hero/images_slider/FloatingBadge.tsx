@@ -25,7 +25,7 @@ export function FloatingBadge({
           y: -2,
           transition: { duration: 0.3 },
         }}
-        className="absolute -bottom-2 -right-2 sm:-bottom-3 sm:-right-3 md:-bottom-5 md:-right-5 group cursor-default"
+        className="absolute -bottom-3 -right-8 sm:-bottom-3 sm:-right-3 md:-bottom-5 md:-right-5 group cursor-default"
       >
         {/* Main badge container - responsive sizing */}
         <div className="relative bg-white/95 backdrop-blur-xl border border-white/60 shadow-xl rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 min-w-[100px] sm:min-w-[120px] md:min-w-[140px]">
@@ -37,7 +37,7 @@ export function FloatingBadge({
             {/* Text content */}
             <div className="text-right flex-1">
               <motion.div
-                className="text-xs sm:text-sm font-bold text-slate-800 leading-tight"
+                className="text-[10px] sm:text-sm font-bold text-slate-800 leading-tight"
                 initial={{ x: -8 }}
                 animate={{ x: 0 }}
                 transition={{ delay: 0.4 }}
@@ -45,7 +45,7 @@ export function FloatingBadge({
                 {currentImage.title}
               </motion.div>
               <motion.div
-                className="text-[10px] sm:text-xs text-slate-600 mt-0.5 font-medium"
+                className="text-[8px] sm:text-xs text-slate-600 mt-0.5 font-medium"
                 initial={{ x: -8, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.6 }}
@@ -56,7 +56,7 @@ export function FloatingBadge({
 
             {/* Icon container - responsive sizing */}
             <motion.div
-              className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-lg sm:rounded-xl relative"
+              className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-lg sm:rounded-xl relative"
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >

@@ -90,8 +90,7 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
         className="
           grid auto-rows-fr gap-3 sm:gap-4 md:gap-5 lg:gap-6
           px-4 sm:px-6 md:px-8 lg:px-4 max-w-7xl mx-auto
-          grid-cols-[repeat(auto-fill,minmax(160px,1fr))]  // 2-col+ on mobile
-          sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3
+          grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3
         "
       >
         {(service.offerings as ProcessedFullOffering[]).map(

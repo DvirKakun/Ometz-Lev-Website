@@ -52,6 +52,7 @@ export interface FormSelectProps {
 
 export interface FormTextareaProps {
   label?: string;
+  icon?: LucideIcon;
   placeholder: string;
   register: any;
   error?: string;

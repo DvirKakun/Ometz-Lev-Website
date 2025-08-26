@@ -117,20 +117,15 @@ const ContactModalForm = ({ onSuccess, onError }: ContactModalFormProps) => {
 
       <FormSection>
         {/* Message */}
-        <div className="space-y-1">
-          <label className="text-xs font-medium text-white block text-right">
-            הודעה (אופציונלי)
-          </label>
-          <div className="relative">
-            <FormTextarea
-              placeholder="תארו בקצרה על מה תרצו לשמוע..."
-              register={register("message")}
-              rows={2}
-              textareaClassName="px-3 py-2 pr-10 backdrop-blur-sm rounded-lg text-sm focus:ring-2 focus:ring-white/30 focus:border-transparent resize-none"
-            />
-            <MessageSquare className="absolute right-3 top-3 w-3 h-3 text-white/60" />
-          </div>
-        </div>
+        <FormTextarea
+          label="הודעה (אופציונלי)"
+          icon={MessageSquare}
+          placeholder="תארו בקצרה על מה תרצו לשמוע..."
+          register={register("message")}
+          rows={2}
+          className="space-y-1 mt-3"
+          textareaClassName="px-3 py-2 pr-10 rounded-lg text-sm resize-none"
+        />
       </FormSection>
 
       <FormSection>
