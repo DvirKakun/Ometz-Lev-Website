@@ -33,35 +33,48 @@ const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
 
   return (
     <>
-      <section className="py-6 sm:py-8 lg:py-16 bg-white">
+      <section className="bg-white">
+        {/* Full-Width Header Container with Background */}
+        <div className="w-full bg-slate-900/85 mb-8 sm:mb-10 lg:mb-12">
+          <div className="container mx-auto px-3 sm:px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6 }}
+              className="max-w-6xl mx-auto py-8 sm:py-10 lg:py-12"
+            >
+              {/* Mobile-First Header Layout */}
+              <div className="flex flex-col gap-6 sm:gap-8 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start">
+                {/* Title - Mobile: Top, Desktop: Right */}
+                <div className="order-1">
+                  <ServiceHeader
+                    title={service.title}
+                    description={service.description}
+                  />
+                </div>
+
+                {/* CTA Buttons - Mobile: Below title for better flow */}
+                <div className="order-2">
+                  <CtaButtons
+                    service={service}
+                    scrollToSection={scrollToSection}
+                  />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Service Selection Section */}
         <div className="container mx-auto px-3 sm:px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="max-w-6xl mx-auto"
           >
-            {/* Mobile-First Header Layout */}
-            <div className="flex flex-col gap-6 sm:gap-8 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-start mb-8 sm:mb-10 lg:mb-12">
-              {/* Title - Mobile: Top, Desktop: Right */}
-              <div className="order-1">
-                <ServiceHeader
-                  title={service.title}
-                  description={service.description}
-                />
-              </div>
-
-              {/* CTA Buttons - Mobile: Below title for better flow */}
-              <div className="order-2">
-                <CtaButtons
-                  service={service}
-                  scrollToSection={scrollToSection}
-                />
-              </div>
-            </div>
-
-            {/* Service Selection Section */}
             <ServiceSelectionSection service={service} />
           </motion.div>
         </div>

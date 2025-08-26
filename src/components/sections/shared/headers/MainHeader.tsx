@@ -19,7 +19,7 @@ const ServiceHeader = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3 sm:mb-4 leading-tight"
+        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-primary-500 mb-3 sm:mb-4 leading-tight"
         style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)" }}
       >
         {title}
@@ -29,7 +29,7 @@ const ServiceHeader = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto sm:mx-0"
+        className="text-base sm:text-lg lg:text-xl text-white leading-relaxed max-w-2xl mx-auto sm:mx-0"
       >
         {description}
       </motion.p>

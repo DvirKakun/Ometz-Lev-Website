@@ -27,17 +27,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
       >
         <Card className="h-full bg-white border-2 border-slate-200 shadow-lg hover:shadow-xl hover:border-slate-300 transition-all duration-300 group-hover:-translate-y-1 sm:group-hover:-translate-y-2">
           <CardContent className="p-3 sm:p-4 md:p-6 h-full flex flex-col">
-            {/* Icon - responsive sizing */}
-            <motion.div
-              className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 bg-gradient-to-br ${service.color} rounded-xl sm:rounded-2xl flex items-center justify-center mb-3 sm:mb-4 md:mb-6 group-hover:scale-105 sm:group-hover:scale-110 transition-transform duration-300`}
-            >
-              <service.icon className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 lg:w-8 lg:h-8 text-white" />
-            </motion.div>
-
-            {/* Title - responsive typography */}
             <h3
               className={`text-sm sm:text-base md:text-lg lg:text-xl font-bold mb-2 sm:mb-3 md:mb-4 transition-colors duration-300 leading-tight ${
-                isHovered ? service.hoverTextColor : "text-slate-800"
+                isHovered ? "text-primary-600" : "text-slate-800"
               }`}
             >
               {service.title}
@@ -54,7 +46,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
                   transition={{ duration: 0.2, delay: idx * 0.05 }}
                 >
                   <div
-                    className={`w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-br ${service.color} rounded-full ml-2 sm:ml-3 flex-shrink-0 mt-1.5 sm:mt-1`}
+                    className={`w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-br from-primary-400 to-primary-500 rounded-full ml-2 sm:ml-3 flex-shrink-0 mt-1.5 sm:mt-1`}
                   />
                   <span className="leading-relaxed line-clamp-2">
                     {offering.title}
@@ -85,7 +77,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
                 <div className="flex items-center justify-between w-full">
                   <span
                     className={`text-xs sm:text-sm font-bold transition-colors duration-300 ${
-                      isHovered ? service.hoverTextColor : "text-slate-800"
+                      isHovered ? "text-primary-600" : "text-slate-800"
                     }`}
                   >
                     לפרטים נוספים
@@ -97,7 +89,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index }) => {
                       rotate: isHovered ? -10 : 0,
                     }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
-                    className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 bg-gradient-to-br ${service.color} rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg flex-shrink-0`}
+                    className={`w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 lg:w-9 lg:h-9 bg-gradient-to-br from-primary-400 to-primary-500 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg flex-shrink-0`}
                   >
                     <ArrowUpRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-white" />
                   </motion.div>

@@ -3,7 +3,7 @@ import type { SchoolProgram } from "../types/schools_page";
 export const schoolProgram: SchoolProgram = {
   id: "ometz-lev",
   programNumber: "9695",
-  title: "אומץ לב – אילוף וטיפול באמצעות כלבים",
+  title: "אילוף וטיפול באמצעות כלבים",
   status: "פעילה",
 
   basicInfo: {

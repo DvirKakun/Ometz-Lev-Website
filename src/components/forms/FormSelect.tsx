@@ -15,7 +15,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
 }) => {
   return (
     <div className={className}>
-      <label className="text-xs text-white block text-right mb-1">
+      <label className="text-xs text-slate-700 block text-right mb-1">
         {label} {required && "*"}
       </label>
       <div className="relative">
@@ -23,30 +23,30 @@ const FormSelect: React.FC<FormSelectProps> = ({
           {...register}
           className={`w-full py-1 pl-6 ${
             Icon ? "pr-8" : "pr-2"
-          } bg-white/10 border border-white/20 rounded text-white focus:outline-none focus:ring-1 focus:ring-white/30 text-right text-xs appearance-none ${
+          } bg-slate-50 border border-slate-300 rounded text-slate-900 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-right text-xs appearance-none ${
             error ? "border-red-400" : ""
           } ${selectClassName}`}
           defaultValue=""
         >
-          <option value="" disabled className="bg-gray-800 text-white">
+          <option value="" disabled className="bg-white text-slate-500">
             {placeholder}
           </option>
           {options.map((option) => (
             <option
               key={option}
               value={option}
-              className="bg-gray-800 text-white"
+              className="bg-white text-slate-900"
             >
               {option}
             </option>
           ))}
         </select>
-        <ChevronDown className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-white/60 pointer-events-none" />
+        <ChevronDown className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
         {Icon && (
-          <Icon className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-white/60 pointer-events-none" />
+          <Icon className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
         )}
       </div>
-      {error && <p className="text-red-300 text-xs text-right mt-1">{error}</p>}
+      {error && <p className="text-red-600 text-xs text-right mt-1">{error}</p>}
     </div>
   );
 };

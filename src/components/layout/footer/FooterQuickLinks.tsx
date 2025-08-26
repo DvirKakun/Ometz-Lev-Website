@@ -9,25 +9,21 @@ const FooterQuickLinks: React.FC = () => {
       path: "/therapy",
       label: "כלבנות טיפולית",
       icon: Heart,
-      color: "text-red-400",
     },
     {
       path: "/training",
       label: "אילוף כלבים",
       icon: BookOpen,
-      color: "text-blue-400",
     },
     {
       path: "/activities",
       label: "פעילויות",
       icon: Award,
-      color: "text-primary-400",
     },
     {
       path: "/schools",
       label: "תכנית גפן",
       icon: Users,
-      color: "text-green-400",
     },
   ];
 
@@ -38,8 +34,8 @@ const FooterQuickLinks: React.FC = () => {
       transition={{ duration: 0.6, delay: 0.1 }}
       viewport={{ once: true }}
     >
-      <h4 className="text-lg sm:text-xl font-bold mb-6 text-primary-300 flex items-center gap-2">
-        <div className="w-1 h-6 bg-primary-400 rounded-full"></div>
+      <h4 className="text-lg sm:text-xl font-bold mb-6 text-primary-500 flex items-center gap-2">
+        <div className="w-1 h-6 bg-primary-500 rounded-full"></div>
         שירותים
       </h4>
 
@@ -58,7 +54,7 @@ const FooterQuickLinks: React.FC = () => {
               className="flex flex-col items-center space-y-2 text-slate-300 hover:text-primary-300 focus-visible:text-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 transition-all duration-200 group p-4 rounded-xl bg-slate-700/20 hover:bg-slate-600/30 active:scale-95 min-h-[80px]"
             >
               <div
-                className={`w-8 h-8 ${link.color} group-hover:scale-110 transition-transform duration-200`}
+                className={`w-8 h-8 group-hover:scale-110 transition-transform duration-200`}
               >
                 <link.icon className="w-full h-full" />
               </div>
@@ -82,12 +78,10 @@ const FooterQuickLinks: React.FC = () => {
           >
             <Link
               to={link.path}
-              className="flex items-center space-x-3 space-x-reverse text-slate-300 hover:text-primary-300 focus-visible:text-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 transition-all duration-200 group p-2 -m-2 rounded-xl"
+              className="flex items-center space-x-3 space-x-reverse text-slate-300 hover:text-primary-300 focus-visible:text-primary-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-800 transition-all duration-200 group p-2 -m-2 rounded-xl active:scale-95"
             >
-              <div
-                className={`w-6 h-6 ${link.color} group-hover:scale-110 transition-transform duration-200`}
-              >
-                <link.icon className="w-full h-full" />
+              <div className="w-8 h-8 bg-slate-700/50 rounded-xl flex items-center justify-center group-hover:bg-primary-500/20 group-focus-visible:bg-primary-500/20 group-active:bg-primary-500/30 transition-all duration-200 shadow-lg group-hover:shadow-xl group-hover:scale-105">
+                <link.icon className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
               </div>
               <span className="font-medium group-hover:font-semibold transition-all duration-200">
                 {link.label}

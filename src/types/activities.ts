@@ -20,8 +20,6 @@ export interface Activity {
   main_image: ImageField;
   images?: PrismicGalleryImage[];
   icon: LucideIcon;
-  color: string;
-  bgColor: string;
   buttonText: string;
   hasRegistration: boolean;
   timerTitle: string;

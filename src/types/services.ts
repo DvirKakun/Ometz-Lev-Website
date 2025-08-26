@@ -1,5 +1,8 @@
 import type { LucideIcon } from "lucide-react";
-import type { ProcessedFullOffering, ProcessedSimpleOffering } from "./service_offerings";
+import type {
+  ProcessedFullOffering,
+  ProcessedSimpleOffering,
+} from "./service_offerings";
 
 export interface Offering {
   title: string;
@@ -19,12 +22,6 @@ export interface Service {
   title: string;
   description: string;
   icon: LucideIcon;
-  color: string;
-  bgColor: string;
-  borderColor: string;
-  hoverBorderColor: string;
-  hoverColor: string;
-  hoverTextColor: string;
   offerings: (ProcessedFullOffering | ProcessedSimpleOffering)[];
   cta: CtaItem[];
 }

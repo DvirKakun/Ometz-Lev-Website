@@ -32,8 +32,8 @@ const FooterContact: React.FC = () => {
       transition={{ duration: 0.6, delay: 0.2 }}
       viewport={{ once: true }}
     >
-      <h4 className="text-base md:text-lg font-bold mb-4 md:mb-6 text-primary-300 flex items-center gap-2">
-        <div className="w-1 h-5 md:h-6 bg-primary-400 rounded-full"></div>
+      <h4 className="text-base md:text-lg font-bold mb-4 md:mb-6 text-primary-500 flex items-center gap-2">
+        <div className="w-1 h-5 md:h-6 bg-primary-500 rounded-full"></div>
         יצירת קשר
       </h4>
 

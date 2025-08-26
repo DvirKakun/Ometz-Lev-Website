@@ -20,8 +20,6 @@ export interface SectionHeaderProps {
   icon: LucideIcon;
   title: string;
   description: string;
-  gradientFrom: string;
-  gradientTo: string;
 }
 
 export interface LibraryHeaderProps {

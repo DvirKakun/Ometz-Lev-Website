@@ -152,7 +152,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
         className="min-h-screen"
       >
         {/* Header Section - Always rendered */}
-        <section className="py-16 bg-white">
+        <section className="py-16 bg-slate-900/85">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-8 items-center">
@@ -171,7 +171,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
         {renderContent()}
 
         {/* FAQ Section - Always rendered */}
-        <FAQSection pageType="activities" service={service} />
+        <FAQSection pageType="activities" />
       </motion.div>
 
       {/* Summer Camp Registration Modal */}

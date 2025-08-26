@@ -42,7 +42,7 @@ const FooterMain: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <FooterWorkingHours showSocialLinks={true} />
+            <FooterWorkingHours />
           </motion.div>
         </div>
       </div>
@@ -52,7 +52,7 @@ const FooterMain: React.FC = () => {
         <div className="grid md:grid-cols-3 gap-10 lg:gap-16">
           <FooterQuickLinks />
           <FooterContact />
-          <FooterWorkingHours showSocialLinks={true} />
+          <FooterWorkingHours />
         </div>
       </div>
     </motion.div>

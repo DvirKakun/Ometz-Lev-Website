@@ -21,9 +21,11 @@ const TherapyPage = ({ service }: ServicePageProps) => {
   // SEO Configuration for Therapy Page
   const seoConfig = {
     title: "כלבנות טיפולית | כלבי טיפול | אלעד שמעונוב - פט תרפיה | אומץ לב",
-    description: "אלעד שמעונוב - כלבנות טיפולית מקצועית לטיפול בחרדות, דיכאון ופוסט טראומה. כלבי טיפול מאומנים לילדים ומבוגרים. טיפול בעזרת בעלי חיים להתגברות על פחדים. קבעו פגישה!",
+    description:
+      "אלעד שמעונוב - כלבנות טיפולית מקצועית לטיפול בחרדות, דיכאון ופוסט טראומה. כלבי טיפול מאומנים לילדים ומבוגרים. טיפול בעזרת בעלי חיים להתגברות על פחדים. קבעו פגישה!",
     keywords: getKeywordsForPage("therapy"),
-    imageUrl: "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageUrl:
+      "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
     imageAlt: "כלב טיפולי במהלך פגישת טיפול עם אלעד שמעונוב",
   };
 
@@ -74,28 +76,28 @@ const TherapyPage = ({ service }: ServicePageProps) => {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
-      {/* Features Section */}
-      <CollapsibleFeatures service={serviceWithOfferings} />
+        {/* Features Section */}
+        <CollapsibleFeatures service={serviceWithOfferings} />
 
-      {/* Therapy Method Section */}
-      <MethodSection config={methodConfig} service={service} />
+        {/* Therapy Method Section */}
+        <MethodSection config={methodConfig} />
 
-      {/* Videos Section */}
-      <ContentSection
-        contentType="videos"
-        pageType="therapy"
-        sectionConfig={therapyContentConfig.videos}
-      />
+        {/* Videos Section */}
+        <ContentSection
+          contentType="videos"
+          pageType="therapy"
+          sectionConfig={therapyContentConfig.videos}
+        />
 
-      {/* Articles Section */}
-      <ContentSection
-        contentType="articles"
-        pageType="therapy"
-        sectionConfig={therapyContentConfig.articles}
-      />
+        {/* Articles Section */}
+        <ContentSection
+          contentType="articles"
+          pageType="therapy"
+          sectionConfig={therapyContentConfig.articles}
+        />
 
-      {/* FAQ Section */}
-      <FAQSection pageType="therapy" service={service} />
+        {/* FAQ Section */}
+        <FAQSection pageType="therapy" />
       </motion.div>
     </>
   );

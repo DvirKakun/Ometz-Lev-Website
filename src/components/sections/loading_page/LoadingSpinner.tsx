@@ -1,53 +1,35 @@
 import { motion } from "framer-motion";
-import type { LoadingSpinnerProps } from "../../../types/loading_page";
+import runningDogGif from "../../../assets/images/running-dog-loader.gif";
 
-const LoadingSpinner = ({ color, icon: Icon }: LoadingSpinnerProps) => {
+const LoadingSpinner = () => {
   return (
     <motion.div
-      className="text-center mb-8"
-      initial={{ scale: 0, rotate: -180 }}
-      animate={{ scale: 1, rotate: 0 }}
+      className="text-center"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={{ opacity: 1, scale: 1 }}
       transition={{
-        duration: 1,
-        type: "spring",
-        stiffness: 200,
-        damping: 15,
+        duration: 0.6,
+        ease: "easeOut",
       }}
     >
-      <div
-        className={`relative inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r ${color} rounded-3xl shadow-xl mb-6`}
+      {/* Running Dog GIF */}
+      <motion.div
+        className="relative"
+        animate={{
+          y: [0, -3, 0],
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
       >
-        {/* Pulsing Ring */}
-        <motion.div
-          className={`absolute inset-0 rounded-3xl bg-gradient-to-r ${color} opacity-30`}
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.1, 0.3],
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+        <img
+          src={runningDogGif}
+          alt="Loading..."
+          className="w-32 h-8 sm:w-40 sm:h-10 md:w-48 md:h-12 lg:w-48 lg:h-14 object-contain mx-auto"
         />
-
-        {/* Icon */}
-        <Icon className="w-12 h-12 text-white relative z-10" />
-
-        {/* Rotating Ring */}
-        <motion.div
-          className={`absolute inset-[-8px] border-2 border-gradient-to-r ${color} rounded-3xl opacity-60`}
-          animate={{ rotate: 360 }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          style={{
-            borderImage: `linear-gradient(45deg, currentColor, transparent, currentColor) 1`,
-          }}
-        />
-      </div>
+      </motion.div>
     </motion.div>
   );
 };

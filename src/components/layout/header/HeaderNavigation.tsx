@@ -142,7 +142,7 @@ export default function HeaderNavigation({
               <button
                 className={cn(
                   "flex items-center space-x-2 space-x-reverse px-2.5 py-2 rounded-lg font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
-                  "text-slate-700 hover:bg-primary-50 hover:text-primary-600 hover:shadow-sm focus-visible:bg-primary-50 focus-visible:text-primary-600"
+                  "text-slate-700 hover:text-primary-600 focus-visible:bg-primary-50 focus-visible:text-primary-600"
                 )}
               >
                 <item.icon className="w-4 h-4" />
@@ -165,7 +165,7 @@ export default function HeaderNavigation({
                         to={subItem.to}
                         className={({ isActive }) =>
                           cn(
-                            "block px-4 py-2.5 text-sm font-medium transition-all duration-200 hover:bg-primary-50 hover:text-primary-600 focus-visible:outline-none focus-visible:bg-primary-50 focus-visible:text-primary-600",
+                            "block px-4 py-2.5 text-sm font-medium transition-all duration-200 hover:text-primary-600 focus-visible:outline-none focus-visible:bg-primary-50 focus-visible:text-primary-600",
                             isActive
                               ? "bg-primary-100 text-primary-700"
                               : "text-slate-700"
@@ -188,7 +188,7 @@ export default function HeaderNavigation({
                   "flex items-center space-x-2 space-x-reverse px-2.5 py-2 rounded-lg font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
                   isActive
                     ? "bg-primary-100 text-primary-700 shadow-md"
-                    : "text-slate-700 hover:bg-primary-50 hover:text-primary-600 hover:shadow-sm focus-visible:bg-primary-50 focus-visible:text-primary-600"
+                    : "text-slate-700  hover:text-primary-600 focus-visible:bg-primary-50 focus-visible:text-primary-600"
                 )
               }
             >

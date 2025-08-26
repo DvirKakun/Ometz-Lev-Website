@@ -27,14 +27,14 @@ const ModalSuccess: React.FC<ModalSuccessProps> = ({
 
       {/* Title */}
       <h3
-        className={`text-lg font-semibold text-white mb-2 ${contentAlignment}`}
+        className={`text-lg font-semibold text-slate-900 mb-2 ${contentAlignment}`}
       >
         {title}
       </h3>
 
       {/* Content */}
       {content && (
-        <div className={`text-white/90 text-sm ${contentAlignment}`}>
+        <div className={`text-slate-700 text-sm ${contentAlignment}`}>
           {typeof content === "string" ? <p>{content}</p> : content}
         </div>
       )}

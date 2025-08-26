@@ -34,7 +34,7 @@ const ActivitySection = ({
             activity.isPast ? "opacity-75" : ""
           }`}
         >
-          <div className="grid lg:grid-cols-2 gap-12 items-center overflow-hidden">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center overflow-hidden">
             {/* Content - Right side */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
@@ -45,7 +45,7 @@ const ActivitySection = ({
             >
               <div className="mb-6">
                 <div
-                  className={`inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r ${activity.color} rounded-xl shadow-lg mb-4`}
+                  className={`inline-flex items-center justify-center w-12 h-12 bg-primary-500 rounded-xl shadow-lg mb-4`}
                 >
                   <activity.icon className="w-6 h-6 text-white" />
                 </div>
@@ -65,7 +65,7 @@ const ActivitySection = ({
                 ))}
 
                 <div
-                  className={`bg-gradient-to-r ${activity.bgColor} p-4 rounded-lg border-r-4 border-activities-500`}
+                  className={`bg-primary-200/20 p-4 rounded-lg border-r-4 border-primary-500`}
                 >
                   <p className="text-slate-700 font-medium text-right">
                     <strong>מתאים לגילאי:</strong> {activity.details.ages}
@@ -89,10 +89,10 @@ const ActivitySection = ({
                     <Button
                       onClick={onRegisterClick}
                       size="lg"
-                      className={`bg-gradient-to-r ${activity.color} hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1`}
+                      className={`bg-primary-500 hover:opacity-90 text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1`}
                     >
-                      <activity.icon className="w-5 h-5 ml-2" />
                       {activity.buttonText}
+                      <activity.icon className="w-5 h-5 ml-2" />
                     </Button>
                   </motion.div>
                 )}
@@ -108,17 +108,12 @@ const ActivitySection = ({
             >
               {/* Main image */}
               <div className="relative">
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${activity.color
-                    .replace("from-", "from-")
-                    .replace("to-", "to-")}/20 rounded-2xl transform rotate-3`}
-                ></div>
-                <div className="relative bg-white p-2 rounded-2xl shadow-2xl">
+                <div className="relative bg-white rounded-2xl shadow-2xl inline-block mx-auto overflow-hidden">
                   <img
                     src={activity.main_image.url || ""}
                     alt={activity.main_image.alt || "Activity image"}
                     loading="lazy"
-                    className={`w-full h-auto rounded-xl ${
+                    className={`max-w-full max-h-80 sm:max-h-96 md:max-h-[28rem] lg:max-h-[32rem] rounded-xl object-contain ${
                       activity.isPast
                         ? "filter blur-md cursor-default"
                         : "cursor-pointer"
@@ -144,7 +139,7 @@ const ActivitySection = ({
 
                       {/* Diagonal banner - on top of overlay */}
                       <div className="absolute top-0 right-0 w-full h-full z-10">
-                        <div className="absolute top-4 -right-12 bg-gradient-to-r from-activities-400 to-activities-500 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg">
+                        <div className="absolute top-4 -right-12 bg-gradient-to-r from-primary-400 to-primary-500 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg">
                           בקרוב
                         </div>
                       </div>

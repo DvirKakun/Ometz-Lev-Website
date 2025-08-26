@@ -6,7 +6,7 @@ import MethodPhilosophy from "./MethodPhilosophy";
 import MethodPrinciples from "./MethodPrinciples";
 import ProcessSteps from "./ProcessSteps";
 
-const MethodSection = ({ config, service }: MethodSectionProps) => {
+const MethodSection = ({ config }: MethodSectionProps) => {
   return (
     <section className="py-16 bg-white">
       <div className="container mx-auto px-4">
@@ -18,10 +18,10 @@ const MethodSection = ({ config, service }: MethodSectionProps) => {
           className="max-w-4xl mx-auto"
         >
           {/* About Section - Brief Intro */}
-          <AboutIntro config={config.about} service={service} />
+          <AboutIntro config={config.about} />
 
           {/* Section Header */}
-          <MethodHeader config={config.header} service={service} />
+          <MethodHeader config={config.header} />
 
           {/* Main Content */}
           <motion.div
@@ -32,16 +32,13 @@ const MethodSection = ({ config, service }: MethodSectionProps) => {
             className="space-y-8"
           >
             {/* Philosophy Text */}
-            <MethodPhilosophy config={config.philosophy} service={service} />
+            <MethodPhilosophy config={config.philosophy} />
 
             {/* Method Principles Grid */}
-            <MethodPrinciples
-              principles={config.principles}
-              service={service}
-            />
+            <MethodPrinciples principles={config.principles} />
 
             {/* Process Steps */}
-            <ProcessSteps config={config.process} service={service} />
+            <ProcessSteps config={config.process} />
           </motion.div>
         </motion.div>
       </div>

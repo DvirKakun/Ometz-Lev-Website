@@ -21,16 +21,18 @@ export default function TrainingPage({ service }: ServicePageProps) {
   // SEO Configuration for Training Page
   const seoConfig = {
     title: "אילוף כלבים מקצועי | אלעד שמעונוב - מאמן כלבים פרטי | אומץ לב",
-    description: "אלעד שמעונוב - מאמן כלבים מקצועי ואישי. אילוף בבית הלקוח, פתרון בעיות התנהגות, אילוף גורים וטיפול באגרסיביות. שיטות מתקדמות ותוצאות מובטחות. ייעוץ חינם!",
+    description:
+      "אלעד שמעונוב - מאמן כלבים מקצועי ואישי. אילוף בבית הלקוח, פתרון בעיות התנהגות, אילוף גורים וטיפול באגרסיביות. שיטות מתקדמות ותוצאות מובטחות. ייעוץ חינם!",
     keywords: getKeywordsForPage("training"),
-    imageUrl: "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageUrl:
+      "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
     imageAlt: "אלעד שמעונוב מאמן כלבים מקצועי במהלך אילוף כלב",
   };
 
   // Merge Prismic offerings with service data
   const serviceWithOfferings = {
     ...service,
-    offerings: trainingOfferingsData?.offerings || []
+    offerings: trainingOfferingsData?.offerings || [],
   };
 
   useEffect(() => {
@@ -81,28 +83,28 @@ export default function TrainingPage({ service }: ServicePageProps) {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
-      {/* Collapsible Features Section */}
-      <CollapsibleFeatures service={serviceWithOfferings} />
+        {/* Collapsible Features Section */}
+        <CollapsibleFeatures service={serviceWithOfferings} />
 
-      {/* Training Method Section (includes brief about) */}
-      <MethodSection config={methodConfig} service={service} />
+        {/* Training Method Section (includes brief about) */}
+        <MethodSection config={methodConfig} />
 
-      {/* Videos Section */}
-      <ContentSection
-        contentType="videos"
-        pageType="training"
-        sectionConfig={trainingContentConfig.videos}
-      />
+        {/* Videos Section */}
+        <ContentSection
+          contentType="videos"
+          pageType="training"
+          sectionConfig={trainingContentConfig.videos}
+        />
 
-      {/* Articles Section */}
-      <ContentSection
-        contentType="articles"
-        pageType="training"
-        sectionConfig={trainingContentConfig.articles}
-      />
+        {/* Articles Section */}
+        <ContentSection
+          contentType="articles"
+          pageType="training"
+          sectionConfig={trainingContentConfig.articles}
+        />
 
-      {/* FAQ Section */}
-      <FAQSection pageType="training" service={service} />
+        {/* FAQ Section */}
+        <FAQSection pageType="training" />
       </motion.div>
     </>
   );

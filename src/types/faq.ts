@@ -1,7 +1,6 @@
-import type { Service } from './services';
-import type { RichTextField } from '@prismicio/types';
+import type { RichTextField } from "@prismicio/types";
 
-export type FAQPageType = 'therapy' | 'training' | 'activities' | 'schools';
+export type FAQPageType = "therapy" | "training" | "activities" | "schools";
 
 export interface FAQItem {
   id: string;
@@ -12,7 +11,6 @@ export interface FAQItem {
 
 export interface FAQSectionProps {
   pageType: FAQPageType;
-  service?: Service;
   className?: string;
 }
 
@@ -24,7 +22,6 @@ export interface FAQAccordionProps {
 export interface FAQHeaderProps {
   title: string;
   description: string;
-  service?: Service;
   className?: string;
 }
 
@@ -60,8 +57,8 @@ export interface ProcessedFAQ {
 
 // Configuration for FAQ document types in Prismic
 export const FAQ_DOCUMENT_TYPES = {
-  therapy: 'faq-therapy',
-  training: 'faq-training',
-  activities: 'faq-activities',
-  schools: 'faq-schools',
+  therapy: "faq-therapy",
+  training: "faq-training",
+  activities: "faq-activities",
+  schools: "faq-schools",
 } as const;

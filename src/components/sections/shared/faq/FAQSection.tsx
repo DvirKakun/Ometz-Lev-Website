@@ -6,7 +6,10 @@ import { getFAQSectionConfig } from "../../../../utils/prismic-faq";
 import FAQHeader from "./FAQHeader";
 import FAQAccordion from "./FAQAccordion";
 
-const FAQSection: React.FC<FAQSectionProps> = ({ pageType, service, className = "" }) => {
+const FAQSection: React.FC<FAQSectionProps> = ({
+  pageType,
+  className = "",
+}) => {
   const { data: faqItems, isLoading, error } = useFAQItems(pageType);
   const config = getFAQSectionConfig(pageType);
 
@@ -45,17 +48,13 @@ const FAQSection: React.FC<FAQSectionProps> = ({ pageType, service, className = 
           transition={{ duration: 0.6 }}
           className="max-w-3xl mx-auto"
         >
-          <FAQHeader 
+          <FAQHeader
             title={config.title}
             description={config.description}
-            service={service}
             className="mb-10"
           />
-          
-          <FAQAccordion 
-            items={faqItems}
-            className="space-y-3"
-          />
+
+          <FAQAccordion items={faqItems} className="space-y-3" />
         </motion.div>
       </div>
     </section>

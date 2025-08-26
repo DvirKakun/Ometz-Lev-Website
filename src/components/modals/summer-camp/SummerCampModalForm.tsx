@@ -279,7 +279,7 @@ const SummerCampModalForm = ({
       <FormSection>
         {/* Parents Info - Compact */}
         <div>
-          <label className="text-xs text-white block text-right mb-1">
+          <label className="text-xs text-slate-700 block text-right mb-1">
             פרטי הורים (לפחות אחד) *
           </label>
           <div className="grid grid-cols-2 gap-1 mb-1">
@@ -313,7 +313,7 @@ const SummerCampModalForm = ({
             />
           </div>
           {errors.motherName && (
-            <p className="text-red-300 text-xs text-right mt-1">
+            <p className="text-red-600 text-xs text-right mt-1">
               {errors.motherName.message}
             </p>
           )}
@@ -323,7 +323,7 @@ const SummerCampModalForm = ({
       <FormSection>
         {/* Health Info - Compact 3 Columns */}
         <div>
-          <label className="text-xs text-white block text-right mb-1">
+          <label className="text-xs text-slate-700 block text-right mb-1">
             מידע בריאותי *
           </label>
 
@@ -345,12 +345,12 @@ const SummerCampModalForm = ({
                     max={10}
                     min={1}
                     step={1}
-                    className="w-full mb-2 [&>.relative]:bg-white/20 [&_[data-radix-slider-range]]:bg-accent-400 [&_[data-radix-slider-thumb]]:bg-white [&_[data-radix-slider-thumb]]:border-2 [&_[data-radix-slider-thumb]]:border-accent-400 [&_[data-radix-slider-thumb]]:shadow-lg"
+                    className="w-full mb-2 [&_.bg-primary\/20]:!bg-slate-200 [&_.bg-primary]:!bg-primary-500 [&_.bg-background]:!bg-primary-500 [&_.border-primary\/50]:!border-white [&_.border-primary\/50]:!border-2"
                     onValueChange={(value) =>
                       setValue("dogFearScale", value[0])
                     }
                   />
-                  <div className="text-center text-xs text-white">
+                  <div className="text-center text-xs text-slate-600">
                     {watchDogFearScale || 5}/10
                   </div>
                 </div>
@@ -407,32 +407,32 @@ const SummerCampModalForm = ({
             errors.healthIssuesText) && (
             <div className="mt-1">
               {errors.dogFear && (
-                <p className="text-red-300 text-xs text-right">
+                <p className="text-red-600 text-xs text-right">
                   {errors.dogFear.message}
                 </p>
               )}
               {errors.dogFearScale && (
-                <p className="text-red-300 text-xs text-right">
+                <p className="text-red-600 text-xs text-right">
                   {errors.dogFearScale.message}
                 </p>
               )}
               {errors.allergies && (
-                <p className="text-red-300 text-xs text-right">
+                <p className="text-red-600 text-xs text-right">
                   {errors.allergies.message}
                 </p>
               )}
               {errors.allergiesText && (
-                <p className="text-red-300 text-xs text-right">
+                <p className="text-red-600 text-xs text-right">
                   {errors.allergiesText.message}
                 </p>
               )}
               {errors.healthIssues && (
-                <p className="text-red-300 text-xs text-right">
+                <p className="text-red-600 text-xs text-right">
                   {errors.healthIssues.message}
                 </p>
               )}
               {errors.healthIssuesText && (
-                <p className="text-red-300 text-xs text-right">
+                <p className="text-red-600 text-xs text-right">
                   {errors.healthIssuesText.message}
                 </p>
               )}

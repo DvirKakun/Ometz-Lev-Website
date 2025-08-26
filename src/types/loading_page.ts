@@ -13,7 +13,6 @@ export interface LoadingCardProps {
 
 export interface LoadingContentProps {
   title: string;
-  color: string;
 }
 
 export interface LoadingProgressProps {

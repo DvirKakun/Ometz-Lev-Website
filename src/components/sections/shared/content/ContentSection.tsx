@@ -26,8 +26,6 @@ const ContentSection = ({
             icon={icon}
             title={sectionConfig.title}
             description={sectionConfig.description}
-            gradientFrom={sectionConfig.gradientFrom}
-            gradientTo={sectionConfig.gradientTo}
           />
 
           <LibraryCTA

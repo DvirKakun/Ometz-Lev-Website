@@ -4,7 +4,7 @@ import { Card, CardContent } from "../../../ui/card";
 import { Avatar, AvatarFallback } from "../../../ui/avatar";
 import { Button } from "../../../ui/button";
 import WhatsAppButton from "../../../common/WhatsAppButton";
-import { Heart, BookOpen, Award, Users, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import OfferingDetailsModal from "../../../modals/offering/OfferingDetailsModal";
 import type { ServiceSelectionSectionProps } from "../../../../types/collapsible_features";
 import type { ProcessedFullOffering } from "../../../../types/service_offerings";
@@ -33,23 +33,6 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
     setSelectedOffering(null);
   };
 
-  const getServiceIcon = () => {
-    switch (service.path) {
-      case "/therapy":
-        return Heart;
-      case "/training":
-        return BookOpen;
-      case "/activities":
-        return Award;
-      case "/schools":
-        return Users;
-      default:
-        return Heart;
-    }
-  };
-
-  const ServiceIcon = getServiceIcon();
-
   return (
     <motion.div
       dir="rtl" // RTL root
@@ -61,16 +44,8 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
     >
       {/* ───── Section header ───── */}
       <header className="text-center max-w-4xl mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-center mb-4 sm:mb-6">
-          <div
-            className={`p-4 sm:p-5 rounded-3xl bg-gradient-to-br ${service.color} text-white shadow-xl ring-4 ring-white/10`}
-          >
-            <ServiceIcon className="w-7 h-7 sm:w-9 sm:h-9" />
-          </div>
-        </div>
-
         <h3
-          className="font-bold text-slate-900 mb-4 sm:mb-5 leading-tight tracking-tight"
+          className="font-bold text-primary-500 mb-4 sm:mb-5 leading-tight tracking-tight"
           style={{ fontSize: "clamp(1.25rem, 2.5vw, 2rem)" }} // fluid type
         >
           השירותים שלנו ב{service.title}
@@ -105,7 +80,7 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
               <Card className="group relative h-full overflow-hidden rounded-lg sm:rounded-xl md:rounded-2xl border border-slate-200 bg-white shadow-md hover:shadow-lg transition-shadow duration-200 min-h-[180px] sm:min-h-[200px] md:min-h-[220px]">
                 {/* Top accent bar */}
                 <div
-                  className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${service.color}`}
+                  className={`absolute inset-x-0 top-0 h-1 bg-primary-500`}
                 />
 
                 <CardContent className="flex h-full flex-col p-2.5 sm:p-3 md:p-4 lg:p-5">
@@ -160,12 +135,12 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
                     {/* WhatsApp Button (≥44 px touch-target) */}
                     <WhatsAppButton
                       message={offering.whatsappMessage}
-                      variant="default"
+                      variant="outline"
                       size="sm"
                       className="
-            w-full rounded-md sm:rounded-lg bg-gradient-to-r from-green-500 to-green-600
+            w-full rounded-md sm:rounded-lg 
             py-1.5 sm:py-2 md:py-2.5
-            text-xs sm:text-sm md:text-base font-bold text-white
+            text-xs sm:text-sm md:text-base font-bold text-green-500
             shadow hover:shadow-md hover:from-green-600 hover:to-green-700
             active:scale-95 transition-transform
             !h-8 sm:!h-10 md:!h-11
@@ -223,9 +198,9 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
 
         <WhatsAppButton
           message={`שלום! אשמח לקבל ייעוץ לגבי השירותים שלכם ב${service.title}. איזה שירות הכי מתאים בשבילי?`}
-          variant="default"
+          variant="outline"
           size="lg"
-          className="min-h-[56px] sm:min-h-[60px] px-8 sm:px-10 lg:px-12 py-4 sm:py-5 font-bold bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 rounded-2xl sm:rounded-3xl focus:ring-4 focus:ring-green-200 w-full sm:w-auto"
+          className="min-h-[56px] sm:min-h-[60px] px-8 sm:px-10 lg:px-12 py-4 sm:py-5 font-bold bg-gradient-to-r hover:from-green-600 hover:to-green-700 text-green-500 shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 rounded-2xl sm:rounded-3xl focus:ring-4 focus:ring-green-200 w-full sm:w-auto"
         />
       </motion.div>
 

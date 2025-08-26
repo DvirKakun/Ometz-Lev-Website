@@ -103,7 +103,7 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
 
             <Button
               size="sm"
-              className="bg-red-600 hover:bg-red-700 text-white text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 h-7 sm:h-8 font-medium"
+              className="bg-primary-500 hover:bg-primary-700 text-white text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 h-7 sm:h-8 font-medium"
               onClick={(e) => {
                 e.stopPropagation();
                 onClick?.(video);

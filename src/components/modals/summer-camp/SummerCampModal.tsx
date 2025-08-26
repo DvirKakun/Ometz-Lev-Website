@@ -30,30 +30,27 @@ const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
     setSubmitStatus("error");
   };
 
-
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg w-[90vw] max-h-[90vh] p-0 bg-gradient-to-br from-primary-600 via-primary-700 to-accent-600 border-0 text-white overflow-y-auto overflow-x-hidden [&>button]:hidden [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-32 h-32 bg-white rounded-full blur-3xl transform -translate-x-16 -translate-y-16" />
-          <div className="absolute bottom-0 right-0 w-24 h-24 bg-white rounded-full blur-2xl transform translate-x-12 translate-y-12" />
-        </div>
-
+      <DialogContent className="max-w-lg w-[90vw] max-h-[90vh] p-0 bg-white border-0 text-slate-900 overflow-y-auto overflow-x-hidden rounded-2xl">
         <DialogHeader className="sr-only">
           <DialogTitle>הרשמה לקייטנת אומץ לב</DialogTitle>
         </DialogHeader>
 
-        <div className="relative z-10 p-4 pt-10">
+        <div className="relative p-4 pt-10">
           <AnimatePresence mode="wait">
             {submitStatus === "success" ? (
               <SummerCampModalSuccess key="success" />
             ) : (
               <motion.div
                 key="form"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, scale: 0.95, rotateX: 10 }}
+                animate={{ opacity: 1, scale: 1, rotateX: 0 }}
+                exit={{ opacity: 0, scale: 0.95, rotateX: -10 }}
+                transition={{
+                  duration: 0.25,
+                  ease: [0.23, 1, 0.32, 1],
+                }}
               >
                 <SummerCampModalHeader />
                 <SummerCampModalForm

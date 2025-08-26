@@ -24,7 +24,7 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
 
   return (
     <div className={className}>
-      <label className="text-xs font-medium text-white block text-right mb-1">
+      <label className="text-xs font-medium text-slate-700 block text-right mb-1">
         {label} {required && "*"}
       </label>
       <div className={getLayoutClasses()}>
@@ -37,14 +37,14 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
               className="sr-only peer"
             />
             <div
-              className={`px-2 py-1 bg-white/10 border border-white/20 rounded text-center text-xs text-white cursor-pointer peer-checked:bg-white peer-checked:text-primary-700 transition-all ${optionClassName}`}
+              className={`px-2 py-1 bg-slate-50 border border-slate-300 rounded text-center text-xs text-slate-700 cursor-pointer peer-checked:bg-primary-500 peer-checked:text-white transition-all ${optionClassName}`}
             >
               {option}
             </div>
           </label>
         ))}
       </div>
-      {error && <p className="text-red-300 text-xs text-right mt-1">{error}</p>}
+      {error && <p className="text-red-600 text-xs text-right mt-1">{error}</p>}
     </div>
   );
 };

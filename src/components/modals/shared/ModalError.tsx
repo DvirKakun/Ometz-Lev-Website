@@ -7,7 +7,7 @@ const ModalError: React.FC<ModalErrorProps> = ({ message, className = "" }) => {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`text-red-300 text-center text-sm mt-4 p-3 bg-red-500/20 rounded-lg ${className}`}
+      className={`text-red-700 text-center text-sm mt-4 p-3 bg-red-100 rounded-lg ${className}`}
     >
       {message}
     </motion.div>

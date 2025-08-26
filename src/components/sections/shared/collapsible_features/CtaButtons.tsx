@@ -12,10 +12,10 @@ const CtaButtons = ({ service, scrollToSection }: CtaButtonsProps) => {
       className="space-y-3 sm:space-y-4"
     >
       {/* Mobile-centered heading */}
-      <h3 className="text-lg sm:text-xl font-semibold text-slate-800 mb-4 sm:mb-6 text-center sm:text-right">
+      <h3 className="text-lg sm:text-xl font-semibold text-primary-500 mb-4 sm:mb-6 text-center sm:text-right">
         פעולות זמינות
       </h3>
-      
+
       {/* Mobile-first grid for CTAs - 2 columns on small screens */}
       <div className="grid grid-cols-1 gap-3 sm:space-y-4 sm:block">
         {service.cta.map((ctaItem, index) => (
@@ -41,18 +41,13 @@ const CtaButtons = ({ service, scrollToSection }: CtaButtonsProps) => {
             <Button
               onClick={() => scrollToSection(ctaItem.href)}
               variant="default"
-              className={`w-full justify-between text-right min-h-[56px] px-4 py-3 sm:p-4 h-auto ${
-                service.color.includes("therapy")
-                  ? "bg-therapy-100"
-                  : service.color.includes("training")
-                  ? "bg-training-100"
-                  : "bg-primary-100"
-              } hover:opacity-90 border-none shadow-lg hover:shadow-xl rounded-xl sm:rounded-lg font-medium transition-all duration-200 group active:scale-95 touch-manipulation`}
+              className={`w-full justify-between text-right min-h-[56px] px-4 py-3 sm:p-4 h-auto bg-white
+               border-none shadow-lg hover:shadow-xl rounded-xl sm:rounded-lg font-medium transition-all duration-200 group active:scale-95 touch-manipulation`}
             >
               <span className="text-gray-800 font-medium group-hover:font-semibold transition-all duration-150 text-sm sm:text-base">
                 {ctaItem.text}
               </span>
-              <ctaItem.icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-800 transition-all duration-150 shrink-0" />
+              <ctaItem.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-500 transition-all duration-150 shrink-0" />
             </Button>
           </motion.div>
         ))}

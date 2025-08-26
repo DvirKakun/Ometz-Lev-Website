@@ -1,16 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Clock } from "lucide-react";
-import PhoneButton from "../../common/PhoneButton";
-import SocialLinks from "./SocialLinks";
 
-interface FooterWorkingHoursProps {
-  showSocialLinks?: boolean;
-}
-
-const FooterWorkingHours: React.FC<FooterWorkingHoursProps> = ({
-  showSocialLinks = false,
-}) => {
+const FooterWorkingHours: React.FC = () => {
   const workingHours = [
     { day: "ראשון - חמישי", hours: "20:00 - 08:00" },
     { day: "שישי", hours: "15:00 - 08:00" },
@@ -24,7 +16,7 @@ const FooterWorkingHours: React.FC<FooterWorkingHoursProps> = ({
       transition={{ duration: 0.6, delay: 0.3 }}
       viewport={{ once: true }}
     >
-      <h4 className="text-lg font-semibold mb-6 text-primary-300 flex items-center gap-2">
+      <h4 className="text-lg font-semibold mb-6 text-primary-500 flex items-center gap-2">
         <Clock className="w-5 h-5" />
         שעות פעילות
       </h4>
@@ -40,25 +32,12 @@ const FooterWorkingHours: React.FC<FooterWorkingHoursProps> = ({
             className="flex justify-between items-center text-slate-300"
           >
             <span className="font-medium">{schedule.day}</span>
-            <span className="text-sm font-semibold text-primary-300">
+            <span className="text-sm font-semibold text-white">
               {schedule.hours}
             </span>
           </motion.div>
         ))}
       </div>
-
-      <PhoneButton
-        phoneNumber="052-472-4700"
-        variant="default"
-        size="sm"
-        className="justify-center mb-6"
-      />
-
-      {showSocialLinks && (
-        <div className="flex justify-center">
-          <SocialLinks />
-        </div>
-      )}
     </motion.div>
   );
 };
