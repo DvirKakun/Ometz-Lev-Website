@@ -17,17 +17,16 @@ const ArticleCard = ({
 }: ArticleCardPropsWithOnClick) => {
   // Get all categories from the hook
   const { data: allCategories = [] } = useCategories();
-  
+
   // Map article categories to their info
   const categoriesInfo = article.categories.map((categoryId) => {
-    const category = allCategories.find(cat => cat.id === categoryId);
+    const category = allCategories.find((cat) => cat.id === categoryId);
     return {
       id: categoryId,
       name: category?.name || categoryId,
-      color: category?.color || getCategoryColor(categoryId)
+      color: category?.color || getCategoryColor(categoryId),
     };
   });
-
 
   return (
     <motion.div
@@ -89,12 +88,16 @@ const ArticleCard = ({
           <div className="flex items-center justify-between mt-auto pt-2">
             <div className="flex items-center gap-1 sm:gap-2 text-slate-500">
               <User className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="text-xs sm:text-sm font-medium">{article.author}</span>
+              <span className="text-xs sm:text-sm font-medium">
+                {article.author}
+              </span>
             </div>
 
             <div className="flex items-center gap-1 sm:gap-2 text-slate-500">
               <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="text-xs sm:text-sm font-medium">{article.readTime} דק'</span>
+              <span className="text-xs sm:text-sm font-medium">
+                {article.readTime} דק'
+              </span>
             </div>
           </div>
         </CardContent>

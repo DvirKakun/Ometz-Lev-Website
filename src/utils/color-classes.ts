@@ -9,7 +9,6 @@ const COLOR_MAP = {
   blue: "bg-blue-500 text-white",
   red: "bg-red-500 text-white",
   green: "bg-green-500 text-white",
-  orange: "bg-orange-500 text-white",
   purple: "bg-purple-500 text-white",
   pink: "bg-pink-500 text-white",
   indigo: "bg-indigo-500 text-white",
@@ -20,6 +19,12 @@ const COLOR_MAP = {
   rose: "bg-rose-500 text-white",
   amber: "bg-amber-500 text-white",
   violet: "bg-violet-500 text-white",
+  sky: "bg-sky-500 text-white",
+  lime: "bg-lime-500 text-white",
+  fuchsia: "bg-fuchsia-500 text-white",
+  ruby: "bg-red-600 text-white",
+  sapphire: "bg-blue-600 text-white",
+  mint: "bg-emerald-400 text-white",
 } as const;
 
 // Default fallback color
@@ -40,7 +45,10 @@ export function getColorClasses(color: string): string {
  * Get Tailwind CSS classes for interactive elements with selected/unselected states
  * Used for filters, buttons, and toggleable elements
  */
-export function getInteractiveColorClasses(color: string, isSelected: boolean): string {
+export function getInteractiveColorClasses(
+  color: string,
+  isSelected: boolean
+): string {
   if (isSelected) {
     return getColorClasses(color);
   }
@@ -53,40 +61,4 @@ export function getInteractiveColorClasses(color: string, isSelected: boolean): 
  */
 export function getAvailableColors(): string[] {
   return Object.keys(COLOR_MAP);
-}
-
-/**
- * Check if a color name is valid
- */
-export function isValidColor(color: string): boolean {
-  return color in COLOR_MAP;
-}
-
-/**
- * Get CTA-specific color classes with gradients and special styling
- * Used for Library CTA components that need gradient backgrounds and themed buttons
- */
-export function getCTAColorClasses(accentColor: string) {
-  const colorMap = {
-    red: {
-      bg: "from-red-500/5 to-red-600/10",
-      pulse: "bg-red-500",
-      text: "text-red-600",
-      button: "bg-red-600 hover:bg-red-700",
-    },
-    orange: {
-      bg: "from-orange-500/5 to-orange-600/10",
-      pulse: "bg-orange-500",
-      text: "text-orange-600",
-      button: "bg-orange-600 hover:bg-orange-700",
-    },
-    accent: {
-      bg: "from-accent-500/5 to-orange-600/10",
-      pulse: "bg-accent-500",
-      text: "text-accent-600",
-      button: "bg-accent-600 hover:bg-accent-700",
-    },
-  };
-
-  return colorMap[accentColor as keyof typeof colorMap] || colorMap.red;
 }
