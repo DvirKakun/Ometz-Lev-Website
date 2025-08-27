@@ -8,7 +8,7 @@ const AboutIntro = ({ config }: AboutIntroProps) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: 0.1 }}
-      className="flex items-center gap-6 mb-12 text-right"
+      className="flex items-center gap-4 md:gap-6 mb-8 md:mb-12 text-right px-4 md:px-0"
     >
       {/* Small Profile Image */}
       <motion.div
@@ -19,9 +19,7 @@ const AboutIntro = ({ config }: AboutIntroProps) => {
         className="flex-shrink-0"
       >
         {config.imageSrc && (
-          <div
-            className={`w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-primary-200 shadow-lg`}
-          >
+          <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-primary-200 shadow-lg">
             <img
               src={config.imageSrc}
               alt={config.altText || config.name}
@@ -39,7 +37,7 @@ const AboutIntro = ({ config }: AboutIntroProps) => {
         transition={{ duration: 0.6, delay: 0.3 }}
         className="flex-1"
       >
-        <p className="text-lg text-slate-700 leading-relaxed">
+        <p className="text-sm md:text-lg text-slate-700 leading-relaxed">
           <strong>{config.name}</strong> - {config.description}
         </p>
       </motion.div>

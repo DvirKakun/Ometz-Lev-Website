@@ -33,7 +33,7 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
       className="h-full"
     >
       <Card
-        className="h-full min-h-[300px] sm:min-h-[300px] md:min-h-[320px] lg:min-h-[340px] overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col"
+        className="h-full overflow-hidden hover:shadow-lg transition-all duration-300 group cursor-pointer flex flex-col"
         onClick={() => onClick?.(video)}
       >
         {/* Video Thumbnail */}

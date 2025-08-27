@@ -200,7 +200,8 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
           message={`שלום! אשמח לקבל ייעוץ לגבי השירותים שלכם ב${service.title}. איזה שירות הכי מתאים בשבילי?`}
           variant="outline"
           size="lg"
-          className="min-h-[56px] sm:min-h-[60px] px-8 sm:px-10 lg:px-12 py-4 sm:py-5 font-bold bg-gradient-to-r hover:from-green-600 hover:to-green-700 text-green-500 shadow-xl hover:shadow-2xl hover:scale-105 active:scale-95 transition-all duration-300 rounded-2xl sm:rounded-3xl focus:ring-4 focus:ring-green-200 w-full sm:w-auto"
+          className="min-h-[56px] sm:min-h-[60px] px-8 sm:px-10 lg:px-12 py-4 sm:py-5 font-bold hover:from-green-600 hover:to-green-700
+            active:scale-95 text-green-500 shadow-xl hover:shadow-md transition-all duration-300 rounded-2xl sm:rounded-3xl focus:ring-4 focus:ring-green-200 w-full sm:w-auto"
         />
       </motion.div>
 

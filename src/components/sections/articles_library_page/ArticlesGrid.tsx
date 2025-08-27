@@ -8,7 +8,13 @@ import ArticleModal from "../../modals/article/ArticleModal";
 import { AlertCircle } from "lucide-react";
 import type { ArticlesGridProps, Article } from "../../../types/articles";
 
-const ArticlesGrid = ({ articles, isLoading, error, hasActiveFilters = false, totalArticlesCount = 0 }: ArticlesGridProps) => {
+const ArticlesGrid = ({
+  articles,
+  isLoading,
+  error,
+  hasActiveFilters = false,
+  totalArticlesCount = 0,
+}: ArticlesGridProps) => {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -59,7 +65,7 @@ const ArticlesGrid = ({ articles, isLoading, error, hasActiveFilters = false, to
           className="max-w-6xl mx-auto"
         >
           {articles.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-5 lg:gap-6 items-start auto-rows-min">
               {articles.map((article, index) => (
                 <ArticleCard
                   key={article.articleKey || index}
@@ -70,7 +76,7 @@ const ArticlesGrid = ({ articles, isLoading, error, hasActiveFilters = false, to
               ))}
             </div>
           ) : (
-            <EmptyState 
+            <EmptyState
               hasActiveFilters={hasActiveFilters}
               totalArticlesCount={totalArticlesCount}
             />

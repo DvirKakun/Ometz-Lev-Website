@@ -44,8 +44,16 @@ export default function DemoContentGrid({
   };
 
   // Always call hooks at the top level
-  const { data: articles = [], isLoading: articlesLoading, error: articlesError } = useDemoArticles(pageType);
-  const { data: videos = [], isLoading: videosLoading, error: videosError } = useDemoVideos(pageType);
+  const {
+    data: articles = [],
+    isLoading: articlesLoading,
+    error: articlesError,
+  } = useDemoArticles(pageType);
+  const {
+    data: videos = [],
+    isLoading: videosLoading,
+    error: videosError,
+  } = useDemoVideos(pageType);
 
   if (contentType === "videos") {
     if (videosLoading) {
@@ -86,7 +94,7 @@ export default function DemoContentGrid({
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 items-start auto-rows-min">
           {videos.map((video, index) => (
             <VideoCard
               key={video.videoKey || index}
@@ -96,7 +104,7 @@ export default function DemoContentGrid({
             />
           ))}
         </div>
-        
+
         {/* Video Modal */}
         <VideoModal
           video={selectedVideo}
@@ -144,7 +152,7 @@ export default function DemoContentGrid({
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 items-start auto-rows-min">
           {articles.map((article, index) => (
             <ArticleCard
               key={article.articleKey || index}
@@ -154,7 +162,7 @@ export default function DemoContentGrid({
             />
           ))}
         </div>
-        
+
         <ArticleModal
           article={selectedArticle}
           isOpen={isArticleModalOpen}
