@@ -10,6 +10,7 @@ import {
   FormTextarea,
   FormSubmitButton,
   FormSection,
+  PrivacyTermsCheckbox,
 } from "../../forms";
 
 const formSchema = z.object({
@@ -23,6 +24,9 @@ const formSchema = z.object({
     .regex(/^[0-9\-\s()]+$/, "מספר טלפון חייב להכיל רק מספרים"),
   email: z.string().email("כתובת אימייל לא תקינה").optional().or(z.literal("")),
   message: z.string().optional(),
+  termsAccepted: z.boolean().refine((val) => val === true, {
+    message: "יש לאשר את תנאי השימוש והפרטיות",
+  }),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -125,6 +129,14 @@ const ContactModalForm = ({ onSuccess, onError }: ContactModalFormProps) => {
           rows={2}
           className="space-y-1 mt-3"
           textareaClassName="px-3 py-2 pr-10 rounded-lg text-sm resize-none"
+        />
+      </FormSection>
+
+      <FormSection>
+        {/* Privacy Policy Checkbox */}
+        <PrivacyTermsCheckbox
+          register={register("termsAccepted")}
+          error={errors.termsAccepted}
         />
       </FormSection>
 

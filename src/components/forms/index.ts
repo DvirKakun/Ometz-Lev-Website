@@ -4,3 +4,4 @@ export { default as FormRadioGroup } from "./FormRadioGroup";
 export { default as FormTextarea } from "./FormTextarea";
 export { default as FormSubmitButton } from "./FormSubmitButton";
 export { default as FormSection } from "./FormSection";
+export { default as PrivacyTermsCheckbox } from "./PrivacyTermsCheckbox";

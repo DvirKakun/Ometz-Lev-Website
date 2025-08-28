@@ -20,8 +20,8 @@ const FormSubmitButton: React.FC<FormSubmitButtonProps> = ({
     >
       {isSubmitting ? (
         <>
-          <Loader2 className="w-3 h-3 animate-spin ml-2" />
           {submittingText}
+          <Loader2 className="w-3 h-3 animate-spin ml-2" />
         </>
       ) : (
         <>

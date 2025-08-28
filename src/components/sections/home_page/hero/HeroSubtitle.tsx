@@ -15,12 +15,12 @@ const HeroSubtitle: React.FC = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
-          className="text-base sm:text-lg lg:text-xl text-slate-200 leading-relaxed"
+          className="text-base sm:text-lg lg:text-xl px-2 text-slate-200 leading-relaxed"
           style={{ lineHeight: "1.7" }}
         >
-          <span className=" text-primary-300 font-bold px-2 py-1 rounded-lg mb-1 sm:mb-0 inline">
+          <span className=" text-primary-300 font-bold py-1 rounded-lg mb-1 sm:mb-0 inline">
             באומץ לב
-          </span>
+          </span>{" "}
           <span className="inline mt-1 sm:mt-0">
             אני מאמין שתקשורת אמיתית מתחילה בהבנה.
           </span>

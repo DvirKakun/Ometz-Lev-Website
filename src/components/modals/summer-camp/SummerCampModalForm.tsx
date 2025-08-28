@@ -13,6 +13,7 @@ import {
   FormTextarea,
   FormSubmitButton,
   FormSection,
+  PrivacyTermsCheckbox,
 } from "../../forms";
 
 const GRADE_OPTIONS = [
@@ -103,6 +104,9 @@ const formSchema = z
       }),
     healthIssuesText: z.string().optional(),
     notes: z.string().optional(),
+    termsAccepted: z.boolean().refine((val) => val === true, {
+      message: "יש לאשר את תנאי השימוש והפרטיות",
+    }),
   })
   .refine(
     (data) =>
@@ -448,7 +452,17 @@ const SummerCampModalForm = ({
           register={register("notes")}
           rows={2}
         />
+      </FormSection>
 
+      <FormSection>
+        {/* Privacy Policy Checkbox */}
+        <PrivacyTermsCheckbox
+          register={register("termsAccepted")}
+          error={errors.termsAccepted}
+        />
+      </FormSection>
+
+      <FormSection>
         {/* Submit Button */}
         <FormSubmitButton
           isSubmitting={isSubmitting}
