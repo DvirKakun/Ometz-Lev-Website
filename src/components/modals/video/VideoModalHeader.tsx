@@ -39,13 +39,15 @@ export const VideoModalHeader = ({ video }: VideoModalHeaderProps) => {
         </div>
 
         {/* Level Badge */}
-        <div
-          className={`absolute bottom-2 right-2 sm:bottom-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-2 rounded text-xs sm:text-sm font-medium ${getColorClasses(
-            levelColor
-          )}`}
-        >
-          {levelName}
-        </div>
+        {video.levelId && (
+          <div
+            className={`absolute bottom-2 right-2 sm:bottom-4 sm:right-4 px-2 py-1 sm:px-3 sm:py-2 rounded text-xs sm:text-sm font-medium ${getColorClasses(
+              levelColor
+            )}`}
+          >
+            {levelName}
+          </div>
+        )}
 
         {/* Category Badges */}
         <div className="absolute top-2 left-2 sm:top-4 sm:left-2 flex flex-wrap justify-end gap-1 sm:gap-2 max-w-32 sm:max-w-48 md:max-w-56">

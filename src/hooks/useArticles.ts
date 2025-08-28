@@ -79,15 +79,24 @@ export function useArticleCountPerCategory(
 
 // Helper hook to get dynamic article count per category based on currently filtered articles
 export function useDynamicArticleCountPerCategory(
-  filteredArticles: Article[],
-  totalArticles: Article[]
+  totalArticles: Article[],
+  selectedCategories: string[]
 ) {
   const getCountForCategory = (categoryId: string): number => {
-    if (categoryId === "all") return totalArticles.length; // Always show total for "all"
-
-    return filteredArticles.filter((article: Article) =>
-      article.categories.includes(categoryId)
-    ).length;
+    return totalArticles.filter((article: Article) => {
+      // Category filter: include this category + all currently selected categories
+      let matchesCategories: boolean;
+      if (categoryId === "all") {
+        // "All" means no category restrictions
+        matchesCategories = true;
+      } else {
+        // Must have this category AND all currently selected categories (except "all")
+        const requiredCategories = [...selectedCategories.filter(cat => cat !== "all"), categoryId];
+        matchesCategories = requiredCategories.every(catId => article.categories.includes(catId));
+      }
+      
+      return matchesCategories;
+    }).length;
   };
 
   return { getCountForCategory };

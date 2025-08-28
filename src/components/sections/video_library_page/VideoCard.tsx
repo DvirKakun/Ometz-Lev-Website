@@ -50,13 +50,15 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
             )}
 
             {/* Level Badge */}
-            <div
-              className={`absolute top-2 left-2 px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium ${getColorClasses(
-                levelColor
-              )}`}
-            >
-              {levelName}
-            </div>
+            {video.levelId && (
+              <div
+                className={`absolute top-2 left-2 px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium ${getColorClasses(
+                  levelColor
+                )}`}
+              >
+                {levelName}
+              </div>
+            )}
 
             {/* Duration Badge */}
             {video.duration && (

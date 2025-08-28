@@ -4,7 +4,6 @@ import { useCategoriesByPage } from "../../../hooks/useCategories";
 import {
   useArticles,
   useDynamicArticleCountPerCategory,
-  useArticlesByMultipleCategories,
 } from "../../../hooks/useArticles";
 import { Button } from "../../ui/button";
 import { getInteractiveColorClasses } from "../../../utils/color-classes";
@@ -18,13 +17,9 @@ const MultipleCategoryFilter = ({
 }: MultipleCategoryFilterProps) => {
   const { data: categories = [] } = useCategoriesByPage(pageType);
   const { data: totalArticles = [] } = useArticles(pageType);
-  const { data: filteredArticles = [] } = useArticlesByMultipleCategories(
-    selectedCategories,
-    pageType
-  );
   const { getCountForCategory } = useDynamicArticleCountPerCategory(
-    filteredArticles,
-    totalArticles
+    totalArticles,
+    selectedCategories
   );
 
   const hasActiveFilters = selectedCategories.length > 0;

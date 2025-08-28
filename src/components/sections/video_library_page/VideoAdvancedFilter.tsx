@@ -4,7 +4,6 @@ import { useLevels } from "../../../hooks/useLevels";
 import { useCategoriesByPage } from "../../../hooks/useCategories";
 import {
   useVideos,
-  useVideosByMultipleCategoriesAndLevel,
   useDynamicVideoCountPerCategory,
   useDynamicVideoCountPerLevel,
 } from "../../../hooks/useVideos";
@@ -32,21 +31,15 @@ const VideoAdvancedFilter = ({
   const { data: levels = [] } = useLevels();
   const { data: totalVideos = [] } = useVideos(pageType);
 
-  // Get currently filtered videos (based on current selections)
-  const { data: filteredVideos = [] } = useVideosByMultipleCategoriesAndLevel(
-    selectedCategories,
-    selectedLevel,
-    pageType
-  );
-
   const { getCountForCategory } = useDynamicVideoCountPerCategory(
-    filteredVideos,
-    totalVideos
+    totalVideos,
+    selectedCategories,
+    selectedLevel
   );
 
   const { getCountForLevel } = useDynamicVideoCountPerLevel(
-    filteredVideos,
-    totalVideos
+    totalVideos,
+    selectedCategories
   );
 
   const hasActiveFilters =

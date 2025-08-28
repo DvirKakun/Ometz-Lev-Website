@@ -23,9 +23,7 @@ export function useVideosByCategory(
   const filteredVideos =
     categoryId === "all"
       ? videos
-      : videos.filter((video: Video) =>
-          video.categories.includes(categoryId)
-        );
+      : videos.filter((video: Video) => video.categories.includes(categoryId));
 
   return {
     data: filteredVideos,
@@ -60,7 +58,8 @@ export function useVideosByCategoryAndLevel(
   const { data: videos = [], ...rest } = useVideos(page);
 
   const filteredVideos = videos.filter((video: Video) => {
-    const matchesCategory = categoryId === "all" || video.categories.includes(categoryId);
+    const matchesCategory =
+      categoryId === "all" || video.categories.includes(categoryId);
     const matchesLevel = levelId === "all" || video.levelId === levelId;
     return matchesCategory && matchesLevel;
   });
@@ -88,14 +87,18 @@ export function useVideoStats(page: "training" | "therapy" = "training") {
   const videoCount = videos.length;
 
   // Count videos by level
-  const videosByLevel = videos.reduce((acc: Record<string, number>, video: Video) => {
-    acc[video.levelId] = (acc[video.levelId] || 0) + 1;
-    return acc;
-  }, {});
+  const videosByLevel = videos.reduce(
+    (acc: Record<string, number>, video: Video) => {
+      acc[video.levelId] = (acc[video.levelId] || 0) + 1;
+      return acc;
+    },
+    {}
+  );
 
   // Calculate total duration
   const durations = videos.map((video: Video) => video.duration);
-  const { totalMinutes: totalWatchTimeMinutes, formattedDuration } = calculateTotalDuration(durations);
+  const { totalMinutes: totalWatchTimeMinutes, formattedDuration } =
+    calculateTotalDuration(durations);
 
   return {
     videoCount,
@@ -169,16 +172,17 @@ export function useVideosByMultipleCategoriesAndLevel(
 
   const filteredVideos = videos.filter((video: Video) => {
     // Filter by categories
-    const matchesCategories = 
+    const matchesCategories =
       selectedCategories.length === 0 || selectedCategories.includes("all")
         ? true
         : selectedCategories.every((categoryId) =>
             video.categories.includes(categoryId)
           );
-    
+
     // Filter by level
-    const matchesLevel = selectedLevel === "all" || video.levelId === selectedLevel;
-    
+    const matchesLevel =
+      selectedLevel === "all" || video.levelId === selectedLevel;
+
     return matchesCategories && matchesLevel;
   });
 
@@ -190,15 +194,34 @@ export function useVideosByMultipleCategoriesAndLevel(
 
 // Helper hook for dynamic video counts per category (used in VideoAdvancedFilter)
 export function useDynamicVideoCountPerCategory(
-  filteredVideos: Video[],
-  totalVideos: Video[]
+  totalVideos: Video[],
+  selectedCategories: string[],
+  selectedLevel: string
 ) {
   const getCountForCategory = (categoryId: string): number => {
-    if (categoryId === "all") return totalVideos.length; // Always show total for "all"
+    return totalVideos.filter((video: Video) => {
+      // Category filter: include this category + all currently selected categories
+      let matchesCategories: boolean;
+      if (categoryId === "all") {
+        // "All" means no category restrictions
+        matchesCategories = true;
+      } else {
+        // Must have this category AND all currently selected categories (except "all")
+        const requiredCategories = [
+          ...selectedCategories.filter((cat) => cat !== "all"),
+          categoryId,
+        ];
+        matchesCategories = requiredCategories.every((catId) =>
+          video.categories.includes(catId)
+        );
+      }
 
-    return filteredVideos.filter((video: Video) =>
-      video.categories.includes(categoryId)
-    ).length;
+      // Keep current level filter exactly as is
+      const matchesLevel =
+        selectedLevel === "all" || video.levelId === selectedLevel;
+
+      return matchesCategories && matchesLevel;
+    }).length;
   };
 
   return { getCountForCategory };
@@ -206,13 +229,21 @@ export function useDynamicVideoCountPerCategory(
 
 // Helper hook for dynamic video counts per level (used in VideoAdvancedFilter)
 export function useDynamicVideoCountPerLevel(
-  filteredVideos: Video[],
-  totalVideos: Video[]
+  totalVideos: Video[],
+  selectedCategories: string[]
 ) {
   const getCountForLevel = (levelId: string): number => {
-    if (levelId === "all") return totalVideos.length; // Always show total for "all"
+    return totalVideos.filter((video: Video) => {
+      // Keep current category filters exactly as they are
+      const matchesCategories =
+        selectedCategories.includes("all") ||
+        selectedCategories.every((catId) => video.categories.includes(catId));
 
-    return filteredVideos.filter((video: Video) => video.levelId === levelId).length;
+      // Level filter: this specific level
+      const matchesLevel = levelId === "all" || video.levelId === levelId;
+
+      return matchesCategories && matchesLevel;
+    }).length;
   };
 
   return { getCountForLevel };
