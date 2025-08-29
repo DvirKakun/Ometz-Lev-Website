@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
         keywords={seoConfig.keywords}
         imageUrl={seoConfig.imageUrl}
         imageAlt={seoConfig.imageAlt}
-        canonicalUrl="https://xn--4dbcl2aj6b.xn--4dbrk0ce/"
+        canonicalUrl="https://xn--4dbcl2aj6b.xn--4dbrk0ce/home"
         type="website"
         noindex={true}
       />
