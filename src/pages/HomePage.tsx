@@ -30,6 +30,7 @@ const HomePage: React.FC = () => {
         imageAlt={seoConfig.imageAlt}
         canonicalUrl="https://xn--4dbcl2aj6b.xn--4dbrk0ce/"
         type="website"
+        noindex={true}
       />
 
       {/* SEO Structured Data */}

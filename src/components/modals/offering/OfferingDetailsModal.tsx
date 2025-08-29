@@ -44,6 +44,11 @@ const OfferingDetailsModal = ({
               }}
               className="flex flex-col bg-white rounded-2xl overflow-hidden h-full"
             >
+              {/* Hidden element to capture initial focus */}
+              <div tabIndex={0} className="sr-only">
+                פתיחת מאמר
+              </div>
+
               {/* Header - Fixed */}
               <div className="flex-shrink-0 bg-gradient-to-br from-slate-50 to-slate-100/80 border-b border-slate-200/60 p-3 sm:p-4 md:p-6">
                 <div className="flex items-center justify-center mb-2 sm:mb-3">
