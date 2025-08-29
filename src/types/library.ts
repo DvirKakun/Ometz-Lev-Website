@@ -5,7 +5,7 @@ export interface LibraryPageConfig {
   description: string;
   returnPath: string;
   returnLabel: string;
-  gradientColors: string;
+  gradientColors?: string;
   backgroundPattern?: boolean;
 }
 

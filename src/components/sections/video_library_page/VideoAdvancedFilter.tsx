@@ -66,12 +66,12 @@ const VideoAdvancedFilter = ({
                 <div className="flex gap-2">
                   {!selectedCategories.includes("all") &&
                     selectedCategories.length > 0 && (
-                      <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
+                      <span className="bg-primary-100 text-primary-900 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
                         {selectedCategories.length} קטגוריות נבחרו
                       </span>
                     )}
                   {selectedLevel !== "all" && (
-                    <span className="bg-red-100 text-red-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
+                    <span className="bg-primary-100 text-primary-900 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
                       רמה נבחרה
                     </span>
                   )}
@@ -98,7 +98,7 @@ const VideoAdvancedFilter = ({
             <h3 className="text-sm font-medium text-slate-700 mb-3">
               קטגוריות
             </h3>
-            <div className="flex flex-wrap gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
               {categories.map((category) => {
                 const isSelected = selectedCategories.includes(category.id);
                 return (
@@ -107,7 +107,7 @@ const VideoAdvancedFilter = ({
                     onClick={() => onCategoryToggle(category.id)}
                     variant="outline"
                     size="sm"
-                    className={`transition-all duration-200 relative text-xs sm:text-sm ${getInteractiveColorClasses(
+                    className={`transition-all duration-200 relative text-xs sm:text-sm w-full sm:w-auto justify-start ${getInteractiveColorClasses(
                       category.color,
                       isSelected
                     )}`}
@@ -138,14 +138,14 @@ const VideoAdvancedFilter = ({
             <h3 className="text-sm font-medium text-slate-700 mb-3">
               רמת קושי
             </h3>
-            <div className="flex flex-wrap gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
               {levels.map((level) => (
                 <Button
                   key={level.id}
                   onClick={() => onLevelChange(level.id)}
                   variant="outline"
                   size="sm"
-                  className={`transition-all duration-200 text-xs sm:text-sm ${getInteractiveColorClasses(
+                  className={`transition-all duration-200 text-xs sm:text-sm w-full sm:w-auto justify-start ${getInteractiveColorClasses(
                     level.color,
                     selectedLevel === level.id
                   )}`}

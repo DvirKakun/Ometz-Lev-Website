@@ -41,7 +41,7 @@ const MultipleCategoryFilter = ({
                 סינון
               </h2>
               {hasActiveFilters && !selectedCategories.includes("all") && (
-                <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
+                <span className="bg-primary-100 text-primary-900 px-2 py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
                   {selectedCategories.length} קטגוריות נבחרו
                 </span>
               )}
@@ -62,7 +62,7 @@ const MultipleCategoryFilter = ({
           </div>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap gap-2 sm:gap-3">
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:gap-3">
             {categories.map((category) => {
               const isSelected = selectedCategories.includes(category.id);
               return (
@@ -71,18 +71,18 @@ const MultipleCategoryFilter = ({
                   onClick={() => onCategoryToggle(category.id)}
                   variant="outline"
                   size="sm"
-                  className={`transition-all duration-200 relative text-xs sm:text-sm ${getInteractiveColorClasses(
+                  className={`transition-all duration-200 relative text-xs sm:text-sm w-full sm:w-auto justify-start ${getInteractiveColorClasses(
                     category.color,
                     isSelected
                   )}`}
                 >
                   <div className="flex items-center gap-1 sm:gap-2">
                     {isSelected && <Check className="w-3 h-3 sm:w-4 sm:h-4" />}
-                    <span className="truncate max-w-[100px] sm:max-w-none">
+                    <span className="truncate flex-1 text-right sm:flex-initial sm:text-center">
                       {category.name}
                     </span>
                     <span
-                      className={`px-1.5 py-0.5 sm:px-2 rounded-full text-xs ${
+                      className={`px-1.5 py-0.5 sm:px-2 rounded-full text-xs ml-auto sm:ml-0 ${
                         isSelected ? "bg-white/20" : "bg-slate-100"
                       }`}
                     >

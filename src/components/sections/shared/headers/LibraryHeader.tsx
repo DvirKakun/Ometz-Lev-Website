@@ -22,9 +22,7 @@ const LibraryHeader = ({ config }: LibraryHeaderProps) => {
   };
 
   return (
-    <section
-      className={`py-12 bg-gradient-to-br ${config.gradientColors} relative overflow-hidden`}
-    >
+    <section className="py-12 bg-primary-500 relative overflow-hidden">
       {config.backgroundPattern && (
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_25%,white_1px,transparent_1px)] bg-[length:50px_50px]" />

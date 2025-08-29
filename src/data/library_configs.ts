@@ -10,7 +10,6 @@ export const trainingVideoLibraryConfig: VideoLibraryConfig = {
   description: "סרטוני הדרכה מקצועיים לאילוף כלבים בכל הרמות",
   returnPath: "/training",
   returnLabel: "חזרה לעמוד האילוף",
-  gradientColors: "from-red-600 via-red-700 to-red-800",
   backgroundPattern: true,
 };
 
@@ -21,7 +20,6 @@ export const therapyVideoLibraryConfig: VideoLibraryConfig = {
   description: "סרטוני הדרכה מקצועיים לטיפול בכלבים",
   returnPath: "/therapy",
   returnLabel: "חזרה לעמוד הטיפול",
-  gradientColors: "from-red-600 via-red-700 to-red-800",
   backgroundPattern: true,
 };
 
@@ -32,7 +30,6 @@ export const trainingArticleLibraryConfig: ArticleLibraryConfig = {
   description: "מאמרי הדרכה מקצועיים ומדריכים לאילוף כלבים",
   returnPath: "/training",
   returnLabel: "חזרה לעמוד האילוף",
-  gradientColors: "from-orange-500 via-orange-600 to-orange-700",
   backgroundPattern: false,
 };
 
@@ -43,6 +40,5 @@ export const therapyArticleLibraryConfig: ArticleLibraryConfig = {
   description: "מאמרי הדרכה מקצועיים ומדריכים לטיפול בכלבים",
   returnPath: "/therapy",
   returnLabel: "חזרה לעמוד הטיפול",
-  gradientColors: "from-orange-500 via-orange-600 to-orange-700",
   backgroundPattern: false,
 };
