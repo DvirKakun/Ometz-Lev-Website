@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Dialog, DialogContent } from "../../ui/dialog";
-import { VideoModalHeader } from "./VideoModalHeader";
-import { VideoModalContent } from "./VideoModalContent";
+import { Dialog, DialogContent, DialogTitle } from "../../ui/dialog";
+import { VideoPlayer } from "./VideoPlayer";
+import { VideoInfo } from "./VideoInfo";
 import type { Video } from "../../../types/videos";
 
 interface VideoModalProps {
@@ -16,28 +16,45 @@ const VideoModal = ({ video, isOpen, onClose }: VideoModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
-        className="max-w-5xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden p-0 border-0 shadow-2xl"
+        className="w-full h-full sm:max-w-4xl sm:w-[95vw] sm:max-h-[90vh] overflow-hidden p-0 border-0 shadow-2xl sm:rounded-lg [&>button]:bg-white/90 [&>button]:text-gray-900 [&>button]:hover:bg-white [&>button]:backdrop-blur-sm [&>button]:rounded-full"
         dir="rtl"
       >
+        <DialogTitle className="sr-only">{video.title}</DialogTitle>
         <AnimatePresence mode="wait">
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, scale: 0.5, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 30 }}
-              transition={{ 
-                duration: 0.4, 
+              transition={{
+                duration: 0.4,
                 ease: [0.16, 1, 0.3, 1],
                 scale: {
                   type: "spring",
                   stiffness: 300,
-                  damping: 30
-                }
+                  damping: 30,
+                },
               }}
               className="flex flex-col bg-white rounded-lg overflow-hidden"
             >
-              <VideoModalHeader video={video} />
-              <VideoModalContent video={video} />
+              {/* Video Player - Fixed Height */}
+              <div className="relative bg-black flex-shrink-0 h-56 sm:h-80">
+                <VideoPlayer video={video} />
+              </div>
+
+              {/* Video Info - Scrollable */}
+              <div
+                className="overflow-y-auto bg-white flex-1"
+                dir="ltr"
+                style={{
+                  WebkitOverflowScrolling: "touch",
+                  maxHeight: "calc(100vh - 224px)",
+                }}
+              >
+                <div dir="rtl">
+                  <VideoInfo video={video} />
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
