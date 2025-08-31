@@ -37,7 +37,7 @@ const FacebookButton: React.FC<FacebookButtonProps> = ({
         href={facebookUrl}
         target="_blank"
         rel="noopener noreferrer"
-        whileHover={{ scale: 1.05, rotate: [0, -5, 5, 0] }}
+        whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={cn(
           "inline-flex items-center justify-center rounded-xl transition-all duration-200",
@@ -64,12 +64,9 @@ const FacebookButton: React.FC<FacebookButtonProps> = ({
       >
         <a href={facebookUrl} target="_blank" rel="noopener noreferrer">
           <span className="hidden md:inline">עקבו בפייסבוק</span>
-          <motion.div
-            whileHover={{ rotate: [0, -10, 10, 0] }}
-            transition={{ duration: 0.4 }}
-          >
+          <div>
             <FacebookIcon className={iconSizes[size]} />
-          </motion.div>
+          </div>
         </a>
       </Button>
     </motion.div>

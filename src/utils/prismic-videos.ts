@@ -21,11 +21,17 @@ export async function mapPrismicVideo(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = prismicVideo.data as any;
 
-  // Extract categories from the categories group
+  // Extract categories from the categories group and remove duplicates
   const categoriesGroup = data.categories || [];
-  const categoryIds = categoriesGroup
-    .map((item: any) => (item.category?.id ? String(item.category.id) : null))
-    .filter((id: string | null) => id !== null);
+  const categoryIds = [
+    ...new Set(
+      categoriesGroup
+        .map((item: any) =>
+          item.category?.id ? String(item.category.id) : null
+        )
+        .filter((id: string | null) => id !== null)
+    ),
+  ] as string[];
 
   // Get video URL from Link to Media field
   const videoUrl = data.video_file?.url || "";
@@ -47,7 +53,6 @@ export async function mapPrismicVideo(
     console.warn(`Failed to get duration for video ${prismicVideo.id}:`, error);
     duration = undefined;
   }
-
   return {
     title: getPrismicTitle(data.title) || "Untitled Video",
     subtitle: getPrismicText(data.subtitle) || "",

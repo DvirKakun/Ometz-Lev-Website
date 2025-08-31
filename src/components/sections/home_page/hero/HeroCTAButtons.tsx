@@ -3,7 +3,7 @@ import WhatsAppButton from "../../../common/WhatsAppButton";
 import PhoneButton from "../../../common/PhoneButton";
 
 // Mobile-optimized CTA buttons with enhanced touch ergonomics
-const MobileOptimizedHeroCTAButtons: React.FC = () => {
+const HeroCTAButtons: React.FC = () => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
@@ -13,7 +13,6 @@ const MobileOptimizedHeroCTAButtons: React.FC = () => {
     >
       {/* Mobile-first button layout with thumb-reach optimization */}
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
-        
         {/* Primary CTA - WhatsApp (positioned first for mobile thumb reach) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -51,31 +50,4 @@ const MobileOptimizedHeroCTAButtons: React.FC = () => {
   );
 };
 
-// Original version (commented for easy revert)
-/*
-const HeroCTAButtons: React.FC = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 1.4 }}
-      className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-    >
-      <WhatsAppButton
-        phoneNumber="972524724700"
-        message="שלום! אני מעוניין/ת לקבל מידע על שירותי אילוף הכלבים של אומץ לב."
-        size="lg"
-        className="flex-1 sm:flex-none"
-      />
-      <PhoneButton
-        phoneNumber="052-472-4700"
-        variant="outline"
-        size="lg"
-        className="flex-1 sm:flex-none"
-      />
-    </motion.div>
-  );
-};
-*/
-
-export default MobileOptimizedHeroCTAButtons;
+export default HeroCTAButtons;

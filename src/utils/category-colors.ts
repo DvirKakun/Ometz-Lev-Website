@@ -90,7 +90,7 @@ export function getCategoryColor(categoryName: string): string {
   const colorIndex = Math.floor(
     (normalized32 / 0xffffffff) * CATEGORY_COLORS.length
   );
-  if (categoryName === "מתקדמים") console.log(CATEGORY_COLORS[colorIndex]);
+  
   return CATEGORY_COLORS[colorIndex];
 }
 

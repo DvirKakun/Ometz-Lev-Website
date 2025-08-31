@@ -62,7 +62,7 @@ export async function fetchCategoriesByPage(pageType: "training" | "therapy") {
     }
 
     const targetPage = PRISMIC_PAGE_VALUES[pageType];
-    
+
     // Filter categories by page field and map them
     const categories = response
       .filter((category) => {
