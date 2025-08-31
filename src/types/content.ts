@@ -4,9 +4,6 @@ export interface ContentSectionConfig {
   libraryPath: string;
   libraryTitle: string;
   buttonText: string;
-  accentColor: string;
-  gradientFrom: string;
-  gradientTo: string;
 }
 
 export interface PageContentConfig {
@@ -17,16 +14,7 @@ export interface PageContentConfig {
 export interface ContentSectionProps {
   contentType: "videos" | "articles";
   pageType: "training" | "therapy";
-  sectionConfig: {
-    title: string;
-    description: string;
-    libraryPath: string;
-    libraryTitle: string;
-    buttonText: string;
-    accentColor: string;
-    gradientFrom: string;
-    gradientTo: string;
-  };
+  sectionConfig: ContentSectionConfig;
 }
 
 export interface DemoContentGridProps {

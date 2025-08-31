@@ -1,7 +1,7 @@
 export interface Level {
   id: string;
   name: string;
-  color: string; // Auto-assigned based on name using existing color logic
+  color: string; // Hex color code from Prismic
 }
 
 export interface LevelCardProps {

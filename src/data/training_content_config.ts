@@ -7,9 +7,6 @@ export const trainingContentConfig: PageContentConfig = {
     libraryPath: "/training-videos-library",
     libraryTitle: "ספריית הווידאו שלנו",
     buttonText: "עבור לספרייה",
-    accentColor: "red",
-    gradientFrom: "from-red-500",
-    gradientTo: "to-red-600",
   },
   articles: {
     title: "מאמרי הדרכה",
@@ -17,8 +14,5 @@ export const trainingContentConfig: PageContentConfig = {
     libraryPath: "/training-articles-library",
     libraryTitle: "ספריית המאמרים שלנו",
     buttonText: "עבור לספרייה",
-    accentColor: "orange",
-    gradientFrom: "from-orange-500",
-    gradientTo: "to-orange-600",
   },
 };

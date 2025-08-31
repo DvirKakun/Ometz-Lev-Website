@@ -30,7 +30,6 @@ export interface LibraryCTAProps {
   pageType: "training" | "therapy";
   libraryPath: string;
   title: string;
-  accentColor: string;
   buttonText: string;
 }
 

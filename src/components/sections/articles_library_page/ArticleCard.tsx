@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import { Clock, User } from "lucide-react";
 import { Card, CardContent } from "../../ui/card";
 import { useCategories } from "../../../hooks/useCategories";
-import { getCategoryColor } from "../../../utils/category-colors";
-import { getColorClasses } from "../../../utils/color-classes";
 import type { ArticleCardProps } from "../../../types/articles";
 
 interface ArticleCardPropsWithOnClick extends ArticleCardProps {
@@ -24,7 +22,7 @@ const ArticleCard = ({
     return {
       id: categoryId,
       name: category?.name || categoryId,
-      color: category?.color || getCategoryColor(categoryId),
+      color: category?.color || "#64748b",
     };
   });
 
@@ -62,9 +60,8 @@ const ArticleCard = ({
               {categoriesInfo.slice(0, 2).map((categoryInfo) => (
                 <div
                   key={categoryInfo.id}
-                  className={`w-fit inline-flex px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium ${getColorClasses(
-                    categoryInfo.color
-                  )}`}
+                  className="w-fit inline-flex px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium text-white bg-[var(--category-color)]"
+                  style={{ '--category-color': categoryInfo.color } as React.CSSProperties}
                 >
                   {categoryInfo.name}
                 </div>

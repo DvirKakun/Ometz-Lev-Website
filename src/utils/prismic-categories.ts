@@ -1,5 +1,4 @@
 import type { PrismicDocument } from "@prismicio/client";
-import { getCategoryColor } from "./category-colors";
 import { PRISMIC_PAGE_VALUES } from "../types/page";
 import {
   createPrismicClient,
@@ -11,25 +10,26 @@ import {
 const DEFAULT_ALL_CATEGORY = {
   id: "all",
   name: "כל הקטגוריות",
-  color: "slate",
+  color: "#64748b",
 };
 
 // Type for the complete Prismic category document
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PrismicCategory = PrismicDocument<Record<string, any>>;
 
-// Transform Prismic category to our format with automatic color assignment
+// Transform Prismic category to our format using color from API
 export function mapPrismicCategory(prismicCategory: PrismicCategory) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = prismicCategory.data as any;
 
   const name = getPrismicText(data.name[0].text) || "";
   const page = data.page || "";
+  const color = data.color || "#64748b"; // Use color from Prismic or fallback to slate
 
   return {
     id: String(prismicCategory.id),
     name,
-    color: getCategoryColor(name),
+    color,
     page,
   };
 }

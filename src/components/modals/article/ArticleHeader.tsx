@@ -1,7 +1,5 @@
 import { Clock, User } from "lucide-react";
 import { useCategories } from "../../../hooks/useCategories";
-import { getCategoryColor } from "../../../utils/category-colors";
-import { getColorClasses } from "../../../utils/color-classes";
 import type { Article } from "../../../types/articles";
 
 interface ArticleHeaderProps {
@@ -16,7 +14,7 @@ export const ArticleHeader = ({ article }: ArticleHeaderProps) => {
     return {
       id: categoryId,
       name: category?.name || categoryId,
-      color: category?.color || getCategoryColor(categoryId),
+      color: category?.color || "#64748b",
     };
   });
 
@@ -35,9 +33,8 @@ export const ArticleHeader = ({ article }: ArticleHeaderProps) => {
         {categoriesInfo.slice(0, 3).map((categoryInfo) => (
           <div
             key={categoryInfo.id}
-            className={`px-2 py-1 rounded-full text-xs sm:text-sm font-medium ${getColorClasses(
-              categoryInfo.color
-            )}`}
+            className="px-2 py-1 rounded-full text-xs sm:text-sm font-medium text-white bg-[var(--category-color)]"
+            style={{ '--category-color': categoryInfo.color } as React.CSSProperties}
           >
             {categoryInfo.name}
           </div>

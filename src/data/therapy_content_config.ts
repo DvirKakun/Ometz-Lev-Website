@@ -7,9 +7,6 @@ export const therapyContentConfig: PageContentConfig = {
     libraryPath: "/therapy-videos-library",
     libraryTitle: "ספריית סרטוני הטיפול שלנו",
     buttonText: "עבור לספרייה",
-    accentColor: "red",
-    gradientFrom: "from-red-500",
-    gradientTo: "to-red-600",
   },
   articles: {
     title: "מאמרי טיפול",
@@ -17,8 +14,5 @@ export const therapyContentConfig: PageContentConfig = {
     libraryPath: "/therapy-articles-library",
     libraryTitle: "ספריית מאמרי הטיפול שלנו",
     buttonText: "עבור לספרייה",
-    accentColor: "orange",
-    gradientFrom: "from-orange-500",
-    gradientTo: "to-orange-600",
   },
 };

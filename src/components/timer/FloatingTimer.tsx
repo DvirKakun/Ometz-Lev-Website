@@ -94,7 +94,7 @@ const FloatingTimer: React.FC = () => {
             targetDate={closestActivity?.date || new Date()}
             eventTitle={closestActivity?.timerTitle || ""}
             showEventInfo={true}
-            clickable={false}
+            clickable={true}
           />
         </motion.div>
       )}

@@ -111,6 +111,11 @@ const VideoAdvancedFilter = ({
                       category.color,
                       isSelected
                     )}`}
+                    style={
+                      isSelected && category.color.startsWith('#')
+                        ? ({ '--interactive-color': category.color } as React.CSSProperties)
+                        : undefined
+                    }
                   >
                     <div className="flex items-center gap-1 sm:gap-2">
                       {isSelected && (
@@ -149,6 +154,11 @@ const VideoAdvancedFilter = ({
                     level.color,
                     selectedLevel === level.id
                   )}`}
+                  style={
+                    selectedLevel === level.id && level.color.startsWith('#')
+                      ? ({ '--interactive-color': level.color } as React.CSSProperties)
+                      : undefined
+                  }
                 >
                   <div className="flex items-center gap-1 sm:gap-2">
                     {selectedLevel === level.id && (

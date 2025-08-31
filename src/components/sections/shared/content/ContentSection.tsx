@@ -33,7 +33,6 @@ const ContentSection = ({
             pageType={pageType}
             libraryPath={sectionConfig.libraryPath}
             title={sectionConfig.libraryTitle}
-            accentColor={sectionConfig.accentColor}
             buttonText={sectionConfig.buttonText}
           />
 

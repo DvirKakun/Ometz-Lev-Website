@@ -12,10 +12,10 @@ import { getKeywordsForPage } from "../data/seo-keywords";
 
 const SplashPage: React.FC = () => {
   const navigate = useNavigate();
-  
+
   // Prefetch all homepage data during splash screen
   usePrefetchHomePage();
-  
+
   // Preload images from cached data
   useImagePreloader();
 

@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import { Play, Clock } from "lucide-react";
 import { useLevelInfo } from "../../../hooks/useLevels";
 import { useCategories } from "../../../hooks/useCategories";
-import { getCategoryColor } from "../../../utils/category-colors";
-import { getColorClasses } from "../../../utils/color-classes";
 import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import type { VideoCardProps } from "../../../types/videos";
@@ -21,7 +19,7 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
     return {
       id: categoryId,
       name: category?.name || categoryId,
-      color: category?.color || getCategoryColor(categoryId),
+      color: category?.color || "#64748b",
     };
   });
 
@@ -52,9 +50,8 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
             {/* Level Badge */}
             {video.levelId && (
               <div
-                className={`absolute top-2 left-2 px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium ${getColorClasses(
-                  levelColor
-                )}`}
+                className="absolute top-2 left-2 px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium text-white bg-[var(--level-color)]"
+                style={{ "--level-color": levelColor } as React.CSSProperties}
               >
                 {levelName}
               </div>
@@ -72,9 +69,8 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
               {categoriesInfo.slice(0, 2).map((categoryInfo) => (
                 <div
                   key={categoryInfo.id}
-                  className={`w-fit inline-flex px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium ${getColorClasses(
-                    categoryInfo.color
-                  )}`}
+                  className="w-fit inline-flex px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium text-white bg-[var(--category-color)]"
+                  style={{ '--category-color': categoryInfo.color } as React.CSSProperties}
                 >
                   {categoryInfo.name}
                 </div>

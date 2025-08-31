@@ -75,6 +75,11 @@ const MultipleCategoryFilter = ({
                     category.color,
                     isSelected
                   )}`}
+                  style={
+                    isSelected && category.color.startsWith('#')
+                      ? ({ '--interactive-color': category.color } as React.CSSProperties)
+                      : undefined
+                  }
                 >
                   <div className="flex items-center gap-1 sm:gap-2">
                     {isSelected && <Check className="w-3 h-3 sm:w-4 sm:h-4" />}

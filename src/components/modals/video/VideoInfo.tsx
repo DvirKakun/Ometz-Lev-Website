@@ -1,8 +1,6 @@
 import { Play, Clock } from "lucide-react";
 import { useCategories } from "../../../hooks/useCategories";
 import { useLevelInfo } from "../../../hooks/useLevels";
-import { getCategoryColor } from "../../../utils/category-colors";
-import { getColorClasses } from "../../../utils/color-classes";
 import type { Video } from "../../../types/videos";
 
 interface VideoInfoProps {
@@ -18,7 +16,7 @@ export const VideoInfo = ({ video }: VideoInfoProps) => {
     return {
       id: categoryId,
       name: category?.name || categoryId,
-      color: category?.color || getCategoryColor(categoryId),
+      color: category?.color || "#64748b",
     };
   });
 
@@ -33,7 +31,8 @@ export const VideoInfo = ({ video }: VideoInfoProps) => {
       <div className="flex flex-wrap gap-2 mb-4">
         {video.levelId && (
           <div
-            className={`px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium ${getColorClasses(levelColor)}`}
+            className="px-2 py-1 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium text-white bg-[var(--level-color)]"
+            style={{ "--level-color": levelColor } as React.CSSProperties}
           >
             {levelName}
           </div>
@@ -41,7 +40,10 @@ export const VideoInfo = ({ video }: VideoInfoProps) => {
         {categoriesInfo.slice(0, 3).map((categoryInfo) => (
           <div
             key={categoryInfo.id}
-            className={`px-2 py-1 rounded-full text-xs sm:text-sm font-medium ${getColorClasses(categoryInfo.color)}`}
+            className="px-2 py-1 rounded-full text-xs sm:text-sm font-medium text-white bg-[var(--category-color)]"
+            style={
+              { "--category-color": categoryInfo.color } as React.CSSProperties
+            }
           >
             {categoryInfo.name}
           </div>

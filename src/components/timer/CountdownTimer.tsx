@@ -94,7 +94,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
       className={cn(
         "flex flex-col items-center space-y-1 sm:space-y-1",
         // Attractive gradient background with primary colors
-        "bg-gradient-to-br from-primary-50 via-white to-accent-50",
+        "bg-gradient-to-br from-primary-50 via-slate-50 to-white",
         // Subtle border with primary accent
         "border-[0.2rem] border-primary-200/70 ",
         // Enhanced shadow for prominence
@@ -105,7 +105,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
         "px-1.5 py-0.5 sm:px-2 sm:py-1 xl:px-2 xl:py-1.5",
         // Clickable styles with more pronounced hover effects
         clickable &&
-          "cursor-pointer hover:bg-gradient-to-br hover:from-primary-100 hover:via-white hover:to-accent-100 hover:shadow-xl hover:shadow-primary-900/15 hover:border-primary-300 transition-all duration-300 hover:scale-105",
+          "cursor-pointer hover:bg-gradient-to-br hover:from-primary-100 hover:via-slate-50 hover:to-white hover:shadow-lg hover:shadow-primary-900/10 hover:border-primary-300 transition-all duration-300 hover:scale-102",
         className
       )}
       initial={{ opacity: 0, scale: 0.95 }}
