@@ -52,7 +52,7 @@ const SocialLinks: React.FC = () => {
         variant: "icon" as const,
         size: "md" as const,
       },
-      hoverColor: "hover:text-black hover:bg-gray-500/20",
+      hoverColor: "hover:text-pink-500 hover:bg-pink-500/20",
       delay: 0.5,
     },
   ];

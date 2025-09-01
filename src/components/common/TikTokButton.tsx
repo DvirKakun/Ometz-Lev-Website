@@ -9,7 +9,7 @@ const TikTokButton: React.FC<TikTokButtonProps> = ({
   tiktokUrl = "https://www.tiktok.com/@ometz.lev1",
   className,
   variant = "default",
-  size = "md",
+  size = "lg",
 }) => {
   const sizeClasses = {
     sm: "px-4 py-2.5 text-sm h-10",
@@ -20,7 +20,7 @@ const TikTokButton: React.FC<TikTokButtonProps> = ({
   const iconSizes = {
     sm: "w-4 h-4",
     md: "w-5 h-5",
-    lg: "w-5 h-5",
+    lg: "w-6 h-6",
   };
 
   const variants = {
@@ -40,7 +40,7 @@ const TikTokButton: React.FC<TikTokButtonProps> = ({
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className={cn(
-          "inline-flex items-center justify-center rounded-xl transition-all duration-200",
+          "group inline-flex items-center justify-center rounded-xl transition-all duration-200",
           variants.icon,
           className
         )}
