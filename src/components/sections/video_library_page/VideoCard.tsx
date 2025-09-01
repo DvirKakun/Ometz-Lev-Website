@@ -47,39 +47,32 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
               <div className="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300" />
             )}
 
-            {/* Level Badge */}
-            {video.levelId && (
-              <div
-                className="absolute top-2 left-2 px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium text-white bg-[var(--level-color)]"
-                style={{ "--level-color": levelColor } as React.CSSProperties}
-              >
-                {levelName}
-              </div>
-            )}
-
             {/* Duration Badge */}
             {video.duration && (
               <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded-md text-[10px] sm:text-sm font-medium">
                 {video.duration}
               </div>
             )}
-
-            {/* Category Badges */}
-            <div className="absolute top-2 right-2 flex flex-col gap-1">
-              {categoriesInfo.slice(0, 2).map((categoryInfo) => (
-                <div
-                  key={categoryInfo.id}
-                  className="w-fit inline-flex px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium text-white bg-[var(--category-color)]"
-                  style={{ '--category-color': categoryInfo.color } as React.CSSProperties}
-                >
-                  {categoryInfo.name}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
         <CardContent className="p-3 sm:p-4 flex-1 flex flex-col min-h-0">
+          {/* Category Badges */}
+          <div className="flex flex-wrap gap-1 mb-2">
+            {categoriesInfo.map((categoryInfo) => (
+              <div
+                key={categoryInfo.id}
+                className="px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium text-white bg-[var(--category-color)]"
+                style={
+                  {
+                    "--category-color": categoryInfo.color,
+                  } as React.CSSProperties
+                }
+              >
+                {categoryInfo.name}
+              </div>
+            ))}
+          </div>
           <h3 className="text-sm sm:text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-red-600 transition-colors duration-300 leading-tight">
             {video.title}
           </h3>
@@ -88,6 +81,18 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
               <p className="text-slate-600 text-xs sm:text-sm text-right leading-relaxed">
                 {video.subtitle}
               </p>
+            </div>
+          )}
+
+          {/* Level Info */}
+          {video.levelId && (
+            <div className="mb-2">
+              <span className="text-xs sm:text-sm text-right">
+                רמת קושי:{" "}
+                <span className="font-medium" style={{ color: levelColor }}>
+                  {levelName}
+                </span>
+              </span>
             </div>
           )}
 
