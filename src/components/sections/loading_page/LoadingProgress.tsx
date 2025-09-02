@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { LoadingProgressProps } from "../../../types/loading_page";
 
-const LoadingProgress = ({ color }: LoadingProgressProps) => {
+const LoadingProgress = ({ color, progress }: LoadingProgressProps) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -26,8 +26,8 @@ const LoadingProgress = ({ color }: LoadingProgressProps) => {
         <motion.div
           className={`h-2 bg-gradient-to-r ${color} rounded-full`}
           initial={{ width: "0%" }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 2, ease: "easeInOut" }}
+          animate={{ width: progress ? `${progress}%` : "100%" }}
+          transition={{ duration: progress ? 0.3 : 2, ease: "easeInOut" }}
         />
       </div>
 

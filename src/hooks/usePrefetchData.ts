@@ -1,15 +1,16 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { fetchArticlesFromPrismic } from "../utils/prismic-articles";
+import { fetchVideosFromPrismic } from "../utils/prismic-videos";
 import { fetchCategoriesFromPrismic } from "../utils/prismic-categories";
 import { fetchActivitiesFromPrismic } from "../utils/prismic-activities";
 import { fetchProfileImageFromPrismic } from "../utils/prismic-profile-image";
 import { fetchHeroSlidesFromPrismic } from "../utils/prismic-hero-slides";
-import { 
+import {
   fetchTherapyOfferings,
   fetchTrainingOfferings,
   fetchActivitiesOfferings,
-  fetchSchoolsOfferings
+  fetchSchoolsOfferings,
 } from "../utils/prismic-service-offerings";
 import {
   fetchTherapyFAQs,
@@ -17,12 +18,26 @@ import {
   fetchActivitiesFAQs,
   fetchSchoolsFAQs,
 } from "../utils/prismic-faq";
+import { useArticles } from "./useArticles";
+import { useVideos } from "./useVideos";
+import { useProfileImage } from "./useProfileImage";
+import {
+  useTrainingOfferings,
+  useTherapyOfferings,
+  useActivitiesOfferings,
+  useSchoolsOfferings,
+} from "./useServiceOfferings";
+import { useFAQItems } from "./useFAQ";
+import { useActivities } from "./useActivities";
 
 // Types for prefetching options
 type PrefetchOptions = {
   articles?: boolean;
   trainingArticles?: boolean;
   therapyArticles?: boolean;
+  videos?: boolean;
+  trainingVideos?: boolean;
+  therapyVideos?: boolean;
   categories?: boolean;
   activities?: boolean;
   profileImage?: boolean;
@@ -45,7 +60,12 @@ export function usePrefetchData(options: PrefetchOptions = {}) {
     const prefetchPromises: Promise<void>[] = [];
 
     // Prefetch categories (used by both training and therapy articles)
-    if (options.categories || options.articles || options.trainingArticles || options.therapyArticles) {
+    if (
+      options.categories ||
+      options.articles ||
+      options.trainingArticles ||
+      options.therapyArticles
+    ) {
       prefetchPromises.push(
         queryClient.prefetchQuery({
           queryKey: ["categories"],
@@ -72,6 +92,28 @@ export function usePrefetchData(options: PrefetchOptions = {}) {
         queryClient.prefetchQuery({
           queryKey: ["articles", "therapy"],
           queryFn: () => fetchArticlesFromPrismic("therapy"),
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
+    // Prefetch training videos
+    if (options.videos || options.trainingVideos) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["videos", "training"],
+          queryFn: () => fetchVideosFromPrismic("training"),
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
+    // Prefetch therapy videos
+    if (options.videos || options.therapyVideos) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["videos", "therapy"],
+          queryFn: () => fetchVideosFromPrismic("therapy"),
           staleTime: 10 * 60 * 1000,
         })
       );
@@ -206,108 +248,136 @@ export function usePrefetchData(options: PrefetchOptions = {}) {
   }, [queryClient, options]);
 }
 
-// Specific prefetch hooks for different routes
-export function usePrefetchHomePage() {
-  return usePrefetchData({
-    heroSlides: true,
-    profileImage: true,
-    activities: true,
-    articles: true, // Both training and therapy for demo articles
-    categories: true,
-    therapyOfferings: true, // For therapy service card
-    trainingOfferings: true, // For training service card
-    activitiesOfferings: true, // For activities service card
-    schoolsOfferings: true, // For schools service card
-  });
-}
-
-export function usePrefetchTrainingPage() {
-  return usePrefetchData({
-    trainingArticles: true,
-    categories: true,
-    profileImage: true,
-    trainingOfferings: true, // For training page offerings
-    trainingFAQs: true, // For training page FAQs
-  });
-}
-
-export function usePrefetchTherapyPage() {
-  return usePrefetchData({
-    therapyArticles: true,
-    categories: true,
-    profileImage: true,
-    therapyOfferings: true, // For therapy page offerings
-    therapyFAQs: true, // For therapy page FAQs
-  });
-}
-
-export function usePrefetchActivitiesPage() {
-  return usePrefetchData({
-    activities: true,
-    profileImage: true,
-    activitiesOfferings: true, // For activities page offerings
-    activitiesFAQs: true, // For activities page FAQs
-  });
-}
-
-export function usePrefetchSchoolsPage() {
-  return usePrefetchData({
-    profileImage: true,
-    schoolsOfferings: true, // For schools page offerings
-    schoolsFAQs: true, // For schools page FAQs
-  });
-}
-
-export function usePrefetchArticlesLibrary(pageType: "training" | "therapy") {
-  return usePrefetchData({
-    trainingArticles: pageType === "training",
-    therapyArticles: pageType === "therapy",
-    categories: true,
-  });
-}
-
-// Hook for preloading images from URLs
-export function usePreloadImages(imageUrls: string[]) {
-  useEffect(() => {
-    const preloadPromises = imageUrls.map((url) => {
-      return new Promise<void>((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => resolve();
-        img.onerror = () => reject(new Error(`Failed to load image: ${url}`));
-        img.src = url;
-      });
-    });
-
-    Promise.all(preloadPromises).catch((error) => {
-      console.warn("Some images failed to preload:", error);
-      // Don't throw - let the app continue loading even if image preloading fails
-    });
-  }, [imageUrls]);
-}
-
 // Hook for conditional prefetching based on route
 export function usePrefetchForRoute(pathname: string) {
+  const isHome = pathname === "/" || pathname === "/home";
   const isTrainingArticles = pathname.startsWith("/training-articles-library");
   const isTherapyArticles = pathname.startsWith("/therapy-articles-library");
-  const isTraining = pathname.startsWith("/training") && !isTrainingArticles;
-  const isTherapy = pathname.startsWith("/therapy") && !isTherapyArticles;
+  const isTrainingVideos = pathname.startsWith("/training-videos-library");
+  const isTherapyVideos = pathname.startsWith("/therapy-videos-library");
+  const isTraining =
+    pathname.startsWith("/training") &&
+    !isTrainingArticles &&
+    !isTrainingVideos;
+  const isTherapy =
+    pathname.startsWith("/therapy") && !isTherapyArticles && !isTherapyVideos;
   const isActivities = pathname.startsWith("/activities");
   const isSchools = pathname.startsWith("/schools");
 
   // Always call all hooks, but with conditional options
   usePrefetchData({
+    // Home page data
+    heroSlides: isHome,
+    profileImage: isTraining || isTherapy,
+    activities: isHome || isActivities,
+    categories:
+      isTrainingArticles ||
+      isTherapyArticles ||
+      isTrainingVideos ||
+      isTherapyVideos ||
+      isTraining ||
+      isTherapy,
+    therapyOfferings: isHome || isTherapy, // For home service cards and therapy page
+    trainingOfferings: isHome || isTraining, // For home service cards and training page
+    activitiesOfferings: isHome || isActivities, // For home service cards and activities page
+    schoolsOfferings: isHome || isSchools, // For home service cards and schools page
+
+    // Page-specific data
     trainingArticles: isTrainingArticles || isTraining,
     therapyArticles: isTherapyArticles || isTherapy,
-    categories: isTrainingArticles || isTherapyArticles || isTraining || isTherapy,
-    activities: isActivities,
-    profileImage: isTraining || isTherapy || isActivities || isSchools,
-    therapyOfferings: isTherapy, // Prefetch therapy offerings for therapy page
-    trainingOfferings: isTraining, // Prefetch training offerings for training page
-    activitiesOfferings: isActivities, // Prefetch activities offerings for activities page
-    schoolsOfferings: isSchools, // Prefetch schools offerings for schools page
+    trainingVideos: isTrainingVideos || isTraining,
+    therapyVideos: isTherapyVideos || isTherapy,
     therapyFAQs: isTherapy, // Prefetch therapy FAQs for therapy page
     trainingFAQs: isTraining, // Prefetch training FAQs for training page
     activitiesFAQs: isActivities, // Prefetch activities FAQs for activities page
     schoolsFAQs: isSchools, // Prefetch schools FAQs for schools page
   });
+}
+
+// Hook to track loading state of training page data
+export function useTrainingPageLoadingState() {
+  // Use the actual hooks to get real loading states
+  const { isLoading: articlesLoading } = useArticles("training");
+  const { isLoading: videosLoading } = useVideos("training");
+  const { isLoading: profileLoading } = useProfileImage();
+  const { isLoading: offeringsLoading } = useTrainingOfferings();
+  const { isLoading: faqsLoading } = useFAQItems("training");
+
+  // Calculate progress based on completed queries
+  const loadingStates = [
+    articlesLoading,
+    videosLoading,
+    profileLoading,
+    offeringsLoading,
+    faqsLoading,
+  ];
+  const completedCount = loadingStates.filter((loading) => !loading).length;
+  const totalCount = loadingStates.length;
+  const progress = Math.round((completedCount / totalCount) * 100);
+
+  const isLoading = loadingStates.some((loading) => loading);
+
+  return { isLoading, progress };
+}
+
+// Hook to track loading state of therapy page data
+export function useTherapyPageLoadingState() {
+  const { isLoading: articlesLoading } = useArticles("therapy");
+  const { isLoading: videosLoading } = useVideos("therapy");
+  const { isLoading: profileLoading } = useProfileImage();
+  const { isLoading: offeringsLoading } = useTherapyOfferings();
+  const { isLoading: faqsLoading } = useFAQItems("therapy");
+
+  const loadingStates = [
+    articlesLoading,
+    videosLoading,
+    profileLoading,
+    offeringsLoading,
+    faqsLoading,
+  ];
+  const completedCount = loadingStates.filter((loading) => !loading).length;
+  const totalCount = loadingStates.length;
+  const progress = Math.round((completedCount / totalCount) * 100);
+
+  const isLoading = loadingStates.some((loading) => loading);
+
+  return { isLoading, progress };
+}
+
+// Hook to track loading state of activities page data
+export function useActivitiesPageLoadingState() {
+  const { isLoading: activitiesLoading } = useActivities();
+  const { isLoading: profileLoading } = useProfileImage();
+  const { isLoading: offeringsLoading } = useActivitiesOfferings();
+  const { isLoading: faqsLoading } = useFAQItems("activities");
+
+  const loadingStates = [
+    activitiesLoading,
+    profileLoading,
+    offeringsLoading,
+    faqsLoading,
+  ];
+  const completedCount = loadingStates.filter((loading) => !loading).length;
+  const totalCount = loadingStates.length;
+  const progress = Math.round((completedCount / totalCount) * 100);
+
+  const isLoading = loadingStates.some((loading) => loading);
+
+  return { isLoading, progress };
+}
+
+// Hook to track loading state of schools page data
+export function useSchoolsPageLoadingState() {
+  const { isLoading: profileLoading } = useProfileImage();
+  const { isLoading: offeringsLoading } = useSchoolsOfferings();
+  const { isLoading: faqsLoading } = useFAQItems("schools");
+
+  const loadingStates = [profileLoading, offeringsLoading, faqsLoading];
+  const completedCount = loadingStates.filter((loading) => !loading).length;
+  const totalCount = loadingStates.length;
+  const progress = Math.round((completedCount / totalCount) * 100);
+
+  const isLoading = loadingStates.some((loading) => loading);
+
+  return { isLoading, progress };
 }

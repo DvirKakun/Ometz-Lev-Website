@@ -6,15 +6,15 @@ import SplashContent from "../components/sections/splash_screen/SplashContent";
 import SplashProgress from "../components/sections/splash_screen/SplashProgress";
 import SEOMeta from "../components/seo/SEOMeta";
 import SEOJsonLD from "../components/seo/SEOJsonLD";
-import { usePrefetchHomePage } from "../hooks/usePrefetchData";
+import { usePrefetchForRoute } from "../hooks/usePrefetchData";
 import { useImagePreloader } from "../hooks/useImagePreloader";
 import { getKeywordsForPage } from "../data/seo-keywords";
 
 const SplashPage: React.FC = () => {
   const navigate = useNavigate();
 
-  // Prefetch all homepage data during splash screen
-  usePrefetchHomePage();
+  // Prefetch homepage data during splash screen
+  usePrefetchForRoute("/home");
 
   // Preload images from cached data
   useImagePreloader();

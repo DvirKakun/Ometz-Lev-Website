@@ -101,7 +101,13 @@ export async function fetchVideosFromPrismic(
       return [];
     }
 
-    return Promise.all(filteredResponse.map(mapPrismicVideo));
+    // Process videos sequentially to prevent browser blocking
+    const videos: Video[] = [];
+    for (const video of filteredResponse) {
+      const mappedVideo = await mapPrismicVideo(video);
+      videos.push(mappedVideo);
+    }
+    return videos;
   } catch (error) {
     handlePrismicError(error, "videos");
     return [];

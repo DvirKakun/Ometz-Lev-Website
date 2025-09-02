@@ -17,6 +17,7 @@ export interface LoadingContentProps {
 
 export interface LoadingProgressProps {
   color: string;
+  progress?: number;
 }
 
 export interface LoadingSpinnerProps {
