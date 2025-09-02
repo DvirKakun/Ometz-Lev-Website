@@ -12,12 +12,19 @@ import { getKeywordsForPage } from "../data/seo-keywords";
 import LoadingSpinner from "../components/common/StateLoadingSpinner";
 import StateDisplay from "../components/common/StateDisplay";
 import { useActivities } from "../hooks/useActivities";
+import { useModalBackButton } from "../hooks/useModalBackButton";
 import type { ServicePageProps } from "../types/service_page";
 
 export default function ActivitiesPage({ service }: ServicePageProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const scrollTargetRef = useRef<string | null>(null);
+
+  // Handle back button for summer camp modal
+  useModalBackButton({
+    isOpen: isModalOpen,
+    onClose: () => setIsModalOpen(false),
+  });
 
   // SEO Configuration for Activities Page
   const seoConfig = {
@@ -69,9 +76,9 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
     setIsModalOpen(true);
   }, []);
 
-  const handleModalOpenChange = useCallback((open: boolean) => {
-    setIsModalOpen(open);
-  }, []);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   // Render content based on state
   const renderContent = () => {
@@ -175,10 +182,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
       </motion.div>
 
       {/* Summer Camp Registration Modal */}
-      <SummerCampModal
-        isOpen={isModalOpen}
-        onOpenChange={handleModalOpenChange}
-      />
+      <SummerCampModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </>
   );
 }

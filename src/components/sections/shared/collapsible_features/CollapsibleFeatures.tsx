@@ -80,7 +80,7 @@ const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
         </div>
       </section>
 
-      <ContactModal isOpen={isOpen} onOpenChange={onOpenChange} />
+      <ContactModal isOpen={isOpen} onClose={() => onOpenChange(false)} />
     </>
   );
 };

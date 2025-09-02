@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Clock } from "lucide-react";
 import { useLevelInfo } from "../../../hooks/useLevels";
 import { useCategories } from "../../../hooks/useCategories";
 import { Card, CardContent } from "../../ui/card";
@@ -94,15 +93,6 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
               </span>
             </div>
           )}
-
-          <div className="flex items-center justify-between mt-auto pt-2">
-            <div className="flex items-center gap-1 sm:gap-2 text-slate-500">
-              <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="text-xs sm:text-sm font-medium">
-                {video.duration || "וידאו"}
-              </span>
-            </div>
-          </div>
         </CardContent>
       </Card>
     </motion.div>

@@ -6,6 +6,7 @@ import LoadingSpinner from "../../common/StateLoadingSpinner";
 import StateDisplay from "../../common/StateDisplay";
 import ArticleModal from "../../modals/article/ArticleModal";
 import { AlertCircle } from "lucide-react";
+import { useModalBackButton } from "../../../hooks/useModalBackButton";
 import type { ArticlesGridProps, Article } from "../../../types/articles";
 
 const ArticlesGrid = ({
@@ -17,6 +18,12 @@ const ArticlesGrid = ({
 }: ArticlesGridProps) => {
   const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Handle back button for modal
+  useModalBackButton({
+    isOpen: isModalOpen,
+    onClose: () => setIsModalOpen(false),
+  });
 
   const handleArticleClick = (article: Article) => {
     setSelectedArticle(article);

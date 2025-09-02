@@ -8,7 +8,7 @@ import ContactModalError from "./ContactModalError";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import type { ContactModalProps } from "../../../types/modals";
 
-const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
+const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
@@ -17,7 +17,7 @@ const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
     setSubmitStatus("success");
     // Close modal after success
     setTimeout(() => {
-      onOpenChange(false);
+      onClose();
       setSubmitStatus("idle");
     }, 2000);
   };
@@ -27,7 +27,7 @@ const ContactModal = ({ isOpen, onOpenChange }: ContactModalProps) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-[85vw] sm:max-w-md max-h-[90vh] p-0 border-0 text-slate-900 overflow-hidden rounded-2xl">
         <DialogTitle className="sr-only">צור קשר</DialogTitle>
 

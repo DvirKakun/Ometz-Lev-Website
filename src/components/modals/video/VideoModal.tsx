@@ -16,7 +16,7 @@ const VideoModal = ({ video, isOpen, onClose }: VideoModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent
-        className="w-full h-full sm:max-w-4xl sm:w-[95vw] sm:max-h-[90vh] overflow-hidden p-0 border-0 shadow-2xl sm:rounded-lg [&>button]:bg-white/90 [&>button]:text-gray-900 [&>button]:hover:bg-white [&>button]:backdrop-blur-sm [&>button]:rounded-full [&>button]:w-12 [&>button]:h-12 [&>button]:flex [&>button]:items-center [&>button]:justify-center"
+        className="w-full h-full sm:max-w-4xl sm:w-[95vw]   sm:max-h-[90vh] overflow-hidden p-0 border-0 shadow-2xl sm:rounded-lg [&>button]:bg-white/90 [&>button]:text-gray-900 [&>button]:hover:bg-white [&>button]:backdrop-blur-sm [&>button]:rounded-full [&>button]:w-12 [&>button]:h-12 [&>button]:flex [&>button]:items-center [&>button]:justify-center"
         dir="rtl"
       >
         <DialogTitle className="sr-only">{video.title}</DialogTitle>

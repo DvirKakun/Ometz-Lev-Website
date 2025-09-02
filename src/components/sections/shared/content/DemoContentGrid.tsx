@@ -9,6 +9,7 @@ import VideoModal from "../../../modals/video/VideoModal";
 import LoadingSpinner from "../../../common/StateLoadingSpinner";
 import StateDisplay from "../../../common/StateDisplay";
 import { AlertCircle } from "lucide-react";
+import { useModalBackButton } from "../../../../hooks/useModalBackButton";
 import type { DemoContentGridProps } from "../../../../types/content";
 import type { Article } from "../../../../types/articles";
 import type { Video } from "../../../../types/videos";
@@ -22,6 +23,20 @@ export default function DemoContentGrid({
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [isArticleModalOpen, setIsArticleModalOpen] = useState(false);
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+
+  // Handle back button for modals - unified approach
+  const anyModalOpen = isVideoModalOpen || isArticleModalOpen;
+  
+  useModalBackButton({
+    isOpen: anyModalOpen,
+    onClose: () => {
+      if (isVideoModalOpen) {
+        setIsVideoModalOpen(false);
+      } else if (isArticleModalOpen) {
+        setIsArticleModalOpen(false);
+      }
+    },
+  });
 
   const handleArticleClick = (article: Article) => {
     setSelectedArticle(article);

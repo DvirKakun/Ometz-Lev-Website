@@ -12,7 +12,7 @@ import SummerCampModalSuccess from "./SummerCampModalSuccess";
 import SummerCampModalError from "./SummerCampModalError";
 import type { SummerCampModalProps } from "../../../types/modals";
 
-const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
+const SummerCampModal = ({ isOpen, onClose }: SummerCampModalProps) => {
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
@@ -21,7 +21,7 @@ const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
     setSubmitStatus("success");
     // Close modal after success
     setTimeout(() => {
-      onOpenChange(false);
+      onClose();
       setSubmitStatus("idle");
     }, 8000); // Longer timeout to read the success message
   };
@@ -31,7 +31,7 @@ const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-lg w-[90vw] max-h-[90vh] p-0 border-0 text-slate-900 overflow-hidden rounded-2xl">
         <DialogHeader className="sr-only">
           <DialogTitle>הרשמה לקייטנת אומץ לב</DialogTitle>

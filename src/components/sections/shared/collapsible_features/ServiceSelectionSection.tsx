@@ -6,6 +6,7 @@ import { Button } from "../../../ui/button";
 import WhatsAppButton from "../../../common/WhatsAppButton";
 import { Info } from "lucide-react";
 import OfferingDetailsModal from "../../../modals/offering/OfferingDetailsModal";
+import { useModalBackButton } from "../../../../hooks/useModalBackButton";
 import type { ServiceSelectionSectionProps } from "../../../../types/collapsible_features";
 import type { ProcessedFullOffering } from "../../../../types/service_offerings";
 
@@ -22,6 +23,12 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
   const [selectedOffering, setSelectedOffering] =
     useState<ProcessedFullOffering | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Handle back button for offering details modal
+  useModalBackButton({
+    isOpen: isModalOpen,
+    onClose: () => setIsModalOpen(false),
+  });
 
   const handleOfferingDetails = (offering: ProcessedFullOffering) => {
     setSelectedOffering(offering);

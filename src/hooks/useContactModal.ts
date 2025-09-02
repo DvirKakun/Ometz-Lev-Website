@@ -1,7 +1,14 @@
 import { useState, useCallback } from 'react';
+import { useModalBackButton } from './useModalBackButton';
 
 export const useContactModal = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Handle back button for contact modal
+  useModalBackButton({
+    isOpen,
+    onClose: () => setIsOpen(false),
+  });
 
   const openModal = useCallback(() => {
     setIsOpen(true);

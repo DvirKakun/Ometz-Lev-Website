@@ -47,7 +47,7 @@ const ContactCTA: React.FC = () => {
         </div>
       </div>
 
-      <ContactModal isOpen={isOpen} onOpenChange={onOpenChange} />
+      <ContactModal isOpen={isOpen} onClose={() => onOpenChange(false)} />
     </section>
   );
 };

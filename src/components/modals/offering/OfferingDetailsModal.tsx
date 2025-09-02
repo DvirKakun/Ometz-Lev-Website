@@ -19,16 +19,17 @@ const OfferingDetailsModal = ({
   isOpen,
   onClose,
 }: OfferingDetailsModalProps) => {
+
   if (!offering) return null;
 
   return (
-    <AnimatePresence mode="wait">
-      {isOpen && (
-        <Dialog open={true} onOpenChange={(open) => !open && onClose()}>
-          <DialogContent
-            className="max-w-[85vw] sm:max-w-2xl h-[70vh] sm:h-[80vh] md:h-[85vh] overflow-hidden p-0 border-0 shadow-2xl rounded-2xl duration-300"
-            dir="rtl"
-          >
+    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <DialogContent
+        className="max-w-[85vw] sm:max-w-2xl h-[70vh] sm:h-[80vh] md:h-[85vh] overflow-hidden p-0 border-0 shadow-2xl rounded-2xl duration-300"
+        dir="rtl"
+      >
+        <AnimatePresence mode="wait">
+          {isOpen && (
             <motion.div
               initial={{ opacity: 0, scale: 0.5, y: 50 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -89,10 +90,10 @@ const OfferingDetailsModal = ({
                 </div>
               </div>
             </motion.div>
-          </DialogContent>
-        </Dialog>
-      )}
-    </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </DialogContent>
+    </Dialog>
   );
 };
 

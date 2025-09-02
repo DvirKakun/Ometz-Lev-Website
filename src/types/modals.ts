@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react";
 
 export interface ContactModalProps {
   isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
+  onClose: () => void;
 }
 
 export interface ContactModalFormProps {
@@ -12,7 +12,7 @@ export interface ContactModalFormProps {
 
 export interface SummerCampModalProps {
   isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
+  onClose: () => void;
 }
 
 export interface SummerCampModalFormProps {
