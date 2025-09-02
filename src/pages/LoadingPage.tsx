@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useMemo, memo } from "react";
 import { services } from "../data/services";
 import { Heart } from "lucide-react";
 import LoadingBackground from "../components/sections/loading_page/LoadingBackground";
@@ -24,18 +25,22 @@ const LoadingPage = ({ progress }: LoadingPageProps = {}) => {
   // Preload images from cached data
   useImagePreloader();
 
-  // Find the service that matches current path
-  const currentService = services.find((service) =>
-    location.pathname.startsWith(service.path)
-  );
+  // Find the service that matches current path (memoized to prevent re-renders)
+  const service = useMemo(() => {
+    const currentService = services.find((service) =>
+      location.pathname.startsWith(service.path)
+    );
 
-  // Fallback to default if no service found
-  const service = currentService || {
-    title: "אומץ לב",
-    icon: Heart,
-    color: "from-primary-500 to-primary-600",
-    bgColor: "from-primary-50 to-primary-100/50",
-  };
+    // Fallback to default if no service found
+    return (
+      currentService || {
+        title: "אומץ לב",
+        icon: Heart,
+        color: "from-primary-500 to-primary-600",
+        bgColor: "from-primary-50 to-primary-100/50",
+      }
+    );
+  }, [location.pathname]);
 
   return (
     <LoadingBackground
@@ -81,4 +86,4 @@ const LoadingPage = ({ progress }: LoadingPageProps = {}) => {
   );
 };
 
-export default LoadingPage;
+export default memo(LoadingPage);
