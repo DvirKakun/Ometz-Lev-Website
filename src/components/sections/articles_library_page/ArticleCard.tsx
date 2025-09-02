@@ -44,10 +44,10 @@ const ArticleCard = ({
               <img
                 src={article.thumbnailUrl}
                 alt={article.thumbnailAlt || article.title}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-orange-50 to-orange-100" />
+              <div className="w-full h-full bg-gradient-to-br from-primary-50 to-primary-100" />
             )}
 
             {/* Read Time Badge */}
@@ -74,7 +74,7 @@ const ArticleCard = ({
               </div>
             ))}
           </div>
-          <h3 className="text-sm sm:text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-orange-600 transition-colors duration-300 leading-tight">
+          <h3 className="text-sm sm:text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-primary-600 transition-colors duration-300 leading-tight">
             {article.title}
           </h3>
           {article.description && (

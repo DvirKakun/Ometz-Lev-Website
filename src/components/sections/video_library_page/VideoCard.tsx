@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
-import { Play, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import { useLevelInfo } from "../../../hooks/useLevels";
 import { useCategories } from "../../../hooks/useCategories";
-import { Button } from "../../ui/button";
 import { Card, CardContent } from "../../ui/card";
 import type { VideoCardProps } from "../../../types/videos";
 
@@ -73,7 +72,7 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
               </div>
             ))}
           </div>
-          <h3 className="text-sm sm:text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-red-600 transition-colors duration-300 leading-tight">
+          <h3 className="text-sm sm:text-lg font-bold text-slate-800 mb-2 text-right group-hover:text-primary-600 transition-colors duration-300 leading-tight">
             {video.title}
           </h3>
           {video.subtitle && (
@@ -103,18 +102,6 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
                 {video.duration || "וידאו"}
               </span>
             </div>
-
-            <Button
-              size="sm"
-              className="bg-primary-500 hover:bg-primary-700 text-white text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 h-7 sm:h-8 font-medium"
-              onClick={(e) => {
-                e.stopPropagation();
-                onClick?.(video);
-              }}
-            >
-              צפה
-              <Play className="w-3 h-3 sm:w-4 sm:h-4 mr-0.5 sm:mr-1" />
-            </Button>
           </div>
         </CardContent>
       </Card>

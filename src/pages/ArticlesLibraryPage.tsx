@@ -109,7 +109,7 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
         imageUrl={seoConfig.imageUrl}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-orange-50/30 to-orange-50/50">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-primary-50/30">
         <LibraryHeader config={config} />
         <MultipleCategoryFilter
           selectedCategories={selectedCategories}
