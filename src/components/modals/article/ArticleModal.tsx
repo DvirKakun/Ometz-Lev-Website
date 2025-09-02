@@ -2,19 +2,27 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle } from "../../ui/dialog";
 import { ArticleHeader } from "./ArticleHeader";
 import { ArticleInfo } from "./ArticleInfo";
-import type { Article } from "../../../types/articles";
+import { useArticles } from "../../../hooks/useArticles";
+import type { ArticleModalProps } from "../../../types/modals";
 
-interface ArticleModalProps {
-  article: Article | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
+const ArticleModal = ({
+  isOpen,
+  onOpenChange,
+  articleId,
+  pageType = "training",
+}: ArticleModalProps) => {
+  const { data: articles = [] } = useArticles(pageType);
 
-const ArticleModal = ({ article, isOpen, onClose }: ArticleModalProps) => {
+  if (!isOpen || !articleId) return null;
+
+  const article = articles.find(
+    (a) => a.articleKey === articleId || `article-${a.title}` === articleId
+  );
+
   if (!article) return null;
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
+    <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent
         className="w-full h-full sm:max-w-4xl sm:w-[95vw] sm:max-h-[90vh] overflow-hidden p-0 border-0 shadow-2xl sm:rounded-lg [&>button]:bg-white/90 [&>button]:text-gray-900 [&>button]:hover:bg-white [&>button]:backdrop-blur-sm [&>button]:rounded-full"
         dir="rtl"

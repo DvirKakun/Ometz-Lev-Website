@@ -1,10 +1,9 @@
-import { useRef, useCallback, useState, useEffect } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { AlertCircle, Calendar } from "lucide-react";
 import ServiceHeader from "../components/sections/shared/headers/MainHeader";
 import ActivitySection from "../components/sections/activities_page/ActivitySection";
-import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
 import { FAQSection } from "../components/sections/shared/faq";
 import SEOMeta from "../components/seo/SEOMeta";
 import SEOJsonLD from "../components/seo/SEOJsonLD";
@@ -12,19 +11,19 @@ import { getKeywordsForPage } from "../data/seo-keywords";
 import LoadingSpinner from "../components/common/StateLoadingSpinner";
 import StateDisplay from "../components/common/StateDisplay";
 import { useActivities } from "../hooks/useActivities";
-import { useModalBackButton } from "../hooks/useModalBackButton";
+import { useSummerCampModal } from "../hooks/useSummerCampModal";
+import { useImageModal } from "../hooks/useImageModal";
+import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
+import ImageDialog from "../components/sections/activities_page/ImageDialog";
 import type { ServicePageProps } from "../types/service_page";
 
 export default function ActivitiesPage({ service }: ServicePageProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const scrollTargetRef = useRef<string | null>(null);
 
-  // Handle back button for summer camp modal
-  useModalBackButton({
-    isOpen: isModalOpen,
-    onClose: () => setIsModalOpen(false),
-  });
+  // Modal hooks
+  const summerCampModal = useSummerCampModal();
+  const imageModal = useImageModal();
 
   // SEO Configuration for Activities Page
   const seoConfig = {
@@ -73,12 +72,20 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
   }, [loading, activities, scrollToActivity]);
 
   const handleRegisterClick = useCallback(() => {
-    setIsModalOpen(true);
-  }, []);
+    summerCampModal.openModal();
+  }, [summerCampModal]);
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const handleImageClick = useCallback(
+    (imageUrl: string, index: number, alt: string, totalImages: number) => {
+      imageModal.openModal({
+        imageUrl,
+        alt,
+        imageIndex: index,
+        totalImages,
+      });
+    },
+    [imageModal]
+  );
 
   // Render content based on state
   const renderContent = () => {
@@ -127,6 +134,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
         onRegisterClick={
           activity.hasRegistration ? handleRegisterClick : undefined
         }
+        onImageClick={handleImageClick}
       />
     ));
   };
@@ -181,8 +189,22 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
         <FAQSection pageType="activities" />
       </motion.div>
 
-      {/* Summer Camp Registration Modal */}
-      <SummerCampModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      {/* Modals */}
+      <SummerCampModal
+        isOpen={summerCampModal.isOpen}
+        onOpenChange={summerCampModal.onOpenChange}
+      />
+      
+      {imageModal.imageData && (
+        <ImageDialog
+          isOpen={imageModal.isOpen}
+          onClose={imageModal.closeModal}
+          imageUrl={imageModal.imageData.imageUrl}
+          alt={imageModal.imageData.alt}
+          imageIndex={imageModal.imageData.imageIndex}
+          totalImages={imageModal.imageData.totalImages}
+        />
+      )}
     </>
   );
 }

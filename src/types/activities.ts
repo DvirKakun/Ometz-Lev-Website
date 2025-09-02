@@ -30,4 +30,5 @@ export interface Activity {
 export interface ActivitySectionProps {
   activity: Activity;
   onRegisterClick?: () => void;
+  onImageClick?: (imageUrl: string, index: number, alt: string, totalImages: number) => void;
 }

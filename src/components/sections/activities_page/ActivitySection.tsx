@@ -1,25 +1,21 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { Button } from "../../ui/button";
 import ImageRoller from "./ImageRoller";
-import ImageDialog from "./ImageDialog";
 import type { ActivitySectionProps } from "../../../types/activities";
 
 const ActivitySection = ({
   activity,
   onRegisterClick,
+  onImageClick,
 }: ActivitySectionProps) => {
-  const [selectedImage, setSelectedImage] = useState<{
-    url: string;
-    index: number;
-  } | null>(null);
 
   const handleImageClick = (imageUrl: string, index: number) => {
-    setSelectedImage({ url: imageUrl, index });
-  };
-
-  const handleCloseDialog = () => {
-    setSelectedImage(null);
+    onImageClick?.(
+      imageUrl,
+      index,
+      index === -1 ? (activity.main_image.alt || "Activity image") : "Gallery image",
+      activity.images?.length || 1
+    );
   };
 
   return (
@@ -168,17 +164,6 @@ const ActivitySection = ({
         </motion.div>
       </div>
 
-      {/* Image Dialog */}
-      {selectedImage && (
-        <ImageDialog
-          isOpen={!!selectedImage}
-          onClose={handleCloseDialog}
-          imageUrl={selectedImage.url}
-          alt={activity.main_image.alt || "Activity image"}
-          imageIndex={selectedImage.index}
-          totalImages={activity.images?.length || 1}
-        />
-      )}
     </section>
   );
 };

@@ -12,7 +12,7 @@ export interface ContactModalFormProps {
 
 export interface SummerCampModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  onOpenChange: (open: boolean) => void;
 }
 
 export interface SummerCampModalFormProps {
@@ -43,4 +43,24 @@ export interface ModalSuccessProps {
   contentAlignment?: "text-center" | "text-right";
   icon?: LucideIcon;
   className?: string;
+}
+
+export interface VideoModalProps {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  videoId: string | null;
+  pageType?: "training" | "therapy";
+}
+
+export interface ArticleModalProps {
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+  articleId: string | null;
+  pageType?: "training" | "therapy";
+}
+
+export interface OfferingModalProps {
+  offering: import("./service_offerings").ProcessedFullOffering | null;
+  isOpen: boolean;
+  onClose: () => void;
 }

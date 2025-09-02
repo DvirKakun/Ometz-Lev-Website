@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent } from "../../../ui/card";
 import { Avatar, AvatarFallback } from "../../../ui/avatar";
@@ -6,7 +5,11 @@ import { Button } from "../../../ui/button";
 import WhatsAppButton from "../../../common/WhatsAppButton";
 import { Info } from "lucide-react";
 import OfferingDetailsModal from "../../../modals/offering/OfferingDetailsModal";
-import { useModalBackButton } from "../../../../hooks/useModalBackButton";
+import { useOfferingModal } from "../../../../hooks/useOfferingModal";
+import {
+  useTherapyOfferings,
+  useTrainingOfferings,
+} from "../../../../hooks/useServiceOfferings";
 import type { ServiceSelectionSectionProps } from "../../../../types/collapsible_features";
 import type { ProcessedFullOffering } from "../../../../types/service_offerings";
 
@@ -20,24 +23,20 @@ import type { ProcessedFullOffering } from "../../../../types/service_offerings"
  * ✱  `dir="rtl"` on root for Hebrew
  */
 const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
-  const [selectedOffering, setSelectedOffering] =
-    useState<ProcessedFullOffering | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isOpen, offeringId, openModal, onOpenChange } = useOfferingModal();
+  const { data: therapyOfferingsData } = useTherapyOfferings();
+  const { data: trainingOfferingsData } = useTrainingOfferings();
 
-  // Handle back button for offering details modal
-  useModalBackButton({
-    isOpen: isModalOpen,
-    onClose: () => setIsModalOpen(false),
-  });
+  // Get the selected offering
+  const isTherapy = service.path === "/therapy";
+  const offeringsData = isTherapy
+    ? therapyOfferingsData
+    : trainingOfferingsData;
+  const selectedOffering =
+    offeringsData?.offerings?.find((o) => o.id === offeringId) || null;
 
   const handleOfferingDetails = (offering: ProcessedFullOffering) => {
-    setSelectedOffering(offering);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedOffering(null);
+    openModal(offering);
   };
 
   return (
@@ -212,11 +211,11 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
         />
       </motion.div>
 
-      {/* Modal */}
+      {/* Offering Details Modal */}
       <OfferingDetailsModal
         offering={selectedOffering}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
+        isOpen={isOpen}
+        onClose={() => onOpenChange(false)}
       />
     </motion.div>
   );

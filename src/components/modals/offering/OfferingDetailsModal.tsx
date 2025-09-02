@@ -6,21 +6,10 @@ import {
   DialogTitle,
 } from "../../ui/dialog";
 import { Info } from "lucide-react";
-import type { ProcessedFullOffering } from "../../../types/service_offerings";
+import type { OfferingModalProps } from "../../../types/modals";
 
-interface OfferingDetailsModalProps {
-  offering: ProcessedFullOffering | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const OfferingDetailsModal = ({
-  offering,
-  isOpen,
-  onClose,
-}: OfferingDetailsModalProps) => {
-
-  if (!offering) return null;
+const OfferingDetailsModal = ({ offering, isOpen, onClose }: OfferingModalProps) => {
+  if (!offering || !isOpen) return null;
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>

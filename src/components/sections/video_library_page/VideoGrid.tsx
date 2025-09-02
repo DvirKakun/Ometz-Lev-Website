@@ -1,12 +1,11 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
+import { useVideoModal } from "../../../hooks/useVideoModal";
 import VideoCard from "./VideoCard";
+import VideoModal from "../../modals/video/VideoModal";
 import EmptyState from "./EmptyState";
 import LoadingSpinner from "../../common/StateLoadingSpinner";
 import StateDisplay from "../../common/StateDisplay";
-import VideoModal from "../../modals/video/VideoModal";
 import { AlertCircle } from "lucide-react";
-import { useModalBackButton } from "../../../hooks/useModalBackButton";
 import type { VideosGridProps, Video } from "../../../types/videos";
 
 const VideoGrid = ({
@@ -16,24 +15,10 @@ const VideoGrid = ({
   hasActiveFilters = false,
   totalVideosCount = 0,
 }: VideosGridProps) => {
-  // Modal state
-  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Handle back button for modal
-  useModalBackButton({
-    isOpen: isModalOpen,
-    onClose: () => setIsModalOpen(false),
-  });
+  const videoModal = useVideoModal();
 
   const handleVideoClick = (video: Video) => {
-    setSelectedVideo(video);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedVideo(null);
+    videoModal.openModal(video);
   };
   if (isLoading) {
     return (
@@ -96,9 +81,9 @@ const VideoGrid = ({
 
         {/* Video Modal */}
         <VideoModal
-          video={selectedVideo}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
+          isOpen={videoModal.isOpen}
+          onOpenChange={videoModal.onOpenChange}
+          videoId={videoModal.videoId}
         />
       </div>
     </section>

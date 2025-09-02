@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Outlet } from "react-router-dom";
 import {
   ExternalLink,
   Users,
@@ -316,6 +317,9 @@ export default function SchoolsPage({ service }: ServicePageProps) {
         {/* FAQ Section */}
         <FAQSection pageType="schools" />
       </motion.div>
+      
+      {/* Render modal based on current route */}
+      <Outlet />
     </>
   );
 }

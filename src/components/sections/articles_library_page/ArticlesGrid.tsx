@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useArticleModal } from "../../../hooks/useArticleModal";
 import ArticleCard from "./ArticleCard";
+import ArticleModal from "../../modals/article/ArticleModal";
 import EmptyState from "./EmptyState";
 import LoadingSpinner from "../../common/StateLoadingSpinner";
 import StateDisplay from "../../common/StateDisplay";
-import ArticleModal from "../../modals/article/ArticleModal";
 import { AlertCircle } from "lucide-react";
-import { useModalBackButton } from "../../../hooks/useModalBackButton";
 import type { ArticlesGridProps, Article } from "../../../types/articles";
 
 const ArticlesGrid = ({
@@ -16,23 +15,10 @@ const ArticlesGrid = ({
   hasActiveFilters = false,
   totalArticlesCount = 0,
 }: ArticlesGridProps) => {
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Handle back button for modal
-  useModalBackButton({
-    isOpen: isModalOpen,
-    onClose: () => setIsModalOpen(false),
-  });
+  const articleModal = useArticleModal();
 
   const handleArticleClick = (article: Article) => {
-    setSelectedArticle(article);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedArticle(null);
+    articleModal.openModal(article);
   };
   if (isLoading) {
     return (
@@ -90,10 +76,11 @@ const ArticlesGrid = ({
           )}
         </motion.div>
 
+        {/* Article Modal */}
         <ArticleModal
-          article={selectedArticle}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
+          isOpen={articleModal.isOpen}
+          onOpenChange={articleModal.onOpenChange}
+          articleId={articleModal.articleId}
         />
       </div>
     </section>

@@ -10,6 +10,10 @@ import SEOJsonLD from "../../components/seo/SEOJsonLD";
 import { getKeywordsForPage } from "../../data/seo-keywords";
 import { useTherapyMethodConfig } from "../../hooks/useTherapyMethodConfig";
 import { useTherapyOfferings } from "../../hooks/useServiceOfferings";
+import { useVideoModal } from "../../hooks/useVideoModal";
+import { useArticleModal } from "../../hooks/useArticleModal";
+import VideoModal from "../../components/modals/video/VideoModal";
+import ArticleModal from "../../components/modals/article/ArticleModal";
 import { therapyContentConfig } from "../../data/therapy_content_config";
 import type { ServicePageProps } from "../../types/service_page";
 
@@ -17,6 +21,8 @@ const TherapyPage = ({ service }: ServicePageProps) => {
   const location = useLocation();
   const { data: methodConfig } = useTherapyMethodConfig();
   const { data: therapyOfferingsData } = useTherapyOfferings();
+  const videoModal = useVideoModal();
+  const articleModal = useArticleModal();
 
   // SEO Configuration for Therapy Page
   const seoConfig = {
@@ -99,6 +105,20 @@ const TherapyPage = ({ service }: ServicePageProps) => {
         {/* FAQ Section */}
         <FAQSection pageType="therapy" />
       </motion.div>
+
+      {/* Single Modal Instances for the Entire Page */}
+      <VideoModal
+        isOpen={videoModal.isOpen}
+        onOpenChange={videoModal.onOpenChange}
+        videoId={videoModal.videoId}
+        pageType="therapy"
+      />
+      <ArticleModal
+        isOpen={articleModal.isOpen}
+        onOpenChange={articleModal.onOpenChange}
+        articleId={articleModal.articleId}
+        pageType="therapy"
+      />
     </>
   );
 };

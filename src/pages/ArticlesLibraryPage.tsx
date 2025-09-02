@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import {
   useArticlesByMultipleCategories,
   useArticles,
@@ -128,6 +129,9 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
           totalArticlesCount={totalArticles.length}
         />
       </div>
+      
+      {/* Render modal based on current route */}
+      <Outlet />
     </>
   );
 };
