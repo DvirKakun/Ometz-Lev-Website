@@ -22,4 +22,5 @@ export interface ArticlesGridProps {
   error?: Error | null;
   hasActiveFilters?: boolean;
   totalArticlesCount?: number;
+  pageType?: "training" | "therapy";
 }

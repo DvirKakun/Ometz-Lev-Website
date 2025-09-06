@@ -23,4 +23,5 @@ export interface VideosGridProps {
   error?: Error | null;
   hasActiveFilters?: boolean;
   totalVideosCount?: number;
+  pageType?: "training" | "therapy";
 }

@@ -14,6 +14,7 @@ const ArticlesGrid = ({
   error,
   hasActiveFilters = false,
   totalArticlesCount = 0,
+  pageType = "training",
 }: ArticlesGridProps) => {
   const articleModal = useArticleModal();
 
@@ -81,6 +82,7 @@ const ArticlesGrid = ({
           isOpen={articleModal.isOpen}
           onOpenChange={articleModal.onOpenChange}
           articleId={articleModal.articleId}
+          pageType={pageType}
         />
       </div>
     </section>

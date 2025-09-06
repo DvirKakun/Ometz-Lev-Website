@@ -14,6 +14,7 @@ const VideoGrid = ({
   error,
   hasActiveFilters = false,
   totalVideosCount = 0,
+  pageType = "training",
 }: VideosGridProps) => {
   const videoModal = useVideoModal();
 
@@ -84,6 +85,7 @@ const VideoGrid = ({
           isOpen={videoModal.isOpen}
           onOpenChange={videoModal.onOpenChange}
           videoId={videoModal.videoId}
+          pageType={pageType}
         />
       </div>
     </section>

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
 import {
   useArticlesByMultipleCategories,
   useArticles,
@@ -127,11 +126,9 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
           error={error}
           hasActiveFilters={hasActiveFilters}
           totalArticlesCount={totalArticles.length}
+          pageType={config.pageType as "training" | "therapy"}
         />
       </div>
-      
-      {/* Render modal based on current route */}
-      <Outlet />
     </>
   );
 };

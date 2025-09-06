@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Outlet } from "react-router-dom";
 import {
   useVideosByMultipleCategoriesAndLevel,
   useVideos,
@@ -138,11 +137,9 @@ const VideoLibraryPage = ({ config }: VideoLibraryPageProps) => {
           error={error}
           hasActiveFilters={hasActiveFilters}
           totalVideosCount={totalVideos.length}
+          pageType={config.pageType as "training" | "therapy"}
         />
       </div>
-      
-      {/* Render modal based on current route */}
-      <Outlet />
     </>
   );
 };
