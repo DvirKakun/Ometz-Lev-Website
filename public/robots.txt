@@ -1,6 +1,26 @@
 User-agent: *
+# Block pages you don't want in search results
+Disallow: /home
 Disallow: /privacy
 Disallow: /terms
 Disallow: /accessibility
+Disallow: /admin
+Disallow: /api
+Disallow: /*.json$
+Disallow: /*.xml$
+
+# Allow root and main content pages
+Allow: /
+Allow: /training
+Allow: /therapy  
+Allow: /activities
+Allow: /schools
+Allow: /training-videos-library
+Allow: /training-articles-library
+Allow: /therapy-videos-library
+Allow: /therapy-articles-library
 
 Sitemap: https://xn--4dbcl2aj6b.xn--4dbrk0ce/sitemap.xml
+
+# Additional robots.txt rules for SEO
+Crawl-delay: 1
