@@ -11,8 +11,7 @@ import { getKeywordsForPage } from "../data/seo-keywords";
 import LoadingSpinner from "../components/common/StateLoadingSpinner";
 import StateDisplay from "../components/common/StateDisplay";
 import { useActivities } from "../hooks/useActivities";
-import { useSummerCampModal } from "../hooks/useSummerCampModal";
-import { useImageModal } from "../hooks/useImageModal";
+import { useRouterModal } from "../hooks/useRouterModal";
 import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
 import ImageDialog from "../components/sections/activities_page/ImageDialog";
 import type { ServicePageProps } from "../types/service_page";
@@ -22,8 +21,13 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
   const scrollTargetRef = useRef<string | null>(null);
 
   // Modal hooks
-  const summerCampModal = useSummerCampModal();
-  const imageModal = useImageModal();
+  const summerCampModal = useRouterModal({ modalKey: "summerCamp" });
+  const imageModal = useRouterModal<{
+    imageUrl: string;
+    alt: string;
+    imageIndex: number;
+    totalImages: number;
+  }>({ modalKey: "image" });
 
   // SEO Configuration for Activities Page
   const seoConfig = {
@@ -194,15 +198,15 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
         isOpen={summerCampModal.isOpen}
         onOpenChange={summerCampModal.onOpenChange}
       />
-      
-      {imageModal.imageData && (
+
+      {imageModal.modalData && (
         <ImageDialog
           isOpen={imageModal.isOpen}
           onClose={imageModal.closeModal}
-          imageUrl={imageModal.imageData.imageUrl}
-          alt={imageModal.imageData.alt}
-          imageIndex={imageModal.imageData.imageIndex}
-          totalImages={imageModal.imageData.totalImages}
+          imageUrl={imageModal.modalData.imageUrl}
+          alt={imageModal.modalData.alt}
+          imageIndex={imageModal.modalData.imageIndex}
+          totalImages={imageModal.modalData.totalImages}
         />
       )}
     </>

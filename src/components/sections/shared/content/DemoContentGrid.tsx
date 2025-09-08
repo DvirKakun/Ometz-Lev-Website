@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 import { useDemoArticles } from "../../../../hooks/useArticles";
 import { useDemoVideos } from "../../../../hooks/useVideos";
-import { useVideoModal } from "../../../../hooks/useVideoModal";
-import { useArticleModal } from "../../../../hooks/useArticleModal";
+import { useRouterModal } from "../../../../hooks/useRouterModal";
 import VideoCard from "../../video_library_page/VideoCard";
 import ArticleCard from "../../articles_library_page/ArticleCard";
 import LoadingSpinner from "../../../common/StateLoadingSpinner";
@@ -16,15 +15,17 @@ export default function DemoContentGrid({
   contentType,
   pageType,
 }: DemoContentGridProps) {
-  const videoModal = useVideoModal();
-  const articleModal = useArticleModal();
+  const videoModal = useRouterModal<string>({ modalKey: "video" });
+  const articleModal = useRouterModal<string>({ modalKey: "article" });
 
   const handleArticleClick = (article: Article) => {
-    articleModal.openModal(article);
+    const id = article.articleKey || `article-${article.title}`;
+    articleModal.openModal(id);
   };
 
   const handleVideoClick = (video: Video) => {
-    videoModal.openModal(video);
+    const id = video.videoKey || `video-${video.title}`;
+    videoModal.openModal(id);
   };
 
   // Always call hooks at the top level

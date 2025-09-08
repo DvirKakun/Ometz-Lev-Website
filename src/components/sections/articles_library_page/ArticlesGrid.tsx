@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useArticleModal } from "../../../hooks/useArticleModal";
+import { useRouterModal } from "../../../hooks/useRouterModal";
 import ArticleCard from "./ArticleCard";
 import ArticleModal from "../../modals/article/ArticleModal";
 import EmptyState from "./EmptyState";
@@ -16,11 +16,17 @@ const ArticlesGrid = ({
   totalArticlesCount = 0,
   pageType = "training",
 }: ArticlesGridProps) => {
-  const articleModal = useArticleModal();
+  const { isOpen, modalData, openModal, onOpenChange } = useRouterModal<string>(
+    {
+      modalKey: "article",
+    }
+  );
 
   const handleArticleClick = (article: Article) => {
-    articleModal.openModal(article);
+    const id = article.articleKey || `article-${article.title}`;
+    openModal(id);
   };
+
   if (isLoading) {
     return (
       <section className="py-12">
@@ -79,9 +85,9 @@ const ArticlesGrid = ({
 
         {/* Article Modal */}
         <ArticleModal
-          isOpen={articleModal.isOpen}
-          onOpenChange={articleModal.onOpenChange}
-          articleId={articleModal.articleId}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          articleId={modalData}
           pageType={pageType}
         />
       </div>

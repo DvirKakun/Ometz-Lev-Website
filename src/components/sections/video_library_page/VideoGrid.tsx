@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useVideoModal } from "../../../hooks/useVideoModal";
+import { useRouterModal } from "../../../hooks/useRouterModal";
 import VideoCard from "./VideoCard";
 import VideoModal from "../../modals/video/VideoModal";
 import EmptyState from "./EmptyState";
@@ -16,11 +16,17 @@ const VideoGrid = ({
   totalVideosCount = 0,
   pageType = "training",
 }: VideosGridProps) => {
-  const videoModal = useVideoModal();
+  const { isOpen, modalData, openModal, onOpenChange } = useRouterModal<string>(
+    {
+      modalKey: "video",
+    }
+  );
 
   const handleVideoClick = (video: Video) => {
-    videoModal.openModal(video);
+    const id = video.videoKey || `video-${video.title}`;
+    openModal(id);
   };
+
   if (isLoading) {
     return (
       <section className="py-12">
@@ -82,9 +88,9 @@ const VideoGrid = ({
 
         {/* Video Modal */}
         <VideoModal
-          isOpen={videoModal.isOpen}
-          onOpenChange={videoModal.onOpenChange}
-          videoId={videoModal.videoId}
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          videoId={modalData}
           pageType={pageType}
         />
       </div>

@@ -68,6 +68,12 @@ const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
       return;
     }
 
+    // Don't reset loading if this is just a modal state change
+    const isModalStateChange = location.state?.modal && !returnFromLibrary;
+    if (isModalStateChange) {
+      return;
+    }
+
     // Reset loading state and start time when route changes
     setIsLoading(true);
     setGlobalLoading(true);
@@ -95,10 +101,14 @@ const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
     }
   }, [
     location.pathname,
-    location.state,
+    location.state?.returnFromLibrary,
     minLoadTime,
     setGlobalLoading,
     isPageDataLoading,
+    isTrainingPage,
+    isTherapyPage,
+    isActivitiesPage,
+    isSchoolsPage,
   ]);
 
   if (isLoading) {

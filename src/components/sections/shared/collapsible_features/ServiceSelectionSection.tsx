@@ -5,7 +5,7 @@ import { Button } from "../../../ui/button";
 import WhatsAppButton from "../../../common/WhatsAppButton";
 import { Info } from "lucide-react";
 import OfferingDetailsModal from "../../../modals/offering/OfferingDetailsModal";
-import { useOfferingModal } from "../../../../hooks/useOfferingModal";
+import { useRouterModal } from "../../../../hooks/useRouterModal";
 import {
   useTherapyOfferings,
   useTrainingOfferings,
@@ -23,7 +23,7 @@ import type { ProcessedFullOffering } from "../../../../types/service_offerings"
  * ✱  `dir="rtl"` on root for Hebrew
  */
 const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
-  const { isOpen, offeringId, openModal, onOpenChange } = useOfferingModal();
+  const { isOpen, modalData: offeringId, openModal, onOpenChange } = useRouterModal<string>({ modalKey: "offering" });
   const { data: therapyOfferingsData } = useTherapyOfferings();
   const { data: trainingOfferingsData } = useTrainingOfferings();
 
@@ -36,7 +36,7 @@ const ServiceSelectionSection = ({ service }: ServiceSelectionSectionProps) => {
     offeringsData?.offerings?.find((o) => o.id === offeringId) || null;
 
   const handleOfferingDetails = (offering: ProcessedFullOffering) => {
-    openModal(offering);
+    openModal(offering.id);
   };
 
   return (

@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import CtaButtons from "./CtaButtons";
 import ServiceHeader from "../headers/MainHeader";
 import ServiceSelectionSection from "./ServiceSelectionSection";
-import { useContactModal } from "../../../../hooks/useContactModal";
+import { useRouterModal } from "../../../../hooks/useRouterModal";
 import type { CollapsibleFeaturesProps } from "../../../../types/collapsible_features";
 
 const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
-  const { openModal } = useContactModal();
+  const { openModal } = useRouterModal({ modalKey: "contact" });
 
   const scrollToSection = (href: string) => {
     // Handle contact modal
@@ -78,7 +78,6 @@ const CollapsibleFeatures = ({ service }: CollapsibleFeaturesProps) => {
           </motion.div>
         </div>
       </section>
-
     </>
   );
 };

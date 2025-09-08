@@ -2,10 +2,12 @@ import React from "react";
 import { motion } from "framer-motion";
 import TrustBadge from "./TrustBadge";
 import ContactModal from "../../modals/contact/ContactModal";
-import { useContactModal } from "../../../hooks/useContactModal";
+import { useRouterModal } from "../../../hooks/useRouterModal";
 
 const ContactCTA: React.FC = () => {
-  const { isOpen, openModal, onOpenChange } = useContactModal();
+  const { isOpen, openModal, onOpenChange } = useRouterModal({
+    modalKey: "contact",
+  });
   return (
     <section className="py-12 lg:py-16 bg-white  text-gray-900 relative overflow-hidden">
       <div className="container-max section-padding relative z-10">
@@ -42,7 +44,7 @@ const ContactCTA: React.FC = () => {
             viewport={{ once: true }}
             className="flex justify-center"
           >
-            <TrustBadge onClick={openModal} />
+            <TrustBadge onClick={() => openModal()} />
           </motion.div>
         </div>
       </div>

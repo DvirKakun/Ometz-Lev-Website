@@ -10,8 +10,7 @@ import SEOJsonLD from "../../components/seo/SEOJsonLD";
 import { getKeywordsForPage } from "../../data/seo-keywords";
 import { useTrainingMethodConfig } from "../../hooks/useTrainingMethodConfig";
 import { useTrainingOfferings } from "../../hooks/useServiceOfferings";
-import { useVideoModal } from "../../hooks/useVideoModal";
-import { useArticleModal } from "../../hooks/useArticleModal";
+import { useRouterModal } from "../../hooks/useRouterModal";
 import VideoModal from "../../components/modals/video/VideoModal";
 import ArticleModal from "../../components/modals/article/ArticleModal";
 import { trainingContentConfig } from "../../data/training_content_config";
@@ -21,8 +20,8 @@ export default function TrainingPage({ service }: ServicePageProps) {
   const location = useLocation();
   const { data: methodConfig } = useTrainingMethodConfig();
   const { data: trainingOfferingsData } = useTrainingOfferings();
-  const videoModal = useVideoModal();
-  const articleModal = useArticleModal();
+  const videoModal = useRouterModal<string>({ modalKey: "video" });
+  const articleModal = useRouterModal<string>({ modalKey: "article" });
 
   // SEO Configuration for Training Page
   const seoConfig = {
@@ -117,13 +116,13 @@ export default function TrainingPage({ service }: ServicePageProps) {
       <VideoModal
         isOpen={videoModal.isOpen}
         onOpenChange={videoModal.onOpenChange}
-        videoId={videoModal.videoId}
+        videoId={videoModal.modalData}
         pageType="training"
       />
       <ArticleModal
         isOpen={articleModal.isOpen}
         onOpenChange={articleModal.onOpenChange}
-        articleId={articleModal.articleId}
+        articleId={articleModal.modalData}
         pageType="training"
       />
     </>
