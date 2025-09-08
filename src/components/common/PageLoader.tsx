@@ -4,11 +4,30 @@ import LoadingPage from "../../pages/LoadingPage";
 import type { PageLoaderProps } from "../../types/page_loader";
 import { useLoading } from "../../contexts/LoadingContext";
 import {
+  LoadingProgressProvider,
+  useLoadingProgress,
+} from "../../contexts/LoadingProgressContext";
+import {
   useTrainingPageLoadingState,
   useTherapyPageLoadingState,
   useActivitiesPageLoadingState,
   useSchoolsPageLoadingState,
 } from "../../hooks/usePrefetchData";
+
+// Wrapper component to handle progress updates without re-rendering LoadingPage
+const LoadingPageWrapper = ({
+  pageProgress,
+}: {
+  pageProgress: number | undefined;
+}) => {
+  const { setProgress } = useLoadingProgress();
+
+  useEffect(() => {
+    setProgress(pageProgress);
+  }, [pageProgress, setProgress]);
+
+  return <LoadingPage />;
+};
 
 const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -112,7 +131,11 @@ const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
   ]);
 
   if (isLoading) {
-    return <LoadingPage progress={pageProgress} />;
+    return (
+      <LoadingProgressProvider>
+        <LoadingPageWrapper pageProgress={pageProgress} />
+      </LoadingProgressProvider>
+    );
   }
 
   return <>{children}</>;

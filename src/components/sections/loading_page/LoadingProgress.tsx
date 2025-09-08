@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import type { LoadingProgressProps } from "../../../types/loading_page";
+import { useLoadingProgress } from "../../../contexts/LoadingProgressContext";
 
-const LoadingProgress = ({ color, progress }: LoadingProgressProps) => {
+const LoadingProgress = ({ color }: { color: string }) => {
+  const { progress } = useLoadingProgress();
   return (
     <motion.div
       initial={{ opacity: 0 }}

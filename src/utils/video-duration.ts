@@ -11,9 +11,11 @@ export function formatDuration(durationInSeconds: number): string {
   const seconds = Math.floor(durationInSeconds % 60);
 
   if (hours > 0) {
-    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return `${hours}:${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")}`;
   } else {
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   }
 }
 
@@ -21,36 +23,51 @@ export function formatDuration(durationInSeconds: number): string {
  * Get video duration from video URL
  * Returns a promise that resolves to duration string in MM:SS or HH:MM:SS format
  */
-export function getVideoDuration(videoUrl: string): Promise<string> {
-  return new Promise((resolve, reject) => {
-    if (!videoUrl) {
-      reject(new Error('Video URL is required'));
-      return;
-    }
+export async function getVideoDuration(videoUrl: string): Promise<string> {
+  if (!videoUrl) {
+    return "--:--";
+  }
 
-    const video = document.createElement('video');
-    video.preload = 'metadata';
-    
+  return new Promise((resolve) => {
+    const video = document.createElement("video");
+    video.preload = "metadata";
+    video.muted = true; // Ensure no audio plays
+    video.playsInline = true; // Better mobile support
+
+    const timeout = setTimeout(() => {
+      cleanup();
+      resolve("--:--");
+    }, 5000); // 5 second timeout
+
+    const cleanup = () => {
+      clearTimeout(timeout);
+      video.removeAttribute("src");
+      video.load();
+    };
+
     video.onloadedmetadata = () => {
       const duration = video.duration;
+
+      cleanup();
+
       if (isNaN(duration) || !isFinite(duration)) {
-        reject(new Error('Could not determine video duration'));
-        return;
+        resolve("--:--");
+      } else {
+        resolve(formatDuration(duration));
       }
-      
-      const formattedDuration = formatDuration(duration);
-      resolve(formattedDuration);
     };
 
     video.onerror = () => {
-      reject(new Error('Failed to load video metadata'));
+      cleanup();
+      resolve("--:--");
     };
 
     video.onabort = () => {
-      reject(new Error('Video loading was aborted'));
+      cleanup();
+      resolve("--:--");
     };
 
-    // Set video source to trigger metadata loading
+    // Set source last to trigger loading
     video.src = videoUrl;
   });
 }
@@ -60,38 +77,41 @@ export function getVideoDuration(videoUrl: string): Promise<string> {
  */
 export function parseDurationToSeconds(duration: string): number {
   if (!duration) return 0;
-  
-  const parts = duration.split(':').map(Number);
-  
+
+  const parts = duration.split(":").map(Number);
+
   if (parts.length === 2) {
     // MM:SS format
     return parts[0] * 60 + parts[1];
   } else if (parts.length === 3) {
-    // HH:MM:SS format  
+    // HH:MM:SS format
     return parts[0] * 3600 + parts[1] * 60 + parts[2];
   }
-  
+
   return 0;
 }
 
 /**
  * Calculate total duration from array of duration strings
  */
-export function calculateTotalDuration(durations: (string | undefined)[]): { totalMinutes: number; formattedDuration: string } {
+export function calculateTotalDuration(durations: (string | undefined)[]): {
+  totalMinutes: number;
+  formattedDuration: string;
+} {
   const totalSeconds = durations
     .filter(Boolean)
     .reduce((total, duration) => total + parseDurationToSeconds(duration!), 0);
-  
+
   const totalMinutes = Math.round(totalSeconds / 60);
   const formattedDuration = formatDuration(totalSeconds);
-  
+
   return { totalMinutes, formattedDuration };
 }
 
 /**
  * React hook to get video duration
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 export function useVideoDuration(videoUrl: string) {
   const [duration, setDuration] = useState<string | null>(null);
@@ -114,7 +134,7 @@ export function useVideoDuration(videoUrl: string) {
         setError(null);
       })
       .catch((err) => {
-        setError(err.message || 'Failed to get video duration');
+        setError(err.message || "Failed to get video duration");
         setDuration(null);
       })
       .finally(() => {

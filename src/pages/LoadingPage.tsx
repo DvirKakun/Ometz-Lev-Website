@@ -12,11 +12,7 @@ import LoadingMessage from "../components/sections/loading_page/LoadingMessage";
 import { usePrefetchForRoute } from "../hooks/usePrefetchData";
 import { useImagePreloader } from "../hooks/useImagePreloader";
 
-interface LoadingPageProps {
-  progress?: number;
-}
-
-const LoadingPage = ({ progress }: LoadingPageProps = {}) => {
+const LoadingPage = () => {
   const location = useLocation();
 
   // Prefetch data based on current route
@@ -78,7 +74,6 @@ const LoadingPage = ({ progress }: LoadingPageProps = {}) => {
         <LoadingContent title={service.title} />
         <LoadingProgress
           color="from-primary-400 to-primary-500"
-          progress={progress}
         />
         <LoadingMessage />
       </LoadingCard>
