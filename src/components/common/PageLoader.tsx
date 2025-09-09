@@ -87,8 +87,12 @@ const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
       return;
     }
 
-    // Don't reset loading if this is just a modal state change
-    const isModalStateChange = location.state?.modal && !returnFromLibrary;
+    // Don't reset loading if this is just a modal state change (not a page refresh)
+    // We detect page refresh by checking if there's existing loading state
+    const isModalStateChange = location.state?.modal && 
+      !returnFromLibrary && 
+      !isLoading; // If we're already loading, this is likely a refresh, not just a modal change
+    
     if (isModalStateChange) {
       return;
     }

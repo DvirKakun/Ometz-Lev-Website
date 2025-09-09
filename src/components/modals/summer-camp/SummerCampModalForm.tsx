@@ -1,477 +1,148 @@
-import { useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { User, Baby, GraduationCap, Send } from "lucide-react";
-import { Slider } from "../../ui/slider";
-import emailjs from "@emailjs/browser";
 import type { SummerCampModalFormProps } from "../../../types/modals";
+
+// Extracted components and hooks
 import {
-  FormInput,
-  FormSelect,
-  FormRadioGroup,
-  FormTextarea,
-  FormSubmitButton,
-  FormSection,
-  PrivacyTermsCheckbox,
-} from "../../forms";
-
-const GRADE_OPTIONS = [
-  "א׳",
-  "ב׳",
-  "ג׳",
-  "ד׳",
-  "ה׳",
-  "ו׳",
-  "ז׳",
-  "ח׳",
-  "ט׳",
-  "י׳",
-  "יא׳",
-  "יב׳",
-];
-
-const formSchema = z
-  .object({
-    session: z.enum(["ראשון", "שני", "שלישי"], {
-      required_error: "יש לבחור מחזור",
-      invalid_type_error: "יש לבחור מחזור",
-    }),
-    childName: z
-      .string()
-      .min(1, "שם הילד/ה הוא שדה חובה")
-      .regex(/^[\u0590-\u05FF\s]+$/, "השם חייב להכיל רק אותיות בעברית"),
-    age: z
-      .number({
-        required_error: "גיל הוא שדה חובה",
-        invalid_type_error: "גיל חייב להיות מספר",
-      })
-      .min(1, "גיל חייב להיות לפחות 1"),
-    grade: z
-      .string()
-      .min(1, "יש לבחור כיתה")
-      .refine(
-        (val) =>
-          [
-            "א׳",
-            "ב׳",
-            "ג׳",
-            "ד׳",
-            "ה׳",
-            "ו׳",
-            "ז׳",
-            "ח׳",
-            "ט׳",
-            "י׳",
-            "יא׳",
-            "יב׳",
-          ].includes(val),
-        { message: "יש לבחור כיתה תקינה" }
-      ),
-    motherName: z
-      .string()
-      .optional()
-      .refine((val) => !val || /^[\u0590-\u05FF\s]+$/.test(val), {
-        message: "השם חייב להכיל רק אותיות בעברית",
-      }),
-    motherPhone: z.string().optional(),
-    fatherName: z
-      .string()
-      .optional()
-      .refine((val) => !val || /^[\u0590-\u05FF\s]+$/.test(val), {
-        message: "השם חייב להכיל רק אותיות בעברית",
-      }),
-    fatherPhone: z.string().optional(),
-    dogFear: z
-      .string()
-      .nullable()
-      .refine((val) => val !== null && val !== "", {
-        message: "יש לבחור אם יש פחד מכלבים",
-      }),
-    dogFearScale: z.number().min(1).max(10).optional(),
-    allergies: z
-      .string()
-      .nullable()
-      .refine((val) => val !== null && val !== "", {
-        message: "יש לבחור אם יש אלרגיות",
-      }),
-    allergiesText: z.string().optional(),
-    healthIssues: z
-      .string()
-      .nullable()
-      .refine((val) => val !== null && val !== "", {
-        message: "יש לבחור אם יש בעיות בריאותיות",
-      }),
-    healthIssuesText: z.string().optional(),
-    notes: z.string().optional(),
-    termsAccepted: z.boolean().refine((val) => val === true, {
-      message: "יש לאשר את תנאי השימוש והפרטיות",
-    }),
-  })
-  .refine(
-    (data) =>
-      (data.motherName &&
-        data.motherName.trim() !== "" &&
-        data.motherPhone &&
-        data.motherPhone.trim() !== "") ||
-      (data.fatherName &&
-        data.fatherName.trim() !== "" &&
-        data.fatherPhone &&
-        data.fatherPhone.trim() !== ""),
-    {
-      message: "חובה לספק לפחות שם ומספר טלפון של אחד ההורים",
-      path: ["motherName"],
-    }
-  )
-  .refine((data) => data.dogFear !== "כן" || data.dogFearScale, {
-    message: "אנא ציינו את רמת הפחד בסקלה",
-    path: ["dogFearScale"],
-  })
-  .refine((data) => data.allergies !== "יש" || data.allergiesText, {
-    message: "אנא פרטו את האלרגיות",
-    path: ["allergiesText"],
-  })
-  .refine((data) => data.healthIssues !== "יש" || data.healthIssuesText, {
-    message: "אנא פרטו את הבעיות הבריאותיות",
-    path: ["healthIssuesText"],
-  });
-
-type FormData = z.infer<typeof formSchema>;
+  step1Schema,
+  step2Schema,
+  step3Schema,
+  step4Schema,
+} from "./schemas/formSchemas";
+import { StepIndicator } from "./components/StepIndicator";
+import { StepNavigation } from "./components/StepNavigation";
+import { Step1Component } from "./components/Step1Component";
+import { Step2Component } from "./components/Step2Component";
+import { Step3Component } from "./components/Step3Component";
+import { Step4Component } from "./components/Step4Component";
+import { useStepValidation } from "./hooks/useStepValidation";
+import { useFormSubmission } from "./hooks/useFormSubmission";
+import { useParentErrorClearing } from "./hooks/useParentErrorClearing";
+import type { ZodSchema } from "zod";
 
 const SummerCampModalForm = ({
   onSuccess,
   onError,
 }: SummerCampModalFormProps) => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
+  const totalSteps = 4;
+
+  function getSchemaForStep(step: number): {
+    schema: ZodSchema<any>;
+    defaultValues: any;
+  } {
+    switch (step) {
+      case 1:
+        return { schema: step1Schema, defaultValues: {} };
+      case 2:
+        return { schema: step2Schema, defaultValues: {} };
+      case 3:
+        return { schema: step3Schema, defaultValues: {} };
+      case 4:
+        return { schema: step4Schema, defaultValues: {} };
+      default:
+        return { schema: step1Schema, defaultValues: {} };
+    }
+  }
+
+  const { schema } = useMemo(
+    () => getSchemaForStep(currentStep),
+    [currentStep]
+  );
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, touchedFields },
     reset,
     watch,
     setValue,
-  } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
+    trigger,
+    clearErrors,
+  } = useForm<any>({
+    resolver: zodResolver(schema as any),
+    mode: "onChange",
   });
 
-  const watchDogFear = watch("dogFear");
-  const watchAllergies = watch("allergies");
-  const watchHealthIssues = watch("healthIssues");
-  const watchDogFearScale = watch("dogFearScale");
+  // Custom hooks for logic separation
+  const { validateStep } = useStepValidation({
+    watch,
+    setValue,
+    trigger,
+  });
 
-  // Clear dependent fields when parent field changes to "no"
-  useEffect(() => {
-    if (watchDogFear === "לא") {
-      setValue("dogFearScale", undefined);
+  useParentErrorClearing({
+    watch,
+    clearErrors,
+  });
+
+  const { isSubmitting, submitForm } = useFormSubmission({
+    onSuccess,
+    onError,
+    onReset: reset,
+    setCurrentStep,
+  });
+
+  // Step navigation logic
+  const nextStep = async () => {
+    const isValid = await validateStep(currentStep);
+    if (isValid && currentStep < totalSteps) {
+      setCurrentStep(currentStep + 1);
     }
-  }, [watchDogFear, setValue]);
+  };
 
-  useEffect(() => {
-    if (watchAllergies === "אין") {
-      setValue("allergiesText", "");
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep(currentStep - 1);
     }
-  }, [watchAllergies, setValue]);
+  };
 
-  useEffect(() => {
-    if (watchHealthIssues === "אין") {
-      setValue("healthIssuesText", "");
-    }
-  }, [watchHealthIssues, setValue]);
-
-  const onSubmit = async (data: FormData) => {
-    setIsSubmitting(true);
-
-    try {
-      const templateParams = {
-        session: data.session,
-        childName: data.childName,
-        age: data.age,
-        grade: data.grade,
-        motherName: data.motherName || "לא סופק",
-        motherPhone: data.motherPhone || "לא סופק",
-        fatherName: data.fatherName || "לא סופק",
-        fatherPhone: data.fatherPhone || "לא סופק",
-        dogFear: data.dogFear,
-        dogFearScale: data.dogFearScale
-          ? `רמת פחד: ${data.dogFearScale}/10`
-          : "",
-        allergies: data.allergies,
-        allergiesText: data.allergiesText || "",
-        healthIssues: data.healthIssues,
-        healthIssuesText: data.healthIssuesText || "",
-        notes: data.notes || "לא סופקו הערות",
-        time: new Date().toLocaleString("he-IL", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZone: "Asia/Jerusalem",
-        }),
-      };
-
-      await emailjs.send(
-        "service_k21go0m",
-        "template_27fc0bl",
-        templateParams,
-        "l-UTOpbo-lr3Vt79x"
-      );
-
-      reset();
-      onSuccess();
-    } catch (error) {
-      console.error("Registration error:", error);
-      onError();
-    } finally {
-      setIsSubmitting(false);
+  // Render current step component
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case 1:
+        return <Step1Component register={register} errors={errors} />;
+      case 2:
+        return <Step2Component register={register} errors={errors} />;
+      case 3:
+        return (
+          <Step3Component
+            register={register}
+            errors={errors}
+            watch={watch}
+            setValue={setValue}
+          />
+        );
+      case 4:
+        return (
+          <Step4Component
+            register={register}
+            errors={errors}
+            touchedFields={touchedFields}
+          />
+        );
+      default:
+        return null;
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
-      <FormSection>
-        {/* Session Selection */}
-        <FormRadioGroup
-          label="מחזור"
-          options={["ראשון", "שני", "שלישי"]}
-          register={register("session")}
-          error={errors.session?.message}
-          layout="grid"
-          required
-        />
-      </FormSection>
+    <div className="w-full max-w-2xl mx-auto">
+      <StepIndicator currentStep={currentStep} totalSteps={totalSteps} />
 
-      <FormSection>
-        {/* Basic Info - 3 Columns with appropriate widths */}
-        <div className="grid grid-cols-12 gap-2">
-          <FormInput
-            label="שם הילד/ה"
-            icon={User}
-            placeholder="שם"
-            register={register("childName")}
-            error={errors.childName?.message}
-            required
-            className="col-span-12 sm:col-span-6"
-          />
+      <form onSubmit={handleSubmit(submitForm)} className="flex flex-col">
+        <div className="mb-6">{renderCurrentStep()}</div>
 
-          <FormInput
-            label="גיל"
-            icon={Baby}
-            placeholder="גיל"
-            inputMode="numeric"
-            register={register("age", { valueAsNumber: true })}
-            error={errors.age?.message}
-            required
-            className="col-span-6 sm:col-span-3"
-          />
-
-          <FormSelect
-            label="כיתה"
-            icon={GraduationCap}
-            placeholder="בחר כיתה"
-            options={GRADE_OPTIONS}
-            register={register("grade")}
-            error={errors.grade?.message}
-            required
-            className="col-span-6 sm:col-span-3"
-          />
-        </div>
-      </FormSection>
-
-      <FormSection>
-        {/* Parents Info - Compact */}
-        <div>
-          <label className="text-xs text-slate-700 block text-right mb-1">
-            פרטי הורים (לפחות אחד) *
-          </label>
-          <div className="grid grid-cols-2 gap-1 mb-1">
-            <FormInput
-              label=""
-              placeholder="שם אמא"
-              register={register("motherName")}
-              inputClassName="text-xs py-1"
-            />
-            <FormInput
-              label=""
-              placeholder="טלפון אמא"
-              type="tel"
-              register={register("motherPhone")}
-              inputClassName="text-xs py-1"
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-1">
-            <FormInput
-              label=""
-              placeholder="שם אבא"
-              register={register("fatherName")}
-              inputClassName="text-xs py-1"
-            />
-            <FormInput
-              label=""
-              placeholder="טלפון אבא"
-              type="tel"
-              register={register("fatherPhone")}
-              inputClassName="text-xs py-1"
-            />
-          </div>
-          {errors.motherName && (
-            <p className="text-red-600 text-xs text-right mt-1">
-              {errors.motherName.message}
-            </p>
-          )}
-        </div>
-      </FormSection>
-
-      <FormSection>
-        {/* Health Info - Compact 3 Columns */}
-        <div>
-          <label className="text-xs text-slate-700 block text-right mb-1">
-            מידע בריאותי *
-          </label>
-
-          <div className="grid grid-cols-3 gap-2">
-            {/* Dog Fear */}
-            <div>
-              <FormRadioGroup
-                label="פחד מכלבים"
-                options={["כן", "לא"]}
-                register={register("dogFear")}
-                layout="grid"
-                optionClassName="px-1 py-1"
-                className="text-center"
-              />
-              {watchDogFear === "כן" && (
-                <div className="mt-2">
-                  <Slider
-                    defaultValue={[5]}
-                    max={10}
-                    min={1}
-                    step={1}
-                    className="w-full mb-2 [&_.bg-primary\/20]:!bg-slate-200 [&_.bg-primary]:!bg-primary-500 [&_.bg-background]:!bg-primary-500 [&_.border-primary\/50]:!border-white [&_.border-primary\/50]:!border-2"
-                    onValueChange={(value) =>
-                      setValue("dogFearScale", value[0])
-                    }
-                  />
-                  <div className="text-center text-xs text-slate-600">
-                    {watchDogFearScale || 5}/10
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Allergies */}
-            <div>
-              <FormRadioGroup
-                label="אלרגיות"
-                options={["יש", "אין"]}
-                register={register("allergies")}
-                layout="grid"
-                optionClassName="px-1 py-1"
-                className="text-center"
-              />
-              {watchAllergies === "יש" && (
-                <FormInput
-                  label=""
-                  placeholder="פרטי אלרגיות..."
-                  register={register("allergiesText")}
-                  inputClassName="text-xs py-1 mt-1"
-                />
-              )}
-            </div>
-
-            {/* Health Issues */}
-            <div>
-              <FormRadioGroup
-                label="בריאות"
-                options={["יש", "אין"]}
-                register={register("healthIssues")}
-                layout="grid"
-                optionClassName="px-1 py-1"
-                className="text-center"
-              />
-              {watchHealthIssues === "יש" && (
-                <FormInput
-                  label=""
-                  placeholder="פרטי בעיות..."
-                  register={register("healthIssuesText")}
-                  inputClassName="text-xs py-1 mt-1"
-                />
-              )}
-            </div>
-          </div>
-
-          {/* Health Errors */}
-          {(errors.dogFear ||
-            errors.dogFearScale ||
-            errors.allergies ||
-            errors.allergiesText ||
-            errors.healthIssues ||
-            errors.healthIssuesText) && (
-            <div className="mt-1">
-              {errors.dogFear && (
-                <p className="text-red-600 text-xs text-right">
-                  {errors.dogFear.message}
-                </p>
-              )}
-              {errors.dogFearScale && (
-                <p className="text-red-600 text-xs text-right">
-                  {errors.dogFearScale.message}
-                </p>
-              )}
-              {errors.allergies && (
-                <p className="text-red-600 text-xs text-right">
-                  {errors.allergies.message}
-                </p>
-              )}
-              {errors.allergiesText && (
-                <p className="text-red-600 text-xs text-right">
-                  {errors.allergiesText.message}
-                </p>
-              )}
-              {errors.healthIssues && (
-                <p className="text-red-600 text-xs text-right">
-                  {errors.healthIssues.message}
-                </p>
-              )}
-              {errors.healthIssuesText && (
-                <p className="text-red-600 text-xs text-right">
-                  {errors.healthIssuesText.message}
-                </p>
-              )}
-            </div>
-          )}
-        </div>
-      </FormSection>
-
-      <FormSection>
-        {/* Notes */}
-        <FormTextarea
-          placeholder="הערות נוספות (אופציונלי)..."
-          register={register("notes")}
-          rows={2}
-        />
-      </FormSection>
-
-      <FormSection>
-        {/* Privacy Policy Checkbox */}
-        <PrivacyTermsCheckbox
-          register={register("termsAccepted")}
-          error={errors.termsAccepted}
-        />
-      </FormSection>
-
-      <FormSection>
-        {/* Submit Button */}
-        <FormSubmitButton
+        <StepNavigation
+          currentStep={currentStep}
+          totalSteps={totalSteps}
           isSubmitting={isSubmitting}
-          submittingText="שולח..."
-          submitText="שלח הרשמה"
-          icon={Send}
+          onPrevStep={prevStep}
+          onNextStep={nextStep}
         />
-      </FormSection>
-    </form>
+      </form>
+    </div>
   );
 };
 

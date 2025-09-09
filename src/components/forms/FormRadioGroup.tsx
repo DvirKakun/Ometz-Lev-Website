@@ -29,7 +29,7 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
       </label>
       <div className={getLayoutClasses()}>
         {options.map((option) => (
-          <label key={option} className="relative">
+          <label key={option} className="relative flex-1">
             <input
               {...register}
               type="radio"
