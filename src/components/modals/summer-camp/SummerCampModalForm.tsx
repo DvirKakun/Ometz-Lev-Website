@@ -1,14 +1,12 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { SummerCampModalFormProps } from "../../../types/modals";
 
 // Extracted components and hooks
 import {
-  step1Schema,
-  step2Schema,
-  step3Schema,
-  step4Schema,
+  formSchema,
+  type FormData,
 } from "./schemas/formSchemas";
 import { StepIndicator } from "./components/StepIndicator";
 import { StepNavigation } from "./components/StepNavigation";
@@ -19,7 +17,6 @@ import { Step4Component } from "./components/Step4Component";
 import { useStepValidation } from "./hooks/useStepValidation";
 import { useFormSubmission } from "./hooks/useFormSubmission";
 import { useParentErrorClearing } from "./hooks/useParentErrorClearing";
-import type { ZodSchema } from "zod";
 
 const SummerCampModalForm = ({
   onSuccess,
@@ -27,29 +24,6 @@ const SummerCampModalForm = ({
 }: SummerCampModalFormProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
-
-  function getSchemaForStep(step: number): {
-    schema: ZodSchema<any>;
-    defaultValues: any;
-  } {
-    switch (step) {
-      case 1:
-        return { schema: step1Schema, defaultValues: {} };
-      case 2:
-        return { schema: step2Schema, defaultValues: {} };
-      case 3:
-        return { schema: step3Schema, defaultValues: {} };
-      case 4:
-        return { schema: step4Schema, defaultValues: {} };
-      default:
-        return { schema: step1Schema, defaultValues: {} };
-    }
-  }
-
-  const { schema } = useMemo(
-    () => getSchemaForStep(currentStep),
-    [currentStep]
-  );
 
   const {
     register,
@@ -60,9 +34,12 @@ const SummerCampModalForm = ({
     setValue,
     trigger,
     clearErrors,
-  } = useForm<any>({
-    resolver: zodResolver(schema as any),
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
     mode: "onChange",
+    defaultValues: {
+      termsAccepted: undefined,
+    },
   });
 
   // Custom hooks for logic separation
