@@ -13,6 +13,17 @@ export const useRouterModal = <T = unknown>({
   const [isOpen, setIsOpen] = useState(false);
   const [modalData, setModalData] = useState<T | null>(null);
 
+  // Clear modal state on page refresh
+  useEffect(() => {
+    if (location.state?.modal) {
+      // Clear modal state on refresh/direct access
+      navigate(location.pathname + location.search, {
+        state: {},
+        replace: true,
+      });
+    }
+  }, []); // Empty dependency array - runs only on mount
+
   // Check if modal should be open based on location state
   useEffect(() => {
     const shouldBeOpen = location.state?.modal === modalKey;

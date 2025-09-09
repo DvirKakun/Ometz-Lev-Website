@@ -9,7 +9,12 @@ interface UseFormSubmissionProps {
   setCurrentStep: (step: number) => void;
 }
 
-export const useFormSubmission = ({ onSuccess, onError, onReset, setCurrentStep }: UseFormSubmissionProps) => {
+export const useFormSubmission = ({
+  onSuccess,
+  onError,
+  onReset,
+  setCurrentStep,
+}: UseFormSubmissionProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submitForm = async (data: FormData) => {
@@ -53,7 +58,7 @@ export const useFormSubmission = ({ onSuccess, onError, onReset, setCurrentStep 
       );
 
       onReset();
-      setCurrentStep(1);
+      setCurrentStep(5);
       onSuccess();
     } catch (error) {
       console.error("Registration error:", error);
