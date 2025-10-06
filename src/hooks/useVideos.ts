@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchVideosFromPrismic } from "../utils/prismic-videos";
-import { calculateTotalDuration } from "../utils/video-duration";
+// import { calculateTotalDuration } from "../utils/video-duration";
 import type { Video } from "../types/videos";
 
 // Custom hook for fetching videos with caching
@@ -96,15 +96,17 @@ export function useVideoStats(page: "training" | "therapy" = "training") {
   );
 
   // Calculate total duration
-  const durations = videos.map((video: Video) => video.duration);
-  const { totalMinutes: totalWatchTimeMinutes, formattedDuration } =
-    calculateTotalDuration(durations);
+  // const durations = videos.map((video: Video) => video.duration);
+  // const { totalMinutes: totalWatchTimeMinutes, formattedDuration } =
+  //   calculateTotalDuration(durations);
+  const totalWatchTimeMinutes = 0;
+  const formattedDuration = "--:--";
 
   return {
     videoCount,
     videosByLevel,
-    totalWatchTimeMinutes,
-    formattedDuration,
+    // totalWatchTimeMinutes,
+    // formattedDuration,
   };
 }
 

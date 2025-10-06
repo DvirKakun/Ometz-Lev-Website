@@ -29,7 +29,7 @@ const LoadingPageWrapper = ({
   return <LoadingPage />;
 };
 
-const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
+const PageLoader = ({ children, minLoadTime = 2000 }: PageLoaderProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const startTimeRef = useRef(Date.now());
   const location = useLocation();
@@ -89,10 +89,9 @@ const PageLoader = ({ children, minLoadTime = 3000 }: PageLoaderProps) => {
 
     // Don't reset loading if this is just a modal state change (not a page refresh)
     // We detect page refresh by checking if there's existing loading state
-    const isModalStateChange = location.state?.modal && 
-      !returnFromLibrary && 
-      !isLoading; // If we're already loading, this is likely a refresh, not just a modal change
-    
+    const isModalStateChange =
+      location.state?.modal && !returnFromLibrary && !isLoading; // If we're already loading, this is likely a refresh, not just a modal change
+
     if (isModalStateChange) {
       return;
     }

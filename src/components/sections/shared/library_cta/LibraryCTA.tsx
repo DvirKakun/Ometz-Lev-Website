@@ -22,17 +22,19 @@ const LibraryCTA = ({
   const getStats = () => {
     if (contentType === "videos") {
       const videoCountDisplay = videoCount > 25 ? "25+" : videoCount.toString();
-      const totalHours = Math.floor(totalWatchTimeMinutes / 60);
-      const remainingMinutes = totalWatchTimeMinutes % 60;
+      // const totalHours = Math.floor(totalWatchTimeMinutes / 60);
+      // const remainingMinutes = totalWatchTimeMinutes % 60;
 
       return {
         count: videoCountDisplay,
         countLabel: "סרטונים",
-        time:
-          totalHours > 0
-            ? `${totalHours}:${remainingMinutes.toString().padStart(2, "0")}`
-            : totalWatchTimeMinutes.toString(),
-        timeLabel: totalHours > 0 ? "שעות" : "דקות",
+        time: null,
+        timeLabel: null,
+        // time:
+        //   totalHours > 0
+        //     ? `${totalHours}:${remainingMinutes.toString().padStart(2, "0")}`
+        //     : totalWatchTimeMinutes.toString(),
+        // timeLabel: totalHours > 0 ? "שעות" : "דקות",
       };
     } else {
       const articleCountDisplay =
@@ -93,12 +95,14 @@ const LibraryCTA = ({
                 </span>
                 <span className="text-slate-500">{stats.countLabel}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className={`font-bold text-primary-500`}>
-                  {stats.time}
-                </span>
-                <span className="text-slate-500">{stats.timeLabel}</span>
-              </div>
+              {stats.time && stats.timeLabel && (
+                <div className="flex items-center gap-2">
+                  <span className={`font-bold text-primary-500`}>
+                    {stats.time}
+                  </span>
+                  <span className="text-slate-500">{stats.timeLabel}</span>
+                </div>
+              )}
             </div>
           </div>
 

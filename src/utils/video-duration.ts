@@ -29,18 +29,13 @@ export async function getVideoDuration(videoUrl: string): Promise<string> {
   }
 
   return new Promise((resolve) => {
+    console.log("Getting duration for video URL:", videoUrl);
     const video = document.createElement("video");
     video.preload = "metadata";
     video.muted = true; // Ensure no audio plays
     video.playsInline = true; // Better mobile support
 
-    const timeout = setTimeout(() => {
-      cleanup();
-      resolve("--:--");
-    }, 5000); // 5 second timeout
-
     const cleanup = () => {
-      clearTimeout(timeout);
       video.removeAttribute("src");
       video.load();
     };

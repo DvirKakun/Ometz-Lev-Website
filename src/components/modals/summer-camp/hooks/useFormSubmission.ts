@@ -50,8 +50,6 @@ export const useFormSubmission = ({
         }),
       };
 
-      console.log(templateParams);
-
       await emailjs.send(
         "service_k21go0m",
         "template_27fc0bl",
