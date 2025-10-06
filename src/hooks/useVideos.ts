@@ -99,8 +99,8 @@ export function useVideoStats(page: "training" | "therapy" = "training") {
   // const durations = videos.map((video: Video) => video.duration);
   // const { totalMinutes: totalWatchTimeMinutes, formattedDuration } =
   //   calculateTotalDuration(durations);
-  const totalWatchTimeMinutes = 0;
-  const formattedDuration = "--:--";
+  // const totalWatchTimeMinutes = 0;
+  // const formattedDuration = "--:--";
 
   return {
     videoCount,

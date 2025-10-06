@@ -60,7 +60,7 @@ export const useStepValidation = ({
             grade: formData.grade,
           });
           return true;
-        } catch (error) {
+        } catch {
           await trigger(["session", "childName", "age", "grade"]);
           return false;
         }
@@ -74,7 +74,7 @@ export const useStepValidation = ({
             fatherPhone: formData.fatherPhone,
           });
           return true;
-        } catch (error) {
+        } catch {
           await trigger([
             "motherName",
             "motherPhone",
@@ -96,7 +96,7 @@ export const useStepValidation = ({
             dogFearScale: formData.dogFearScale,
           });
           return true;
-        } catch (error) {
+        } catch {
           await trigger([
             "dogFear",
             "allergies",
@@ -115,7 +115,7 @@ export const useStepValidation = ({
             termsAccepted: formData.termsAccepted,
           });
           return true;
-        } catch (error) {
+        } catch {
           await trigger(["notes", "termsAccepted"]);
           return false;
         }

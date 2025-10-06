@@ -16,7 +16,7 @@ const LibraryCTA = ({
 
   // Get stats from Prismic
   const { articleCount, totalReadTimeMinutes } = useArticleStats(pageType);
-  const { videoCount, totalWatchTimeMinutes } = useVideoStats(pageType);
+  const { videoCount } = useVideoStats(pageType);
 
   // Calculate stats based on content type
   const getStats = () => {
