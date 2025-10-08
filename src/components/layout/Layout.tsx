@@ -2,6 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import ScrollToTop from "../common/ScrollToTop";
+import ScrollToTopButton from "../common/ScrollToTopButton";
 import ContactCTA from "./contact/ContactCTA";
 import { FloatingTimer } from "../timer";
 import { useLoading } from "../../contexts/LoadingContext";
@@ -43,6 +44,7 @@ export default function Layout() {
           <ContactCTA />
           <Footer />
           <FloatingTimer />
+          <ScrollToTopButton />
         </>
       )}
     </div>
