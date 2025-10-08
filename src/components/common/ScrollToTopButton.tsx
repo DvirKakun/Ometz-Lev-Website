@@ -6,10 +6,20 @@ const ScrollToTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrollDirection, setScrollDirection] = useState<"up" | "down">("down");
+  const [isScrolling, setIsScrolling] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+
+      // Always check if we've reached the top (even during programmatic scroll)
+      if (currentScrollY <= 50) {
+        setIsVisible(false);
+        return;
+      }
+
+      // Don't process scroll direction when programmatically scrolling
+      if (isScrolling) return;
 
       // Determine scroll direction with immediate response
       if (Math.abs(currentScrollY - lastScrollY) > 2) {
@@ -26,11 +36,6 @@ const ScrollToTopButton: React.FC = () => {
 
         setIsVisible(shouldShow);
       }
-
-      // Hide immediately if user reaches top
-      if (currentScrollY <= 50) {
-        setIsVisible(false);
-      }
     };
 
     // Use requestAnimationFrame for smooth performance
@@ -43,16 +48,21 @@ const ScrollToTopButton: React.FC = () => {
     return () => {
       window.removeEventListener("scroll", smoothHandleScroll);
     };
-  }, [lastScrollY, scrollDirection]);
+  }, [lastScrollY, scrollDirection, isScrolling]);
 
   const scrollToTop = () => {
+    // Set scrolling flag to prevent scroll direction interference
+    setIsScrolling(true);
+
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
 
-    // Hide button immediately after click
-    setIsVisible(false);
+    // Re-enable scroll detection after animation completes
+    setTimeout(() => {
+      setIsScrolling(false);
+    }, 1000); // Smooth scroll usually takes ~500-800ms
   };
 
   return (
@@ -68,15 +78,14 @@ const ScrollToTopButton: React.FC = () => {
           }}
           onClick={scrollToTop}
           className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 
-                     bg-primary-500 hover:bg-primary-600 
-                     text-white rounded-full p-3 shadow-lg hover:shadow-xl
-                     transition-all duration-200 ease-in-out
+                     bg-primary-500 
+                     text-white rounded-full p-3 shadow-lg
                      focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2
-                     group active:scale-95"
+                     group"
           aria-label="חזור לתחילת העמוד"
           title="חזור לתחילת העמוד"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.05, transition: { duration: 0 } }}
+          whileTap={{ scale: 0.95, transition: { duration: 0 } }}
         >
           <ArrowUp size={24} strokeWidth={5} className="drop-shadow-sm" />
 
