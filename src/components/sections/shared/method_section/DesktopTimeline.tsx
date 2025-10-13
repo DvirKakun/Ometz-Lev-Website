@@ -18,28 +18,6 @@ const DesktopTimeline = ({ steps, animationStep }: DesktopTimelineProps) => {
     y: 150,
   }));
 
-  const generatePath = () => {
-    if (stepPositions.length === 0) return "";
-
-    let path = `M${stepPositions[0].x},${stepPositions[0].y}`;
-
-    for (let i = 1; i < stepPositions.length; i++) {
-      const prev = stepPositions[i - 1];
-      const curr = stepPositions[i];
-      const midX = (prev.x + curr.x) / 2;
-
-      if (i % 2 === 1) {
-        path += ` Q${midX},${prev.y - 120} ${curr.x},${curr.y}`;
-      } else {
-        path += ` Q${midX},${prev.y + 120} ${curr.x},${curr.y}`;
-      }
-    }
-
-    return path;
-  };
-
-  const pathData = generatePath();
-
   return (
     <div className="hidden lg:block max-w-7xl mx-auto">
       <div className="relative h-64">
@@ -49,59 +27,76 @@ const DesktopTimeline = ({ steps, animationStep }: DesktopTimelineProps) => {
           className="w-full h-full"
           preserveAspectRatio="xMidYMid meet"
         >
-          {/* Background path (always visible, subtle) */}
-          <motion.path
-            d={pathData}
-            stroke="#e2e8f0"
-            strokeWidth="4"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={0.3}
-          />
+          {/* Dog Paw Steps Animation - Fresh Start */}
+          {steps.map((_, segmentIndex) => {
+            if (segmentIndex === steps.length - 1) return null;
 
-          {/* Animated path segments - the PERFECT logic */}
-          {steps.map((_, index) => {
-            if (index === steps.length - 1) return null;
+            const currentSquare = stepPositions[segmentIndex];
+            const nextSquare = stepPositions[segmentIndex + 1];
+            const squareRadius = 105; // Half of square size
 
-            const start = stepPositions[index];
-            const end = stepPositions[index + 1];
-            const midX = (start.x + end.x) / 2;
+            // Connect from left edge of current square to right edge of next square
+            const startX = currentSquare.x - squareRadius; // Left edge of current square
+            const endX = nextSquare.x + squareRadius; // Right edge of next square
+            const y = currentSquare.y; // Same Y level
 
-            const segmentPath =
-              index % 2 === 0
-                ? `M${start.x},${start.y} Q${midX},${start.y - 120} ${end.x},${
-                    end.y
-                  }`
-                : `M${start.x},${start.y} Q${midX},${start.y + 120} ${end.x},${
-                    end.y
-                  }`;
+            // Create 4 paws between squares
+            const paws = [];
+            for (let i = 0; i < 4; i++) {
+              const x = startX + ((endX - startX) / 5) * (i + 1);
+              const pawY = y + (i % 2 === 0 ? 9 : 39); // Alternate up and down for walking
+              paws.push({ x, y: pawY, index: i });
+            }
 
-            return (
-              <motion.path
-                key={index}
-                d={segmentPath}
-                stroke="#da9a52"
-                strokeWidth="3"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0 }}
-                animate={{
-                  pathLength: animationStep >= (index + 1) * 2 ? 1 : 0,
-                }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-                style={{
-                  filter: "drop-shadow(0 2px 4px rgba(218, 154, 82, 0.3))",
-                }}
-              />
-            );
+            return paws.map((paw, pawIndex) => {
+              const pawAnimationStep = segmentIndex * 7 + pawIndex + 4; // Add proper pause after square
+              const isVisible = animationStep >= pawAnimationStep;
+
+              return (
+                <motion.g
+                  key={`${segmentIndex}-${pawIndex}`}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={
+                    isVisible
+                      ? { scale: 1, opacity: 1 }
+                      : { scale: 0, opacity: 0 }
+                  }
+                  transition={{
+                    duration: 0.2,
+                    ease: "backOut",
+                    delay: isVisible ? pawIndex * 0.05 : 0,
+                  }}
+                  style={{ transformOrigin: `${paw.x}px ${paw.y}px` }}
+                >
+                  {/* Dog paw SVG */}
+                  <g
+                    transform={`translate(${paw.x - 12}, ${
+                      paw.y - 12
+                    }) scale(0.6) rotate(-90)`}
+                  >
+                    <path
+                      fill="#da9a52"
+                      d="M39.041,36.843c2.054,3.234,3.022,4.951,3.022,6.742c0,3.537-2.627,5.252-6.166,5.252
+                        c-1.56,0-2.567-0.002-5.112-1.326c0,0-1.649-1.509-5.508-1.354c-3.895-0.154-5.545,1.373-5.545,1.373
+                        c-2.545,1.323-3.516,1.309-5.074,1.309c-3.539,0-6.168-1.713-6.168-5.252c0-1.791,0.971-3.506,3.024-6.742
+                        c0,0,3.881-6.445,7.244-9.477c2.43-2.188,5.973-2.18,5.973-2.18h1.093v-0.001c0,0,3.698-0.009,5.976,2.181
+                        C35.059,30.51,39.041,36.844,39.041,36.843z M16.631,20.878c3.7,0,6.699-4.674,6.699-10.439S20.331,0,16.631,0
+                        S9.932,4.674,9.932,10.439S12.931,20.878,16.631,20.878z M10.211,30.988c2.727-1.259,3.349-5.723,1.388-9.971
+                        s-5.761-6.672-8.488-5.414s-3.348,5.723-1.388,9.971C3.684,29.822,7.484,32.245,10.211,30.988z M32.206,20.878
+                        c3.7,0,6.7-4.674,6.7-10.439S35.906,0,32.206,0s-6.699,4.674-6.699,10.439C25.507,16.204,28.506,20.878,32.206,20.878z
+                        M45.727,15.602c-2.728-1.259-6.527,1.165-8.488,5.414s-1.339,8.713,1.389,9.972c2.728,1.258,6.527-1.166,8.488-5.414
+                        S48.455,16.861,45.727,15.602z"
+                    />
+                  </g>
+                </motion.g>
+              );
+            });
           })}
 
           {/* Step squares with content */}
           {steps.map((step, index) => {
             const pos = stepPositions[index];
-            const isActive = animationStep >= index * 2 + 1;
+            const isActive = animationStep >= index * 7 + 1; // Square appears after previous paws complete
             const squareSize = 210;
 
             return (
@@ -109,11 +104,13 @@ const DesktopTimeline = ({ steps, animationStep }: DesktopTimelineProps) => {
                 key={index}
                 initial={{ scale: 0, opacity: 0 }}
                 animate={
-                  isActive
-                    ? { scale: 1, opacity: 1 }
-                    : { scale: 0.9, opacity: 1 }
+                  isActive ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }
                 }
-                transition={{ duration: 0.3 }}
+                transition={{
+                  duration: 0.5,
+                  ease: "backOut",
+                  delay: isActive ? index * 0.2 : 0,
+                }}
                 style={{ transformOrigin: `${pos.x}px ${pos.y}px` }}
               >
                 {/* Square */}
@@ -133,11 +130,11 @@ const DesktopTimeline = ({ steps, animationStep }: DesktopTimelineProps) => {
                   }}
                 />
 
-                {/* Circle with step number */}
+                {/* Circle with step number - filled with primary color */}
                 <circle
                   cx={pos.x + squareSize / 2}
                   cy={pos.y - squareSize / 2}
-                  r="24"
+                  r="20"
                   fill={isActive ? "#da9a52" : "#64748b"}
                 />
 
@@ -145,18 +142,18 @@ const DesktopTimeline = ({ steps, animationStep }: DesktopTimelineProps) => {
                   x={pos.x + squareSize / 2}
                   y={pos.y - squareSize / 2 + 4}
                   textAnchor="middle"
-                  className="text-base font-bold fill-white"
+                  className="text-sm font-bold fill-white"
                   opacity={isActive ? 1 : 0.8}
                 >
                   {step.step}
                 </text>
 
-                {/* Title */}
+                {/* Title - centered at top of square */}
                 <text
                   x={pos.x}
-                  y={pos.y - 20}
+                  y={pos.y - squareSize / 2 + 35}
                   textAnchor="middle"
-                  className="text-xl font-bold"
+                  className="text-2xl font-bold"
                   fill={isActive ? "#1e293b" : "#64748b"}
                   opacity={isActive ? 1 : 0.7}
                 >
@@ -166,7 +163,7 @@ const DesktopTimeline = ({ steps, animationStep }: DesktopTimelineProps) => {
                 {/* Description */}
                 <text
                   x={pos.x}
-                  y={pos.y + 10}
+                  y={pos.y + 25}
                   textAnchor="middle"
                   className="text-base"
                   fill="#64748b"

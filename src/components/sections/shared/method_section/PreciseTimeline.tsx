@@ -10,10 +10,10 @@ const PreciseTimeline = ({ config: stepConfig }: ProcessStepsProps) => {
   const [animationStep, setAnimationStep] = useState(0);
 
   useEffect(() => {
-    if (!startAnimation || animationStep >= stepConfig.steps.length * 2 - 1)
+    if (!startAnimation || animationStep >= stepConfig.steps.length * 7 - 6)
       return;
 
-    const delay = animationStep % 2 === 0 ? 300 : 600; // 0.3s for step, 0.6s for line
+    const delay = animationStep % 2 === 0 ? 150 : 250; // 0.15s for step, 0.25s for line
     const timer = setTimeout(() => {
       setAnimationStep((prev) => prev + 1);
     }, delay);
