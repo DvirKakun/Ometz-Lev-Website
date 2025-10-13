@@ -6,6 +6,7 @@ import ScrollToTopButton from "../common/ScrollToTopButton";
 import ContactCTA from "./contact/ContactCTA";
 import { FloatingTimer } from "../timer";
 import { useLoading } from "../../contexts/LoadingContext";
+import EnableAccessibility from "../common/EnableAccessibility";
 
 export default function Layout() {
   const { isLoading } = useLoading();
@@ -45,6 +46,7 @@ export default function Layout() {
           <Footer />
           <FloatingTimer />
           <ScrollToTopButton />
+          <EnableAccessibility />
         </>
       )}
     </div>
