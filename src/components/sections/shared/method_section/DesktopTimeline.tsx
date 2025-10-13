@@ -163,21 +163,43 @@ const DesktopTimeline = ({ steps, animationStep }: DesktopTimelineProps) => {
                 {/* Description */}
                 <text
                   x={pos.x}
-                  y={pos.y + 25}
+                  y={pos.y - 25}
                   textAnchor="middle"
                   className="text-base"
                   fill="#64748b"
                   opacity={isActive ? 1 : 0.6}
                 >
-                  {step.desc
-                    .split(" ")
-                    .reduce((lines: string[], word: string, index: number) => {
-                      const lineIndex = Math.floor(index / 3);
-                      if (!lines[lineIndex]) lines[lineIndex] = "";
-                      lines[lineIndex] += (lines[lineIndex] ? " " : "") + word;
-                      return lines;
-                    }, [])
-                    .map((line: string, lineIndex: number) => (
+                  {(() => {
+                    const words = step.desc.split(" ");
+                    const lines = [];
+                    let currentLine = "";
+                    const maxWordsPerLine = 3; // Reduced for Hebrew text
+
+                    for (let i = 0; i < words.length; i++) {
+                      const testLine =
+                        currentLine + (currentLine ? " " : "") + words[i];
+
+                      // Check if we've reached max words or if adding this word would be too long
+                      if (
+                        currentLine.split(" ").length >= maxWordsPerLine ||
+                        testLine.length > 25
+                      ) {
+                        if (currentLine) {
+                          lines.push(currentLine);
+                          currentLine = words[i];
+                        } else {
+                          lines.push(words[i]);
+                        }
+                      } else {
+                        currentLine = testLine;
+                      }
+                    }
+
+                    if (currentLine) {
+                      lines.push(currentLine);
+                    }
+
+                    return lines.map((line: string, lineIndex: number) => (
                       <tspan
                         key={lineIndex}
                         x={pos.x}
@@ -185,7 +207,8 @@ const DesktopTimeline = ({ steps, animationStep }: DesktopTimelineProps) => {
                       >
                         {line}
                       </tspan>
-                    ))}
+                    ));
+                  })()}
                 </text>
               </motion.g>
             );

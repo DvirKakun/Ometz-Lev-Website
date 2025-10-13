@@ -15,14 +15,14 @@ const MobileTimeline = ({ steps, animationStep }: MobileTimelineProps) => {
   const stepCount = steps.length;
   const stepPositions = steps.map((_, index) => ({
     x: 200,
-    y: 80 + index * (500 / (stepCount - 1)),
+    y: 80 + index * (600 / (stepCount - 1)), // Increased from 500 to 600 for more spacing
   }));
 
   return (
     <div className="lg:hidden max-w-sm mx-auto px-4">
       <div className="relative">
         <svg
-          viewBox="0 0 400 650"
+          viewBox="0 -50 400 800"
           className="w-full h-auto"
           preserveAspectRatio="xMidYMid meet"
         >
@@ -96,7 +96,7 @@ const MobileTimeline = ({ steps, animationStep }: MobileTimelineProps) => {
           {steps.map((step, index) => {
             const pos = stepPositions[index];
             const isActive = animationStep >= index * 7 + 1; // Same timing as desktop
-            const squareSize = 120;
+            const squareSize = 135;
 
             return (
               <motion.g
@@ -162,21 +162,43 @@ const MobileTimeline = ({ steps, animationStep }: MobileTimelineProps) => {
                 {/* Description */}
                 <text
                   x={pos.x}
-                  y={pos.y + 10}
+                  y={pos.y - 10}
                   textAnchor="middle"
                   className="text-sm"
                   fill="#64748b"
                   opacity={isActive ? 1 : 0.6}
                 >
-                  {step.desc
-                    .split(" ")
-                    .reduce((lines: string[], word: string, index: number) => {
-                      const lineIndex = Math.floor(index / 2);
-                      if (!lines[lineIndex]) lines[lineIndex] = "";
-                      lines[lineIndex] += (lines[lineIndex] ? " " : "") + word;
-                      return lines;
-                    }, [])
-                    .map((line: string, lineIndex: number) => (
+                  {(() => {
+                    const words = step.desc.split(" ");
+                    const lines = [];
+                    let currentLine = "";
+                    const maxWordsPerLine = 3; // Max 3 words per line
+
+                    for (let i = 0; i < words.length; i++) {
+                      const testLine =
+                        currentLine + (currentLine ? " " : "") + words[i];
+
+                      // Check if we've reached max words or if adding this word would be too long
+                      if (
+                        currentLine.split(" ").length >= maxWordsPerLine ||
+                        testLine.length > 25
+                      ) {
+                        if (currentLine) {
+                          lines.push(currentLine);
+                          currentLine = words[i];
+                        } else {
+                          lines.push(words[i]);
+                        }
+                      } else {
+                        currentLine = testLine;
+                      }
+                    }
+
+                    if (currentLine) {
+                      lines.push(currentLine);
+                    }
+
+                    return lines.map((line: string, lineIndex: number) => (
                       <tspan
                         key={lineIndex}
                         x={pos.x}
@@ -184,7 +206,8 @@ const MobileTimeline = ({ steps, animationStep }: MobileTimelineProps) => {
                       >
                         {line}
                       </tspan>
-                    ))}
+                    ));
+                  })()}
                 </text>
               </motion.g>
             );
