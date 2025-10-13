@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 interface Step {
   step: string;
@@ -13,6 +14,13 @@ interface MobileTimelineProps {
 
 const MobileTimeline = ({ steps, animationStep }: MobileTimelineProps) => {
   const stepCount = steps.length;
+  const [isIPhone, setIsIPhone] = useState(false);
+
+  useEffect(() => {
+    // Detect iPhone (includes iPhone Safari and Chrome on iPhone)
+    setIsIPhone(/iPhone/.test(navigator.userAgent));
+  }, []);
+
   const stepPositions = steps.map((_, index) => ({
     x: 200,
     y: 80 + index * (600 / (stepCount - 1)), // Increased from 500 to 600 for more spacing
@@ -160,55 +168,76 @@ const MobileTimeline = ({ steps, animationStep }: MobileTimelineProps) => {
                 </text>
 
                 {/* Description */}
-                <text
-                  x={pos.x}
-                  y={pos.y - 10}
-                  textAnchor="middle"
-                  className="text-sm"
-                  fill="#64748b"
-                  opacity={isActive ? 1 : 0.6}
-                >
-                  {(() => {
-                    const words = step.desc.split(" ");
-                    const lines = [];
-                    let currentLine = "";
-                    const maxWordsPerLine = 3; // Max 3 words per line
+                {(() => {
+                  const words = step.desc.split(" ");
+                  const lines = [];
+                  let currentLine = "";
+                  const maxWordsPerLine = 3; // Max 3 words per line
 
-                    for (let i = 0; i < words.length; i++) {
-                      const testLine =
-                        currentLine + (currentLine ? " " : "") + words[i];
+                  for (let i = 0; i < words.length; i++) {
+                    const testLine =
+                      currentLine + (currentLine ? " " : "") + words[i];
 
-                      // Check if we've reached max words or if adding this word would be too long
-                      if (
-                        currentLine.split(" ").length >= maxWordsPerLine ||
-                        testLine.length > 25
-                      ) {
-                        if (currentLine) {
-                          lines.push(currentLine);
-                          currentLine = words[i];
-                        } else {
-                          lines.push(words[i]);
-                        }
+                    // Check if we've reached max words or if adding this word would be too long
+                    if (
+                      currentLine.split(" ").length >= maxWordsPerLine ||
+                      testLine.length > 25
+                    ) {
+                      if (currentLine) {
+                        lines.push(currentLine);
+                        currentLine = words[i];
                       } else {
-                        currentLine = testLine;
+                        lines.push(words[i]);
                       }
+                    } else {
+                      currentLine = testLine;
                     }
+                  }
 
-                    if (currentLine) {
-                      lines.push(currentLine);
-                    }
+                  if (currentLine) {
+                    lines.push(currentLine);
+                  }
 
+                  // iPhone fix: Use separate text elements instead of tspan
+                  if (isIPhone) {
                     return lines.map((line: string, lineIndex: number) => (
-                      <tspan
+                      <text
                         key={lineIndex}
                         x={pos.x}
-                        dy={lineIndex === 0 ? 0 : 14}
+                        y={pos.y - 10 + lineIndex * 14}
+                        textAnchor="middle"
+                        className="text-sm"
+                        fill="#64748b"
+                        opacity={isActive ? 1 : 0.6}
+                        direction="rtl"
                       >
                         {line}
-                      </tspan>
+                      </text>
                     ));
-                  })()}
-                </text>
+                  }
+
+                  // Standard approach for other devices
+                  return (
+                    <text
+                      x={pos.x}
+                      y={pos.y - 10}
+                      textAnchor="middle"
+                      className="text-sm"
+                      fill="#64748b"
+                      opacity={isActive ? 1 : 0.6}
+                    >
+                      {lines.map((line: string, lineIndex: number) => (
+                        <tspan
+                          key={lineIndex}
+                          x={pos.x}
+                          dy={lineIndex === 0 ? 0 : 14}
+                        >
+                          {line}
+                        </tspan>
+                      ))}
+                    </text>
+                  );
+                })()}
               </motion.g>
             );
           })}
