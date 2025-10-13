@@ -12,7 +12,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleImages, setVisibleImages] = useState(1);
-  const imageWidth = 208; // w-48 (192px) + gap-4 (16px)
+  const imageWidth = 144; // w-32 (128px) + gap-4 (16px)
 
   // Calculate how many images can fit in the viewport
   useEffect(() => {
@@ -81,7 +81,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
       {/* Background container with shadow and separator */}
       <div
         ref={containerRef}
-        className="bg-slate-50 rounded-2xl p-6 shadow-lg border border-slate-200"
+        className="bg-slate-50 rounded-xl p-4 shadow-md border border-slate-200"
       >
         <div
           className="relative overflow-hidden select-none"
@@ -93,7 +93,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
           {...swipeHandlers}
         >
           <div
-            className="flex flex-row-reverse gap-4 transition-transform duration-300 ease-in-out"
+            className="flex flex-row-reverse gap-3 transition-transform duration-300 ease-in-out"
             style={{
               transform: `translateX(-${currentIndex * imageWidth}px)`,
             }}
@@ -101,7 +101,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
             {images.map((galleryItem, index) => (
               <motion.div
                 key={index}
-                className="flex-shrink-0 w-48 h-36 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer bg-white"
+                className="flex-shrink-0 w-32 h-24 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer bg-white"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => onImageClick(galleryItem.image.url || "", index)}
@@ -120,7 +120,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
           {canScrollLeft && (
             <button
               onClick={goToNext}
-              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 z-10 border border-gray-200"
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 z-10 border border-gray-200"
             >
               <ChevronLeft className="w-5 h-5 text-gray-700" />
             </button>
@@ -130,7 +130,7 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
           {canScrollRight && (
             <button
               onClick={goToPrevious}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-200 z-10 border border-gray-200"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-50 rounded-full p-2 shadow-md hover:shadow-lg transition-all duration-200 z-10 border border-gray-200"
             >
               <ChevronRight className="w-5 h-5 text-gray-700" />
             </button>
@@ -138,8 +138,8 @@ const ImageRoller: React.FC<ImageRollerProps> = ({
         </div>
 
         {/* Image counter */}
-        <div className="mt-4 text-center">
-          <span className="text-sm text-gray-600 font-medium">
+        <div className="mt-3 text-center">
+          <span className="text-xs text-gray-600 font-medium">
             {images.length} תמונות גלריה
           </span>
         </div>

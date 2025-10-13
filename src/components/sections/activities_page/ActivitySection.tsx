@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Button } from "../../ui/button";
 import ImageRoller from "./ImageRoller";
 import type { ActivitySectionProps } from "../../../types/activities";
@@ -8,62 +7,44 @@ const ActivitySection = ({
   onRegisterClick,
   onImageClick,
 }: ActivitySectionProps) => {
-
   const handleImageClick = (imageUrl: string, index: number) => {
     onImageClick?.(
       imageUrl,
       index,
-      index === -1 ? (activity.main_image.alt || "Activity image") : "Gallery image",
+      index === -1
+        ? activity.main_image.alt || "Activity image"
+        : "Gallery image",
       activity.images?.length || 1
     );
   };
 
   return (
-    <section id={activity.id} className="py-16 bg-white overflow-hidden">
-      <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6 }}
-          className={`max-w-6xl mx-auto relative ${
-            activity.isPast ? "opacity-75" : ""
-          }`}
-        >
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center overflow-hidden">
+    <div id={activity.id} className="py-4 bg-white overflow-hidden">
+      <div className="px-3 sm:px-6">
+        <div className={`relative ${activity.isPast ? "opacity-75" : ""}`}>
+          <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-6 lg:gap-12 items-center overflow-hidden">
             {/* Content - Right side */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="order-2 lg:order-1"
-            >
-              <div className="mb-6">
-                <div
-                  className={`inline-flex items-center justify-center w-12 h-12 bg-primary-500 rounded-xl shadow-lg mb-4`}
-                >
-                  <activity.icon className="w-6 h-6 text-white" />
-                </div>
-                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 text-right whitespace-pre-wrap">
+            <div className="order-1">
+              <div className="mb-3 sm:mb-4">
+                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 mb-2 sm:mb-3 text-right whitespace-pre-wrap">
                   {activity.title}
                 </h2>
               </div>
 
-              <div className="space-y-4 text-right mb-8">
+              <div className="space-y-2 sm:space-y-3 text-right mb-4 sm:mb-6">
                 {activity.description.map((paragraph, index) => (
                   <p
                     key={index}
-                    className="text-lg text-slate-700 leading-relaxed whitespace-pre-wrap"
+                    className="text-[12px] sm:text-base text-slate-700 leading-relaxed whitespace-pre-wrap"
                   >
                     {paragraph}
                   </p>
                 ))}
 
                 <div
-                  className={`bg-primary-200/20 p-4 rounded-lg border-r-4 border-primary-500`}
+                  className={`bg-primary-200/20 p-2 sm:p-3 rounded-lg border-r-4 border-primary-500`}
                 >
-                  <p className="text-slate-700 font-medium text-right">
+                  <p className="text-slate-700 font-medium text-right text-xs sm:text-sm">
                     <strong>מתאים לגילאי:</strong> {activity.details.ages}
                     <br />
                     <strong>משך כל מחזור:</strong> {activity.details.duration}
@@ -76,12 +57,7 @@ const ActivitySection = ({
               {activity.hasRegistration &&
                 !activity.isPast &&
                 onRegisterClick && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0 }}
-                  >
+                  <div>
                     <Button
                       onClick={onRegisterClick}
                       size="lg"
@@ -90,26 +66,20 @@ const ActivitySection = ({
                       {activity.buttonText}
                       <activity.icon className="w-5 h-5 ml-2" />
                     </Button>
-                  </motion.div>
+                  </div>
                 )}
-            </motion.div>
+            </div>
 
             {/* Images - Left side */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="order-1 lg:order-2"
-            >
+            <div className="order-1 sm:order-1 lg:order-2 flex justify-center items-center">
               {/* Main image */}
               <div className="relative">
-                <div className="relative bg-white rounded-2xl shadow-2xl inline-block mx-auto overflow-hidden">
+                <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden">
                   <img
                     src={activity.main_image.url || ""}
                     alt={activity.main_image.alt || "Activity image"}
                     loading="lazy"
-                    className={`max-w-full max-h-80 sm:max-h-96 md:max-h-[28rem] lg:max-h-[32rem] rounded-xl object-contain ${
+                    className={`max-w-full max-h-48 sm:max-h-56 md:max-h-64 lg:max-h-96 rounded-xl object-contain ${
                       activity.isPast
                         ? "filter blur-md cursor-default"
                         : "cursor-pointer"
@@ -143,28 +113,21 @@ const ActivitySection = ({
                   )}
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Image roller spanning full width below both columns */}
           {activity.images && activity.images.length > 1 && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className={`mt-12 max-w-6xl mx-auto`}
-            >
+            <div className={`mt-6 max-w-6xl mx-auto`}>
               <ImageRoller
                 images={activity.images}
                 onImageClick={handleImageClick}
               />
-            </motion.div>
+            </div>
           )}
-        </motion.div>
+        </div>
       </div>
-
-    </section>
+    </div>
   );
 };
 

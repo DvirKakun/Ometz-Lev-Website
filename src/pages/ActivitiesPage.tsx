@@ -1,7 +1,7 @@
 import { useRef, useCallback, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
-import { AlertCircle, Calendar } from "lucide-react";
+import { AlertCircle, Calendar, Clock } from "lucide-react";
 import ServiceHeader from "../components/sections/shared/headers/MainHeader";
 import ActivitySection from "../components/sections/activities_page/ActivitySection";
 import { FAQSection } from "../components/sections/shared/faq";
@@ -14,6 +14,12 @@ import { useActivities } from "../hooks/useActivities";
 import { useRouterModal } from "../hooks/useRouterModal";
 import SummerCampModal from "../components/modals/summer-camp/SummerCampModal";
 import ImageDialog from "../components/sections/activities_page/ImageDialog";
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "../components/ui/accordion";
 import type { ServicePageProps } from "../types/service_page";
 
 export default function ActivitiesPage({ service }: ServicePageProps) {
@@ -91,6 +97,55 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
     [imageModal]
   );
 
+  // Calculate time remaining until activity starts
+  const getTimeRemaining = useCallback((activityDate: Date): string => {
+    const now = new Date();
+    const timeDiff = activityDate.getTime() - now.getTime();
+
+    if (timeDiff <= 0) {
+      return "הפעילות החלה";
+    }
+
+    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+    if (days > 0) {
+      return `נותרו ${days} ימים`;
+    } else if (hours > 0) {
+      return `נותרו ${hours} שעות`;
+    } else if (minutes > 0) {
+      return `נותרו ${minutes} דקות`;
+    } else {
+      return "נותרה פחות מדקה";
+    }
+  }, []);
+
+  // Auto-scroll to show activity section at top of viewport when accordion opens
+  const handleAccordionChange = useCallback((value: string) => {
+    if (value) {
+      // Small delay to let accordion animation start
+      setTimeout(() => {
+        const activityElement = document.getElementById(value);
+        if (activityElement) {
+          // Get the top position of the activity section component
+          const elementRect = activityElement.getBoundingClientRect();
+          const elementTop = elementRect.top + window.pageYOffset;
+
+          // Position activity section at the top of viewport (with small padding for header)
+          const scrollPosition = elementTop - 80; // 80px padding from top for header/spacing
+
+          window.scrollTo({
+            top: Math.max(0, scrollPosition),
+            behavior: "smooth",
+          });
+        }
+      }, 150); // Wait for accordion animation to start
+    }
+  }, []);
+
   // Render content based on state
   const renderContent = () => {
     if (loading) {
@@ -130,17 +185,58 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
       );
     }
 
-    // Success state - render activities
-    return activities.map((activity) => (
-      <ActivitySection
-        key={activity.id}
-        activity={activity}
-        onRegisterClick={
-          activity.hasRegistration ? handleRegisterClick : undefined
-        }
-        onImageClick={handleImageClick}
-      />
-    ));
+    // Success state - render activities in accordion
+    return (
+      <section className="py-16 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <Accordion
+              type="single"
+              collapsible
+              className="w-full space-y-4"
+              onValueChange={handleAccordionChange}
+            >
+              {activities.map((activity) => (
+                <AccordionItem
+                  key={activity.id}
+                  value={activity.id}
+                  className="bg-white rounded-2xl shadow-lg border-0 overflow-hidden"
+                >
+                  <AccordionTrigger className="px-8 py-6 text-right hover:no-underline hover:bg-gray-50/80 transition-colors">
+                    <div className="flex items-center justify-between w-full">
+                      <div className="flex items-center gap-3">
+                        <div className="text-right">
+                          <h3 className="text-xl font-bold text-slate-900 mb-1">
+                            {activity.title}
+                          </h3>
+                          <div className="flex items-center gap-2 text-primary-600 text-sm font-medium">
+                            <Clock className="w-4 h-4" />
+                            <span>{getTimeRemaining(activity.date)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="px-0 pb-0">
+                    <div className="border-t border-gray-100">
+                      <ActivitySection
+                        activity={activity}
+                        onRegisterClick={
+                          activity.hasRegistration
+                            ? handleRegisterClick
+                            : undefined
+                        }
+                        onImageClick={handleImageClick}
+                      />
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
+    );
   };
 
   return (
