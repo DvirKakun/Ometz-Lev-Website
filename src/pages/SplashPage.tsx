@@ -9,6 +9,7 @@ import SEOJsonLD from "../components/seo/SEOJsonLD";
 import { usePrefetchForRoute } from "../hooks/usePrefetchData";
 import { useImagePreloader } from "../hooks/useImagePreloader";
 import { getKeywordsForPage } from "../data/seo-keywords";
+import SplashAccessibilityController from "../components/sections/splash_screen/SplashAccessibilityController";
 
 const SplashPage: React.FC = () => {
   const navigate = useNavigate();
@@ -70,6 +71,9 @@ const SplashPage: React.FC = () => {
           <SplashProgress />
         </div>
       </SplashBackground>
+
+      {/* Hide accessibility button on splash screen */}
+      <SplashAccessibilityController />
     </>
   );
 };

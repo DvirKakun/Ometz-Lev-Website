@@ -181,7 +181,7 @@ const MobileTimeline = ({ steps, animationStep }: MobileTimelineProps) => {
                     // Check if we've reached max words or if adding this word would be too long
                     if (
                       currentLine.split(" ").length >= maxWordsPerLine ||
-                      testLine.length > 25
+                      testLine.length > 20
                     ) {
                       if (currentLine) {
                         lines.push(currentLine);

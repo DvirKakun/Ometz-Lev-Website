@@ -46,7 +46,7 @@ export default function Layout() {
           <Footer />
           <FloatingTimer />
           <ScrollToTopButton />
-          <EnableAccessibility />
+          {location.pathname !== "/" && <EnableAccessibility />}
         </>
       )}
     </div>
