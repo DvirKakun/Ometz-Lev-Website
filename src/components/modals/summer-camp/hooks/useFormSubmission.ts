@@ -50,12 +50,12 @@ export const useFormSubmission = ({
         }),
       };
 
-      await emailjs.send(
-        "service_k21go0m",
-        "template_27fc0bl",
-        templateParams,
-        "l-UTOpbo-lr3Vt79x"
-      );
+      // await emailjs.send(
+      //   "service_k21go0m",
+      //   "template_27fc0bl",
+      //   templateParams,
+      //   "l-UTOpbo-lr3Vt79x"
+      // );
 
       onReset();
       setCurrentStep(5);

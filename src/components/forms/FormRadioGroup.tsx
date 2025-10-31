@@ -14,6 +14,10 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
   const getLayoutClasses = () => {
     switch (layout) {
       case "grid":
+        // For mobile responsiveness: 2 columns on mobile, full on larger screens for <=4 items
+        if (options.length <= 4) {
+          return `grid grid-cols-2 sm:grid-cols-${options.length} gap-1`;
+        }
         return `grid grid-cols-${options.length} gap-1`;
       case "vertical":
         return "flex flex-col gap-1";

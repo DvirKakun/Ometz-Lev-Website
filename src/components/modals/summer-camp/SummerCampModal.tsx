@@ -12,7 +12,7 @@ import SummerCampModalSuccess from "./SummerCampModalSuccess";
 import SummerCampModalError from "./SummerCampModalError";
 import type { SummerCampModalProps } from "../../../types/modals";
 
-const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
+const SummerCampModal = ({ isOpen, onOpenChange, activityData }: SummerCampModalProps) => {
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
@@ -51,7 +51,7 @@ const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
             >
               {/* Header - Fixed */}
               <div className="p-4 pt-6">
-                <SummerCampModalHeader />
+                <SummerCampModalHeader activityData={activityData} />
               </div>
 
               {/* Content - Scrollable when needed */}
@@ -66,7 +66,7 @@ const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
                 <div dir="rtl" className="p-4 pt-0 pb-8">
                   <AnimatePresence mode="wait">
                     {submitStatus === "success" ? (
-                      <SummerCampModalSuccess key="success" />
+                      <SummerCampModalSuccess key="success" activityData={activityData} />
                     ) : (
                       <motion.div
                         key="form"
@@ -81,6 +81,7 @@ const SummerCampModal = ({ isOpen, onOpenChange }: SummerCampModalProps) => {
                         <SummerCampModalForm
                           onSuccess={handleSuccess}
                           onError={handleError}
+                          activityData={activityData}
                         />
                         {submitStatus === "error" && <SummerCampModalError />}
                       </motion.div>

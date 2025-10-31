@@ -23,7 +23,12 @@ export interface Activity {
   buttonText: string;
   hasRegistration: boolean;
   timerTitle: string;
-  date: Date;
+  date: Date; // Keep for backward compatibility with timer
+  startDate: Date;
+  endDate: Date;
+  sessions: number; // 1-4
+  registerFormTitle: string;
+  registerFormMessage: React.ReactNode;
   isPast?: boolean;
 }
 
@@ -31,4 +36,7 @@ export interface ActivitySectionProps {
   activity: Activity;
   onRegisterClick?: () => void;
   onImageClick?: (imageUrl: string, index: number, alt: string, totalImages: number) => void;
+  isComingSoon?: boolean;
+  isInProgress?: boolean;
+  isPast?: boolean;
 }

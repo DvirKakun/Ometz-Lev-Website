@@ -17,7 +17,7 @@ export const GRADE_OPTIONS = [
 
 // Step 1: Basic child information
 export const step1Schema = z.object({
-  session: z.enum(["ראשון", "שני", "שלישי"], {
+  session: z.enum(["ראשון", "שני", "שלישי", "רביעי"], {
     required_error: "יש לבחור מחזור",
     invalid_type_error: "יש לבחור מחזור",
   }),

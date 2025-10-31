@@ -1,11 +1,21 @@
 import { Calendar } from "lucide-react";
 import { ModalHeader } from "../shared";
 
-const SummerCampModalHeader = () => {
+interface SummerCampModalHeaderProps {
+  activityData?: {
+    registerFormTitle: string;
+    title: string;
+    registerFormMessage: React.ReactNode;
+  };
+}
+
+const SummerCampModalHeader = ({ activityData }: SummerCampModalHeaderProps) => {
+  const title = activityData?.registerFormTitle || 'הרשמה לקייטנת "אומץ לב"';
+  
   return (
     <ModalHeader
       icon={Calendar}
-      title='הרשמה לקייטנת "אומץ לב"'
+      title={title}
       subtitle="מלאו את הפרטים להשלמת ההרשמה"
       iconSize="sm"
       titleSize="text-lg"

@@ -10,30 +10,30 @@ import {
   getPrismicRichText,
 } from "./prismic-config";
 
-// Helper function to check if activity date has passed
-function isActivityPast(activityDate: Date): boolean {
+// Helper function to check if activity has ended (based on end date)
+function isActivityPast(endDate: Date): boolean {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const activityDay = new Date(
-    activityDate.getFullYear(),
-    activityDate.getMonth(),
-    activityDate.getDate()
+  const endDay = new Date(
+    endDate.getFullYear(),
+    endDate.getMonth(),
+    endDate.getDate()
   );
-  return activityDay < today;
+  return endDay < today;
 }
 
 // Helper function to sort activities: future first, then past
 function sortActivitiesByDate(activities: Activity[]): Activity[] {
   return activities.sort((a, b) => {
-    const aIsPast = isActivityPast(a.date);
-    const bIsPast = isActivityPast(b.date);
+    const aIsPast = isActivityPast(a.endDate);
+    const bIsPast = isActivityPast(b.endDate);
 
     // If one is past and other is future, future comes first
     if (aIsPast && !bIsPast) return 1;
     if (!aIsPast && bIsPast) return -1;
 
     // If both are future or both are past, sort by date (ascending)
-    return a.date.getTime() - b.date.getTime();
+    return a.startDate.getTime() - b.startDate.getTime();
   });
 }
 
@@ -50,8 +50,9 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = prismicActivity.data as any;
 
-  const activityDate = getPrismicDate(data.activity_date);
-  const isPastActivity = isActivityPast(activityDate);
+  const startDate = getPrismicDate(data.activity_start_date);
+  const endDate = getPrismicDate(data.activity_end_date);
+  const isPastActivity = isActivityPast(endDate);
 
   // Extract details (taking first item from group, or create default)
   const rawDetails = data.details?.[0] || {};
@@ -73,6 +74,11 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
 
   const buttonText = getPrismicText(data.button_text);
   const timerTitle = getPrismicText(data.timer_title);
+  const registerFormTitle = getPrismicText(data.activity_register_form_title);
+  const registerFormMessage = getPrismicRichText(
+    data.activity_register_form_message
+  );
+  const sessions = parseInt(data.activity_sessions || "1", 10);
 
   return {
     id: String(prismicActivity.id),
@@ -85,13 +91,15 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
     },
     main_image: data.main_image,
     images: data.gallery_images || [],
-    // data.gallery_images?.map(
-    //   (img: any) => getPrismicImageUrl(img.image) || "" // eslint-disable-line @typescript-eslint/no-explicit-any
-    // ) || [],
     buttonText: String(buttonText || "Register"),
     hasRegistration: Boolean(data.has_registration),
     timerTitle: String(timerTitle || "Coming Soon"),
-    date: activityDate,
+    date: startDate,
+    startDate,
+    endDate,
+    sessions,
+    registerFormTitle: String(registerFormTitle || "הרשמה לפעילות"),
+    registerFormMessage: String(registerFormMessage || "הטופס התקבל בהצלחה"),
     isPast: isPastActivity,
     // Apply default styling to all activities
     ...DEFAULT_ACTIVITY_STYLING,
@@ -103,7 +111,9 @@ export const fetchActivitiesFromPrismic = async (): Promise<Activity[]> => {
     const client = createPrismicClient();
 
     const response = await client.getAllByType("activity", {
-      orderings: [{ field: "my.activity.activity_date", direction: "asc" }],
+      orderings: [
+        { field: "my.activity.activity_start_date", direction: "asc" },
+      ],
     });
 
     if (!response || !Array.isArray(response)) {

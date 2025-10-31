@@ -1,13 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { SummerCampModalFormProps } from "../../../types/modals";
 
 // Extracted components and hooks
-import {
-  formSchema,
-  type FormData,
-} from "./schemas/formSchemas";
+import { formSchema, type FormData } from "./schemas/formSchemas";
 import { StepIndicator } from "./components/StepIndicator";
 import { StepNavigation } from "./components/StepNavigation";
 import { Step1Component } from "./components/Step1Component";
@@ -21,6 +18,7 @@ import { useParentErrorClearing } from "./hooks/useParentErrorClearing";
 const SummerCampModalForm = ({
   onSuccess,
   onError,
+  activityData,
 }: SummerCampModalFormProps) => {
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 4;
@@ -61,6 +59,15 @@ const SummerCampModalForm = ({
     setCurrentStep,
   });
 
+  // Set default session value when activityData changes
+  useEffect(() => {
+    if (activityData) {
+      const sessionNames = ["ראשון", "שני", "שלישי", "רביעי"];
+      const firstSession = sessionNames[0]; // Always default to "ראשון"
+      setValue("session", firstSession as any);
+    }
+  }, [activityData, setValue]);
+
   // Step navigation logic
   const nextStep = async () => {
     const isValid = await validateStep(currentStep);
@@ -79,7 +86,13 @@ const SummerCampModalForm = ({
   const renderCurrentStep = () => {
     switch (currentStep) {
       case 1:
-        return <Step1Component register={register} errors={errors} />;
+        return (
+          <Step1Component
+            register={register}
+            errors={errors}
+            activityData={activityData}
+          />
+        );
       case 2:
         return <Step2Component register={register} errors={errors} />;
       case 3:

@@ -4,13 +4,13 @@ import { CheckCircle } from "lucide-react";
 import type { ModalSuccessProps } from "../../../types/modals";
 
 const ModalSuccess: React.FC<ModalSuccessProps> = ({
-  title,
   content,
   iconMarginBottom = "mb-3",
   contentAlignment = "text-center",
   icon: IconComponent = CheckCircle,
   className = "",
 }) => {
+  console.log("ModalSuccess content:", content);
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -24,13 +24,6 @@ const ModalSuccess: React.FC<ModalSuccessProps> = ({
       >
         <IconComponent className="w-6 h-6 text-white" />
       </div>
-
-      {/* Title */}
-      <h3
-        className={`text-lg font-semibold text-slate-900 mb-2 ${contentAlignment}`}
-      >
-        {title}
-      </h3>
 
       {/* Content */}
       {content && (

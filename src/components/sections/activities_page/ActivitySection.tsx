@@ -6,6 +6,9 @@ const ActivitySection = ({
   activity,
   onRegisterClick,
   onImageClick,
+  isComingSoon = false,
+  isInProgress = false,
+  isPast = false,
 }: ActivitySectionProps) => {
   const handleImageClick = (imageUrl: string, index: number) => {
     onImageClick?.(
@@ -21,7 +24,7 @@ const ActivitySection = ({
   return (
     <div id={activity.id} className="py-4 bg-white overflow-hidden">
       <div className="px-3 sm:px-6">
-        <div className={`relative ${activity.isPast ? "opacity-75" : ""}`}>
+        <div className={`relative ${isPast ? "opacity-75" : ""}`}>
           <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-6 lg:gap-12 items-center overflow-hidden">
             {/* Content - Right side */}
             <div className="order-1">
@@ -55,7 +58,7 @@ const ActivitySection = ({
               </div>
 
               {activity.hasRegistration &&
-                !activity.isPast &&
+                !isPast &&
                 onRegisterClick && (
                   <div>
                     <Button
@@ -80,12 +83,12 @@ const ActivitySection = ({
                     alt={activity.main_image.alt || "Activity image"}
                     loading="lazy"
                     className={`max-w-full max-h-48 sm:max-h-56 md:max-h-64 lg:max-h-96 rounded-xl object-contain ${
-                      activity.isPast
-                        ? "filter blur-md cursor-default"
+                      isPast || isComingSoon || isInProgress
+                        ? `filter blur-md cursor-default ${isPast && !isComingSoon && !isInProgress ? "grayscale" : ""}`
                         : "cursor-pointer"
                     }`}
                     onClick={
-                      activity.isPast
+                      isPast || isComingSoon || isInProgress
                         ? undefined
                         : () =>
                             handleImageClick(activity.main_image.url || "", -1)
@@ -93,20 +96,46 @@ const ActivitySection = ({
                     crossOrigin="anonymous"
                   />
 
-                  {/* Coming Soon Diagonal Banner */}
-                  {activity.isPast && (
+                  {/* Activity Overlays and Banners */}
+                  {(isPast || isComingSoon || isInProgress) && (
                     <div className="absolute inset-0 flex items-center justify-center rounded-xl overflow-hidden">
-                      {/* Center overlay with icon */}
-                      <div className="absolute inset-0 bg-black/30 rounded-xl flex items-center justify-center">
-                        <div className="bg-white/90 backdrop-blur-sm rounded-full p-4 shadow-lg">
-                          <activity.icon className="w-8 h-8 text-slate-600" />
+                      {/* Overlay - priority: isComingSoon > isInProgress > isPast */}
+                      <div
+                        className={`absolute inset-0 rounded-xl flex items-center justify-center ${
+                          isComingSoon
+                            ? "bg-black/30"
+                            : isInProgress
+                            ? "bg-black/30"
+                            : isPast
+                            ? "bg-black/20"
+                            : "bg-gray-500/50"
+                        }`}
+                      >
+                        <div className={`backdrop-blur-sm rounded-full p-4 shadow-lg ${
+                          isPast && !isComingSoon && !isInProgress ? "bg-gray-800/80" : "bg-white/90"
+                        }`}>
+                          <activity.icon className={`w-8 h-8 ${
+                            isPast && !isComingSoon && !isInProgress ? "text-white" : "text-slate-600"
+                          }`} />
                         </div>
                       </div>
 
-                      {/* Diagonal banner - on top of overlay */}
+                      {/* Diagonal banner - primary for coming soon, green for in-progress, red for past */}
                       <div className="absolute top-0 right-0 w-full h-full z-10">
-                        <div className="absolute top-4 -right-12 bg-gradient-to-r from-primary-400 to-primary-500 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg">
-                          בקרוב
+                        <div
+                          className={`absolute top-4 -right-12 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg ${
+                            isComingSoon
+                              ? "bg-gradient-to-r from-primary-400 to-primary-500"
+                              : isInProgress
+                              ? "bg-gradient-to-r from-green-500 to-green-600"
+                              : "bg-gradient-to-r from-red-500 to-red-600"
+                          }`}
+                        >
+                          {isComingSoon
+                            ? "בקרוב"
+                            : isInProgress
+                            ? "בעיצומה"
+                            : "הסתיימה"}
                         </div>
                       </div>
                     </div>

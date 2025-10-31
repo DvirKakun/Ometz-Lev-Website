@@ -35,7 +35,7 @@ export const useClosestActivity = () => {
 
   // Pure computation - no API calls needed
   const now = new Date();
-  const futureActivities = activities.filter((activity) => activity.date > now);
+  const futureActivities = activities.filter((activity) => activity.startDate > now);
   const closestActivity =
     futureActivities.length > 0 ? futureActivities[0] : null;
 

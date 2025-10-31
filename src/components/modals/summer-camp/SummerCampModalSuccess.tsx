@@ -1,7 +1,15 @@
 import { ModalSuccess } from "../shared";
 
-const SummerCampModalSuccess = () => {
-  const successContent = (
+interface SummerCampModalSuccessProps {
+  activityData?: {
+    registerFormMessage: React.ReactNode;
+  };
+}
+
+const SummerCampModalSuccess = ({
+  activityData,
+}: SummerCampModalSuccessProps) => {
+  const defaultContent = (
     <div className="text-sm space-y-2">
       <p>הטופס התקבל בהצלחה, תודה על הרשמתכם!</p>
       <p>אצור אתכם קשר ממש בקרוב כדי להסדיר את מקדמת שמירת המקום (200 ₪).</p>
@@ -11,10 +19,18 @@ const SummerCampModalSuccess = () => {
     </div>
   );
 
+  // Handle the formatted content from Prismic by creating proper paragraphs
+  const formattedContent = activityData?.registerFormMessage ? (
+    <div className="text-sm space-y-2">
+      {String(activityData.registerFormMessage).split('\n').filter(line => line.trim()).map((line, index) => (
+        <p key={index}>{line.trim()}</p>
+      ))}
+    </div>
+  ) : defaultContent;
+
   return (
     <ModalSuccess
-      title="היי 👋"
-      content={successContent}
+      content={formattedContent}
       iconMarginBottom="mb-3"
       contentAlignment="text-center"
     />

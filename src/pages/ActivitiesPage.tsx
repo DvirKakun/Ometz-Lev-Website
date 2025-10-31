@@ -21,13 +21,21 @@ import {
   AccordionContent,
 } from "../components/ui/accordion";
 import type { ServicePageProps } from "../types/service_page";
+import type { Activity } from "../types/activities";
 
 export default function ActivitiesPage({ service }: ServicePageProps) {
   const location = useLocation();
   const scrollTargetRef = useRef<string | null>(null);
 
   // Modal hooks
-  const summerCampModal = useRouterModal({ modalKey: "summerCamp" });
+  const summerCampModal = useRouterModal<{
+    activityData: {
+      sessions: number;
+      title: string;
+      registerFormTitle: string;
+      registerFormMessage: React.ReactNode;
+    };
+  }>({ modalKey: "summerCamp" });
   const imageModal = useRouterModal<{
     imageUrl: string;
     alt: string;
@@ -81,9 +89,20 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
     }
   }, [loading, activities, scrollToActivity]);
 
-  const handleRegisterClick = useCallback(() => {
-    summerCampModal.openModal();
-  }, [summerCampModal]);
+  const handleRegisterClick = useCallback(
+    (activity: Activity) => {
+      // Only pass serializable data, not the entire activity object
+      summerCampModal.openModal({
+        activityData: {
+          sessions: activity.sessions,
+          title: activity.title,
+          registerFormTitle: activity.registerFormTitle,
+          registerFormMessage: activity.registerFormMessage,
+        },
+      });
+    },
+    [summerCampModal]
+  );
 
   const handleImageClick = useCallback(
     (imageUrl: string, index: number, alt: string, totalImages: number) => {
@@ -97,31 +116,76 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
     [imageModal]
   );
 
-  // Calculate time remaining until activity starts
-  const getTimeRemaining = useCallback((activityDate: Date): string => {
+  // Check if activity is currently in progress
+  const isActivityInProgress = useCallback(
+    (startDate: Date, endDate: Date): boolean => {
+      const now = new Date();
+      return now >= startDate && now <= endDate;
+    },
+    []
+  );
+
+  // Check if activity is past (end date has passed)
+  const isActivityPast = useCallback((endDate: Date): boolean => {
     const now = new Date();
-    const timeDiff = activityDate.getTime() - now.getTime();
-
-    if (timeDiff <= 0) {
-      return "הפעילות החלה";
-    }
-
-    const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-      (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-
-    if (days > 0) {
-      return `נותרו ${days} ימים`;
-    } else if (hours > 0) {
-      return `נותרו ${hours} שעות`;
-    } else if (minutes > 0) {
-      return `נותרו ${minutes} דקות`;
-    } else {
-      return "נותרה פחות מדקה";
-    }
+    return now > endDate;
   }, []);
+
+  // Check if activity has special "בקרוב" date (02/06/1999)
+  const isSpecialComingSoonDate = useCallback((startDate: Date): boolean => {
+    // Compare only the date parts to avoid timezone issues
+    const activityYear = startDate.getFullYear();
+    const activityMonth = startDate.getMonth(); // 0-indexed
+    const activityDay = startDate.getDate();
+
+    return activityYear === 1999 && activityMonth === 5 && activityDay === 2; // June 2, 1999
+  }, []);
+
+  // Calculate time remaining until activity starts or show status
+  const getTimeRemaining = useCallback(
+    (activity: { startDate: Date; endDate: Date }): string => {
+      const now = new Date();
+      const { startDate, endDate } = activity;
+
+      // Check if activity has special "בקרוב" date
+      if (isSpecialComingSoonDate(startDate)) {
+        return "בקרוב";
+      }
+
+      // Check if activity is past (ended)
+      if (isActivityPast(endDate)) {
+        return "הפעילות הסתיימה";
+      }
+
+      // Check if activity is in progress
+      if (isActivityInProgress(startDate, endDate)) {
+        return "הפעילות בעיצומה";
+      }
+
+      const timeDiff = startDate.getTime() - now.getTime();
+
+      if (timeDiff <= 0) {
+        return "הפעילות החלה";
+      }
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+      if (days > 0) {
+        return `נותרו ${days} ימים`;
+      } else if (hours > 0) {
+        return `נותרו ${hours} שעות`;
+      } else if (minutes > 0) {
+        return `נותרו ${minutes} דקות`;
+      } else {
+        return "נותרה פחות מדקה";
+      }
+    },
+    [isActivityInProgress, isActivityPast, isSpecialComingSoonDate]
+  );
 
   // Auto-scroll to show activity section at top of viewport when accordion opens
   const handleAccordionChange = useCallback((value: string) => {
@@ -195,6 +259,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
               collapsible
               className="w-full space-y-4"
               onValueChange={handleAccordionChange}
+              defaultValue={activities[0]?.id}
             >
               {activities.map((activity) => (
                 <AccordionItem
@@ -209,9 +274,22 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
                           <h3 className="text-xl font-bold text-slate-900 mb-1">
                             {activity.title}
                           </h3>
-                          <div className="flex items-center gap-2 text-primary-600 text-sm font-medium">
+                          <div
+                            className={`flex items-center gap-2 text-sm font-medium ${
+                              isSpecialComingSoonDate(activity.startDate)
+                                ? "text-primary-600"
+                                : isActivityPast(activity.endDate)
+                                ? "text-red-600"
+                                : isActivityInProgress(
+                                    activity.startDate,
+                                    activity.endDate
+                                  )
+                                ? "text-green-600"
+                                : "text-primary-600"
+                            }`}
+                          >
                             <Clock className="w-4 h-4" />
-                            <span>{getTimeRemaining(activity.date)}</span>
+                            <span>{getTimeRemaining(activity)}</span>
                           </div>
                         </div>
                       </div>
@@ -222,11 +300,24 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
                       <ActivitySection
                         activity={activity}
                         onRegisterClick={
-                          activity.hasRegistration
-                            ? handleRegisterClick
+                          activity.hasRegistration &&
+                          !isActivityInProgress(
+                            activity.startDate,
+                            activity.endDate
+                          ) &&
+                          !isSpecialComingSoonDate(activity.startDate)
+                            ? () => handleRegisterClick(activity)
                             : undefined
                         }
                         onImageClick={handleImageClick}
+                        isComingSoon={isSpecialComingSoonDate(
+                          activity.startDate
+                        )}
+                        isInProgress={isActivityInProgress(
+                          activity.startDate,
+                          activity.endDate
+                        )}
+                        isPast={isActivityPast(activity.endDate)}
                       />
                     </div>
                   </AccordionContent>
@@ -293,6 +384,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
       <SummerCampModal
         isOpen={summerCampModal.isOpen}
         onOpenChange={summerCampModal.onOpenChange}
+        activityData={summerCampModal.modalData?.activityData}
       />
 
       {imageModal.modalData && (

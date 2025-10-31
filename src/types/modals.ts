@@ -13,11 +13,23 @@ export interface ContactModalFormProps {
 export interface SummerCampModalProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
+  activityData?: {
+    sessions: number;
+    title: string;
+    registerFormTitle: string;
+    registerFormMessage: React.ReactNode;
+  };
 }
 
 export interface SummerCampModalFormProps {
   onSuccess: () => void;
   onError: () => void;
+  activityData?: {
+    sessions: number;
+    title: string;
+    registerFormTitle: string;
+    registerFormMessage: React.ReactNode;
+  };
 }
 
 export interface ModalErrorProps {
@@ -37,7 +49,6 @@ export interface ModalHeaderProps {
 }
 
 export interface ModalSuccessProps {
-  title: string;
   content?: string | React.ReactNode;
   iconMarginBottom?: "mb-1" | "mb-3";
   contentAlignment?: "text-center" | "text-right";
