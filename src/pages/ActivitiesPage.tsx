@@ -187,26 +187,48 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
     [isActivityInProgress, isActivityPast, isSpecialComingSoonDate]
   );
 
-  // Auto-scroll to show activity section at top of viewport when accordion opens
+  // Auto-scroll to show accordion header when accordion opens
+  // Modern UX research (2024) suggests intelligent auto-scrolling for accordions
   const handleAccordionChange = useCallback((value: string) => {
     if (value) {
-      // Small delay to let accordion animation start
+      // Capture the current scroll position and target element position BEFORE animations
+      const targetElement = document.getElementById(`accordion-${value}`);
+      if (!targetElement) return;
+      
+      const initialScrollTop = window.pageYOffset;
+      const initialTargetTop = targetElement.getBoundingClientRect().top + initialScrollTop;
+      
+      // Wait for accordion animations to complete, then apply intelligent scrolling
       setTimeout(() => {
-        const activityElement = document.getElementById(value);
-        if (activityElement) {
-          // Get the top position of the activity section component
-          const elementRect = activityElement.getBoundingClientRect();
-          const elementTop = elementRect.top + window.pageYOffset;
-
-          // Position activity section at the top of viewport (with small padding for header)
-          const scrollPosition = elementTop - 80; // 80px padding from top for header/spacing
-
-          window.scrollTo({
-            top: Math.max(0, scrollPosition),
-            behavior: "smooth",
-          });
-        }
-      }, 150); // Wait for accordion animation to start
+        requestAnimationFrame(() => {
+          const accordionElement = document.getElementById(`accordion-${value}`);
+          if (accordionElement) {
+            const currentRect = accordionElement.getBoundingClientRect();
+            const currentScrollTop = window.pageYOffset;
+            const targetTop = currentRect.top + currentScrollTop;
+            
+            // Calculate how much the page layout changed
+            const layoutShift = targetTop - initialTargetTop;
+            
+            // Modern UX best practice: only scroll if the header is displaced or out of optimal viewing area
+            const isHeaderOutOfView = currentRect.top < 0;
+            const isHeaderTooHigh = currentRect.top < 60; // Less than 60px from top (cramped)
+            const isHeaderTooLow = currentRect.top > window.innerHeight * 0.7; // Below 70% of viewport
+            const hasSignificantLayoutShift = Math.abs(layoutShift) > 100; // More than 100px shift
+            
+            // Apply scroll correction if needed
+            if (isHeaderOutOfView || isHeaderTooHigh || isHeaderTooLow || hasSignificantLayoutShift) {
+              // Use optimal scroll position: header positioned at 15% from top (sweet spot for readability)
+              const optimalPosition = targetTop - (window.innerHeight * 0.15);
+              
+              window.scrollTo({
+                top: Math.max(0, optimalPosition),
+                behavior: "smooth",
+              });
+            }
+          }
+        });
+      }, 420); // Optimized timing: slightly before animation completes for smoother UX
     }
   }, []);
 
@@ -261,67 +283,78 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
               onValueChange={handleAccordionChange}
               defaultValue={activities[0]?.id}
             >
-              {activities.map((activity) => (
-                <AccordionItem
+              {activities.map((activity, index) => (
+                <motion.div
                   key={activity.id}
-                  value={activity.id}
-                  className="bg-white rounded-xl sm:rounded-2xl shadow-lg border-0 overflow-hidden"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.4,
+                    delay: index * 0.1,
+                    ease: "easeOut",
+                  }}
                 >
-                  <AccordionTrigger className="px-3 py-3 sm:px-6 sm:py-5 lg:px-8 lg:py-6 text-right hover:no-underline hover:bg-gray-50/80 transition-colors">
-                    <div className="flex items-center justify-between w-full">
-                      <div className="flex items-center gap-3">
-                        <div className="text-right">
-                          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-0.5 sm:mb-1">
-                            {activity.title}
-                          </h3>
-                          <div
-                            className={`flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium ${
-                              isSpecialComingSoonDate(activity.startDate)
-                                ? "text-primary-600"
-                                : isActivityPast(activity.endDate)
-                                ? "text-red-600"
-                                : isActivityInProgress(
-                                    activity.startDate,
-                                    activity.endDate
-                                  )
-                                ? "text-green-600"
-                                : "text-primary-600"
-                            }`}
-                          >
-                            <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-                            <span>{getTimeRemaining(activity)}</span>
+                  <AccordionItem
+                    value={activity.id}
+                    id={`accordion-${activity.id}`}
+                    className="bg-white rounded-xl sm:rounded-2xl shadow-lg border-0 overflow-hidden"
+                  >
+                    <AccordionTrigger className="px-3 py-3 sm:px-6 sm:py-5 lg:px-8 lg:py-6 text-right hover:no-underline hover:bg-gray-50/80 transition-all duration-300 hover:shadow-md">
+                      <div className="flex items-center justify-between w-full">
+                        <div className="flex items-center gap-3">
+                          <div className="text-right">
+                            <h3 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-0.5 sm:mb-1">
+                              {activity.title}
+                            </h3>
+                            <div
+                              className={`flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium ${
+                                isSpecialComingSoonDate(activity.startDate)
+                                  ? "text-primary-600"
+                                  : isActivityPast(activity.endDate)
+                                  ? "text-red-600"
+                                  : isActivityInProgress(
+                                      activity.startDate,
+                                      activity.endDate
+                                    )
+                                  ? "text-green-600"
+                                  : "text-primary-600"
+                              }`}
+                            >
+                              <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                              <span>{getTimeRemaining(activity)}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </AccordionTrigger>
-                  <AccordionContent className="px-0 pb-0">
-                    <div className="border-t border-gray-100">
-                      <ActivitySection
-                        activity={activity}
-                        onRegisterClick={
-                          activity.hasRegistration &&
-                          !isActivityInProgress(
+                    </AccordionTrigger>
+                    <AccordionContent className="px-0 pb-0">
+                      <div className="border-t border-gray-100">
+                        <ActivitySection
+                          activity={activity}
+                          onRegisterClick={
+                            activity.hasRegistration &&
+                            !isActivityInProgress(
+                              activity.startDate,
+                              activity.endDate
+                            ) &&
+                            !isSpecialComingSoonDate(activity.startDate)
+                              ? () => handleRegisterClick(activity)
+                              : undefined
+                          }
+                          onImageClick={handleImageClick}
+                          isComingSoon={isSpecialComingSoonDate(
+                            activity.startDate
+                          )}
+                          isInProgress={isActivityInProgress(
                             activity.startDate,
                             activity.endDate
-                          ) &&
-                          !isSpecialComingSoonDate(activity.startDate)
-                            ? () => handleRegisterClick(activity)
-                            : undefined
-                        }
-                        onImageClick={handleImageClick}
-                        isComingSoon={isSpecialComingSoonDate(
-                          activity.startDate
-                        )}
-                        isInProgress={isActivityInProgress(
-                          activity.startDate,
-                          activity.endDate
-                        )}
-                        isPast={isActivityPast(activity.endDate)}
-                      />
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
+                          )}
+                          isPast={isActivityPast(activity.endDate)}
+                        />
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                </motion.div>
               ))}
             </Accordion>
           </div>
