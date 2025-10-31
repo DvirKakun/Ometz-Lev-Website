@@ -6,6 +6,7 @@ import { fetchCategoriesFromPrismic } from "../utils/prismic-categories";
 import { fetchActivitiesFromPrismic } from "../utils/prismic-activities";
 import { fetchProfileImageFromPrismic } from "../utils/prismic-profile-image";
 import { fetchHeroSlidesFromPrismic } from "../utils/prismic-hero-slides";
+import { fetchHealthTermsButtonFromPrismic } from "../utils/prismic-health-terms-button";
 import {
   fetchTherapyOfferings,
   fetchTrainingOfferings,
@@ -29,6 +30,7 @@ import {
 } from "./useServiceOfferings";
 import { useFAQItems } from "./useFAQ";
 import { useActivities } from "./useActivities";
+import { useHealthTermsButton } from "./useHealthTermsButton";
 
 // Types for prefetching options
 type PrefetchOptions = {
@@ -50,6 +52,7 @@ type PrefetchOptions = {
   trainingFAQs?: boolean;
   activitiesFAQs?: boolean;
   schoolsFAQs?: boolean;
+  healthTermsButton?: boolean;
 };
 
 // Hook for prefetching data during loading screens
@@ -240,6 +243,17 @@ export function usePrefetchData(options: PrefetchOptions = {}) {
       );
     }
 
+    // Prefetch health terms button
+    if (options.healthTermsButton) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["health-terms-button"],
+          queryFn: fetchHealthTermsButtonFromPrismic,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
     // Execute all prefetch operations in parallel
     Promise.all(prefetchPromises).catch((error) => {
       console.warn("Some data prefetching failed:", error);
@@ -291,6 +305,7 @@ export function usePrefetchForRoute(pathname: string) {
     trainingFAQs: isTraining, // Prefetch training FAQs for training page
     activitiesFAQs: isActivities, // Prefetch activities FAQs for activities page
     schoolsFAQs: isSchools, // Prefetch schools FAQs for schools page
+    healthTermsButton: isActivities, // Prefetch health terms button for activities page (summer camp modal)
   });
 }
 
@@ -350,12 +365,14 @@ export function useActivitiesPageLoadingState() {
   const { isLoading: profileLoading } = useProfileImage();
   const { isLoading: offeringsLoading } = useActivitiesOfferings();
   const { isLoading: faqsLoading } = useFAQItems("activities");
+  const { isLoading: healthTermsLoading } = useHealthTermsButton();
 
   const loadingStates = [
     activitiesLoading,
     profileLoading,
     offeringsLoading,
     faqsLoading,
+    healthTermsLoading,
   ];
   const completedCount = loadingStates.filter((loading) => !loading).length;
   const totalCount = loadingStates.length;

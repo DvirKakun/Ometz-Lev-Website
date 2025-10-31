@@ -1,4 +1,5 @@
 import { ModalSuccess } from "../shared";
+import HealthTermsButton from "./HealthTermsButton";
 
 interface SummerCampModalSuccessProps {
   activityData?: {
@@ -33,6 +34,7 @@ const SummerCampModalSuccess = ({
       content={formattedContent}
       iconMarginBottom="mb-3"
       contentAlignment="text-center"
+      bottomButton={<HealthTermsButton />}
     />
   );
 };

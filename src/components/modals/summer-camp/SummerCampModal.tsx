@@ -19,19 +19,23 @@ const SummerCampModal = ({ isOpen, onOpenChange, activityData }: SummerCampModal
 
   const handleSuccess = () => {
     setSubmitStatus("success");
-    // Close modal after success
-    setTimeout(() => {
-      onOpenChange(false);
-      setSubmitStatus("idle");
-    }, 8000); // Longer timeout to read the success message
+    // Note: Modal will only close when user clicks X or clicks outside
   };
 
   const handleError = () => {
     setSubmitStatus("error");
   };
 
+  const handleModalClose = (open: boolean) => {
+    if (!open) {
+      // Reset status when modal closes
+      setSubmitStatus("idle");
+    }
+    onOpenChange(open);
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={handleModalClose}>
       <DialogContent className="max-w-lg w-[90vw] max-h-[90vh] p-0 border-0 text-slate-900 overflow-hidden rounded-2xl">
         <DialogHeader className="sr-only">
           <DialogTitle>הרשמה לקייטנת אומץ לב</DialogTitle>

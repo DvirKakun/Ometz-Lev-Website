@@ -54,6 +54,7 @@ export interface ModalSuccessProps {
   contentAlignment?: "text-center" | "text-right";
   icon?: LucideIcon;
   className?: string;
+  bottomButton?: React.ReactNode;
 }
 
 export interface VideoModalProps {

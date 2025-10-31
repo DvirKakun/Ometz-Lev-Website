@@ -9,8 +9,8 @@ const ModalSuccess: React.FC<ModalSuccessProps> = ({
   contentAlignment = "text-center",
   icon: IconComponent = CheckCircle,
   className = "",
+  bottomButton,
 }) => {
-  console.log("ModalSuccess content:", content);
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
@@ -31,6 +31,9 @@ const ModalSuccess: React.FC<ModalSuccessProps> = ({
           {typeof content === "string" ? <p>{content}</p> : content}
         </div>
       )}
+
+      {/* Bottom Button */}
+      {bottomButton && <div className="mt-4">{bottomButton}</div>}
     </motion.div>
   );
 };
