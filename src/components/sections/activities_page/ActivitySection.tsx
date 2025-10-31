@@ -6,10 +6,12 @@ const ActivitySection = ({
   activity,
   onRegisterClick,
   onImageClick,
-  isComingSoon = false,
-  isInProgress = false,
-  isPast = false,
 }: ActivitySectionProps) => {
+  const { status } = activity;
+  const isPast = status === "past";
+  const isComingSoon = status === "coming_soon";
+  const isInProgress = status === "in_progress";
+  const isRegisterable = status === "registerable";
   const handleImageClick = (imageUrl: string, index: number) => {
     onImageClick?.(
       imageUrl,
@@ -58,7 +60,7 @@ const ActivitySection = ({
               </div>
 
               {activity.hasRegistration &&
-                !isPast &&
+                isRegisterable &&
                 onRegisterClick && (
                   <div>
                     <Button
@@ -83,12 +85,12 @@ const ActivitySection = ({
                     alt={activity.main_image.alt || "Activity image"}
                     loading="lazy"
                     className={`max-w-full max-h-48 sm:max-h-56 md:max-h-64 lg:max-h-96 rounded-xl object-contain ${
-                      isPast || isComingSoon || isInProgress
-                        ? `filter blur-md cursor-default ${isPast && !isComingSoon && !isInProgress ? "grayscale" : ""}`
+                      !isRegisterable
+                        ? `filter blur-md cursor-default ${isPast ? "grayscale" : ""}`
                         : "cursor-pointer"
                     }`}
                     onClick={
-                      isPast || isComingSoon || isInProgress
+                      !isRegisterable
                         ? undefined
                         : () =>
                             handleImageClick(activity.main_image.url || "", -1)
@@ -112,10 +114,10 @@ const ActivitySection = ({
                         }`}
                       >
                         <div className={`backdrop-blur-sm rounded-full p-4 shadow-lg ${
-                          isPast && !isComingSoon && !isInProgress ? "bg-gray-800/80" : "bg-white/90"
+                          isPast ? "bg-gray-800/80" : "bg-white/90"
                         }`}>
                           <activity.icon className={`w-8 h-8 ${
-                            isPast && !isComingSoon && !isInProgress ? "text-white" : "text-slate-600"
+                            isPast ? "text-white" : "text-slate-600"
                           }`} />
                         </div>
                       </div>
