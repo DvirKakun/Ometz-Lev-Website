@@ -116,75 +116,49 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
     [imageModal]
   );
 
-  // Check if activity is currently in progress
-  const isActivityInProgress = useCallback(
-    (startDate: Date, endDate: Date): boolean => {
-      const now = new Date();
-      return now >= startDate && now <= endDate;
-    },
-    []
-  );
-
-  // Check if activity is past (end date has passed)
-  const isActivityPast = useCallback((endDate: Date): boolean => {
-    const now = new Date();
-    return now > endDate;
-  }, []);
-
-  // Check if activity has special "בקרוב" date (02/06/1999)
-  const isSpecialComingSoonDate = useCallback((startDate: Date): boolean => {
-    // Compare only the date parts to avoid timezone issues
-    const activityYear = startDate.getFullYear();
-    const activityMonth = startDate.getMonth(); // 0-indexed
-    const activityDay = startDate.getDate();
-
-    return activityYear === 1999 && activityMonth === 5 && activityDay === 2; // June 2, 1999
-  }, []);
-
   // Calculate time remaining until activity starts or show status
   const getTimeRemaining = useCallback(
-    (activity: { startDate: Date; endDate: Date }): string => {
+    (activity: { startDate: Date; endDate: Date; status: string }): string => {
       const now = new Date();
-      const { startDate, endDate } = activity;
+      const { startDate, status } = activity;
 
-      // Check if activity has special "בקרוב" date
-      if (isSpecialComingSoonDate(startDate)) {
-        return "בקרוב";
-      }
+      switch (status) {
+        case "coming_soon":
+          return "בקרוב";
+        case "past":
+          return "הפעילות הסתיימה";
+        case "in_progress":
+          return "הפעילות בעיצומה";
+        case "registerable": {
+          const timeDiff = startDate.getTime() - now.getTime();
 
-      // Check if activity is past (ended)
-      if (isActivityPast(endDate)) {
-        return "הפעילות הסתיימה";
-      }
+          if (timeDiff <= 0) {
+            return "הפעילות החלה";
+          }
 
-      // Check if activity is in progress
-      if (isActivityInProgress(startDate, endDate)) {
-        return "הפעילות בעיצומה";
-      }
+          const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor(
+            (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          const minutes = Math.floor(
+            (timeDiff % (1000 * 60 * 60)) / (1000 * 60)
+          );
 
-      const timeDiff = startDate.getTime() - now.getTime();
-
-      if (timeDiff <= 0) {
-        return "הפעילות החלה";
-      }
-
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-
-      if (days > 0) {
-        return `ההרשמה פתוחה - נותרו ${days} ימים`;
-      } else if (hours > 0) {
-        return `ההרשמה פתוחה - נותרו ${hours} שעות`;
-      } else if (minutes > 0) {
-        return `ההרשמה פתוחה - נותרו ${minutes} דקות`;
-      } else {
-        return "ההרשמה פתוחה - נותרה פחות מדקה";
+          if (days > 0) {
+            return `ההרשמה פתוחה - נותרו ${days} ימים`;
+          } else if (hours > 0) {
+            return `ההרשמה פתוחה - נותרו ${hours} שעות`;
+          } else if (minutes > 0) {
+            return `ההרשמה פתוחה - נותרו ${minutes} דקות`;
+          } else {
+            return "ההרשמה פתוחה - נותרה פחות מדקה";
+          }
+        }
+        default:
+          return "פעילות";
       }
     },
-    [isActivityInProgress, isActivityPast, isSpecialComingSoonDate]
+    []
   );
 
   // Auto-scroll to show accordion header when accordion opens
@@ -194,33 +168,41 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
       // Capture the current scroll position and target element position BEFORE animations
       const targetElement = document.getElementById(`accordion-${value}`);
       if (!targetElement) return;
-      
+
       const initialScrollTop = window.pageYOffset;
-      const initialTargetTop = targetElement.getBoundingClientRect().top + initialScrollTop;
-      
+      const initialTargetTop =
+        targetElement.getBoundingClientRect().top + initialScrollTop;
+
       // Wait for accordion animations to complete, then apply intelligent scrolling
       setTimeout(() => {
         requestAnimationFrame(() => {
-          const accordionElement = document.getElementById(`accordion-${value}`);
+          const accordionElement = document.getElementById(
+            `accordion-${value}`
+          );
           if (accordionElement) {
             const currentRect = accordionElement.getBoundingClientRect();
             const currentScrollTop = window.pageYOffset;
             const targetTop = currentRect.top + currentScrollTop;
-            
+
             // Calculate how much the page layout changed
             const layoutShift = targetTop - initialTargetTop;
-            
+
             // Modern UX best practice: only scroll if the header is displaced or out of optimal viewing area
             const isHeaderOutOfView = currentRect.top < 0;
             const isHeaderTooHigh = currentRect.top < 60; // Less than 60px from top (cramped)
             const isHeaderTooLow = currentRect.top > window.innerHeight * 0.7; // Below 70% of viewport
             const hasSignificantLayoutShift = Math.abs(layoutShift) > 100; // More than 100px shift
-            
+
             // Apply scroll correction if needed
-            if (isHeaderOutOfView || isHeaderTooHigh || isHeaderTooLow || hasSignificantLayoutShift) {
+            if (
+              isHeaderOutOfView ||
+              isHeaderTooHigh ||
+              isHeaderTooLow ||
+              hasSignificantLayoutShift
+            ) {
               // Use optimal scroll position: header positioned at 15% from top (sweet spot for readability)
-              const optimalPosition = targetTop - (window.innerHeight * 0.15);
-              
+              const optimalPosition = targetTop - window.innerHeight * 0.15;
+
               window.scrollTo({
                 top: Math.max(0, optimalPosition),
                 behavior: "smooth",
@@ -308,14 +290,11 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
                             </h3>
                             <div
                               className={`flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium ${
-                                isSpecialComingSoonDate(activity.startDate)
+                                activity.status === "coming_soon"
                                   ? "text-primary-600"
-                                  : isActivityPast(activity.endDate)
+                                  : activity.status === "past"
                                   ? "text-red-600"
-                                  : isActivityInProgress(
-                                      activity.startDate,
-                                      activity.endDate
-                                    )
+                                  : activity.status === "in_progress"
                                   ? "text-green-600"
                                   : "text-primary-600"
                               }`}
@@ -332,24 +311,11 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
                         <ActivitySection
                           activity={activity}
                           onRegisterClick={
-                            activity.hasRegistration &&
-                            !isActivityInProgress(
-                              activity.startDate,
-                              activity.endDate
-                            ) &&
-                            !isSpecialComingSoonDate(activity.startDate)
+                            activity.status === "registerable"
                               ? () => handleRegisterClick(activity)
                               : undefined
                           }
                           onImageClick={handleImageClick}
-                          isComingSoon={isSpecialComingSoonDate(
-                            activity.startDate
-                          )}
-                          isInProgress={isActivityInProgress(
-                            activity.startDate,
-                            activity.endDate
-                          )}
-                          isPast={isActivityPast(activity.endDate)}
                         />
                       </div>
                     </AccordionContent>

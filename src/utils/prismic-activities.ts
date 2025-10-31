@@ -1,5 +1,5 @@
 import { Calendar } from "lucide-react";
-import type { Activity } from "../types/activities";
+import type { Activity, ActivityStatus } from "../types/activities";
 import type { PrismicDocument } from "@prismicio/client";
 import {
   createPrismicClient,
@@ -10,30 +10,72 @@ import {
   getPrismicRichText,
 } from "./prismic-config";
 
-// Helper function to check if activity has ended (based on end date)
-function isActivityPast(endDate: Date): boolean {
-  const now = new Date();
-  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  const endDay = new Date(
-    endDate.getFullYear(),
-    endDate.getMonth(),
-    endDate.getDate()
-  );
-  return endDay < today;
+// Helper function to check if activity has special "בקרוב" date (02/06/1999)
+function isSpecialComingSoonDate(startDate: Date): boolean {
+  const activityYear = startDate.getFullYear();
+  const activityMonth = startDate.getMonth(); // 0-indexed
+  const activityDay = startDate.getDate();
+  return activityYear === 1999 && activityMonth === 5 && activityDay === 2; // June 2, 1999
 }
 
-// Helper function to sort activities: future first, then past
-function sortActivitiesByDate(activities: Activity[]): Activity[] {
+// Helper function to determine activity status
+function calculateActivityStatus(startDate: Date, endDate: Date, hasRegistration: boolean): ActivityStatus {
+  const now = new Date();
+  
+  // Check for special "בקרוב" date first
+  if (isSpecialComingSoonDate(startDate)) {
+    return "coming_soon";
+  }
+  
+  // Check if activity ended
+  if (now > endDate) {
+    return "past";
+  }
+  
+  // Check if activity is currently in progress
+  if (now >= startDate && now <= endDate) {
+    return "in_progress";
+  }
+  
+  // Activity is in the future - check if registration is available
+  if (hasRegistration && now < startDate) {
+    return "registerable";
+  }
+  
+  // Future activity without registration (fallback to coming soon)
+  return "coming_soon";
+}
+
+// Helper function to get priority for sorting
+function getActivityPriority(status: ActivityStatus): number {
+  switch (status) {
+    case "registerable": return 0; // Highest priority
+    case "in_progress": return 1;
+    case "coming_soon": return 2;
+    case "past": return 3; // Lowest priority
+    default: return 4;
+  }
+}
+
+// Priority-based sorting function
+function sortActivitiesByPriority(activities: Activity[]): Activity[] {
   return activities.sort((a, b) => {
-    const aIsPast = isActivityPast(a.endDate);
-    const bIsPast = isActivityPast(b.endDate);
-
-    // If one is past and other is future, future comes first
-    if (aIsPast && !bIsPast) return 1;
-    if (!aIsPast && bIsPast) return -1;
-
-    // If both are future or both are past, sort by date (ascending)
-    return a.startDate.getTime() - b.startDate.getTime();
+    const priorityA = getActivityPriority(a.status);
+    const priorityB = getActivityPriority(b.status);
+    
+    // First sort by priority
+    if (priorityA !== priorityB) {
+      return priorityA - priorityB;
+    }
+    
+    // Within same priority, sort by date
+    if (a.status === "past") {
+      // For past activities: most recent first
+      return b.startDate.getTime() - a.startDate.getTime();
+    } else {
+      // For future/current activities: earliest first
+      return a.startDate.getTime() - b.startDate.getTime();
+    }
   });
 }
 
@@ -52,7 +94,8 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
 
   const startDate = getPrismicDate(data.activity_start_date);
   const endDate = getPrismicDate(data.activity_end_date);
-  const isPastActivity = isActivityPast(endDate);
+  const hasRegistration = Boolean(data.has_registration);
+  const status = calculateActivityStatus(startDate, endDate, hasRegistration);
 
   // Extract details (taking first item from group, or create default)
   const rawDetails = data.details?.[0] || {};
@@ -92,7 +135,7 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
     main_image: data.main_image,
     images: data.gallery_images || [],
     buttonText: String(buttonText || "Register"),
-    hasRegistration: Boolean(data.has_registration),
+    hasRegistration,
     timerTitle: String(timerTitle || "Coming Soon"),
     date: startDate,
     startDate,
@@ -100,7 +143,7 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
     sessions,
     registerFormTitle: String(registerFormTitle || "הרשמה לפעילות"),
     registerFormMessage: String(registerFormMessage || "הטופס התקבל בהצלחה"),
-    isPast: isPastActivity,
+    status,
     // Apply default styling to all activities
     ...DEFAULT_ACTIVITY_STYLING,
   };
@@ -125,7 +168,7 @@ export const fetchActivitiesFromPrismic = async (): Promise<Activity[]> => {
     }
 
     const activities = response.map(mapPrismicToActivity);
-    return sortActivitiesByDate(activities);
+    return sortActivitiesByPriority(activities);
   } catch (error) {
     handlePrismicError(error, "activities");
     // Return empty array instead of throwing to prevent app crash

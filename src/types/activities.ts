@@ -1,6 +1,13 @@
 import type { LucideIcon } from "lucide-react";
 import type { ImageField } from "@prismicio/types";
 
+// Activity status enum for priority-based sorting and component logic
+export type ActivityStatus = 
+  | "registerable"  // Priority 0: Can register + has countdown
+  | "in_progress"   // Priority 1: Currently active
+  | "coming_soon"   // Priority 2: Special "בקרוב" status
+  | "past";         // Priority 3: Activity ended
+
 // Prismic gallery image structure
 export interface PrismicGalleryImage {
   image: ImageField;
@@ -29,14 +36,11 @@ export interface Activity {
   sessions: number; // 1-4
   registerFormTitle: string;
   registerFormMessage: React.ReactNode;
-  isPast?: boolean;
+  status: ActivityStatus;
 }
 
 export interface ActivitySectionProps {
   activity: Activity;
   onRegisterClick?: () => void;
   onImageClick?: (imageUrl: string, index: number, alt: string, totalImages: number) => void;
-  isComingSoon?: boolean;
-  isInProgress?: boolean;
-  isPast?: boolean;
 }
