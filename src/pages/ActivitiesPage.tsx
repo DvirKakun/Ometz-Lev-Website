@@ -175,13 +175,13 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
       const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
 
       if (days > 0) {
-        return `נותרו ${days} ימים`;
+        return `ההרשמה פתוחה - נותרו ${days} ימים`;
       } else if (hours > 0) {
-        return `נותרו ${hours} שעות`;
+        return `ההרשמה פתוחה - נותרו ${hours} שעות`;
       } else if (minutes > 0) {
-        return `נותרו ${minutes} דקות`;
+        return `ההרשמה פתוחה - נותרו ${minutes} דקות`;
       } else {
-        return "נותרה פחות מדקה";
+        return "ההרשמה פתוחה - נותרה פחות מדקה";
       }
     },
     [isActivityInProgress, isActivityPast, isSpecialComingSoonDate]
@@ -251,13 +251,13 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
 
     // Success state - render activities in accordion
     return (
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section className="py-6 sm:py-12 lg:py-16 bg-gray-50">
+        <div className="container mx-auto px-3 sm:px-4">
           <div className="max-w-6xl mx-auto">
             <Accordion
               type="single"
               collapsible
-              className="w-full space-y-4"
+              className="w-full space-y-2 sm:space-y-4"
               onValueChange={handleAccordionChange}
               defaultValue={activities[0]?.id}
             >
@@ -265,17 +265,17 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
                 <AccordionItem
                   key={activity.id}
                   value={activity.id}
-                  className="bg-white rounded-2xl shadow-lg border-0 overflow-hidden"
+                  className="bg-white rounded-xl sm:rounded-2xl shadow-lg border-0 overflow-hidden"
                 >
-                  <AccordionTrigger className="px-8 py-6 text-right hover:no-underline hover:bg-gray-50/80 transition-colors">
+                  <AccordionTrigger className="px-3 py-3 sm:px-6 sm:py-5 lg:px-8 lg:py-6 text-right hover:no-underline hover:bg-gray-50/80 transition-colors">
                     <div className="flex items-center justify-between w-full">
                       <div className="flex items-center gap-3">
                         <div className="text-right">
-                          <h3 className="text-xl font-bold text-slate-900 mb-1">
+                          <h3 className="text-base sm:text-lg lg:text-xl font-bold text-slate-900 mb-0.5 sm:mb-1">
                             {activity.title}
                           </h3>
                           <div
-                            className={`flex items-center gap-2 text-sm font-medium ${
+                            className={`flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium ${
                               isSpecialComingSoonDate(activity.startDate)
                                 ? "text-primary-600"
                                 : isActivityPast(activity.endDate)
@@ -288,7 +288,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
                                 : "text-primary-600"
                             }`}
                           >
-                            <Clock className="w-4 h-4" />
+                            <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                             <span>{getTimeRemaining(activity)}</span>
                           </div>
                         </div>
