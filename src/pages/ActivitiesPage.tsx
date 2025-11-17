@@ -291,12 +291,12 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
                             <div
                               className={`flex items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium ${
                                 activity.status === "coming_soon"
-                                  ? "text-primary-600"
+                                  ? "text-activity-coming-soon"
                                   : activity.status === "past"
-                                  ? "text-red-600"
+                                  ? "text-activity-past"
                                   : activity.status === "in_progress"
-                                  ? "text-green-600"
-                                  : "text-primary-600"
+                                  ? "text-activity-in-progress"
+                                  : "text-activity-registerable"
                               }`}
                             >
                               <Clock className="w-3 h-3 sm:w-4 sm:h-4" />

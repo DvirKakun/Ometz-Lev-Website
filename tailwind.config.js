@@ -20,6 +20,13 @@ export default {
           800: "#85552a",
           900: "#6d4626",
         },
+        // ============ ACTIVITY STATUS COLORS ============
+        activity: {
+          "coming-soon": "#dc2626", // red-600
+          "past": "#4b5563", // gray-600  
+          "in-progress": "#d97706", // yellow-600
+          "registerable": "#059669", // green-600
+        },
       },
       borderRadius: {
         xl: "1rem",

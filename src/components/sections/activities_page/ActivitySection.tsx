@@ -86,7 +86,9 @@ const ActivitySection = ({
                     loading="lazy"
                     className={`max-w-full max-h-48 sm:max-h-56 md:max-h-64 lg:max-h-96 rounded-xl object-contain ${
                       !isRegisterable
-                        ? `filter blur-md cursor-default ${isPast ? "grayscale" : ""}`
+                        ? `filter blur-md cursor-default ${
+                            isPast ? "grayscale" : ""
+                          }`
                         : "cursor-pointer"
                     }`}
                     onClick={
@@ -113,12 +115,16 @@ const ActivitySection = ({
                             : "bg-gray-500/50"
                         }`}
                       >
-                        <div className={`backdrop-blur-sm rounded-full p-4 shadow-lg ${
-                          isPast ? "bg-gray-800/80" : "bg-white/90"
-                        }`}>
-                          <activity.icon className={`w-8 h-8 ${
-                            isPast ? "text-white" : "text-slate-600"
-                          }`} />
+                        <div
+                          className={`backdrop-blur-sm rounded-full p-4 shadow-lg ${
+                            isPast ? "bg-gray-800/80" : "bg-white/90"
+                          }`}
+                        >
+                          <activity.icon
+                            className={`w-8 h-8 ${
+                              isPast ? "text-white" : "text-slate-600"
+                            }`}
+                          />
                         </div>
                       </div>
 
@@ -127,10 +133,10 @@ const ActivitySection = ({
                         <div
                           className={`absolute top-4 -right-12 text-white font-bold px-16 py-2 text-lg transform rotate-45 shadow-lg ${
                             isComingSoon
-                              ? "bg-gradient-to-r from-primary-400 to-primary-500"
+                              ? "bg-activity-coming-soon"
                               : isInProgress
-                              ? "bg-gradient-to-r from-green-500 to-green-600"
-                              : "bg-gradient-to-r from-red-500 to-red-600"
+                              ? "bg-activity-in-progress"
+                              : "bg-activity-past"
                           }`}
                         >
                           {isComingSoon
