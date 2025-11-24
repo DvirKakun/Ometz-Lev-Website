@@ -14,7 +14,7 @@ const ServiceHeader = ({
       className="text-center sm:text-right"
     >
       {/* Mobile-optimized typography with clamp() for fluid scaling */}
-      <motion.h1
+      <motion.h2
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -23,7 +23,7 @@ const ServiceHeader = ({
         style={{ fontSize: "clamp(1.75rem, 4vw, 3rem)" }}
       >
         {title}
-      </motion.h1>
+      </motion.h2>
       <motion.p
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}

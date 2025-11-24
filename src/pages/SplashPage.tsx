@@ -35,7 +35,7 @@ const SplashPage: React.FC = () => {
     // Navigate to home after 3 seconds
     const timer = setTimeout(() => {
       navigate("/home", { replace: true });
-    }, 3000);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, [navigate]);

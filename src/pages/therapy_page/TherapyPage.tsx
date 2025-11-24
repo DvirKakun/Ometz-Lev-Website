@@ -25,7 +25,7 @@ const TherapyPage = ({ service }: ServicePageProps) => {
 
   // SEO Configuration for Therapy Page
   const seoConfig = {
-    title: "כלבנות טיפולית | כלבי טיפול | אלעד שמעונוב - פט תרפיה | אומץ לב",
+    title: "כלבנות טיפולית | אלעד שמעונוב | אומץ לב",
     description:
       "אלעד שמעונוב - כלבנות טיפולית מקצועית לטיפול בחרדות, דיכאון ופוסט טראומה. כלבי טיפול מאומנים לילדים ומבוגרים. טיפול בעזרת בעלי חיים להתגברות על פחדים. קבעו פגישה!",
     keywords: getKeywordsForPage("therapy"),
@@ -81,6 +81,11 @@ const TherapyPage = ({ service }: ServicePageProps) => {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
+        {/* SEO H1 - Hidden from users but visible to search engines */}
+        <h1 className="sr-only">
+          כלבנות טיפולית מקצועית - אלעד שמעונוב | עבודה על בחרדות ופחדים | אומץ
+          לב
+        </h1>
         {/* Features Section */}
         <CollapsibleFeatures service={serviceWithOfferings} />
 

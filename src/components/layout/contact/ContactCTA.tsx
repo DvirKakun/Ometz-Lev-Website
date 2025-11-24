@@ -14,7 +14,7 @@ const ContactCTA: React.FC = () => {
         <div className="max-w-2xl mx-auto">
           {/* Main CTA Content */}
           <div className="text-center mb-6">
-            <motion.h2
+            <motion.h4
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -23,7 +23,7 @@ const ContactCTA: React.FC = () => {
             >
               בואו נתחיל לדבר
               <span className="text-primary-500"> בשפת הכלבים!</span>
-            </motion.h2>
+            </motion.h4>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}

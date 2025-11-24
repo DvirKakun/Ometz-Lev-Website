@@ -13,7 +13,7 @@ const SplashProgress = () => {
           className="h-1 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full"
           initial={{ width: "0%" }}
           animate={{ width: "100%" }}
-          transition={{ duration: 3, ease: "easeInOut" }}
+          transition={{ duration: 2, ease: "easeInOut" }}
         />
       </div>
       <p className="text-xs text-slate-400 mt-3">נכנס לאתר...</p>

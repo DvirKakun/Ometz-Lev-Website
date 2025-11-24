@@ -31,9 +31,9 @@ const ActivitySection = ({
             {/* Content - Right side */}
             <div className="order-1">
               <div className="mb-3 sm:mb-4">
-                <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 mb-2 sm:mb-3 text-right whitespace-pre-wrap">
+                <h4 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-slate-900 mb-2 sm:mb-3 text-right whitespace-pre-wrap">
                   {activity.title}
-                </h2>
+                </h4>
               </div>
 
               <div className="space-y-2 sm:space-y-3 text-right mb-4 sm:mb-6">

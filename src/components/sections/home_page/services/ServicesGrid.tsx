@@ -9,6 +9,7 @@ import {
   useActivitiesPrimaryOfferings,
   useSchoolsPrimaryOfferings,
 } from "../../../../hooks/useServiceOfferings";
+import { getPrimaryOfferingsWithFallback } from "../../../../utils/fallback-content";
 
 const ServicesGrid: React.FC = () => {
   const { data: therapyPrimaryOfferings } = useTherapyPrimaryOfferings();
@@ -16,17 +17,29 @@ const ServicesGrid: React.FC = () => {
   const { data: activitiesPrimaryOfferings } = useActivitiesPrimaryOfferings();
   const { data: schoolsPrimaryOfferings } = useSchoolsPrimaryOfferings();
 
-  // Create services array with Prismic data merged for all services
-  const servicesWithPrismic = services.map((service) => {
+  // Create services array with Prismic data + fallback content for SEO
+  const servicesWithContent = services.map((service) => {
     switch (service.path) {
       case "/therapy":
-        return { ...service, offerings: therapyPrimaryOfferings };
+        return { 
+          ...service, 
+          offerings: getPrimaryOfferingsWithFallback(therapyPrimaryOfferings, "therapy")
+        };
       case "/training":
-        return { ...service, offerings: trainingPrimaryOfferings };
+        return { 
+          ...service, 
+          offerings: getPrimaryOfferingsWithFallback(trainingPrimaryOfferings, "training")
+        };
       case "/activities":
-        return { ...service, offerings: activitiesPrimaryOfferings };
+        return { 
+          ...service, 
+          offerings: getPrimaryOfferingsWithFallback(activitiesPrimaryOfferings, "activities")
+        };
       case "/schools":
-        return { ...service, offerings: schoolsPrimaryOfferings };
+        return { 
+          ...service, 
+          offerings: getPrimaryOfferingsWithFallback(schoolsPrimaryOfferings, "schools")
+        };
       default:
         return service;
     }
@@ -45,7 +58,7 @@ const ServicesGrid: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
-          {servicesWithPrismic.map((service, index) => (
+          {servicesWithContent.map((service, index) => (
             <div key={service.path} className="w-full h-full flex">
               <ServiceCard service={service} index={index} />
             </div>

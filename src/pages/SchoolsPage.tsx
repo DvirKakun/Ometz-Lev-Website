@@ -10,12 +10,7 @@ import {
   Award,
 } from "lucide-react";
 import ServiceHeader from "../components/sections/shared/headers/MainHeader";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../components/ui/card";
+import { Card, CardContent, CardHeader } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { FAQSection } from "../components/sections/shared/faq";
 import SEOMeta from "../components/seo/SEOMeta";
@@ -63,6 +58,10 @@ export default function SchoolsPage({ service }: ServicePageProps) {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
+        {/* SEO H1 - Hidden from users but visible to search engines */}
+        <h1 className="sr-only">
+          תכנית גפן - תכניות חינוכיות עם כלבים לבתי ספר | אלעד שמעונוב | אומץ לב
+        </h1>
         {/* Header Section */}
         <section className="py-16 bg-slate-900/85">
           <div className="container mx-auto px-4">
@@ -86,12 +85,12 @@ export default function SchoolsPage({ service }: ServicePageProps) {
               {/* Program Header */}
               <div className="text-center mb-12">
                 <div className="flex items-center justify-center gap-3 mb-4">
-                  <h2 className="text-3xl font-bold">
+                  <h3 className="text-3xl font-bold">
                     <span className="text-slate-900">אומץ לב - </span>
                     <span className="text-primary-500">
                       {schoolProgram.title}
                     </span>
-                  </h2>
+                  </h3>
                 </div>
                 <div className="flex items-center justify-center gap-4">
                   <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
@@ -106,19 +105,19 @@ export default function SchoolsPage({ service }: ServicePageProps) {
               {/* Program Summary */}
               <Card className="mb-8">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-primary-500">
+                  <h4 className="flex items-center gap-2 text-primary-500 font-semibold leading-none tracking-tight">
                     <Target className="w-5 h-5" />
                     מטרת התכנית
-                  </CardTitle>
+                  </h4>
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700 leading-relaxed mb-4">
                     {schoolProgram.summary.description}
                   </p>
                   <div className="space-y-2">
-                    <h4 className="font-semibold text-primary-500">
+                    <h5 className="font-semibold text-primary-500">
                       המסרים המרכזיים:
-                    </h4>
+                    </h5>
                     <div className="flex flex-wrap gap-2">
                       {schoolProgram.summary.mainMessages.map(
                         (message, index) => (
@@ -140,10 +139,10 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                 {/* Basic Information */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-primary-500">
+                    <h4 className="flex items-center gap-2 text-primary-500 font-semibold leading-none tracking-tight">
                       <BookOpen className="w-5 h-5" />
                       פרטי התכנית
-                    </CardTitle>
+                    </h4>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div>
@@ -176,10 +175,10 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                 {/* Target Audience */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-primary-500">
+                    <h4 className="flex items-center gap-2 text-primary-500 font-semibold leading-none tracking-tight">
                       <Users className="w-5 h-5" />
                       קהל יעד
-                    </CardTitle>
+                    </h4>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div>
@@ -206,10 +205,10 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                 {/* Required Resources */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-primary-500">
+                    <h4 className="flex items-center gap-2 text-primary-500 font-semibold leading-none tracking-tight">
                       <Clock className="w-5 h-5" />
                       משאבים נדרשים
-                    </CardTitle>
+                    </h4>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div>
@@ -239,10 +238,10 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                 {/* Geographic Distribution */}
                 <Card>
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2 text-primary-500">
+                    <h4 className="flex items-center gap-2 text-primary-500 font-semibold leading-none tracking-tight">
                       <MapPin className="w-5 h-5" />
                       פריסה גאוגרפית
-                    </CardTitle>
+                    </h4>
                   </CardHeader>
                   <CardContent>
                     <p>
@@ -255,17 +254,17 @@ export default function SchoolsPage({ service }: ServicePageProps) {
               {/* Skills and Tags */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-primary-500">
+                  <h4 className="flex items-center gap-2 text-primary-500 font-semibold leading-none tracking-tight">
                     <Award className="w-5 h-5" />
                     מיומנויות ותחומי התמחות
-                  </CardTitle>
+                  </h4>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     <div>
-                      <h4 className="font-semibold  mb-2 text-primary-500">
+                      <h5 className="font-semibold  mb-2 text-primary-500">
                         מיומנויות מרכזיות:
-                      </h4>
+                      </h5>
                       <div className="flex flex-wrap gap-2">
                         {schoolProgram.basicInfo.skills.map((skill, index) => (
                           <span
@@ -278,9 +277,9 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                       </div>
                     </div>
                     <div>
-                      <h4 className="font-semibold text-primary-500 mb-2">
+                      <h5 className="font-semibold text-primary-500 mb-2">
                         תגיות:
-                      </h4>
+                      </h5>
                       <div className="flex flex-wrap gap-2">
                         {schoolProgram.tags.map((tag, index) => (
                           <span
@@ -317,7 +316,7 @@ export default function SchoolsPage({ service }: ServicePageProps) {
         {/* FAQ Section */}
         <FAQSection pageType="schools" />
       </motion.div>
-      
+
       {/* Render modal based on current route */}
       <Outlet />
     </>

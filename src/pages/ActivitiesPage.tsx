@@ -356,6 +356,10 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
+        {/* SEO H1 - Hidden from users but visible to search engines */}
+        <h1 className="sr-only">
+          פעילויות וקייטנות כלבים לילדים - אלעד שמעונוב | קייטנת החופש הגדול וחוגי אילוף | אומץ לב
+        </h1>
         {/* Header Section - Always rendered */}
         <section className="py-16 bg-slate-900/85">
           <div className="container mx-auto px-4">

@@ -29,7 +29,7 @@ const LoadingPageWrapper = ({
   return <LoadingPage />;
 };
 
-const PageLoader = ({ children, minLoadTime = 2000 }: PageLoaderProps) => {
+const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const startTimeRef = useRef(Date.now());
   const location = useLocation();
@@ -105,16 +105,16 @@ const PageLoader = ({ children, minLoadTime = 2000 }: PageLoaderProps) => {
       isTrainingPage || isTherapyPage || isActivitiesPage || isSchoolsPage;
 
     if (hasDataLoading) {
-      // For service pages, always wait minimum 1 second AND for data to be loaded
+      // For service pages, wait for minimum time AND for data to be loaded
       const elapsed = Date.now() - startTimeRef.current;
-      const minTimeReached = elapsed >= 2000;
+      const minTimeReached = elapsed >= minLoadTime;
 
       if (!isPageDataLoading && minTimeReached) {
         setIsLoading(false);
         setGlobalLoading(false);
       } else if (!isPageDataLoading && !minTimeReached) {
         // Data is ready but minimum time not reached
-        const remainingTime = 2000 - elapsed;
+        const remainingTime = minLoadTime - elapsed;
         setTimeout(() => {
           setIsLoading(false);
           setGlobalLoading(false);

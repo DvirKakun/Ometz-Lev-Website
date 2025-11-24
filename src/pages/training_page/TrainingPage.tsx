@@ -11,6 +11,7 @@ import { getKeywordsForPage } from "../../data/seo-keywords";
 import { useTrainingMethodConfig } from "../../hooks/useTrainingMethodConfig";
 import { useTrainingOfferings } from "../../hooks/useServiceOfferings";
 import { useRouterModal } from "../../hooks/useRouterModal";
+import { getOfferingsWithFallback } from "../../utils/fallback-content";
 import VideoModal from "../../components/modals/video/VideoModal";
 import ArticleModal from "../../components/modals/article/ArticleModal";
 import { trainingContentConfig } from "../../data/training_content_config";
@@ -34,10 +35,13 @@ export default function TrainingPage({ service }: ServicePageProps) {
     imageAlt: "אלעד שמעונוב מאמן כלבים מקצועי במהלך אילוף כלב",
   };
 
-  // Merge Prismic offerings with service data
+  // Merge Prismic offerings with fallback content for SEO
   const serviceWithOfferings = {
     ...service,
-    offerings: trainingOfferingsData?.offerings || [],
+    offerings: getOfferingsWithFallback(
+      trainingOfferingsData?.offerings,
+      "training"
+    ),
   };
 
   useEffect(() => {
@@ -88,6 +92,11 @@ export default function TrainingPage({ service }: ServicePageProps) {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
+        {/* SEO H1 - Hidden from users but visible to search engines */}
+        <h1 className="sr-only">
+          אילוף כלבים מקצועי ואישי - אלעד שמעונוב | מאמן כלבים פרטי בבית הלקוח |
+          אומץ לב
+        </h1>
         {/* Collapsible Features Section */}
         <CollapsibleFeatures service={serviceWithOfferings} />
 

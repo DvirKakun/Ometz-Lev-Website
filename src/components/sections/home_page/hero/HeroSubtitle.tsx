@@ -11,68 +11,68 @@ const HeroSubtitle: React.FC = () => {
     >
       {/* Mobile-first typography with enhanced readability */}
       <div className="text-right max-w-2xl mx-auto lg:mx-0 space-y-4 sm:space-y-5">
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
           className="text-base sm:text-lg lg:text-xl px-2 text-slate-200 leading-relaxed"
           style={{ lineHeight: "1.7" }}
         >
-          <span className=" text-primary-300 font-bold py-1 rounded-lg mb-1 sm:mb-0 inline">
+          <h2 className=" text-primary-300 font-bold py-1 rounded-lg mb-1 sm:mb-0 inline text-base sm:text-lg lg:text-xl">
             באומץ לב
-          </span>{" "}
+          </h2>{" "}
           <span className="inline mt-1 sm:mt-0">
             אני מאמין שתקשורת אמיתית מתחילה בהבנה.
           </span>
-        </motion.p>
+        </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 1.0 }}
           className="text-base sm:text-lg lg:text-xl px-2 text-slate-200 leading-relaxed"
           style={{ lineHeight: "1.7" }}
         >
-          <span className=" text-primary-300 font-bold py-1 rounded-lg mb-1 sm:mb-0 inline">
+          <h2 className=" text-primary-300 font-bold py-1 rounded-lg mb-1 sm:mb-0 inline text-base sm:text-lg lg:text-xl">
             באילוף חיובי
-          </span>{" "}
+          </h2>{" "}
           <span className=" inline mt-1 sm:mt-0">
             אני בונה איתכם ועם הכלב שלכם שפה משותפת נטולת עונשים המבוססת על אמון
             וכבוד.
           </span>
-        </motion.p>
+        </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 1.2 }}
           className="text-base sm:text-lg lg:text-xl px-2 text-slate-200 leading-relaxed"
           style={{ lineHeight: "1.7" }}
         >
-          <span className=" text-primary-300 font-bold  py-1 rounded-lg mb-1 sm:mb-0 inline">
+          <h2 className=" text-primary-300 font-bold  py-1 rounded-lg mb-1 sm:mb-0 inline text-base sm:text-lg lg:text-xl">
             בטיפול התנהגותי
-          </span>{" "}
+          </h2>{" "}
           <span className="inline mt-1 sm:mt-0">
             אני מאבחן את שורש הבעיה של הכלב שלכם ובונה תוכנית עבודה מותאמת
             אישית.
           </span>
-        </motion.p>
+        </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 1.4 }}
           className="text-base sm:text-lg lg:text-xl px-2  text-slate-200 leading-relaxed"
           style={{ lineHeight: "1.7" }}
         >
-          <span className=" text-primary-300 font-bold py-1 rounded-lg mb-1 sm:mb-0 inline">
+          <h2 className=" text-primary-300 font-bold py-1 rounded-lg mb-1 sm:mb-0 inline text-base sm:text-lg lg:text-xl">
             ובכלבנות טיפולית
-          </span>{" "}
+          </h2>{" "}
           <span className="inline mt-1 sm:mt-0">
             אני משלב כלבים בתהליכים חינוכיים וטיפוליים ליצירת מרחב בטוח ומחזק
             לילדים ולבוגרים כאחד.
           </span>
-        </motion.p>
+        </motion.div>
       </div>
     </motion.div>
   );
