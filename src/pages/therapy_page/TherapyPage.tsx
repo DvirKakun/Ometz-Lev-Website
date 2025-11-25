@@ -30,7 +30,7 @@ const TherapyPage = ({ service }: ServicePageProps) => {
       "אלעד שמעונוב - כלבנות טיפולית מקצועית לטיפול בחרדות, דיכאון ופוסט טראומה. כלבי טיפול מאומנים לילדים ומבוגרים. טיפול בעזרת בעלי חיים להתגברות על פחדים. קבעו פגישה!",
     keywords: getKeywordsForPage("therapy"),
     imageUrl:
-      "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+      "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
     imageAlt: "כלב טיפולי במהלך פגישת טיפול עם אלעד שמעונוב",
   };
 

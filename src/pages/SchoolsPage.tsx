@@ -28,7 +28,7 @@ export default function SchoolsPage({ service }: ServicePageProps) {
       "אלעד שמעונוב - תכניות חינוכיות מותאמות לגילאים שונים עם כלבים. תכנית גפן לבתי ספר, סדנאות חינוכיות, פיתוח אחריות ואמפתיה. תכנית מאושרת במערכת החינוך. צרו קשר!",
     keywords: getKeywordsForPage("schools"),
     imageUrl:
-      "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+      "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
     imageAlt: "תלמידים בתכנית חינוכית עם כלב במסגרת תכנית גפן",
   };
 

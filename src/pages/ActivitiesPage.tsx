@@ -50,7 +50,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
       "פעילויות חינוכיות עם כלבים לילדים בני 4-16. קייטנת החופש הגדול, חוגי אילוף ופעילויות העצמה וחברתיות. מפתחות אחריות ואמפתיה. הרשמה פתוחה!",
     keywords: getKeywordsForPage("activities"),
     imageUrl:
-      "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+      "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
     imageAlt: "ילדים משחקים ולומדים עם כלבים טיפוליים בפעילות חינוכית",
   };
 

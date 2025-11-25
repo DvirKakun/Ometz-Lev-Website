@@ -20,7 +20,7 @@ Allow: /training-articles-library
 Allow: /therapy-videos-library
 Allow: /therapy-articles-library
 
-Sitemap: https://xn--4dbcl2aj6b.xn--4dbrk0ce/sitemap.xml
+Sitemap: https://ometzlev.co.il/sitemap.xml
 
 # Additional robots.txt rules for SEO
 Crawl-delay: 1

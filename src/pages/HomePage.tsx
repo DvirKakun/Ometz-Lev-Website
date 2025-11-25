@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
       "אומץ לב - אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אילוף בבית הלקוח, טיפול בפחדים בעזרת כלבים, קייטנות קיץ לילדים. אומץ לב - ייעוץ ראשון חינם!",
     keywords: getKeywordsForPage("homepage"),
     imageUrl:
-      "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png", // Replace with actual image
+      "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png", // Replace with actual image
     imageAlt: "אלעד שמעונוב מאמן כלבים מקצועי עם כלבים טיפוליים",
   };
 
@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
         keywords={seoConfig.keywords}
         imageUrl={seoConfig.imageUrl}
         imageAlt={seoConfig.imageAlt}
-        canonicalUrl="https://xn--4dbcl2aj6b.xn--4dbrk0ce/"
+        canonicalUrl="https://ometzlev.co.il/"
         type="website"
         noindex={false}
       />

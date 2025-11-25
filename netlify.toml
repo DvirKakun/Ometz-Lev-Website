@@ -1,7 +1,57 @@
+# Domain Migration: Hebrew domain → English domain
+# All variations of אומץלב.ישראל redirect to ometzlev.co.il
+
+# Critical: Hebrew domain non-www redirect (the failing one)
+[[redirects]]
+  from = "https://xn--4dbcl2aj6b.xn--4dbrk0ce/*"
+  to = "https://ometzlev.co.il/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://xn--4dbcl2aj6b.xn--4dbrk0ce/*"
+  to = "https://ometzlev.co.il/:splat"
+  status = 301
+  force = true
+
+# Ensure www variants also redirect properly
+[[redirects]]
+  from = "https://www.xn--4dbcl2aj6b.xn--4dbrk0ce/*"
+  to = "https://ometzlev.co.il/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.xn--4dbcl2aj6b.xn--4dbrk0ce/*"
+  to = "https://ometzlev.co.il/:splat"
+  status = 301
+  force = true
+
+# Redirect www.ometzlev.co.il to ometzlev.co.il (no www)
+[[redirects]]
+  from = "https://www.ometzlev.co.il/*"
+  to = "https://ometzlev.co.il/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.ometzlev.co.il/*"
+  to = "https://ometzlev.co.il/:splat"
+  status = 301
+  force = true
+
+# Force HTTPS for primary domain
+[[redirects]]
+  from = "http://ometzlev.co.il/*"
+  to = "https://ometzlev.co.il/:splat"
+  status = 301
+  force = true
+
 [build]
   publish = "dist"
   command = "npm run build"
 
+# SPA fallback - must come AFTER domain redirects
 [[redirects]]
   from = "/*"
   to = "/index.html"

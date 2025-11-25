@@ -31,7 +31,7 @@ export default function SEOMeta({
   type = "website",
 }: SEOMetaProps) {
   const location = useLocation();
-  const baseUrl = "https://xn--4dbcl2aj6b.xn--4dbrk0ce"; // אומץ-לב.קום
+  const baseUrl = "https://ometzlev.co.il"; // Primary domain after migration
   const currentUrl = canonicalUrl || `${baseUrl}${location.pathname}`;
   const defaultImageUrl = `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`;
   const finalImageUrl = imageUrl || defaultImageUrl;

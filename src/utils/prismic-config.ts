@@ -8,13 +8,9 @@ export const PRISMIC_REPOSITORY_NAME = import.meta.env
 export const PRISMIC_API_ENDPOINT =
   import.meta.env.VITE_PRISMIC_API_ENDPOINT ||
   "https://ometz-lev-website.cdn.prismic.io/api/v2";
-export const PRISMIC_ACCESS_TOKEN = import.meta.env.VITE_PRISMIC_ACCESS_TOKEN;
-
 // Create Prismic client
 export function createPrismicClient() {
-  return prismic.createClient(PRISMIC_API_ENDPOINT, {
-    accessToken: PRISMIC_ACCESS_TOKEN,
-  });
+  return prismic.createClient(PRISMIC_API_ENDPOINT);
 }
 
 // Helper function to extract image URL from Prismic image field

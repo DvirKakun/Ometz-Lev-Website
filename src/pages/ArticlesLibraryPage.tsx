@@ -42,7 +42,7 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
   const seoConfig = {
     ...getSEOConfig(config.pageType),
     imageUrl:
-      "https://xn--4dbcl2aj6b.xn--4dbrk0ce/assets/icons/Ometz-Lev-Large-Logo.png",
+      "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
   };
 
   const {

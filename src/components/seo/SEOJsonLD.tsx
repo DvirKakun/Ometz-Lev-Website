@@ -26,7 +26,7 @@ export default function SEOJsonLD({
   isHomePage = false,
 }: SEOJsonLDProps) {
   const location = useLocation();
-  const baseUrl = "https://xn--4dbcl2aj6b.xn--4dbrk0ce";
+  const baseUrl = "https://ometzlev.co.il";
   const currentUrl = `${baseUrl}${location.pathname}`;
 
   // Generate breadcrumbs from pathname
