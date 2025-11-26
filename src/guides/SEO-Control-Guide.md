@@ -5,7 +5,7 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ 🔗 BLUE LINK TEXT (title)                                  │ ← CONTROLLED BY: <title> tag / SEOMeta title prop
-│ https://xn--4dbcl2aj6b.xn--4dbrk0ce/activities             │ ← CONTROLLED BY: URL structure
+│ https://ometzlev.co.il/activities             │ ← CONTROLLED BY: URL structure
 │ 📝 Description text that appears under the link...         │ ← CONTROLLED BY: <meta name="description"> / SEOMeta description prop
 │                                                             │
 │ 📊 Additional info (breadcrumbs, ratings, etc.)            │ ← CONTROLLED BY: Structured Data (JSON-LD)
@@ -66,7 +66,7 @@
 **Google will show:**
 ```
 🔗 אומץ לב - אילוף כלבים ותרפיה בכלבים | מרכז הדרכה מוביל בישראל
-https://xn--4dbcl2aj6b.xn--4dbrk0ce
+https://ometzlev.co.il
 📝 מרכז אילוף כלבים וכלבנות טיפולית מוביל בישראל. אילוף מקצועי, טיפול בחרדות, פעילויות לילדים. ייעוץ ראשון חינם - התקשרו היום!
 ```
 
@@ -81,7 +81,7 @@ https://xn--4dbcl2aj6b.xn--4dbrk0ce
 **Google will show:**
 ```
 🔗 פעילויות וקייטנות כלבים לילדים | אומץ לב
-https://xn--4dbcl2aj6b.xn--4dbrk0ce/activities
+https://ometzlev.co.il/activities
 📝 פעילויות חינוכיות עם כלבים לילדים בני 4-16. קייטנת החופש הגדול, חוגי אילוף. מפתחות אחריות ואמפתיה. הרשמה פתוחה!
 ```
 
@@ -153,7 +153,7 @@ return (
 ### **Example Rich Result:**
 ```
 🔗 פעילויות וקייטנות כלבים לילדים | אומץ לב
-https://xn--4dbcl2aj6b.xn--4dbrk0ce/activities
+https://ometzlev.co.il/activities
 🍞 בית > פעילויות לילדים
 📝 פעילויות חינוכיות עם כלבים לילדים בני 4-16...
 
