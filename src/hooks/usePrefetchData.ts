@@ -7,6 +7,7 @@ import { fetchActivitiesFromPrismic } from "../utils/prismic-activities";
 import { fetchProfileImageFromPrismic } from "../utils/prismic-profile-image";
 import { fetchHeroSlidesFromPrismic } from "../utils/prismic-hero-slides";
 import { fetchHealthTermsButtonFromPrismic } from "../utils/prismic-health-terms-button";
+import { fetchProducts } from "../utils/prismic-products";
 import {
   fetchTherapyOfferings,
   fetchTrainingOfferings,
@@ -18,6 +19,7 @@ import {
   fetchTrainingFAQs,
   fetchActivitiesFAQs,
   fetchSchoolsFAQs,
+  fetchProductsFAQs,
 } from "../utils/prismic-faq";
 import { useArticles } from "./useArticles";
 import { useVideos } from "./useVideos";
@@ -31,6 +33,7 @@ import {
 import { useFAQItems } from "./useFAQ";
 import { useActivities } from "./useActivities";
 import { useHealthTermsButton } from "./useHealthTermsButton";
+import { useProducts } from "./useProducts";
 
 // Types for prefetching options
 type PrefetchOptions = {
@@ -52,6 +55,8 @@ type PrefetchOptions = {
   trainingFAQs?: boolean;
   activitiesFAQs?: boolean;
   schoolsFAQs?: boolean;
+  productsFAQs?: boolean;
+  products?: boolean;
   healthTermsButton?: boolean;
 };
 
@@ -243,6 +248,28 @@ export function usePrefetchData(options: PrefetchOptions = {}) {
       );
     }
 
+    // Prefetch products FAQs
+    if (options.productsFAQs) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["faqs-products"],
+          queryFn: fetchProductsFAQs,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
+    // Prefetch products
+    if (options.products) {
+      prefetchPromises.push(
+        queryClient.prefetchQuery({
+          queryKey: ["products"],
+          queryFn: fetchProducts,
+          staleTime: 10 * 60 * 1000,
+        })
+      );
+    }
+
     // Prefetch health terms button
     if (options.healthTermsButton) {
       prefetchPromises.push(
@@ -277,6 +304,7 @@ export function usePrefetchForRoute(pathname: string) {
     pathname.startsWith("/therapy") && !isTherapyArticles && !isTherapyVideos;
   const isActivities = pathname.startsWith("/activities");
   const isSchools = pathname.startsWith("/schools");
+  const isProducts = pathname.startsWith("/products");
 
   // Always call all hooks, but with conditional options
   usePrefetchData({
@@ -305,6 +333,8 @@ export function usePrefetchForRoute(pathname: string) {
     trainingFAQs: isTraining, // Prefetch training FAQs for training page
     activitiesFAQs: isActivities, // Prefetch activities FAQs for activities page
     schoolsFAQs: isSchools, // Prefetch schools FAQs for schools page
+    productsFAQs: isProducts, // Prefetch products FAQs for products page
+    products: isProducts, // Prefetch products for products page
     healthTermsButton: isActivities, // Prefetch health terms button for activities page (summer camp modal)
   });
 }
@@ -390,6 +420,21 @@ export function useSchoolsPageLoadingState() {
   const { isLoading: faqsLoading } = useFAQItems("schools");
 
   const loadingStates = [profileLoading, offeringsLoading, faqsLoading];
+  const completedCount = loadingStates.filter((loading) => !loading).length;
+  const totalCount = loadingStates.length;
+  const progress = Math.round((completedCount / totalCount) * 100);
+
+  const isLoading = loadingStates.some((loading) => loading);
+
+  return { isLoading, progress };
+}
+
+// Hook to track loading state of products page data
+export function useProductsPageLoadingState() {
+  const { isLoading: productsLoading } = useProducts();
+  const { isLoading: faqsLoading } = useFAQItems("products");
+
+  const loadingStates = [productsLoading, faqsLoading];
   const completedCount = loadingStates.filter((loading) => !loading).length;
   const totalCount = loadingStates.length;
   const progress = Math.round((completedCount / totalCount) * 100);

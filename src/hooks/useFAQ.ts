@@ -4,6 +4,7 @@ import {
   fetchTrainingFAQs,
   fetchActivitiesFAQs,
   fetchSchoolsFAQs,
+  fetchProductsFAQs,
 } from "../utils/prismic-faq";
 import type { FAQPageType, ProcessedFAQ } from "../types/faq";
 
@@ -37,6 +38,9 @@ export const useActivitiesFAQs = () =>
 export const useSchoolsFAQs = () =>
   useFAQQuery("schools", fetchSchoolsFAQs);
 
+export const useProductsFAQs = () =>
+  useFAQQuery("products", fetchProductsFAQs);
+
 // Generic hook for FAQs by page type
 export const useFAQsByPageType = (pageType: FAQPageType) => {
   // Always call all hooks to maintain hook order
@@ -44,6 +48,7 @@ export const useFAQsByPageType = (pageType: FAQPageType) => {
   const trainingResult = useTrainingFAQs();
   const activitiesResult = useActivitiesFAQs();
   const schoolsResult = useSchoolsFAQs();
+  const productsResult = useProductsFAQs();
 
   // Return the appropriate result based on page type
   switch (pageType) {
@@ -55,6 +60,8 @@ export const useFAQsByPageType = (pageType: FAQPageType) => {
       return activitiesResult;
     case "schools":
       return schoolsResult;
+    case "products":
+      return productsResult;
     default:
       throw new Error(`Unsupported FAQ page type: ${pageType}`);
   }

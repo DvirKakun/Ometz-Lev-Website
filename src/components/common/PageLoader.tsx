@@ -12,6 +12,7 @@ import {
   useTherapyPageLoadingState,
   useActivitiesPageLoadingState,
   useSchoolsPageLoadingState,
+  useProductsPageLoadingState,
 } from "../../hooks/usePrefetchData";
 
 // Wrapper component to handle progress updates without re-rendering LoadingPage
@@ -45,6 +46,7 @@ const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
     !location.pathname.startsWith("/therapy-articles-library");
   const isActivitiesPage = location.pathname.startsWith("/activities");
   const isSchoolsPage = location.pathname.startsWith("/schools");
+  const isProductsPage = location.pathname.startsWith("/products");
 
   // Get loading states for each page type
   const { isLoading: isTrainingDataLoading, progress: trainingProgress } =
@@ -55,6 +57,8 @@ const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
     useActivitiesPageLoadingState();
   const { isLoading: isSchoolsDataLoading, progress: schoolsProgress } =
     useSchoolsPageLoadingState();
+  const { isLoading: isProductsDataLoading, progress: productsProgress } =
+    useProductsPageLoadingState();
 
   // Determine which loading state to use
   const isPageDataLoading = isTrainingPage
@@ -65,6 +69,8 @@ const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
     ? isActivitiesDataLoading
     : isSchoolsPage
     ? isSchoolsDataLoading
+    : isProductsPage
+    ? isProductsDataLoading
     : false;
 
   const pageProgress = isTrainingPage
@@ -75,6 +81,8 @@ const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
     ? activitiesProgress
     : isSchoolsPage
     ? schoolsProgress
+    : isProductsPage
+    ? productsProgress
     : undefined;
 
   useEffect(() => {
@@ -102,7 +110,11 @@ const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
     startTimeRef.current = Date.now();
 
     const hasDataLoading =
-      isTrainingPage || isTherapyPage || isActivitiesPage || isSchoolsPage;
+      isTrainingPage ||
+      isTherapyPage ||
+      isActivitiesPage ||
+      isSchoolsPage ||
+      isProductsPage;
 
     if (hasDataLoading) {
       // For service pages, wait for minimum time AND for data to be loaded
@@ -131,6 +143,7 @@ const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
     isTherapyPage,
     isActivitiesPage,
     isSchoolsPage,
+    isProductsPage,
   ]);
 
   if (isLoading) {

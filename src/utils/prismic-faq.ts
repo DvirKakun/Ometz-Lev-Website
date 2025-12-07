@@ -53,6 +53,7 @@ export const fetchTherapyFAQs = () => fetchFAQsFromPrismic("therapy");
 export const fetchTrainingFAQs = () => fetchFAQsFromPrismic("training");
 export const fetchActivitiesFAQs = () => fetchFAQsFromPrismic("activities");
 export const fetchSchoolsFAQs = () => fetchFAQsFromPrismic("schools");
+export const fetchProductsFAQs = () => fetchFAQsFromPrismic("products");
 
 // Helper function to get FAQ section configuration by page type
 export const getFAQSectionConfig = (pageType: FAQPageType) => {
@@ -74,6 +75,11 @@ export const getFAQSectionConfig = (pageType: FAQPageType) => {
       title: "שאלות נפוצות על סדנאות בבתי ספר",
       description:
         "מידע עבור מורים ומנהלים על הסדנאות החינוכיות המקצועיים שלנו",
+    },
+    products: {
+      title: "שאלות נפוצות על המוצרים",
+      description:
+        "מידע מפורט על המוצרים המומלצים, איכות, משלוחים והזמנות",
     },
   };
 

@@ -14,6 +14,7 @@ import ActivitiesPage from "./pages/ActivitiesPage";
 import TherapyPage from "./pages/therapy_page/TherapyPage";
 import TrainingPage from "./pages/training_page/TrainingPage";
 import SchoolsPage from "./pages/SchoolsPage";
+import ProductsPage from "./pages/ProductsPage";
 import SplashPage from "./pages/SplashPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
@@ -24,6 +25,7 @@ import TherapyVideoLibraryPage from "./pages/therapy_page/TherapyVideoLibraryPag
 import TherapyArticlesLibraryPage from "./pages/therapy_page/TherapyArticlesLibraryPage";
 import PageLoader from "./components/common/PageLoader";
 import { services } from "./data/services";
+import { productsPageConfig } from "./data/library_configs";
 
 const trainingService = services.find(
   (service) => service.path === "/training"
@@ -124,6 +126,16 @@ const router = createBrowserRouter([
     path: "/therapy-articles-library",
     element: <Layout />,
     children: [{ index: true, element: <TherapyArticlesLibraryPage /> }],
+  },
+  {
+    path: "/products",
+    element: <Layout />,
+    children: [
+      {
+        index: true,
+        element: <ProductsPage config={productsPageConfig} />,
+      },
+    ],
   },
   {
     path: "/privacy",

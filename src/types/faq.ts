@@ -1,6 +1,6 @@
 import type { RichTextField } from "@prismicio/types";
 
-export type FAQPageType = "therapy" | "training" | "activities" | "schools";
+export type FAQPageType = "therapy" | "training" | "activities" | "schools" | "products";
 
 export interface FAQItem {
   id: string;
@@ -61,4 +61,5 @@ export const FAQ_DOCUMENT_TYPES = {
   training: "faq-training",
   activities: "faq-activities",
   schools: "faq-schools",
+  products: "faq-products",
 } as const;

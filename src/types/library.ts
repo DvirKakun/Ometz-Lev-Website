@@ -41,3 +41,10 @@ export interface AdvancedFilterProps {
   onClearFilters: () => void;
   pageType: "training" | "therapy";
 }
+
+export interface ProductsPageConfig {
+  contentType: "products";
+  title: string;
+  description: string;
+  backgroundPattern?: boolean;
+}

@@ -1,6 +1,7 @@
 import type {
   VideoLibraryConfig,
   ArticleLibraryConfig,
+  ProductsPageConfig,
 } from "../types/library";
 
 export const trainingVideoLibraryConfig: VideoLibraryConfig = {
@@ -40,5 +41,12 @@ export const therapyArticleLibraryConfig: ArticleLibraryConfig = {
   description: "מאמרי הדרכה מקצועיים ומדריכים לטיפול בכלבים",
   returnPath: "/therapy",
   returnLabel: "חזרה לעמוד הטיפול",
+  backgroundPattern: false,
+};
+
+export const productsPageConfig: ProductsPageConfig = {
+  contentType: "products",
+  title: "מוצרים",
+  description: "מגוון מוצרי איכות לכלבים ולבעלי כלבים, כולל ציוד אילוף, צעצועים חינוכיים, אביזרי טיפולים ופתרונות חדשניים לשיפור איכות החיים של הכלב והמשפחה.",
   backgroundPattern: false,
 };

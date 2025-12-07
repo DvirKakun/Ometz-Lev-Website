@@ -35,6 +35,7 @@ export default function HeaderNavigation({
         { to: "/therapy-articles-library", label: "מאמרי טיפול" },
         { to: "/training-videos-library", label: "סרטוני אילוף" },
         { to: "/training-articles-library", label: "מאמרי אילוף" },
+        { to: "/products", label: "מוצרים" },
       ],
     },
   ];
