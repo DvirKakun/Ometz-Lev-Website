@@ -1,13 +1,17 @@
 import { motion } from "framer-motion";
 import { Filter, X, Check } from "lucide-react";
-import { useCategoriesByPage } from "../../../hooks/useCategories";
+import { useCategoriesByPage } from "../../../../hooks/useCategories";
 import {
   useArticles,
   useDynamicArticleCountPerCategory,
-} from "../../../hooks/useArticles";
-import { Button } from "../../ui/button";
-import { getInteractiveColorClasses } from "../../../utils/color-classes";
-import type { MultipleCategoryFilterProps } from "../../../types/category";
+} from "../../../../hooks/useArticles";
+import {
+  useProducts,
+  useDynamicProductCountPerCategory,
+} from "../../../../hooks/useProducts";
+import { Button } from "../../../ui/button";
+import { getInteractiveColorClasses } from "../../../../utils/color-classes";
+import type { MultipleCategoryFilterProps } from "../../../../types/category";
 
 const MultipleCategoryFilter = ({
   selectedCategories,
@@ -16,11 +20,27 @@ const MultipleCategoryFilter = ({
   pageType,
 }: MultipleCategoryFilterProps) => {
   const { data: categories = [] } = useCategoriesByPage(pageType);
-  const { data: totalArticles = [] } = useArticles(pageType);
-  const { getCountForCategory } = useDynamicArticleCountPerCategory(
-    totalArticles,
-    selectedCategories
+
+  // Use different hooks based on content type
+  const isProductsPage = pageType === "products";
+
+  // Articles data
+  const { data: totalArticles = [] } = useArticles(
+    pageType === "products" ? "training" : pageType
   );
+  const { getCountForCategory: getArticleCountForCategory } =
+    useDynamicArticleCountPerCategory(totalArticles, selectedCategories);
+
+  // Products data
+  const { data: productsData } = useProducts();
+  const totalProducts = productsData?.products || [];
+  const { getCountForCategory: getProductCountForCategory } =
+    useDynamicProductCountPerCategory(totalProducts, selectedCategories);
+
+  // Choose the appropriate count function
+  const getCountForCategory = isProductsPage
+    ? getProductCountForCategory
+    : getArticleCountForCategory;
 
   const hasActiveFilters = selectedCategories.length > 0;
 
@@ -76,8 +96,10 @@ const MultipleCategoryFilter = ({
                     isSelected
                   )}`}
                   style={
-                    isSelected && category.color.startsWith('#')
-                      ? ({ '--interactive-color': category.color } as React.CSSProperties)
+                    isSelected && category.color.startsWith("#")
+                      ? ({
+                          "--interactive-color": category.color,
+                        } as React.CSSProperties)
                       : undefined
                   }
                 >

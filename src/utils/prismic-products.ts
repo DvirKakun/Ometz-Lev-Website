@@ -28,6 +28,12 @@ function processProduct(prismicProduct: PrismicProduct): ProcessedProduct {
     })
     .filter((image): image is ProcessedProductImage => image !== null);
 
+  // Extract categories from the categories group (same pattern as articles)
+  const categoriesGroup = data.categories || [];
+  const categories: string[] = categoriesGroup
+    .map((item: any) => (item.category?.id ? String(item.category.id) : null))
+    .filter((id: string | null) => id !== null);
+
   // Process link - safely check if it's a filled link
   let link = null;
   if (
@@ -47,6 +53,7 @@ function processProduct(prismicProduct: PrismicProduct): ProcessedProduct {
     name: getPrismicText(data.product_name),
     description: getPrismicText(data.product_description),
     images,
+    categories,
     link,
   };
 }

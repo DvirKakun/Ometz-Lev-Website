@@ -8,6 +8,15 @@ export interface PrismicProductData {
   }>;
   product_description: RichTextField;
   product_link: LinkField;
+  categories: Array<{
+    category: {
+      id: string;
+      type: string;
+      tags: string[];
+      lang: string;
+      slug: string;
+    };
+  }>;
 }
 
 export type PrismicProduct = PrismicDocument<PrismicProductData & Record<string, any>, string, string>;
@@ -24,6 +33,7 @@ export interface ProcessedProduct {
   name: string;
   description: string;
   images: ProcessedProductImage[];
+  categories: string[]; // All category IDs
   link: {
     url: string;
     target: string;

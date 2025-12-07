@@ -4,7 +4,7 @@ import {
   useArticles,
 } from "../hooks/useArticles";
 import LibraryHeader from "../components/sections/shared/headers/LibraryHeader";
-import MultipleCategoryFilter from "../components/sections/articles_library_page/MultipleCategoryFilter";
+import MultipleCategoryFilter from "../components/sections/shared/filters/MultipleCategoryFilter";
 import ArticlesGrid from "../components/sections/articles_library_page/ArticlesGrid";
 import SEOMeta from "../components/seo/SEOMeta";
 import SEOJsonLD from "../components/seo/SEOJsonLD";

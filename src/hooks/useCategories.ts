@@ -1,5 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchCategoriesFromPrismic, fetchCategoriesByPage } from "../utils/prismic-categories";
+import {
+  fetchCategoriesFromPrismic,
+  fetchCategoriesByPage,
+} from "../utils/prismic-categories";
 
 // Custom hook for fetching categories with caching (global categories)
 export function useCategories() {
@@ -12,7 +15,7 @@ export function useCategories() {
 }
 
 // Custom hook for fetching page-filtered categories with caching
-export function useCategoriesByPage(pageType: "training" | "therapy") {
+export function useCategoriesByPage(pageType: "training" | "therapy" | "products") {
   return useQuery({
     queryKey: ["categories", pageType],
     queryFn: () => fetchCategoriesByPage(pageType),

@@ -9,5 +9,5 @@ export interface MultipleCategoryFilterProps {
   selectedCategories: string[];
   onCategoryToggle: (categoryId: string) => void;
   onClearFilters: () => void;
-  pageType: "training" | "therapy";
+  pageType: "training" | "therapy" | "products";
 }

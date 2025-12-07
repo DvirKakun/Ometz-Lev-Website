@@ -44,6 +44,7 @@ export interface AdvancedFilterProps {
 
 export interface ProductsPageConfig {
   contentType: "products";
+  pageType: "products";
   title: string;
   description: string;
   backgroundPattern?: boolean;

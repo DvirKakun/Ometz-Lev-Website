@@ -52,7 +52,7 @@ export async function fetchCategoriesFromPrismic() {
 }
 
 // Fetch categories filtered by page
-export async function fetchCategoriesByPage(pageType: "training" | "therapy") {
+export async function fetchCategoriesByPage(pageType: "training" | "therapy" | "products") {
   try {
     const client = createPrismicClient();
     const response = await client.getAllByType("category");

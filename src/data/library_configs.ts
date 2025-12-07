@@ -46,6 +46,7 @@ export const therapyArticleLibraryConfig: ArticleLibraryConfig = {
 
 export const productsPageConfig: ProductsPageConfig = {
   contentType: "products",
+  pageType: "products",
   title: "מוצרים",
   description: "מגוון מוצרי איכות לכלבים ולבעלי כלבים, כולל ציוד אילוף, צעצועים חינוכיים, אביזרי טיפולים ופתרונות חדשניים לשיפור איכות החיים של הכלב והמשפחה.",
   backgroundPattern: false,

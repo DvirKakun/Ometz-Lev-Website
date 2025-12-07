@@ -1,13 +1,15 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, ShoppingBag, ExternalLink } from "lucide-react";
 import SEOMeta from "../components/seo/SEOMeta";
 import SEOJsonLD from "../components/seo/SEOJsonLD";
+import MultipleCategoryFilter from "../components/sections/shared/filters/MultipleCategoryFilter";
 import type { ProductsPageConfig } from "../types/library";
 import { getKeywordsForPage } from "../data/seo-keywords";
 import LoadingSpinner from "../components/common/StateLoadingSpinner";
 import StateDisplay from "../components/common/StateDisplay";
-import { useProducts } from "../hooks/useProducts";
+import { useProductsByMultipleCategories } from "../hooks/useProducts";
+import { useCategories } from "../hooks/useCategories";
 import { useRouterModal } from "../hooks/useRouterModal";
 import ImageDialog from "../components/sections/activities_page/ImageDialog";
 import ProductCarousel from "../components/sections/products_page/ProductCarousel";
@@ -20,6 +22,11 @@ interface ProductsPageProps {
 }
 
 export default function ProductsPage({ config }: ProductsPageProps) {
+  // State for category filtering
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([
+    "all",
+  ]);
+
   // Modal hook for image viewing
   const imageModal = useRouterModal<{
     imageUrl: string;
@@ -38,15 +45,20 @@ export default function ProductsPage({ config }: ProductsPageProps) {
     imageAlt: "מוצרים מומלצים לאילוף כלבים וכלבנות טיפולית",
   };
 
-  // Use React Query for data fetching with caching
+  // Use React Query for data fetching with caching and filtering
   const {
-    data: productsData,
+    data: filteredProducts,
     isLoading: loading,
     error,
     refetch,
-  } = useProducts();
+  } = useProductsByMultipleCategories(selectedCategories);
 
-  const products = productsData?.products || [];
+  // Determine if there are active filters
+  const hasActiveFilters =
+    !selectedCategories.includes("all") && selectedCategories.length > 0;
+
+  // Get all categories for mapping product categories to their info
+  const { data: allCategories = [] } = useCategories();
 
   const handleImageClick = useCallback(
     (imageUrl: string, index: number, alt: string, totalImages: number) => {
@@ -63,6 +75,36 @@ export default function ProductsPage({ config }: ProductsPageProps) {
   const handleProductLink = useCallback((url: string, target: string) => {
     window.open(url, target);
   }, []);
+
+  const handleCategoryToggle = (categoryId: string) => {
+    setSelectedCategories((prev) => {
+      if (categoryId === "all") {
+        // If "All" is clicked, select only "All" and clear others
+        return ["all"];
+      } else {
+        // If any other category is clicked
+        const hasAll = prev.includes("all");
+        const hasCategory = prev.includes(categoryId);
+
+        if (hasAll) {
+          // If "All" was selected, remove it and add the clicked category
+          return [categoryId];
+        } else if (hasCategory) {
+          // Remove the category if it's already selected
+          const newSelection = prev.filter((id) => id !== categoryId);
+          // If no categories remain, default to "All"
+          return newSelection.length === 0 ? ["all"] : newSelection;
+        } else {
+          // Add the category to selection
+          return [...prev, categoryId];
+        }
+      }
+    });
+  };
+
+  const handleClearFilters = () => {
+    setSelectedCategories(["all"]);
+  };
 
   // Render content based on state
   const renderContent = () => {
@@ -92,12 +134,20 @@ export default function ProductsPage({ config }: ProductsPageProps) {
       );
     }
 
-    if (products.length === 0) {
+    if (filteredProducts.length === 0) {
       return (
         <StateDisplay
           icon={ShoppingBag}
-          title="אין מוצרים זמינים כרגע"
-          description="כרגע אין מוצרים מומלצים. אנא חזור שוב בקרוב לעדכונים נוספים."
+          title={
+            hasActiveFilters
+              ? "לא נמצאו מוצרים בקטגוריות שנבחרו"
+              : "אין מוצרים זמינים כרגע"
+          }
+          description={
+            hasActiveFilters
+              ? "נסה לשנות את הסינון או לבטל את הבחירה כדי לראות מוצרים נוספים."
+              : "כרגע אין מוצרים מומלצים. אנא חזור שוב בקרוב לעדכונים נוספים."
+          }
           iconClassName="w-16 h-16 text-gray-400 mb-6"
         />
       );
@@ -109,7 +159,7 @@ export default function ProductsPage({ config }: ProductsPageProps) {
         <div className="container mx-auto px-3 sm:px-4">
           <div className="max-w-7xl mx-auto">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 lg:gap-6 items-start auto-rows-min">
-              {products.map((product, index) => (
+              {filteredProducts.map((product, index) => (
                 <motion.div
                   key={product.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -138,6 +188,34 @@ export default function ProductsPage({ config }: ProductsPageProps) {
                           className="mb-3 sm:mb-4"
                         />
                       )}
+
+                      {/* Category Badges */}
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {product.categories.map((categoryId) => {
+                          const category = allCategories.find(
+                            (cat) => cat.id === categoryId
+                          );
+                          const categoryInfo = {
+                            id: categoryId,
+                            name: category?.name || categoryId,
+                            color: category?.color || "#64748b",
+                          };
+
+                          return (
+                            <div
+                              key={categoryInfo.id}
+                              className="px-2 py-1 rounded-full text-[8px] sm:text-xs font-medium text-white bg-[var(--category-color)]"
+                              style={
+                                {
+                                  "--category-color": categoryInfo.color,
+                                } as React.CSSProperties
+                              }
+                            >
+                              {categoryInfo.name}
+                            </div>
+                          );
+                        })}
+                      </div>
 
                       {/* Product Name */}
                       <h3 className="text-sm sm:text-base font-bold text-slate-900 mb-2 text-right leading-tight">
@@ -230,6 +308,14 @@ export default function ProductsPage({ config }: ProductsPageProps) {
             </div>
           </div>
         </section>
+
+        {/* Multiple Category Filter */}
+        <MultipleCategoryFilter
+          selectedCategories={selectedCategories}
+          onCategoryToggle={handleCategoryToggle}
+          onClearFilters={handleClearFilters}
+          pageType="products"
+        />
 
         {/* Dynamic Content */}
         {renderContent()}
