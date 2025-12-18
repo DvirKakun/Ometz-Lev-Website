@@ -1,16 +1,10 @@
 User-agent: *
-# Block pages you don't want in search results
-Disallow: /home
-Disallow: /privacy
-Disallow: /terms
-Disallow: /accessibility
-Disallow: /admin
-Disallow: /api
-Disallow: /*.json$
+
+# Updated: 2025-12-18 - Allow sitemap.xml explicitly
+Allow: /sitemap.xml
 
 # Allow root and main content pages
 Allow: /
-Allow: /sitemap.xml
 Allow: /training
 Allow: /therapy
 Allow: /activities
@@ -19,6 +13,15 @@ Allow: /training-videos-library
 Allow: /training-articles-library
 Allow: /therapy-videos-library
 Allow: /therapy-articles-library
+
+# Block pages you don't want in search results
+Disallow: /home
+Disallow: /privacy
+Disallow: /terms
+Disallow: /accessibility
+Disallow: /admin
+Disallow: /api
+Disallow: /*.json$
 
 Sitemap: https://ometzlev.co.il/sitemap.xml
 
