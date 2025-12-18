@@ -27,6 +27,7 @@ const VideoLibraryPage = ({ config }: VideoLibraryPageProps) => {
           "סרטוני הדרכה מקצועיים לאילוף כלבים מאת אלעד שמעונוב. טכניקות מתקדמות, פתרון בעיות התנהגות ועצות מומחים. למתחילים ומתקדמים. צפו עכשיו!",
         keywords: getKeywordsForPage("training"),
         imageAlt: "סרטוני אילוף כלבים מקצועיים מאת אלעד שמעונוב",
+        canonicalUrl: "https://ometzlev.co.il/training-videos-library",
       },
       therapy: {
         title:
@@ -35,6 +36,7 @@ const VideoLibraryPage = ({ config }: VideoLibraryPageProps) => {
           "סרטוני הדרכה לכלבנות טיפולית מאת אלעד שמעונוב. טכניקות טיפוליות, עבודה עם חרדות ושיטות מתקדמות לשיקום רגשי וחברתי. צפו עכשיו!",
         keywords: getKeywordsForPage("therapy"),
         imageAlt: "סרטוני כלבנות טיפולית מקצועיים מאת אלעד שמעונוב",
+        canonicalUrl: "https://ometzlev.co.il/therapy-videos-library",
       },
     } as const;
     return seoData[pageType as keyof typeof seoData] || seoData.training;
@@ -109,6 +111,7 @@ const VideoLibraryPage = ({ config }: VideoLibraryPageProps) => {
         keywords={seoConfig.keywords}
         imageUrl={seoConfig.imageUrl}
         imageAlt={seoConfig.imageAlt}
+        canonicalUrl={seoConfig.canonicalUrl}
         type="article"
       />
 

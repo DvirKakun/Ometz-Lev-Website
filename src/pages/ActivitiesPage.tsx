@@ -338,6 +338,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
         keywords={seoConfig.keywords}
         imageUrl={seoConfig.imageUrl}
         imageAlt={seoConfig.imageAlt}
+        canonicalUrl="https://ometzlev.co.il/activities"
         type="service"
       />
 

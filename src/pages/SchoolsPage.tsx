@@ -41,6 +41,7 @@ export default function SchoolsPage({ service }: ServicePageProps) {
         keywords={seoConfig.keywords}
         imageUrl={seoConfig.imageUrl}
         imageAlt={seoConfig.imageAlt}
+        canonicalUrl="https://ometzlev.co.il/schools"
         type="service"
       />
 

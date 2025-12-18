@@ -26,6 +26,7 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
           "מאמרי הדרכה מקצועיים לאילוף כלבים מאת אלעד שמעונוב. מדריכים מפורטים, טכניקות מתקדמות ועצות מומחים לפתרון כל בעיה התנהגותית. קיראו עכשיו!",
         keywords: getKeywordsForPage("training"),
         imageAlt: "מאמרי אילוף כלבים מקצועיים מאת אלעד שמעונוב",
+        canonicalUrl: "https://ometzlev.co.il/training-articles-library",
       },
       therapy: {
         title:
@@ -34,6 +35,7 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
           "מאמרים מקצועיים על כלבנות טיפולית מאת אלעד שמעונוב. שיטות טיפול, עבודה עם חרדות וטכניקות לשיקום רגשי וחברתי עם כלבים מאומנים. קיראו עכשיו!",
         keywords: getKeywordsForPage("therapy"),
         imageAlt: "מאמרי כלבנות טיפולית מקצועיים מאת אלעד שמעונוב",
+        canonicalUrl: "https://ometzlev.co.il/therapy-articles-library",
       },
     } as const;
     return seoData[pageType as keyof typeof seoData] || seoData.training;
@@ -97,6 +99,7 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
         keywords={seoConfig.keywords}
         imageUrl={seoConfig.imageUrl}
         imageAlt={seoConfig.imageAlt}
+        canonicalUrl={seoConfig.canonicalUrl}
         type="article"
       />
 
