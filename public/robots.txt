@@ -7,12 +7,12 @@ Disallow: /accessibility
 Disallow: /admin
 Disallow: /api
 Disallow: /*.json$
-Disallow: /*.xml$
 
 # Allow root and main content pages
 Allow: /
+Allow: /sitemap.xml
 Allow: /training
-Allow: /therapy  
+Allow: /therapy
 Allow: /activities
 Allow: /schools
 Allow: /training-videos-library
