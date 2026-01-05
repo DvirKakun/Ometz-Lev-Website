@@ -1,6 +1,6 @@
 User-agent: *
 
-# Updated: 2025-12-18 - Allow sitemap.xml explicitly
+# Updated: 2026-01-05 - Domain migration complete
 Allow: /sitemap.xml
 
 # Allow root and main content pages
@@ -13,6 +13,7 @@ Allow: /training-videos-library
 Allow: /training-articles-library
 Allow: /therapy-videos-library
 Allow: /therapy-articles-library
+Allow: /products
 
 # Block pages you don't want in search results
 Disallow: /home

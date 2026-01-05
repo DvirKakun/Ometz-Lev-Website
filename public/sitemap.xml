@@ -7,7 +7,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://ometzlev.co.il/</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,25 +15,25 @@
   <!-- Main Services -->
   <url>
     <loc>https://ometzlev.co.il/training</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ometzlev.co.il/therapy</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ometzlev.co.il/activities</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://ometzlev.co.il/schools</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -41,25 +41,25 @@
   <!-- Content Libraries - High value content -->
   <url>
     <loc>https://ometzlev.co.il/training-videos-library</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ometzlev.co.il/training-articles-library</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ometzlev.co.il/therapy-videos-library</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://ometzlev.co.il/therapy-articles-library</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -67,7 +67,7 @@
   <!-- Products Page -->
   <url>
     <loc>https://ometzlev.co.il/products</loc>
-    <lastmod>2025-12-18</lastmod>
+    <lastmod>2026-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

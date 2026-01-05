@@ -273,21 +273,19 @@ export default function SEOJsonLD({
 
   return (
     <>
+      {/* Organization Schema - ALL PAGES (required for logo in search results) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
+
       {/* Website Schema - only on homepage */}
       {isHomePage && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
-        />
-      )}
-
-      {/* Organization Schema - only on homepage */}
-      {isHomePage && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationSchema),
-          }}
         />
       )}
 
