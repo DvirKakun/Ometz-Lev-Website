@@ -123,10 +123,10 @@ export default function SEOJsonLD({
     name: "אומץ לב - אילוף כלבים מקצועי, כלבנות טיפולית ופעילויות חברתיות",
     alternateName: ["אומץ לב", "Ometz Lev", "אומץ לב אלעד שמעונוב", "Ometz Lev - Elad Shimonov"],
     url: baseUrl,
-    logo: `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`,
+    logo: `${baseUrl}/assets/icons/Ometz-Lev-Dogs-Logo.png`, // Primary logo for Google (square, fits circular icons)
     image: [
-      `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`,
-      `${baseUrl}/assets/icons/Ometz-Lev-Dogs-Logo.png`
+      `${baseUrl}/assets/icons/Ometz-Lev-Dogs-Logo.png`, // Primary logo (897x935, near-square)
+      `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`  // Wide logo for knowledge panel (2637x956)
     ],
     description:
       "אומץ לב - אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אומץ לב מתמחה באילוף כלבים, טיפול בחרדות ופחדים בעזרת כלבים טיפוליים, וקייטנות קיץ לילדים. אומץ לב - השירות המקצועי והאמין לכלב שלכם",
@@ -251,7 +251,7 @@ export default function SEOJsonLD({
             url: baseUrl,
             logo: {
               "@type": "ImageObject",
-              url: `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`,
+              url: `${baseUrl}/assets/icons/Ometz-Lev-Dogs-Logo.png`,
             },
           },
           mainEntityOfPage: {
