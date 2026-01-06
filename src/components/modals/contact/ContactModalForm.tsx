@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { User, Phone, Mail, MessageSquare, Send } from "lucide-react";
-import emailjs from "@emailjs/browser";
+import { sendContactForm } from "../../../lib/brevo";
 import type { ContactModalFormProps } from "../../../types/modals";
 import {
   FormInput,
@@ -47,28 +47,16 @@ const ContactModalForm = ({ onSuccess, onError }: ContactModalFormProps) => {
     setIsSubmitting(true);
 
     try {
-      const templateParams = {
+      const result = await sendContactForm({
         name: data.fullName,
-        email: data.email || "לא סופק",
-        phone: data.phone || "לא סופק",
-        message: data.message || "לא סופקה הודעה",
-        time: new Date().toLocaleString("he-IL", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZone: "Asia/Jerusalem",
-        }),
-      };
+        email: data.email || "",
+        phone: data.phone,
+        message: data.message || "",
+      });
 
-      await emailjs.send(
-        "service_k21go0m",
-        "template_zjbj2xf",
-        templateParams,
-        "l-UTOpbo-lr3Vt79x"
-      );
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to send email');
+      }
 
       reset();
       onSuccess();

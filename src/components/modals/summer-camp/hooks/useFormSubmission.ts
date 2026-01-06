@@ -1,5 +1,5 @@
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
+import { sendSummerCampRegistration } from "../../../../lib/brevo";
 import type { FormData } from "../schemas/formSchemas";
 
 interface UseFormSubmissionProps {
@@ -21,41 +21,27 @@ export const useFormSubmission = ({
     setIsSubmitting(true);
 
     try {
-      const templateParams = {
+      const result = await sendSummerCampRegistration({
         session: data.session,
         childName: data.childName,
         age: data.age,
         grade: data.grade,
-        motherName: data.motherName || "לא סופק",
-        motherPhone: data.motherPhone || "לא סופק",
-        fatherName: data.fatherName || "לא סופק",
-        fatherPhone: data.fatherPhone || "לא סופק",
+        motherName: data.motherName,
+        motherPhone: data.motherPhone,
+        fatherName: data.fatherName,
+        fatherPhone: data.fatherPhone,
         dogFear: data.dogFear,
-        dogFearScale: data.dogFearScale
-          ? `רמת פחד: ${data.dogFearScale}/10`
-          : "",
+        dogFearScale: data.dogFearScale,
         allergies: data.allergies,
-        allergiesText: data.allergiesText || "",
+        allergiesText: data.allergiesText,
         healthIssues: data.healthIssues,
-        healthIssuesText: data.healthIssuesText || "",
-        notes: data.notes || "לא סופקו הערות",
-        time: new Date().toLocaleString("he-IL", {
-          year: "numeric",
-          month: "long",
-          day: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-          hour12: false,
-          timeZone: "Asia/Jerusalem",
-        }),
-      };
+        healthIssuesText: data.healthIssuesText,
+        notes: data.notes,
+      });
 
-      await emailjs.send(
-        "service_k21go0m",
-        "template_27fc0bl",
-        templateParams,
-        "l-UTOpbo-lr3Vt79x"
-      );
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to send email');
+      }
 
       onReset();
       setCurrentStep(5);

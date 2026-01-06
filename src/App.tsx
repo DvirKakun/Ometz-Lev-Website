@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { LoadingProvider } from "./contexts/LoadingContext";
 import { TimerProvider } from "./contexts/TimerContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
@@ -171,12 +172,14 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <LoadingProvider>
-        <TimerProvider>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </TimerProvider>
-      </LoadingProvider>
+      <AuthProvider>
+        <LoadingProvider>
+          <TimerProvider>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </TimerProvider>
+        </LoadingProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
