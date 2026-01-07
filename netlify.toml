@@ -51,6 +51,9 @@
   publish = "dist"
   command = "npm run build"
 
+[functions]
+  directory = "netlify/functions"
+
 # SPA fallback - must come AFTER domain redirects
 [[redirects]]
   from = "/*"

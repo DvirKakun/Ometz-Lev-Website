@@ -48,6 +48,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/home`,
+        },
       });
       return { error: error as Error | null };
     } catch (error) {
@@ -82,6 +85,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   };
 
+  const updatePassword = async (newPassword: string) => {
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+      return { error: error as Error | null };
+    } catch (error) {
+      return { error: error as Error };
+    }
+  };
+
   const value: AuthContextType = {
     user,
     session,
@@ -90,6 +104,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     signIn,
     signOut,
     resetPassword,
+    updatePassword,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

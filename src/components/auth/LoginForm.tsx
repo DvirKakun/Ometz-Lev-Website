@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { AlertCircle } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -44,9 +45,11 @@ export const LoginForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" dir="rtl">
-      <div className="space-y-2">
-        <Label htmlFor="email">אימייל</Label>
+    <form onSubmit={handleSubmit} className="space-y-3.5" dir="rtl">
+      <div className="space-y-1.5">
+        <Label htmlFor="email" className="text-primary-900 font-semibold">
+          אימייל
+        </Label>
         <Input
           id="email"
           type="email"
@@ -56,11 +59,14 @@ export const LoginForm = ({
           required
           disabled={loading}
           dir="ltr"
+          className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="password">סיסמה</Label>
+      <div className="space-y-1.5">
+        <Label htmlFor="password" className="text-primary-900 font-semibold">
+          סיסמה
+        </Label>
         <Input
           id="password"
           type="password"
@@ -70,37 +76,51 @@ export const LoginForm = ({
           required
           disabled={loading}
           minLength={6}
+          className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
       </div>
 
       {error && (
-        <div className="text-sm text-red-600 bg-red-50 p-3 rounded-md">
-          {error}
+        <div className="flex items-start gap-2.5 text-sm text-primary-900 bg-primary-200/60 p-3 rounded-lg border-r-4 border-primary-700 shadow-sm">
+          <AlertCircle className="w-4 h-4 text-primary-700 flex-shrink-0 mt-0.5" />
+          <p className="flex-1">{error}</p>
         </div>
       )}
 
-      <Button type="submit" className="w-full" disabled={loading}>
+      <Button
+        type="submit"
+        className="w-full h-10 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-primary-50 font-semibold shadow-lg shadow-primary-500/30 transition-all duration-200"
+        disabled={loading}
+      >
         {loading ? "מתחבר..." : "התחבר"}
       </Button>
 
-      <div className="flex flex-col gap-2 text-sm text-center">
+      <div className="flex flex-col gap-2 pt-1 text-sm text-center">
         <button
           type="button"
-          onClick={onSwitchToForgotPassword}
-          className="text-primary hover:underline"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onSwitchToForgotPassword();
+          }}
+          className="text-primary-700 hover:text-primary-800 hover:underline transition-colors font-medium"
           disabled={loading}
         >
           שכחת סיסמה?
         </button>
-        <div>
+        <div className="text-primary-800">
           אין לך חשבון?{" "}
           <button
             type="button"
-            onClick={onSwitchToSignup}
-            className="text-primary hover:underline font-medium"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onSwitchToSignup();
+            }}
+            className="text-primary-700 hover:text-primary-800 hover:underline font-bold transition-colors"
             disabled={loading}
           >
-            הירשם
+            הירשם עכשיו
           </button>
         </div>
       </div>

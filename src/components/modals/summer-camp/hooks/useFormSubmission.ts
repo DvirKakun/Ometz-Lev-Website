@@ -7,6 +7,7 @@ interface UseFormSubmissionProps {
   onError: () => void;
   onReset: () => void;
   setCurrentStep: (step: number) => void;
+  activityName: string;
 }
 
 export const useFormSubmission = ({
@@ -14,6 +15,7 @@ export const useFormSubmission = ({
   onError,
   onReset,
   setCurrentStep,
+  activityName,
 }: UseFormSubmissionProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -22,6 +24,7 @@ export const useFormSubmission = ({
 
     try {
       const result = await sendSummerCampRegistration({
+        activityName,
         session: data.session,
         childName: data.childName,
         age: data.age,

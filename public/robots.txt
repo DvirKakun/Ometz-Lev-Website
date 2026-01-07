@@ -20,6 +20,7 @@ Disallow: /home
 Disallow: /privacy
 Disallow: /terms
 Disallow: /accessibility
+Disallow: /reset-password
 Disallow: /admin
 Disallow: /api
 Disallow: /*.json$

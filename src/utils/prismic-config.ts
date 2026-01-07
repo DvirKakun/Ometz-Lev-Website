@@ -3,11 +3,8 @@ import * as prismic from "@prismicio/client";
 import type { RichTextField, ImageField } from "@prismicio/types";
 
 // Prismic API configuration
-export const PRISMIC_REPOSITORY_NAME = import.meta.env
-  .VITE_PRISMIC_REPOSITORY_NAME;
-export const PRISMIC_API_ENDPOINT =
-  import.meta.env.VITE_PRISMIC_API_ENDPOINT ||
-  "https://ometz-lev-website.cdn.prismic.io/api/v2";
+export const PRISMIC_API_ENDPOINT = import.meta.env.VITE_PRISMIC_API_ENDPOINT;
+
 // Create Prismic client
 export function createPrismicClient() {
   return prismic.createClient(PRISMIC_API_ENDPOINT);

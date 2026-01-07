@@ -20,6 +20,7 @@ import SplashPage from "./pages/SplashPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import AccessibilityPage from "./pages/AccessibilityPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import TrainingVideoLibraryPage from "./pages/training_page/TrainingVideoLibraryPage";
 import TrainingArticlesLibraryPage from "./pages/training_page/TrainingArticlesLibraryPage";
 import TherapyVideoLibraryPage from "./pages/therapy_page/TherapyVideoLibraryPage";
@@ -152,6 +153,10 @@ const router = createBrowserRouter([
     path: "/accessibility",
     element: <Layout />,
     children: [{ index: true, element: <AccessibilityPage /> }],
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPasswordPage />,
   },
   // Redirect any unknown routes to splash
   { path: "*", element: <Navigate to="/" replace /> },

@@ -73,12 +73,12 @@ const HeaderCTAButtons: React.FC<HeaderCTAButtonsProps> = ({
         ) : (
           <Button
             variant="outline"
-            size="sm"
-            className="gap-2"
+            size="icon"
+            className="h-9 w-9 rounded-full shadow-md"
             onClick={() => setAuthDialogOpen(true)}
+            aria-label="התחבר למערכת"
           >
             <User className="h-4 w-4" />
-            התחבר
           </Button>
         )}
         <PhoneButton phoneNumber="052-472-4700" variant="outline" size="sm" />
