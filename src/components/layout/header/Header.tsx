@@ -12,6 +12,8 @@ import { useTimer } from "../../../contexts/TimerContext";
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { hideTimer, showTimer } = useTimer();
@@ -89,7 +91,12 @@ const Header: React.FC = () => {
 
           {/* Contact Buttons Component (Desktop) - Hidden on smaller screens */}
           <div className="hidden xl:block flex-shrink-0">
-            <HeaderCTAButtons />
+            <HeaderCTAButtons
+              authDialogOpen={authDialogOpen}
+              setAuthDialogOpen={setAuthDialogOpen}
+              userMenuOpen={userMenuOpen}
+              setUserMenuOpen={setUserMenuOpen}
+            />
           </div>
 
           {/* Mobile Menu Button Component */}
@@ -102,7 +109,14 @@ const Header: React.FC = () => {
               />
 
               {/* Mobile Contact Buttons */}
-              <HeaderCTAButtons isMobile />
+              <HeaderCTAButtons
+                isMobile
+                onMobileMenuClose={() => setIsMenuOpen(false)}
+                authDialogOpen={authDialogOpen}
+                setAuthDialogOpen={setAuthDialogOpen}
+                userMenuOpen={userMenuOpen}
+                setUserMenuOpen={setUserMenuOpen}
+              />
             </HeaderMobileMenu>
           </div>
         </div>

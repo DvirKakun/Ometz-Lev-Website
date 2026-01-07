@@ -10,9 +10,23 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 
-export const UserMenu = () => {
+interface UserMenuProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  onMobileMenuClose?: () => void;
+}
+
+export const UserMenu = ({
+  open: externalOpen,
+  onOpenChange: externalOnOpenChange,
+  onMobileMenuClose,
+}: UserMenuProps = {}) => {
   const { user, signOut } = useAuth();
-  const [open, setOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  // Use external state if provided, otherwise use internal state
+  const open = externalOpen ?? internalOpen;
+  const setOpen = externalOnOpenChange ?? setInternalOpen;
 
   if (!user) return null;
 
@@ -31,7 +45,10 @@ export const UserMenu = () => {
   return (
     <>
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          onMobileMenuClose?.();
+          setOpen(true);
+        }}
         className="flex items-center gap-2 hover:opacity-80 transition-opacity rounded-full"
         aria-label="תפריט משתמש"
       >
@@ -43,7 +60,9 @@ export const UserMenu = () => {
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-[85vw] sm:max-w-md p-0 border-0 text-primary-900 overflow-hidden rounded-2xl">
+        <DialogContent
+          className="max-w-[85vw] sm:max-w-md p-0 border-0 text-primary-900 overflow-hidden rounded-2xl"
+        >
           <div className="flex flex-col">
             {/* Header */}
             <div className="bg-gradient-to-br from-primary-50 to-primary-100 p-8 pb-6 text-center">

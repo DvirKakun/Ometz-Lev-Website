@@ -3,6 +3,11 @@ import type { LibraryPageConfig } from "./library";
 
 export interface HeaderCTAButtonsProps {
   isMobile?: boolean;
+  onMobileMenuClose?: () => void;
+  authDialogOpen?: boolean;
+  setAuthDialogOpen?: (open: boolean) => void;
+  userMenuOpen?: boolean;
+  setUserMenuOpen?: (open: boolean) => void;
 }
 
 export interface HeaderMobileMenuProps {

@@ -11,9 +11,21 @@ import type { HeaderCTAButtonsProps } from "../../../types/headers";
 
 const HeaderCTAButtons: React.FC<HeaderCTAButtonsProps> = ({
   isMobile = false,
+  onMobileMenuClose,
+  authDialogOpen: externalAuthDialogOpen,
+  setAuthDialogOpen: externalSetAuthDialogOpen,
+  userMenuOpen: externalUserMenuOpen,
+  setUserMenuOpen: externalSetUserMenuOpen,
 }) => {
   const { user } = useAuth();
-  const [authDialogOpen, setAuthDialogOpen] = useState(false);
+  const [internalAuthDialogOpen, setInternalAuthDialogOpen] = useState(false);
+  const [internalUserMenuOpen, setInternalUserMenuOpen] = useState(false);
+
+  // Use external state if provided (mobile), otherwise use internal state (desktop)
+  const authDialogOpen = externalAuthDialogOpen ?? internalAuthDialogOpen;
+  const setAuthDialogOpen = externalSetAuthDialogOpen ?? setInternalAuthDialogOpen;
+  const userMenuOpen = externalUserMenuOpen ?? internalUserMenuOpen;
+  const setUserMenuOpen = externalSetUserMenuOpen ?? setInternalUserMenuOpen;
 
   if (isMobile) {
     return (
@@ -29,14 +41,21 @@ const HeaderCTAButtons: React.FC<HeaderCTAButtonsProps> = ({
         >
           {user ? (
             <div className="flex justify-center">
-              <UserMenu />
+              <UserMenu
+                open={userMenuOpen}
+                onOpenChange={setUserMenuOpen}
+                onMobileMenuClose={onMobileMenuClose}
+              />
             </div>
           ) : (
             <Button
               variant="outline"
               size="sm"
               className="w-full justify-center gap-2"
-              onClick={() => setAuthDialogOpen(true)}
+              onClick={() => {
+                onMobileMenuClose?.();
+                setAuthDialogOpen(true);
+              }}
             >
               <User className="h-4 w-4" />
               התחבר
@@ -69,7 +88,10 @@ const HeaderCTAButtons: React.FC<HeaderCTAButtonsProps> = ({
     <>
       <div className="hidden xl:flex items-center space-x-2 space-x-reverse flex-shrink-0">
         {user ? (
-          <UserMenu />
+          <UserMenu
+            open={userMenuOpen}
+            onOpenChange={setUserMenuOpen}
+          />
         ) : (
           <Button
             variant="outline"

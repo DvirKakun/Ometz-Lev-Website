@@ -67,7 +67,9 @@ export const AuthDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[85vw] sm:max-w-md max-h-[90vh] p-0 border-0 text-primary-900 overflow-hidden rounded-2xl">
+      <DialogContent
+        className="max-w-[85vw] sm:max-w-md max-h-[90vh] p-0 border-0 text-primary-900 overflow-hidden rounded-2xl"
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={mode}
