@@ -29,7 +29,7 @@ const ArticleModal = ({
       >
         <DialogTitle className="sr-only">{article.title}</DialogTitle>
         <DialogDescription className="sr-only">
-          {article.subtitle || article.description || 'מאמר'}
+          {article.description || 'מאמר'}
         </DialogDescription>
         <AnimatePresence mode="wait">
           {isOpen && (
