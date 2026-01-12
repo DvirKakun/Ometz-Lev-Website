@@ -3,6 +3,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "../../ui/dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
@@ -39,6 +40,7 @@ const SummerCampModal = ({ isOpen, onOpenChange, activityData }: SummerCampModal
       <DialogContent className="max-w-lg w-[90vw] max-h-[90vh] p-0 border-0 text-slate-900 overflow-hidden rounded-2xl">
         <DialogHeader className="sr-only">
           <DialogTitle>הרשמה לקייטנת אומץ לב</DialogTitle>
+          <DialogDescription>טופס הרשמה לקייטנת קיץ</DialogDescription>
         </DialogHeader>
 
         <AnimatePresence mode="wait">

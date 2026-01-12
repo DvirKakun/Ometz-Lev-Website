@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "../../ui/dialog";
+import { Dialog, DialogContent, DialogDescription } from "../../ui/dialog";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import ContactModalHeader from "./ContactModalHeader";
@@ -30,6 +30,7 @@ const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-[85vw] sm:max-w-md max-h-[90vh] p-0 border-0 text-slate-900 overflow-hidden rounded-2xl">
         <DialogTitle className="sr-only">צור קשר</DialogTitle>
+        <DialogDescription className="sr-only">טופס יצירת קשר</DialogDescription>
 
         <AnimatePresence mode="wait">
           {isOpen && (

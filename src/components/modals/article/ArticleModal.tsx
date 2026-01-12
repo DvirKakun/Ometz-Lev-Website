@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Dialog, DialogContent, DialogTitle } from "../../ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "../../ui/dialog";
 import { ArticleHeader } from "./ArticleHeader";
 import { ArticleInfo } from "./ArticleInfo";
 import { useArticles } from "../../../hooks/useArticles";
@@ -28,6 +28,9 @@ const ArticleModal = ({
         dir="rtl"
       >
         <DialogTitle className="sr-only">{article.title}</DialogTitle>
+        <DialogDescription className="sr-only">
+          {article.subtitle || article.description || 'מאמר'}
+        </DialogDescription>
         <AnimatePresence mode="wait">
           {isOpen && (
             <motion.div

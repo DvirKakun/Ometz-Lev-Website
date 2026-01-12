@@ -4,6 +4,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "../../ui/dialog";
 import { Info } from "lucide-react";
 import type { OfferingModalProps } from "../../../types/modals";
@@ -51,6 +52,9 @@ const OfferingDetailsModal = ({ offering, isOpen, onClose }: OfferingModalProps)
                   <DialogTitle className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-slate-900 text-center leading-tight px-8">
                     {offering.title}
                   </DialogTitle>
+                  <DialogDescription className="sr-only">
+                    פרטים על השירות
+                  </DialogDescription>
                 </DialogHeader>
               </div>
 

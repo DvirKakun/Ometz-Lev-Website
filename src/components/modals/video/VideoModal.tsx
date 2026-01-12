@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Dialog, DialogContent, DialogTitle } from "../../ui/dialog";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "../../ui/dialog";
 import { VideoPlayer } from "./VideoPlayer";
 import { VideoInfo } from "./VideoInfo";
 import { useVideos } from "../../../hooks/useVideos";
@@ -23,6 +23,9 @@ const VideoModal = ({ isOpen, onOpenChange, videoId, pageType = "training" }: Vi
         dir="rtl"
       >
         <DialogTitle className="sr-only">{video.title}</DialogTitle>
+        <DialogDescription className="sr-only">
+          {video.subtitle || video.description || 'סרטון הדרכה'}
+        </DialogDescription>
         <AnimatePresence mode="wait">
           {isOpen && (
             <motion.div

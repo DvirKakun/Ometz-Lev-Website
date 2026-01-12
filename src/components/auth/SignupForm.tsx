@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { AlertCircle, CheckCircle2, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { Checkbox } from "../ui/checkbox";
 import { useAuth } from "../../contexts/AuthContext";
 
 interface SignupFormProps {
@@ -15,6 +17,7 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -25,6 +28,11 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
     setSuccess(false);
 
     // Validation
+    if (!agreedToTerms) {
+      setError("יש לאשר את תנאי השימוש ומדיניות הפרטיות");
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("הסיסמאות אינן תואמות");
       return;
@@ -136,6 +144,41 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
           minLength={6}
           className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
+      </div>
+
+      {/* Terms and Privacy Checkbox */}
+      <div className="flex items-start gap-3 py-2">
+        <Checkbox
+          id="terms"
+          checked={agreedToTerms}
+          onCheckedChange={(checked: boolean) => setAgreedToTerms(checked)}
+          disabled={loading}
+        />
+        <Label
+          htmlFor="terms"
+          className="text-sm text-primary-800 leading-relaxed cursor-pointer font-normal"
+        >
+          אני מאשר/ת את{" "}
+          <Link
+            to="/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-700 hover:text-primary-800 underline font-semibold"
+            onClick={(e) => e.stopPropagation()}
+          >
+            תנאי השימוש
+          </Link>
+          {" "}ואת{" "}
+          <Link
+            to="/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary-700 hover:text-primary-800 underline font-semibold"
+            onClick={(e) => e.stopPropagation()}
+          >
+            מדיניות הפרטיות
+          </Link>
+        </Label>
       </div>
 
       {error && (

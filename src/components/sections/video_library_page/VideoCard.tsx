@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { CheckCircle } from "lucide-react";
 import { useLevelInfo } from "../../../hooks/useLevels";
 import { useCategories } from "../../../hooks/useCategories";
+import { useVideoProgress } from "../../../hooks/useVideoProgress";
 import { Card, CardContent } from "../../ui/card";
 import type { VideoCardProps } from "../../../types/videos";
 
@@ -10,6 +12,9 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
 
   // Get all categories from the hook
   const { data: allCategories = [] } = useCategories();
+
+  // Get video progress
+  const { data: progress } = useVideoProgress(video.videoKey);
 
   // Map video categories to their info
   const categoriesInfo = video.categories.map((categoryId) => {
@@ -45,10 +50,28 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
               <div className="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300" />
             )}
 
+            {/* Completed Badge */}
+            {progress?.completed && (
+              <div className="absolute top-2 left-2 bg-green-600 text-white px-2 py-1 rounded-md text-[10px] sm:text-xs font-medium flex items-center gap-1">
+                <CheckCircle className="w-3 h-3" />
+                <span>הושלם</span>
+              </div>
+            )}
+
             {/* Duration Badge */}
             {video.duration && (
               <div className="absolute bottom-2 right-2 bg-black/80 text-white px-2 py-1 rounded-md text-[10px] sm:text-sm font-medium">
                 {video.duration}
+              </div>
+            )}
+
+            {/* Progress Bar (Netflix-style) */}
+            {progress && progress.progress_percent > 0 && !progress.completed && (
+              <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-800/50">
+                <div
+                  className="h-full bg-primary-600 transition-all duration-300"
+                  style={{ width: `${Math.min(progress.progress_percent, 100)}%` }}
+                />
               </div>
             )}
           </div>

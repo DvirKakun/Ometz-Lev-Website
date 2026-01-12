@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { motion } from "framer-motion";
-import { Dialog, DialogContent } from "../../ui/dialog";
+import { Dialog, DialogContent, DialogDescription } from "../../ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import type { ImageDialogProps } from "../../../types/image_roller";
 
@@ -44,6 +44,7 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogTitle className="sr-only">תצוגת תמונה</DialogTitle>
+      <DialogDescription className="sr-only">{alt || 'תמונה'}</DialogDescription>
       <DialogContent
         className="p-0 bg-transparent border-0 shadow-none [&>button]:hidden max-w-[95vw] max-h-[95vh] flex items-center justify-center"
         style={{
