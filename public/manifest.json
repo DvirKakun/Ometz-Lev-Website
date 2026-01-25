@@ -1,0 +1,25 @@
+{
+  "name": "אומץ לב - אלעד שמעונוב | אילוף כלבים מקצועי וכלבנות טיפולית",
+  "short_name": "אומץ לב",
+  "description": "אומץ לב - אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אילוף בבית הלקוח, טיפול בפחדים בעזרת כלבים, קייטנות קיץ לילדים.",
+  "lang": "he",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#da9a52",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
