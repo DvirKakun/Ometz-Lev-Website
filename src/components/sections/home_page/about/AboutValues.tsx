@@ -17,25 +17,27 @@ const AboutValues: React.FC = () => {
     },
     {
       icon: Users,
-      title: "שיתוף המשפחה",
-      description: "מעורבות הבעלים היא המפתח להצלחה ארוכת טווח",
+      title: "שיתוף פעולה",
+      description: "מעניק לכם ידע וכלים להתמודדות עצמאית והצלחה ארוכת טווח",
     },
   ];
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      whileInView={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
       viewport={{ once: true }}
-      className="order-1 lg:order-2 space-y-4 sm:space-y-6 pb-4 sm:pb-6 px-4 sm:px-0"
+      className="space-y-6 sm:space-y-8 px-4 sm:px-0"
     >
-      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 mb-6 sm:mb-8 lg:text-right">
+      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-800 mb-6 sm:mb-8 text-center">
         הערכים שלנו
       </h3>
-      {values.map((value, index) => (
-        <ValueCard key={index} value={value} index={index} />
-      ))}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+        {values.map((value, index) => (
+          <ValueCard key={index} value={value} index={index} />
+        ))}
+      </div>
     </motion.div>
   );
 };

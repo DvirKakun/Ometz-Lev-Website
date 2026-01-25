@@ -18,11 +18,11 @@ const ServicesHeader: React.FC = () => {
           letterSpacing: "-0.02em",
         }}
       >
-        פתרונות <span className="text-primary-500">מקצועיים וחווייתיים</span>
+        השירותים <span className="text-primary-500">שלנו</span>
       </h2>
       <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-6 sm:leading-7 px-4 sm:px-0">
-        אומץ לב מציע מגוון שירותים מקצועיים המותאמים לצרכים השונים שלכם ושל הכלב שלכם
-        <br /> מהכלב הפרטי ועד המסגרת החינוכית והטיפולית.
+        אומץ לב מציע מגוון שירותים מקצועיים המותאמים לצרכים השונים שלכם ושל הכלב
+        שלכם
       </p>
     </motion.div>
   );

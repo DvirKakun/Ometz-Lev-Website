@@ -26,7 +26,7 @@ export default function HeaderNavigation({
     { to: "/therapy", label: "כלבנות טיפולית", icon: Heart },
     { to: "/training", label: "אילוף כלבים", icon: BookOpen },
     { to: "/activities", label: "פעילויות", icon: Award },
-    { to: "/schools", label: "תכנית גפן", icon: Users },
+    { to: "/schools", label: "יוזמות חינוכיות", icon: Users },
     {
       label: "מאגרי מידע",
       icon: Database,

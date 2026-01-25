@@ -58,7 +58,7 @@ export default function SEOJsonLD({
           name = "פעילויות ";
           break;
         case "schools":
-          name = "תוכנית גפן";
+          name = "יוזמות חינוכיות";
           break;
         case "articles":
           name = "ספריית מאמרים";

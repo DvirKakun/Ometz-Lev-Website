@@ -22,7 +22,7 @@ const HeroSubtitle: React.FC = () => {
             באומץ לב
           </h2>{" "}
           <span className="inline mt-1 sm:mt-0">
-            אני מאמין שתקשורת אמיתית מתחילה בהבנה.
+            אנחנו מאמינים שתקשורת אמיתית מתחילה בהבנה.
           </span>
         </motion.div>
 
@@ -34,11 +34,11 @@ const HeroSubtitle: React.FC = () => {
           style={{ lineHeight: "1.7" }}
         >
           <h2 className=" text-primary-300 font-bold py-1 rounded-lg mb-1 sm:mb-0 inline text-base sm:text-lg lg:text-xl">
-            באילוף חיובי
+            באילוף כלבים
           </h2>{" "}
           <span className=" inline mt-1 sm:mt-0">
-            אני בונה איתכם ועם הכלב שלכם שפה משותפת נטולת עונשים המבוססת על אמון
-            וכבוד.
+            בגישה חיובית אנחנו בונים איתכם ועם הכלב שפה משותפת נטולת עונשים
+            המבוססת על אמון וכבוד.
           </span>
         </motion.div>
 
@@ -53,8 +53,8 @@ const HeroSubtitle: React.FC = () => {
             בטיפול התנהגותי
           </h2>{" "}
           <span className="inline mt-1 sm:mt-0">
-            אני מאבחן את שורש הבעיה של הכלב שלכם ובונה תוכנית עבודה מותאמת
-            אישית.
+            אצל כלבים, מאבחנים את שורש הבעיה של הכלב ובונים לו תוכנית עבודה
+            מותאמת אישית.
           </span>
         </motion.div>
 
@@ -69,8 +69,8 @@ const HeroSubtitle: React.FC = () => {
             ובכלבנות טיפולית
           </h2>{" "}
           <span className="inline mt-1 sm:mt-0">
-            אני משלב כלבים בתהליכים חינוכיים וטיפוליים ליצירת מרחב בטוח ומחזק
-            לילדים ולבוגרים כאחד.
+            אנחנו משלבים כלבים בתהליכים חינוכיים וטיפוליים ליצירת מרחב בטוח
+            ומחזק לילדים ולבוגרים כאחד.
           </span>
         </motion.div>
       </div>

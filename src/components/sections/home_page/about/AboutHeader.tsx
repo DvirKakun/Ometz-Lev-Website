@@ -20,13 +20,9 @@ const AboutHeader: React.FC = () => {
       >
         קצת{" "}
         <span className="bg-primary-500 bg-clip-text text-transparent drop-shadow-lg">
-          עליי...
+          עלינו...
         </span>
       </h2>
-      <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed px-4 sm:px-0">
-        באמצעות אהבה, סבלנות ושיטות אילוף חיוביות, אני עוזר לכם ולכלב שלכם לבנות
-        קשר חזק ומלא אמון
-      </p>
     </motion.div>
   );
 };

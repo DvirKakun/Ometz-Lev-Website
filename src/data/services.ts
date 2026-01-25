@@ -71,7 +71,7 @@ export const services: Service[] = [
   },
   {
     path: "/schools",
-    title: "תכנית גפן",
+    title: "יוזמות חינוכיות",
     description:
       "תוכנית חינוכית ייחודית בבתי ספר המשלבת עבודה עם כלבים לפיתוח ערכים, אמפתיה וכישורים חברתיים אצל ילדים.",
     icon: Users,

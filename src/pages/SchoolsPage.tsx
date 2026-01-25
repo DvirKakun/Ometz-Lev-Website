@@ -23,13 +23,13 @@ export default function SchoolsPage({ service }: ServicePageProps) {
   // SEO Configuration for Schools Page
   const seoConfig = {
     title:
-      "תכנית גפן - תכניות חינוכיות עם כלבים לבתי ספר | אלעד שמעונוב - אומץ לב",
+      "יוזמות חינוכיות - תכניות חינוכיות עם כלבים לבתי ספר | אלעד שמעונוב - אומץ לב",
     description:
-      "אלעד שמעונוב - תכניות חינוכיות מותאמות לגילאים שונים עם כלבים. תכנית גפן לבתי ספר, סדנאות חינוכיות, פיתוח אחריות ואמפתיה. תכנית מאושרת במערכת החינוך. צרו קשר!",
+      "אלעד שמעונוב - תכניות חינוכיות מותאמות לגילאים שונים עם כלבים. יוזמות חינוכיות לבתי ספר, סדנאות חינוכיות, פיתוח אחריות ואמפתיה. תכנית מאושרת במערכת החינוך. צרו קשר!",
     keywords: getKeywordsForPage("schools"),
     imageUrl:
       "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
-    imageAlt: "תלמידים בתכנית חינוכית עם כלב במסגרת תכנית גפן",
+    imageAlt: "תלמידים בתכנית חינוכית עם כלב במסגרת יוזמות חינוכיות",
   };
 
   return (
@@ -61,7 +61,7 @@ export default function SchoolsPage({ service }: ServicePageProps) {
       >
         {/* SEO H1 - Hidden from users but visible to search engines */}
         <h1 className="sr-only">
-          תכנית גפן - תכניות חינוכיות עם כלבים לבתי ספר | אלעד שמעונוב | אומץ לב
+          יוזמות חינוכיות - תכניות חינוכיות עם כלבים לבתי ספר | אלעד שמעונוב | אומץ לב
         </h1>
         {/* Header Section */}
         <section className="py-16 bg-slate-900/85">
@@ -69,7 +69,7 @@ export default function SchoolsPage({ service }: ServicePageProps) {
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-8 items-center">
                 <ServiceHeader
-                  title={service?.title || "תכנית גפן"}
+                  title={service?.title || "יוזמות חינוכיות"}
                   description={
                     service?.description || "תוכנית חינוכית ייחודית בבתי ספר"
                   }

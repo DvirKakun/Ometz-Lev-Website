@@ -22,7 +22,7 @@ const FooterQuickLinks: React.FC = () => {
     },
     {
       path: "/schools",
-      label: "תכנית גפן",
+      label: "יוזמות חינוכיות",
       icon: Users,
     },
   ];

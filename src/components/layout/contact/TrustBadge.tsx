@@ -38,7 +38,7 @@ const TrustBadge: React.FC<TrustBadgeProps> = ({ onClick }) => {
       onClick={onClick}
       className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-400 to-primary-500 hover:from-primary-500 hover:to-primary-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl cursor-pointer transition-colors duration-300"
     >
-      <span className="text-sm whitespace-nowrap">ייעוץ ראשון חינם</span>
+      <span className="text-sm whitespace-nowrap">השאירו פרטים</span>
       <Heart className="w-4 h-4 text-white" />
     </motion.button>
   );

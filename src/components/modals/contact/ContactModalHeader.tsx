@@ -5,7 +5,7 @@ const ContactModalHeader = () => {
   return (
     <ModalHeader
       icon={Mail}
-      title="לשיחת התאמה"
+      title="לייעוץ ראשוני"
       subtitle="מלאו את הפרטים ונחזור אליכם בהקדם"
       iconSize="md"
       titleSize="text-xl"

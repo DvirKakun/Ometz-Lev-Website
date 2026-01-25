@@ -1,6 +1,7 @@
 import React from "react";
 import AboutHeader from "./AboutHeader";
 import AboutContent from "./AboutContent";
+import AboutDogsContent from "./AboutDogsContent";
 import AboutValues from "./AboutValues";
 
 const AboutSection: React.FC = () => {
@@ -9,9 +10,18 @@ const AboutSection: React.FC = () => {
       <div className="container-max section-padding">
         <AboutHeader />
 
-        {/* Mobile-first responsive layout */}
-        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 items-start lg:items-center overflow-hidden">
+        {/* About Elad Section */}
+        <div className="mb-12 sm:mb-16 md:mb-20 lg:mb-24">
           <AboutContent />
+        </div>
+
+        {/* About Dogs Section */}
+        <div className="mb-12 sm:mb-16 md:mb-20 lg:mb-24">
+          <AboutDogsContent />
+        </div>
+
+        {/* Values Section - Horizontal */}
+        <div className="mt-12 sm:mt-16 md:mt-20">
           <AboutValues />
         </div>
       </div>

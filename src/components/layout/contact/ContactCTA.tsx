@@ -21,8 +21,8 @@ const ContactCTA: React.FC = () => {
               viewport={{ once: true }}
               className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 leading-tight"
             >
-              בואו נתחיל לדבר
-              <span className="text-primary-500"> בשפת הכלבים!</span>
+              בואו נתחיל לדבר{" "}
+              <span className="text-primary-500">בשפת הכלבים!</span>
             </motion.h4>
             <motion.p
               initial={{ opacity: 0, y: 30 }}
@@ -31,8 +31,7 @@ const ContactCTA: React.FC = () => {
               viewport={{ once: true }}
               className="text-base md:text-lg text-gray-600 leading-relaxed mb-4 max-w-xl mx-auto"
             >
-              צרו קשר עכשיו לקביעת פגישת ייעוץ ראשונה ונתחיל יחד את המסע ליצירת
-              קשר בינכם לבין הכלב שלכם
+              השאירו פרטים לשיחת ייעוץ ראשונית
             </motion.p>
           </div>
 

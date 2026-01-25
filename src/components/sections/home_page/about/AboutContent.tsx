@@ -1,56 +1,69 @@
 import React from "react";
-import { motion } from "framer-motion";
+import AboutContentWithImage from "./AboutContentWithImage";
 
 const AboutContent: React.FC = () => {
+  const description = (
+    <>
+      <p>
+        אני אלעד שמעונוב,{" "}
+        <span className="font-semibold text-slate-800">
+          מאלף כלבים בכיר, מטפל התנהגותי מקצועי ומדריך כלבנות טיפולית
+        </span>
+        .
+      </p>
+
+      <p>
+        המסע המקצועי שלי בעולם הכלבנות החל עוד ב-
+        <span className="font-semibold text-primary-700">2016</span> וכיום אחרי
+        למעלה מ-<span className="font-semibold text-primary-700">9 שנים</span>{" "}
+        של עשייה יומיומית בשטח, אני מביא איתי ניסיון עשיר ומגוון.<br></br>{" "}
+        ההתמחות שלי נעה בין{" "}
+        <span className="font-semibold">
+          אילוף וטיפול התנהגותי לכלבים ריאקטיביים
+        </span>
+        , דרך עבודה במסגרות חינוכיות ותל"ן עם עבודה{" "}
+        <span className="font-semibold">מעל 5 שנים בבתי ספר</span> ועד להובלת{" "}
+        <span className="font-semibold">קייטנות וחוגי אילוף לילדים ונוער</span>.
+      </p>
+
+      <p>
+        <span className="font-semibold text-primary-700">בכלבנות טיפולית</span>{" "}
+        - חלק משמעותי בעבודתי הוא עזרה לאנשים וילדים המפחדים מכלבים ובניית{" "}
+        <span className="font-semibold">
+          תחושת מסוגלות חדשה והגברת הביטחון העצמי.
+        </span>
+        <br></br>
+        אני מאמין שהבסיס לכל הצלחה הוא קודם כל{" "}
+        <span className="font-semibold text-primary-700">
+          תחושת הביטחון שלכם בתהליך
+        </span>
+        .<br></br>
+        אני כאן כדי להוביל אתכם בדרך רגועה, נטולת לחץ ומכילה, שתאפשר לכם ללמוד
+        ולהתפתח בנחת.
+        <br></br>
+        <span className="font-semibold text-primary-700">באילוף</span> - המטרה
+        שלי היא לבנות ביניכם לבין הכלב{" "}
+        <span className="font-semibold">שפה משותפת</span> שתשדרג את איכות החיים
+        בבית.
+      </p>
+
+      <p>
+        הניסיון שלי מלמד שכאשר נוצר ביטחון מגיע השקט הנפשי ואיתו ההצלחה{" "}
+        <span className="font-semibold">ותוצאות שנשארות לאורך זמן</span>.
+      </p>
+    </>
+  );
+
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="order-1 lg:order-1 px-4 sm:px-0"
-    >
-      <div className="space-y-6 sm:space-y-8 mb-6 sm:mb-8">
-        <div className="pb-4 sm:pb-6 border-b border-slate-100">
-          <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2 sm:mb-3 tracking-tight">
-            אלעד שמעונוב
-          </h3>
-          <p className="text-primary-600 font-semibold text-base sm:text-lg">
-            מאלף כלבים ומטפל התנהגותי
-          </p>
-        </div>
-
-        <div className="prose prose-base sm:prose-lg max-w-none">
-          <div className="space-y-4 sm:space-y-6 text-slate-700 leading-relaxed">
-            <p className="text-lg sm:text-xl font-medium text-slate-800">
-              שמי אלעד שמעונוב, אני מתמחה בכלבנות טיפולית, אימון אישי ותכניות
-              ייחודיות במסגרת תכנית "גפן".
-            </p>
-
-            <p>
-              אני מאמין שכל קשר עם כלב הוא הזדמנות לצמיחה אישית ולחיזוק ביטחון
-              עצמי. באילוף הכלבים אני עובד
-              <span className="font-semibold text-slate-800">
-                {" "}
-                בגישה חיובית, נעימה ומותאמת אישית
-              </span>{" "}
-              לכל לקוח.
-            </p>
-
-            <p>
-              יחד אני בונה תהליך משמעותי שבו הכלבים הופכים לשותפים מלאים בדרך
-              לשיפור איכות החיים שלכם ושלהם. בין אם מדובר בילדים, מבוגרים או
-              במשפחות שלמות, המטרה שלי היא לספק לכם את הכלים הטובים ביותר כדי
-              שתוכלו ליהנות מקשר עמוק, בריא ומאוזן עם הכלב שלכם.
-            </p>
-
-            <p className="text-primary-700 font-medium italic pt-2 text-sm sm:text-base">
-              מוזמנים להצטרף למסע המיוחד הזה איתי.
-            </p>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+    <AboutContentWithImage
+      title="אלעד שמעונוב"
+      subtitle="מאלף כלבים בכיר, מטפל התנהגותי מקצועי ומדריך כלבנות טיפולית"
+      description={description}
+      bottomDescription="מוזמנים להצטרף למסע המיוחד הזה איתי."
+      imagePath="/assets/about/elad_about_image.png"
+      imageAlt="אלעד שמעונוב עם הכלבות בוני ומייפל"
+      imagePosition="right"
+    />
   );
 };
 
