@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { cn } from "../../../lib/utils";
@@ -8,17 +8,42 @@ import HeaderMobileMenu from "./HeaderMobileMenu";
 import HeaderCTAButtons from "./HeaderCTAButtons";
 import OmetzLevLogo from "../../../assets/icons/Ometz-Lev-Logo.png";
 import { useTimer } from "../../../contexts/TimerContext";
+import { triggerDogPawConfetti } from "../../../utils/confetti";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [logoClickCount, setLogoClickCount] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
   const { hideTimer, showTimer } = useTimer();
+  const clickTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleLogoClick = () => {
+    // Easter egg: 3 clicks triggers confetti
+    const newClickCount = logoClickCount + 1;
+    setLogoClickCount(newClickCount);
+
+    // Clear existing timeout
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+
+    // If 3 clicks, trigger confetti and reset
+    if (newClickCount === 3) {
+      triggerDogPawConfetti();
+      setLogoClickCount(0);
+      return; // Don't navigate when confetti triggers
+    }
+
+    // Reset click count after 1 second
+    clickTimeoutRef.current = setTimeout(() => {
+      setLogoClickCount(0);
+    }, 1000);
+
+    // Normal navigation behavior
     if (location.pathname === "/home") {
       // Scroll to top if already on home page
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -50,6 +75,15 @@ const Header: React.FC = () => {
       showTimer();
     }
   }, [isMenuOpen, hideTimer, showTimer]);
+
+  // Cleanup click timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (clickTimeoutRef.current) {
+        clearTimeout(clickTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
