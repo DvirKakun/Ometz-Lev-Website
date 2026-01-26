@@ -8,6 +8,7 @@ import {
   Home,
   Database,
   ChevronDown,
+  ShoppingBag,
 } from "lucide-react";
 import { cn } from "../../../lib/utils";
 import type { HeaderNavigationProps } from "../../../types/headers";
@@ -31,10 +32,13 @@ export default function HeaderNavigation({
       label: "מאגרי מידע",
       icon: Database,
       submenu: [
-        { to: "/therapy-videos-library", label: "סרטוני טיפול" },
+        { to: "/therapy-videos-library", label: "סרטוני כלבנות טיפולית" },
         { to: "/therapy-articles-library", label: "מאמרי טיפול" },
         { to: "/training-videos-library", label: "סרטוני אילוף" },
-        { to: "/training-articles-library", label: "מאמרי אילוף" },
+        {
+          to: "/training-articles-library",
+          label: "מדריכים וטיפים לאילוף כלבים",
+        },
         { to: "/products", label: "מוצרים" },
       ],
     },
@@ -64,7 +68,7 @@ export default function HeaderNavigation({
                   <ChevronDown
                     className={cn(
                       "w-4 h-4 transition-transform duration-200",
-                      openDropdown === i ? "rotate-180" : ""
+                      openDropdown === i ? "rotate-180" : "",
                     )}
                   />
                 </button>
@@ -77,24 +81,34 @@ export default function HeaderNavigation({
                       transition={{ duration: 0.2 }}
                       className="overflow-hidden"
                     >
-                      <div className="mt-2 mr-9 space-y-1">
-                        {item.submenu.map((subItem) => (
-                          <NavLink
-                            key={subItem.to}
-                            to={subItem.to}
-                            onClick={onItemClick}
-                            className={({ isActive }) =>
-                              cn(
-                                "block px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
-                                isActive
-                                  ? "bg-primary-100 text-primary-700"
-                                  : "text-slate-600 hover:bg-primary-50 hover:text-primary-600"
-                              )
-                            }
-                          >
-                            {subItem.label}
-                          </NavLink>
-                        ))}
+                      <div className="mt-2 mr-9 space-y-0">
+                        {item.submenu.map((subItem) => {
+                          const isProducts = subItem.to === "/products";
+                          return (
+                            <NavLink
+                              key={subItem.to}
+                              to={subItem.to}
+                              onClick={onItemClick}
+                              className={({ isActive }) =>
+                                cn(
+                                  "block px-4 py-2.5 text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 border-b border-slate-200 last:border-b-0",
+                                  isProducts
+                                    ? isActive
+                                      ? "bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold"
+                                      : "bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:from-primary-600 hover:to-primary-700"
+                                    : isActive
+                                      ? "bg-primary-50 text-primary-700"
+                                      : "text-slate-600 hover:bg-primary-50 hover:text-primary-600",
+                                )
+                              }
+                            >
+                              {isProducts && (
+                                <ShoppingBag className="inline-block w-4 h-4 ml-2 -mt-0.5" />
+                              )}
+                              {subItem.label}
+                            </NavLink>
+                          );
+                        })}
                       </div>
                     </motion.div>
                   )}
@@ -110,7 +124,7 @@ export default function HeaderNavigation({
                     "flex items-center space-x-4 space-x-reverse px-5 py-3.5 rounded-xl font-semibold text-base transition-all duration-200 w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
                     isActive
                       ? "bg-primary-100 text-primary-700 shadow-sm"
-                      : "text-slate-700 hover:bg-primary-50 hover:text-primary-600 active:bg-primary-100 focus-visible:bg-primary-50 focus-visible:text-primary-600"
+                      : "text-slate-700 hover:bg-primary-50 hover:text-primary-600 active:bg-primary-100 focus-visible:bg-primary-50 focus-visible:text-primary-600",
                   )
                 }
               >
@@ -143,7 +157,7 @@ export default function HeaderNavigation({
               <button
                 className={cn(
                   "flex items-center space-x-2 space-x-reverse px-2.5 py-2 rounded-lg font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
-                  "text-slate-700 hover:text-primary-600 focus-visible:bg-primary-50 focus-visible:text-primary-600"
+                  "text-slate-700 hover:text-primary-600 focus-visible:bg-primary-50 focus-visible:text-primary-600",
                 )}
               >
                 <item.icon className="w-4 h-4" />
@@ -158,24 +172,34 @@ export default function HeaderNavigation({
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -10, scale: 0.95 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute top-full right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-2 z-50"
+                    className="absolute top-full right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-slate-200 py-0 z-50 overflow-hidden"
                   >
-                    {item.submenu.map((subItem) => (
-                      <NavLink
-                        key={subItem.to}
-                        to={subItem.to}
-                        className={({ isActive }) =>
-                          cn(
-                            "block px-4 py-2.5 text-sm font-medium transition-all duration-200 hover:text-primary-600 focus-visible:outline-none focus-visible:bg-primary-50 focus-visible:text-primary-600",
-                            isActive
-                              ? "bg-primary-100 text-primary-700"
-                              : "text-slate-700"
-                          )
-                        }
-                      >
-                        {subItem.label}
-                      </NavLink>
-                    ))}
+                    {item.submenu.map((subItem) => {
+                      const isProducts = subItem.to === "/products";
+                      return (
+                        <NavLink
+                          key={subItem.to}
+                          to={subItem.to}
+                          className={({ isActive }) =>
+                            cn(
+                              "block px-4 py-2.5 text-sm font-medium transition-all duration-200 focus-visible:outline-none border-b border-slate-200 last:border-b-0",
+                              isProducts
+                                ? isActive
+                                  ? "bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold focus-visible:ring-2 focus-visible:ring-primary-700"
+                                  : "bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold hover:from-primary-600 hover:to-primary-700 focus-visible:ring-2 focus-visible:ring-primary-600"
+                                : isActive
+                                  ? "bg-primary-100 text-primary-700 hover:text-primary-600 focus-visible:bg-primary-50 focus-visible:text-primary-600"
+                                  : "text-slate-700 hover:text-primary-600 focus-visible:bg-primary-50 focus-visible:text-primary-600",
+                            )
+                          }
+                        >
+                          {isProducts && (
+                            <ShoppingBag className="inline-block w-4 h-4 ml-2 -mt-0.5" />
+                          )}
+                          {subItem.label}
+                        </NavLink>
+                      );
+                    })}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -189,7 +213,7 @@ export default function HeaderNavigation({
                   "flex items-center space-x-2 space-x-reverse px-2.5 py-2 rounded-lg font-medium text-sm transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2",
                   isActive
                     ? "bg-primary-100 text-primary-700 shadow-md"
-                    : "text-slate-700  hover:text-primary-600 focus-visible:bg-primary-50 focus-visible:text-primary-600"
+                    : "text-slate-700  hover:text-primary-600 focus-visible:bg-primary-50 focus-visible:text-primary-600",
                 )
               }
             >

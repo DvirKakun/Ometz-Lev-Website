@@ -2,10 +2,11 @@ import type { PageContentConfig } from "../types/content";
 
 export const therapyContentConfig: PageContentConfig = {
   videos: {
-    title: "סרטוני טיפול",
-    description: "סרטוני הדרכה מקצועיים לטיפול בכלבים",
+    title: "סרטוני כלבנות טיפולית",
+    description:
+      "סרטוני הדרכה מקצועיים בכלבנות טיפולית ובנושאי ליווי והתמודדות",
     libraryPath: "/therapy-videos-library",
-    libraryTitle: "ספריית סרטוני הטיפול שלנו",
+    libraryTitle: "ספריית הווידאו שלנו",
     buttonText: "עבור לספרייה",
   },
   articles: {
