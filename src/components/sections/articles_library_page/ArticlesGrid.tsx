@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import { useRouterModal } from "../../../hooks/useRouterModal";
+import { useNavigate } from "react-router-dom";
 import ArticleCard from "./ArticleCard";
-import ArticleModal from "../../modals/article/ArticleModal";
 import EmptyState from "./EmptyState";
 import LoadingSpinner from "../../common/StateLoadingSpinner";
 import StateDisplay from "../../common/StateDisplay";
@@ -16,15 +15,16 @@ const ArticlesGrid = ({
   totalArticlesCount = 0,
   pageType = "training",
 }: ArticlesGridProps) => {
-  const { isOpen, modalData, openModal, onOpenChange } = useRouterModal<string>(
-    {
-      modalKey: "article",
-    }
-  );
+  const navigate = useNavigate();
 
   const handleArticleClick = (article: Article) => {
-    const id = article.articleKey || `article-${article.title}`;
-    openModal(id);
+    const basePath =
+      pageType === "training"
+        ? "/training-articles-library"
+        : "/therapy-articles-library";
+    navigate(`${basePath}/${article.articleKey}`, {
+      state: { scrollPosition: window.scrollY, returnPath: basePath },
+    });
   };
 
   if (isLoading) {
@@ -32,8 +32,8 @@ const ArticlesGrid = ({
       <section className="py-12">
         <div className="container mx-auto px-4">
           <LoadingSpinner
-            title="טוען מאמרים..."
-            description="אנא המתן בזמן שאנחנו מביאים עבורך את המאמרים העדכניים"
+            title="טוען מדריכים..."
+            description="אנא המתן בזמן שאנחנו מביאים עבורך את המדריכים העדכניים"
           />
         </div>
       </section>
@@ -46,7 +46,7 @@ const ArticlesGrid = ({
         <div className="container mx-auto px-4">
           <StateDisplay
             icon={AlertCircle}
-            title="שגיאה בטעינת המאמרים"
+            title="שגיאה בטעינת המדריכים"
             description="אנא נסה שוב מאוחר יותר"
             iconClassName="w-12 h-12 text-red-500 mb-4"
           />
@@ -82,14 +82,6 @@ const ArticlesGrid = ({
             />
           )}
         </motion.div>
-
-        {/* Article Modal */}
-        <ArticleModal
-          isOpen={isOpen}
-          onOpenChange={onOpenChange}
-          articleId={modalData}
-          pageType={pageType}
-        />
       </div>
     </section>
   );

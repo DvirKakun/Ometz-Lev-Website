@@ -44,7 +44,7 @@ const LibraryCTA = ({
 
       return {
         count: articleCountDisplay,
-        countLabel: "מאמרים",
+        countLabel: "מדריכים",
         time:
           totalHours > 0
             ? `${totalHours}:${remainingMinutes.toString().padStart(2, "0")}`

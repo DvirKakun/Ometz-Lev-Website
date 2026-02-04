@@ -64,32 +64,33 @@ const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
   const isPageDataLoading = isTrainingPage
     ? isTrainingDataLoading
     : isTherapyPage
-    ? isTherapyDataLoading
-    : isActivitiesPage
-    ? isActivitiesDataLoading
-    : isSchoolsPage
-    ? isSchoolsDataLoading
-    : isProductsPage
-    ? isProductsDataLoading
-    : false;
+      ? isTherapyDataLoading
+      : isActivitiesPage
+        ? isActivitiesDataLoading
+        : isSchoolsPage
+          ? isSchoolsDataLoading
+          : isProductsPage
+            ? isProductsDataLoading
+            : false;
 
   const pageProgress = isTrainingPage
     ? trainingProgress
     : isTherapyPage
-    ? therapyProgress
-    : isActivitiesPage
-    ? activitiesProgress
-    : isSchoolsPage
-    ? schoolsProgress
-    : isProductsPage
-    ? productsProgress
-    : undefined;
+      ? therapyProgress
+      : isActivitiesPage
+        ? activitiesProgress
+        : isSchoolsPage
+          ? schoolsProgress
+          : isProductsPage
+            ? productsProgress
+            : undefined;
 
   useEffect(() => {
-    // Skip loading if returning from library
+    // Skip loading if returning from library or PDF viewer
     const returnFromLibrary = location.state?.returnFromLibrary;
+    const returnFromPDF = location.state?.returnFromPDF;
 
-    if (returnFromLibrary) {
+    if (returnFromLibrary || returnFromPDF) {
       setIsLoading(false);
       setGlobalLoading(false);
       return;
@@ -98,7 +99,10 @@ const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
     // Don't reset loading if this is just a modal state change (not a page refresh)
     // We detect page refresh by checking if there's existing loading state
     const isModalStateChange =
-      location.state?.modal && !returnFromLibrary && !isLoading; // If we're already loading, this is likely a refresh, not just a modal change
+      location.state?.modal &&
+      !returnFromLibrary &&
+      !returnFromPDF &&
+      !isLoading; // If we're already loading, this is likely a refresh, not just a modal change
 
     if (isModalStateChange) {
       return;
@@ -136,6 +140,7 @@ const PageLoader = ({ children, minLoadTime = 1000 }: PageLoaderProps) => {
   }, [
     location.pathname,
     location.state?.returnFromLibrary,
+    location.state?.returnFromPDF,
     minLoadTime,
     setGlobalLoading,
     isPageDataLoading,

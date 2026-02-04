@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   useArticlesByMultipleCategories,
   useArticles,
@@ -12,29 +13,37 @@ import { getKeywordsForPage } from "../data/seo-keywords";
 import type { ArticlesLibraryPageProps } from "../types/library";
 
 const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
+  const location = useLocation();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([
     "all",
   ]);
+
+  // Restore scroll position only when returning from PDF viewer
+  useEffect(() => {
+    if (location.state?.returnFromPDF && location.state?.scrollPosition) {
+      window.scrollTo(0, location.state.scrollPosition);
+    }
+  }, [location]);
 
   // SEO Configuration
   const getSEOConfig = (pageType: string) => {
     const seoData = {
       training: {
         title:
-          "מאמרי אילוף כלבים | מדריכים וטיפים מקצועיים | אלעד שמעונוב - אומץ לב",
+          "מדריכי אילוף כלבים | מדריכים וטיפים מקצועיים | אלעד שמעונוב - אומץ לב",
         description:
-          "מאמרי הדרכה מקצועיים לאילוף כלבים מאת אלעד שמעונוב. מדריכים מפורטים, טכניקות מתקדמות ועצות מומחים לפתרון כל בעיה התנהגותית. קיראו עכשיו!",
+          "מדריכים מקצועיים לאילוף כלבים מאת אלעד שמעונוב. מדריכים מפורטים, טכניקות מתקדמות ועצות מומחים לפתרון כל בעיה התנהגותית. קיראו עכשיו!",
         keywords: getKeywordsForPage("training"),
-        imageAlt: "מאמרי אילוף כלבים מקצועיים מאת אלעד שמעונוב",
+        imageAlt: "מדריכי אילוף כלבים מקצועיים מאת אלעד שמעונוב",
         canonicalUrl: "https://ometzlev.co.il/training-articles-library",
       },
       therapy: {
         title:
-          "מאמרי כלבנות טיפולית | מדריכים טיפוליים מקצועיים | אלעד שמעונוב - אומץ לב",
+          "מדריכי כלבנות טיפולית | מדריכים טיפוליים מקצועיים | אלעד שמעונוב - אומץ לב",
         description:
-          "מאמרים מקצועיים על כלבנות טיפולית מאת אלעד שמעונוב. שיטות טיפול, עבודה עם חרדות וטכניקות לשיקום רגשי וחברתי עם כלבים מאומנים. קיראו עכשיו!",
+          "מדריכים מקצועיים על כלבנות טיפולית מאת אלעד שמעונוב. שיטות טיפול, עבודה עם חרדות וטכניקות לשיקום רגשי וחברתי עם כלבים מאומנים. קיראו עכשיו!",
         keywords: getKeywordsForPage("therapy"),
-        imageAlt: "מאמרי כלבנות טיפולית מקצועיים מאת אלעד שמעונוב",
+        imageAlt: "מדריכי כלבנות טיפולית מקצועיים מאת אלעד שמעונוב",
         canonicalUrl: "https://ometzlev.co.il/therapy-articles-library",
       },
     } as const;
@@ -43,8 +52,7 @@ const ArticlesLibraryPage = ({ config }: ArticlesLibraryPageProps) => {
 
   const seoConfig = {
     ...getSEOConfig(config.pageType),
-    imageUrl:
-      "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageUrl: "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
   };
 
   const {

@@ -12,16 +12,15 @@ import { useTherapyMethodConfig } from "../../hooks/useTherapyMethodConfig";
 import { useTherapyOfferings } from "../../hooks/useServiceOfferings";
 import { useRouterModal } from "../../hooks/useRouterModal";
 import VideoModal from "../../components/modals/video/VideoModal";
-import ArticleModal from "../../components/modals/article/ArticleModal";
 import { therapyContentConfig } from "../../data/therapy_content_config";
 import type { ServicePageProps } from "../../types/service_page";
+import { getOfferingsWithFallback } from "../../utils/fallback-content";
 
 const TherapyPage = ({ service }: ServicePageProps) => {
   const location = useLocation();
   const { data: methodConfig } = useTherapyMethodConfig();
   const { data: therapyOfferingsData } = useTherapyOfferings();
   const videoModal = useRouterModal<string>({ modalKey: "video" });
-  const articleModal = useRouterModal<string>({ modalKey: "article" });
 
   // SEO Configuration for Therapy Page
   const seoConfig = {
@@ -29,15 +28,17 @@ const TherapyPage = ({ service }: ServicePageProps) => {
     description:
       "אלעד שמעונוב - כלבנות טיפולית מקצועית לטיפול בחרדות, דיכאון ופוסט טראומה. כלבי טיפול מאומנים לילדים ומבוגרים. טיפול בעזרת בעלי חיים להתגברות על פחדים. קבעו פגישה!",
     keywords: getKeywordsForPage("therapy"),
-    imageUrl:
-      "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageUrl: "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
     imageAlt: "כלב טיפולי במהלך פגישת טיפול עם אלעד שמעונוב",
   };
 
   // Merge Prismic offerings with service data
   const serviceWithOfferings = {
     ...service,
-    offerings: therapyOfferingsData?.offerings || [],
+    offerings: getOfferingsWithFallback(
+      therapyOfferingsData?.offerings,
+      "therapy",
+    ),
   };
 
   useEffect(() => {
@@ -115,12 +116,6 @@ const TherapyPage = ({ service }: ServicePageProps) => {
         isOpen={videoModal.isOpen}
         onOpenChange={videoModal.onOpenChange}
         videoId={videoModal.modalData}
-        pageType="therapy"
-      />
-      <ArticleModal
-        isOpen={articleModal.isOpen}
-        onOpenChange={articleModal.onOpenChange}
-        articleId={articleModal.modalData}
         pageType="therapy"
       />
     </>

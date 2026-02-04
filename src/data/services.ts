@@ -29,7 +29,7 @@ export const services: Service[] = [
         href: "#videos",
       },
       {
-        text: "מאמרים ומדריכים",
+        text: "מדריכים מקצועיים",
         icon: FileText,
         href: "#articles",
       },
@@ -54,7 +54,7 @@ export const services: Service[] = [
         href: "#videos",
       },
       {
-        text: "מאמרים ומדריכים",
+        text: "מדריכים מקצועיים",
         icon: FileText,
         href: "#articles",
       },

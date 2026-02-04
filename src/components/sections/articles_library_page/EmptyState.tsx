@@ -6,10 +6,13 @@ interface EmptyStateProps {
   totalArticlesCount?: number;
 }
 
-const EmptyState = ({ hasActiveFilters = false, totalArticlesCount = 0 }: EmptyStateProps) => {
+const EmptyState = ({
+  hasActiveFilters = false,
+  totalArticlesCount = 0,
+}: EmptyStateProps) => {
   // Determine if it's a filtering issue or no content at all
   const isFilteringIssue = hasActiveFilters && totalArticlesCount > 0;
-  
+
   if (isFilteringIssue) {
     // No articles with current filters
     return (
@@ -37,7 +40,7 @@ const EmptyState = ({ hasActiveFilters = false, totalArticlesCount = 0 }: EmptyS
             transition={{ duration: 0.6, delay: 0.3 }}
             className="text-2xl font-bold text-slate-800 mb-3"
           >
-            לא נמצאו מאמרים עם הסינון הזה
+            לא נמצאו מדריכים עם הסינון הזה
           </motion.h3>
 
           <motion.p
@@ -46,7 +49,7 @@ const EmptyState = ({ hasActiveFilters = false, totalArticlesCount = 0 }: EmptyS
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-slate-500"
           >
-            נסו לשנות את הסינון או נקו את הסינונים כדי לראות יותר מאמרים
+            נסו לשנות את הסינון או נקו את הסינונים כדי לראות יותר מדריכים
           </motion.p>
         </div>
       </motion.div>
@@ -79,7 +82,7 @@ const EmptyState = ({ hasActiveFilters = false, totalArticlesCount = 0 }: EmptyS
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-2xl font-bold text-slate-800 mb-3"
         >
-          אין מאמרים
+          אין מדריכים
         </motion.h3>
 
         <motion.div
@@ -89,7 +92,7 @@ const EmptyState = ({ hasActiveFilters = false, totalArticlesCount = 0 }: EmptyS
           className="flex items-center justify-center gap-2 text-sm text-slate-500"
         >
           <BookOpen className="w-4 h-4" />
-          <span>מאמרים יתווספו בקרוב</span>
+          <span>מדריכים יתווספו בקרוב</span>
         </motion.div>
       </div>
     </motion.div>

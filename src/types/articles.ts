@@ -1,10 +1,9 @@
 export interface Article {
   title: string;
   description: string;
-  content?: string;
+  url: string; // URL to the PDF file from Prismic
   readTime: number;
   categories: string[]; // All category IDs
-  author: string;
   thumbnailUrl?: string;
   thumbnailAlt?: string;
   articleKey?: string;

@@ -5,7 +5,6 @@ import {
   createPrismicClient,
   getPrismicText,
   getPrismicTitle,
-  getPrismicRichText,
   getPrismicImageUrl,
   handlePrismicError,
 } from "./prismic-config";
@@ -32,10 +31,9 @@ export function mapPrismicArticle(prismicArticle: PrismicArticle): Article {
   return {
     title: getPrismicTitle(data.title) || "Untitled Article",
     description: getPrismicText(data.description) || "",
-    content: getPrismicRichText(data.content) || "",
+    url: data.url?.url || "", // PDF URL from Prismic link field
     categories: categoryIds, // All categories
     readTime: Number(data.read_time) || 5,
-    author: getPrismicText(data.author) || "Unknown Author",
     thumbnailUrl,
     thumbnailAlt,
     articleKey: String(prismicArticle.id),

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Clock, User } from "lucide-react";
+import { Clock } from "lucide-react";
 import { Card, CardContent } from "../../ui/card";
 import { useCategories } from "../../../hooks/useCategories";
 import type { ArticleCardProps } from "../../../types/articles";
@@ -85,14 +85,7 @@ const ArticleCard = ({
             </div>
           )}
 
-          <div className="flex items-center justify-between mt-auto pt-2">
-            <div className="flex items-center gap-1 sm:gap-2 text-slate-500">
-              <User className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="text-xs sm:text-sm font-medium">
-                {article.author}
-              </span>
-            </div>
-
+          <div className="flex items-center justify-end mt-auto pt-2">
             <div className="flex items-center gap-1 sm:gap-2 text-slate-500">
               <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
               <span className="text-xs sm:text-sm font-medium">

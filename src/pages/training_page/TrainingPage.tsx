@@ -13,7 +13,6 @@ import { useTrainingOfferings } from "../../hooks/useServiceOfferings";
 import { useRouterModal } from "../../hooks/useRouterModal";
 import { getOfferingsWithFallback } from "../../utils/fallback-content";
 import VideoModal from "../../components/modals/video/VideoModal";
-import ArticleModal from "../../components/modals/article/ArticleModal";
 import { trainingContentConfig } from "../../data/training_content_config";
 import type { ServicePageProps } from "../../types/service_page";
 
@@ -22,7 +21,6 @@ export default function TrainingPage({ service }: ServicePageProps) {
   const { data: methodConfig } = useTrainingMethodConfig();
   const { data: trainingOfferingsData } = useTrainingOfferings();
   const videoModal = useRouterModal<string>({ modalKey: "video" });
-  const articleModal = useRouterModal<string>({ modalKey: "article" });
 
   // SEO Configuration for Training Page
   const seoConfig = {
@@ -30,8 +28,7 @@ export default function TrainingPage({ service }: ServicePageProps) {
     description:
       "אלעד שמעונוב - מאמן כלבים מקצועי ואישי. אילוף בבית הלקוח, פתרון בעיות התנהגות, אילוף גורים וטיפול באגרסיביות. שיטות מתקדמות ותוצאות מובטחות. ייעוץ חינם!",
     keywords: getKeywordsForPage("training"),
-    imageUrl:
-      "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageUrl: "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
     imageAlt: "אלעד שמעונוב מאמן כלבים מקצועי במהלך אילוף כלב",
   };
 
@@ -40,22 +37,15 @@ export default function TrainingPage({ service }: ServicePageProps) {
     ...service,
     offerings: getOfferingsWithFallback(
       trainingOfferingsData?.offerings,
-      "training"
+      "training",
     ),
   };
 
   useEffect(() => {
-    // Restore scroll position if returning from library
-    const returnFromLibrary = location.state?.returnFromLibrary;
-    const scrollPosition = location.state?.scrollPosition;
-
-    if (returnFromLibrary && scrollPosition !== undefined) {
-      // Use setTimeout to ensure DOM is fully rendered
-      setTimeout(() => {
-        window.scrollTo(0, scrollPosition);
-      }, 100);
+    if (location.state?.scrollPosition) {
+      window.scrollTo(0, location.state.scrollPosition);
     }
-  }, [location.state]);
+  }, [location]);
 
   if (!service) {
     return (
@@ -126,12 +116,6 @@ export default function TrainingPage({ service }: ServicePageProps) {
         isOpen={videoModal.isOpen}
         onOpenChange={videoModal.onOpenChange}
         videoId={videoModal.modalData}
-        pageType="training"
-      />
-      <ArticleModal
-        isOpen={articleModal.isOpen}
-        onOpenChange={articleModal.onOpenChange}
-        articleId={articleModal.modalData}
         pageType="training"
       />
     </>

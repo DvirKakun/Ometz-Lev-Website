@@ -27,8 +27,8 @@ export const therapyVideoLibraryConfig: VideoLibraryConfig = {
 export const trainingArticleLibraryConfig: ArticleLibraryConfig = {
   contentType: "articles",
   pageType: "training",
-  title: "ספריית המאמרים",
-  description: "מאמרי הדרכה מקצועיים ומדריכים לאילוף כלבים",
+  title: "ספריית המדריכים",
+  description: "מדריכים מקצועיים ומדריכים לאילוף כלבים",
   returnPath: "/training",
   returnLabel: "חזרה לעמוד האילוף",
   backgroundPattern: false,
@@ -37,8 +37,8 @@ export const trainingArticleLibraryConfig: ArticleLibraryConfig = {
 export const therapyArticleLibraryConfig: ArticleLibraryConfig = {
   contentType: "articles",
   pageType: "therapy",
-  title: "ספריית מאמרי הטיפול",
-  description: "מאמרי הדרכה מקצועיים ומדריכים לטיפול בכלבים",
+  title: "ספריית מדריכי הטיפול",
+  description: "מדריכים מקצועיים ומדריכים לטיפול בכלבים",
   returnPath: "/therapy",
   returnLabel: "חזרה לעמוד הטיפול",
   backgroundPattern: false,
@@ -48,6 +48,7 @@ export const productsPageConfig: ProductsPageConfig = {
   contentType: "products",
   pageType: "products",
   title: "מוצרים",
-  description: "מגוון מוצרי איכות לכלבים ולבעלי כלבים, כולל ציוד אילוף, צעצועים חינוכיים, אביזרי טיפולים ופתרונות חדשניים לשיפור איכות החיים של הכלב והמשפחה.",
+  description:
+    "מגוון מוצרי איכות לכלבים ולבעלי כלבים, כולל ציוד אילוף, צעצועים חינוכיים, אביזרי טיפולים ופתרונות חדשניים לשיפור איכות החיים של הכלב והמשפחה.",
   backgroundPattern: false,
 };

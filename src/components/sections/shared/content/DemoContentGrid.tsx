@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { useDemoArticles } from "../../../../hooks/useArticles";
 import { useDemoVideos } from "../../../../hooks/useVideos";
 import { useRouterModal } from "../../../../hooks/useRouterModal";
@@ -15,12 +16,18 @@ export default function DemoContentGrid({
   contentType,
   pageType,
 }: DemoContentGridProps) {
+  const navigate = useNavigate();
   const videoModal = useRouterModal<string>({ modalKey: "video" });
-  const articleModal = useRouterModal<string>({ modalKey: "article" });
 
   const handleArticleClick = (article: Article) => {
-    const id = article.articleKey || `article-${article.title}`;
-    articleModal.openModal(id);
+    const basePath =
+      pageType === "training"
+        ? "/training-articles-library"
+        : "/therapy-articles-library";
+    const returnPath = pageType === "training" ? "/training" : "/therapy";
+    navigate(`${basePath}/${article.articleKey}`, {
+      state: { scrollPosition: window.scrollY, returnPath },
+    });
   };
 
   const handleVideoClick = (video: Video) => {
@@ -96,8 +103,8 @@ export default function DemoContentGrid({
       if (articlesLoading) {
         return (
           <LoadingSpinner
-            title="טוען מאמרים..."
-            description="אנא המתן בזמן שאנחנו מביאים עבורך את המאמרים העדכניים"
+            title="טוען מדריכים..."
+            description="אנא המתן בזמן שאנחנו מביאים עבורך את המדריכים העדכניים"
           />
         );
       }
@@ -106,7 +113,7 @@ export default function DemoContentGrid({
         return (
           <StateDisplay
             icon={AlertCircle}
-            title="שגיאה בטעינת המאמרים"
+            title="שגיאה בטעינת המדריכים"
             description="אנא נסה שוב מאוחר יותר"
             iconClassName="w-12 h-12 text-red-500 mb-4"
           />
@@ -117,8 +124,8 @@ export default function DemoContentGrid({
         return (
           <StateDisplay
             icon={AlertCircle}
-            title="אין מאמרים זמינים"
-            description="כרגע אין מאמרים להצגה"
+            title="אין מדריכים זמינים"
+            description="כרגע אין מדריכים להצגה"
             iconClassName="w-12 h-12 text-gray-400 mb-4"
           />
         );

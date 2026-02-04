@@ -33,7 +33,7 @@ export default function HeaderNavigation({
       icon: Database,
       submenu: [
         { to: "/therapy-videos-library", label: "סרטוני כלבנות טיפולית" },
-        { to: "/therapy-articles-library", label: "מאמרי טיפול" },
+        { to: "/therapy-articles-library", label: "מדריכי טיפול" },
         { to: "/training-videos-library", label: "סרטוני אילוף" },
         {
           to: "/training-articles-library",

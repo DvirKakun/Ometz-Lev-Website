@@ -25,18 +25,19 @@ import TrainingVideoLibraryPage from "./pages/training_page/TrainingVideoLibrary
 import TrainingArticlesLibraryPage from "./pages/training_page/TrainingArticlesLibraryPage";
 import TherapyVideoLibraryPage from "./pages/therapy_page/TherapyVideoLibraryPage";
 import TherapyArticlesLibraryPage from "./pages/therapy_page/TherapyArticlesLibraryPage";
+import ArticlePDFViewerPage from "./pages/ArticlePDFViewerPage";
 import PageLoader from "./components/common/PageLoader";
 import { services } from "./data/services";
 import { productsPageConfig } from "./data/library_configs";
 
 const trainingService = services.find(
-  (service) => service.path === "/training"
+  (service) => service.path === "/training",
 );
 
 const therapyService = services.find((service) => service.path === "/therapy");
 
 const activitiesService = services.find(
-  (service) => service.path === "/activities"
+  (service) => service.path === "/activities",
 );
 
 const schoolsService = services.find((service) => service.path === "/schools");
@@ -117,7 +118,13 @@ const router = createBrowserRouter([
   {
     path: "/training-articles-library",
     element: <Layout />,
-    children: [{ index: true, element: <TrainingArticlesLibraryPage /> }],
+    children: [
+      { index: true, element: <TrainingArticlesLibraryPage /> },
+      {
+        path: ":articleKey",
+        element: <ArticlePDFViewerPage pageType="training" />,
+      },
+    ],
   },
   {
     path: "/therapy-videos-library",
@@ -127,7 +134,13 @@ const router = createBrowserRouter([
   {
     path: "/therapy-articles-library",
     element: <Layout />,
-    children: [{ index: true, element: <TherapyArticlesLibraryPage /> }],
+    children: [
+      { index: true, element: <TherapyArticlesLibraryPage /> },
+      {
+        path: ":articleKey",
+        element: <ArticlePDFViewerPage pageType="therapy" />,
+      },
+    ],
   },
   {
     path: "/products",
