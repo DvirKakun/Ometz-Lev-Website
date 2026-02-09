@@ -21,6 +21,7 @@ Disallow: /privacy
 Disallow: /terms
 Disallow: /accessibility
 Disallow: /reset-password
+Disallow: /pq-k8x2m
 Disallow: /admin
 Disallow: /api
 Disallow: /*.json$

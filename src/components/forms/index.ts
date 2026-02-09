@@ -5,3 +5,6 @@ export { default as FormTextarea } from "./FormTextarea";
 export { default as FormSubmitButton } from "./FormSubmitButton";
 export { default as FormSection } from "./FormSection";
 export { default as PrivacyTermsCheckbox } from "./PrivacyTermsCheckbox";
+export { default as FormAgeInput } from "./FormAgeInput";
+export { default as FormConditionalTextarea } from "./FormConditionalTextarea";
+export { default as FormAddressInput } from "./FormAddressInput";

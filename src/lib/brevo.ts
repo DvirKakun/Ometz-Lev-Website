@@ -80,3 +80,46 @@ export const sendContactForm = async (data: {
     };
   }
 };
+
+// Helper for pre-questionnaire form
+export const sendPreQuestionnaire = async (data: {
+  ageYears: number;
+  ageMonths: number;
+  ageWeeks: number;
+  hasAllergies: string;
+  allergiesDetails?: string;
+  hasSurgeryOrInjury: string;
+  surgeryDetails?: string;
+  hasBitten: string;
+  biteDetails?: string;
+  wearsMuzzle?: string;
+  contactName: string;
+  contactPhone: string;
+  city: string;
+  street: string;
+  houseNumber: string;
+  floor: string;
+  entranceCode?: string;
+}): Promise<{ success: boolean; error?: string }> => {
+  try {
+    const response = await fetch(getApiUrl('send-pre-questionnaire'), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || `Failed to send email: ${response.status}`);
+    }
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
+};

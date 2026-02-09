@@ -31,7 +31,7 @@ const FormInput: React.FC<FormInputProps> = ({
           placeholder={placeholder}
         />
         {Icon && (
-          <Icon className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400" />
+          <Icon className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
         )}
       </div>
       {error && <p className="text-red-500 text-xs text-right mt-1">{error}</p>}

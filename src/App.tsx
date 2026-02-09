@@ -21,6 +21,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import AccessibilityPage from "./pages/AccessibilityPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import PreQuestionnairePage from "./pages/PreQuestionnairePage";
 import TrainingVideoLibraryPage from "./pages/training_page/TrainingVideoLibraryPage";
 import TrainingArticlesLibraryPage from "./pages/training_page/TrainingArticlesLibraryPage";
 import TherapyVideoLibraryPage from "./pages/therapy_page/TherapyVideoLibraryPage";
@@ -170,6 +171,11 @@ const router = createBrowserRouter([
   {
     path: "/reset-password",
     element: <ResetPasswordPage />,
+  },
+  {
+    path: "/pq-k8x2m",
+    element: <Layout />,
+    children: [{ index: true, element: <PreQuestionnairePage /> }],
   },
   // Redirect any unknown routes to splash
   { path: "*", element: <Navigate to="/" replace /> },

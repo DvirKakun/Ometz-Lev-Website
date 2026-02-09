@@ -10,6 +10,11 @@ import {
   getContactFormHeaders,
   convertContactFormToSheetRow,
 } from "./contactFormFieldsConfig";
+import {
+  type PreQuestionnaireData,
+  getPreQuestionnaireHeaders,
+  convertPreQuestionnaireToSheetRow,
+} from "./preQuestionnaireFieldsConfig";
 
 /**
  * Initialize and return authenticated Google Spreadsheet instance
@@ -319,6 +324,63 @@ export async function saveContactFormToSheet(
     // Re-throw to let the calling function handle it
     throw new Error(
       `Failed to save contact form to Google Sheets: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
+  }
+}
+
+/**
+ * Save pre-questionnaire data to Google Sheet
+ * Always saves to the "שאלון קדם אילוף" tab
+ */
+export async function savePreQuestionnaireToSheet(
+  data: PreQuestionnaireData,
+): Promise<void> {
+  try {
+    const doc = await initializeSheet();
+
+    // Get headers from centralized configuration
+    const headers = getPreQuestionnaireHeaders();
+
+    // Fixed tab name for pre-questionnaire
+    const preQuestionnaireSheetName = "שאלון קדם אילוף";
+
+    // Find or create sheet for pre-questionnaire
+    const { sheet, isNewSheet } = await getOrCreateActivitySheet(
+      doc,
+      preQuestionnaireSheetName,
+      headers,
+    );
+
+    // Style the header row if this is a new sheet
+    if (isNewSheet) {
+      await styleHeaderRow(sheet, headers.length);
+      await applyAlternatingRowColors(sheet);
+    }
+
+    // Format timestamp in Israeli timezone
+    const timestamp = new Date().toLocaleString("he-IL", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Jerusalem",
+    });
+
+    // Convert data to sheet row using centralized configuration
+    const rowData = convertPreQuestionnaireToSheetRow(data, timestamp);
+
+    // Add the row to the sheet
+    await sheet.addRow(rowData);
+
+    console.log("Successfully saved pre-questionnaire to Google Sheets");
+  } catch (error) {
+    console.error("Error saving pre-questionnaire to Google Sheets:", error);
+    // Re-throw to let the calling function handle it
+    throw new Error(
+      `Failed to save pre-questionnaire to Google Sheets: ${error instanceof Error ? error.message : "Unknown error"}`,
     );
   }
 }
