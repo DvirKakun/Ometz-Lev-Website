@@ -1,13 +1,8 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
+import { saveContactFormToSheet } from './utils/googleSheets';
+import type { ContactFormData } from './utils/contactFormFieldsConfig';
 
 const BREVO_API_URL = 'https://api.brevo.com/v3/smtp/email';
-
-interface ContactFormData {
-  name: string;
-  email: string;
-  phone?: string;
-  message: string;
-}
 
 export const handler: Handler = async (event: HandlerEvent) => {
   // CORS headers
@@ -55,6 +50,18 @@ export const handler: Handler = async (event: HandlerEvent) => {
       };
     }
 
+    // Helper function to format phone for WhatsApp (convert 05X to 9725X)
+    const formatWhatsAppNumber = (phone: string | undefined): string => {
+      if (!phone) return "";
+      // Remove spaces and dashes
+      const cleaned = phone.replace(/[\s-]/g, "");
+      // Convert Israeli format (05X) to international (9725X)
+      if (cleaned.startsWith("0")) {
+        return "972" + cleaned.substring(1);
+      }
+      return cleaned;
+    };
+
     // Build email HTML content
     const htmlContent = `
       <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -63,7 +70,14 @@ export const handler: Handler = async (event: HandlerEvent) => {
         <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <p><strong>שם:</strong> ${data.name}</p>
           <p><strong>אימייל:</strong> ${data.email}</p>
-          ${data.phone ? `<p><strong>טלפון:</strong> ${data.phone}</p>` : ''}
+          ${
+            data.phone
+              ? `<p><strong>טלפון:</strong>
+              <a href="tel:${data.phone}" style="color: #2563eb; text-decoration: none; margin-left: 10px;">📞 ${data.phone}</a>
+              <a href="https://wa.me/${formatWhatsAppNumber(data.phone)}" style="background: #25D366; color: white; padding: 4px 12px; border-radius: 4px; text-decoration: none; display: inline-block; margin-right: 8px; font-size: 14px;">💬 WhatsApp</a>
+            </p>`
+              : ""
+          }
         </div>
 
         <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
@@ -108,6 +122,20 @@ export const handler: Handler = async (event: HandlerEvent) => {
       const errorData = await response.json();
       console.error('Brevo API Error:', errorData);
       throw new Error(errorData.message || `Failed to send email: ${response.status}`);
+    }
+
+    // Save to Google Sheets
+    try {
+      await saveContactFormToSheet({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        message: data.message,
+      });
+    } catch (sheetError) {
+      // Log the error but don't fail the request
+      // Email was sent successfully, so contact form submission is still valid
+      console.error('Failed to save contact form to Google Sheets:', sheetError);
     }
 
     return {

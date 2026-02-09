@@ -5,6 +5,11 @@ import {
   getSheetHeaders,
   convertToSheetRow,
 } from "./registrationFieldsConfig";
+import {
+  type ContactFormData,
+  getContactFormHeaders,
+  convertContactFormToSheetRow,
+} from "./contactFormFieldsConfig";
 
 /**
  * Initialize and return authenticated Google Spreadsheet instance
@@ -140,8 +145,74 @@ async function applyAlternatingRowColors(sheet: any) {
 }
 
 /**
+ * Sanitize sheet name to meet Google Sheets requirements
+ * - Max 100 characters
+ * - No: [ ] * ? : \ /
+ */
+function sanitizeSheetName(name: string): string {
+  // Remove invalid characters
+  let sanitized = name.replace(/[\[\]*?:\\\/]/g, "");
+
+  // Limit to 100 characters
+  if (sanitized.length > 100) {
+    sanitized = sanitized.substring(0, 100);
+  }
+
+  // Ensure it's not empty
+  if (!sanitized) {
+    sanitized = "רישומים";
+  }
+
+  return sanitized;
+}
+
+/**
+ * Find or create a sheet by activity name
+ */
+async function getOrCreateActivitySheet(
+  doc: any,
+  activityName: string,
+  headers: string[],
+) {
+  const sheetName = sanitizeSheetName(activityName);
+
+  // Try to find existing sheet by name
+  let sheet = doc.sheetsByTitle[sheetName];
+  let isNewSheet = false;
+
+  if (!sheet) {
+    // Sheet doesn't exist - create it
+    console.log(`Creating new sheet for activity: ${sheetName}`);
+    sheet = await doc.addSheet({
+      title: sheetName,
+      headerValues: headers,
+    });
+    await sheet.loadHeaderRow();
+    isNewSheet = true;
+  } else {
+    // Sheet exists - check if it has headers
+    await sheet.loadCells("A1:Z1");
+    const firstRowHasContent =
+      sheet.getCell(0, 0).value !== null && sheet.getCell(0, 0).value !== "";
+
+    if (!firstRowHasContent) {
+      // Sheet exists but has no headers - set them
+      console.log(`Setting headers for existing empty sheet: ${sheetName}`);
+      await sheet.setHeaderRow(headers);
+      await sheet.loadHeaderRow();
+      isNewSheet = true;
+    } else {
+      // Sheet has headers - just load them
+      await sheet.loadHeaderRow();
+    }
+  }
+
+  return { sheet, isNewSheet };
+}
+
+/**
  * Save registration data to Google Sheet
- * Uses centralized field configuration for consistency
+ * Creates a separate tab for each activity automatically
  */
 export async function saveRegistrationToSheet(
   data: RegistrationData,
@@ -149,38 +220,15 @@ export async function saveRegistrationToSheet(
   try {
     const doc = await initializeSheet();
 
-    // Get or create the first sheet
-    let sheet = doc.sheetsByIndex[0];
-
     // Get headers from centralized configuration
     const headers = getSheetHeaders();
 
-    let isNewSheet = false;
-
-    if (!sheet) {
-      // Create a new sheet if it doesn't exist
-      sheet = await doc.addSheet({
-        headerValues: headers,
-      });
-      await sheet.loadHeaderRow();
-      isNewSheet = true;
-    } else {
-      // Check if first row has any content by loading cells
-      await sheet.loadCells("A1:Z1");
-      const firstRowHasContent =
-        sheet.getCell(0, 0).value !== null && sheet.getCell(0, 0).value !== "";
-
-      if (!firstRowHasContent) {
-        // First row is empty - set headers
-        console.log("First row empty, setting headers");
-        await sheet.setHeaderRow(headers);
-        await sheet.loadHeaderRow();
-        isNewSheet = true;
-      } else {
-        // First row has content - load as headers
-        await sheet.loadHeaderRow();
-      }
-    }
+    // Find or create sheet for this specific activity
+    const { sheet, isNewSheet } = await getOrCreateActivitySheet(
+      doc,
+      data.activityName,
+      headers,
+    );
 
     // Style the header row if this is a new sheet
     if (isNewSheet) {
@@ -206,12 +254,71 @@ export async function saveRegistrationToSheet(
     // Add the row to the sheet
     await sheet.addRow(rowData);
 
-    console.log("Successfully saved registration to Google Sheets");
+    console.log(
+      `Successfully saved registration to Google Sheets (Activity: ${data.activityName})`,
+    );
   } catch (error) {
     console.error("Error saving to Google Sheets:", error);
     // Re-throw to let the calling function handle it
     throw new Error(
       `Failed to save to Google Sheets: ${error instanceof Error ? error.message : "Unknown error"}`,
+    );
+  }
+}
+
+/**
+ * Save contact form data to Google Sheet
+ * Always saves to the "יצירת קשר - השארת פרטים" tab
+ */
+export async function saveContactFormToSheet(
+  data: ContactFormData,
+): Promise<void> {
+  try {
+    const doc = await initializeSheet();
+
+    // Get headers from centralized configuration
+    const headers = getContactFormHeaders();
+
+    // Fixed tab name for contact form
+    const contactSheetName = "יצירת קשר - השארת פרטים";
+
+    // Find or create sheet for contact form
+    const { sheet, isNewSheet } = await getOrCreateActivitySheet(
+      doc,
+      contactSheetName,
+      headers,
+    );
+
+    // Style the header row if this is a new sheet
+    if (isNewSheet) {
+      await styleHeaderRow(sheet, headers.length);
+      await applyAlternatingRowColors(sheet);
+    }
+
+    // Format timestamp in Israeli timezone
+    const timestamp = new Date().toLocaleString("he-IL", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+      timeZone: "Asia/Jerusalem",
+    });
+
+    // Convert data to sheet row using centralized configuration
+    const rowData = convertContactFormToSheetRow(data, timestamp);
+
+    // Add the row to the sheet
+    await sheet.addRow(rowData);
+
+    console.log("Successfully saved contact form to Google Sheets");
+  } catch (error) {
+    console.error("Error saving contact form to Google Sheets:", error);
+    // Re-throw to let the calling function handle it
+    throw new Error(
+      `Failed to save contact form to Google Sheets: ${error instanceof Error ? error.message : "Unknown error"}`,
     );
   }
 }
