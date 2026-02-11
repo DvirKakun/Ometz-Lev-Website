@@ -272,6 +272,41 @@ export function getTimestamp(): string {
 }
 
 /**
+ * Build a Google Calendar event URL with today's date pre-filled
+ */
+export function buildGoogleCalendarUrl(event: {
+  title: string;
+  details: string;
+  location?: string;
+}): string {
+  const now = new Date();
+  const todayStr = now
+    .toLocaleDateString("en-CA", { timeZone: "Asia/Jerusalem" })
+    .replace(/-/g, "");
+
+  // Timed event: 10:00–11:00 (all-day off by default), local time (no Z suffix)
+  const dates = `${todayStr}T100000/${todayStr}T110000`;
+
+  const queryParts = [
+    "action=TEMPLATE",
+    `text=${encodeURIComponent(event.title)}`,
+    `dates=${dates}`,
+    `details=${encodeURIComponent(event.details)}`,
+  ];
+  if (event.location) {
+    queryParts.push(`location=${encodeURIComponent(event.location)}`);
+  }
+  return `https://calendar.google.com/calendar/render?${queryParts.join("&")}`;
+}
+
+/**
+ * Calendar button HTML for email
+ */
+export function getCalendarButtonHtml(calendarUrl: string): string {
+  return `<span class="mobile-stack" style="display: inline-block;">${getButton("📅 הוסף ליומן", calendarUrl, "#4285F4")}</span>`;
+}
+
+/**
  * Email field type
  */
 export interface EmailField {
