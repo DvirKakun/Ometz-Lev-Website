@@ -1,6 +1,7 @@
 import type { Handler, HandlerEvent } from '@netlify/functions';
 import { savePreQuestionnaireToSheet } from './utils/googleSheets';
 import type { PreQuestionnaireData } from './utils/preQuestionnaireFieldsConfig';
+import { getPreQuestionnaireEmailTemplate } from './utils/emailTemplates';
 
 const BREVO_API_URL = 'https://api.brevo.com/v3/smtp/email';
 
@@ -50,72 +51,8 @@ export const handler: Handler = async (event: HandlerEvent) => {
       };
     }
 
-    // Helper function to format phone for WhatsApp (convert 05X to 9725X)
-    const formatWhatsAppNumber = (phone: string): string => {
-      if (!phone) return "";
-      // Remove spaces and dashes
-      const cleaned = phone.replace(/[\s-]/g, "");
-      // Convert Israeli format (05X) to international (9725X)
-      if (cleaned.startsWith("0")) {
-        return "972" + cleaned.substring(1);
-      }
-      return cleaned;
-    };
-
-    // Calculate total age display (weeks, months, years order)
-    const ageDisplay = `${data.ageWeeks} שבועות, ${data.ageMonths} חודשים, ${data.ageYears} שנים`;
-
-    // Build email HTML content
-    const htmlContent = `
-      <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #2563eb;">שאלון קדם אילוף - מילוי חדש</h2>
-
-        <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="margin-top: 0; color: #da9a52;">פרטי איש קשר</h3>
-          <p><strong>שם:</strong> ${data.contactName}</p>
-          <p><strong>טלפון:</strong>
-            <a href="tel:${data.contactPhone}" style="color: #2563eb; text-decoration: none; margin-left: 10px;">📞 ${data.contactPhone}</a>
-            <a href="https://wa.me/${formatWhatsAppNumber(data.contactPhone)}" style="background: #25D366; color: white; padding: 4px 12px; border-radius: 4px; text-decoration: none; display: inline-block; margin-right: 8px; font-size: 14px;">💬 WhatsApp</a>
-          </p>
-        </div>
-
-        <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="margin-top: 0; color: #da9a52;">כתובת</h3>
-          <p><strong>עיר:</strong> ${data.city}</p>
-          <p><strong>רחוב:</strong> ${data.street} ${data.houseNumber}</p>
-          <p><strong>קומה:</strong> ${data.floor}</p>
-          ${data.entranceCode ? `<p><strong>קוד כניסה:</strong> ${data.entranceCode}</p>` : ''}
-        </div>
-
-        <div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="margin-top: 0; color: #da9a52;">פרטים על הכלב/ה</h3>
-          <p><strong>גיל:</strong> ${ageDisplay}</p>
-
-          <p><strong>אלרגיות:</strong> ${data.hasAllergies}</p>
-          ${data.allergiesDetails ? `<p style="margin-right: 20px; white-space: pre-wrap;">${data.allergiesDetails}</p>` : ''}
-
-          <p><strong>ניתוח או פציעה:</strong> ${data.hasSurgeryOrInjury}</p>
-          ${data.surgeryDetails ? `<p style="margin-right: 20px; white-space: pre-wrap;">${data.surgeryDetails}</p>` : ''}
-
-          <p><strong>נשיכה בעבר:</strong> ${data.hasBitten}</p>
-          ${data.biteDetails ? `<p style="margin-right: 20px; white-space: pre-wrap;">${data.biteDetails}</p>` : ''}
-
-          ${data.wearsMuzzle ? `<p><strong>רגיל לזמם:</strong> ${data.wearsMuzzle}</p>` : ''}
-        </div>
-
-        <p style="color: #6b7280; font-size: 12px;">
-          נשלח מאתר אומץ לב ב-${new Date().toLocaleString('he-IL', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-      timeZone: 'Asia/Jerusalem',
-    })}
-        </p>
-      </div>
-    `;
+    // Build email HTML content using the styled template
+    const htmlContent = getPreQuestionnaireEmailTemplate(data);
 
     // Send email via Brevo
     const response = await fetch(BREVO_API_URL, {

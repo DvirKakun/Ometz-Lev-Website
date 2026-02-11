@@ -1,0 +1,211 @@
+<!doctype html>
+<html dir="rtl" lang="he">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>העתקה ללוח - אומץ לב</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #f8fafc;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        direction: rtl;
+      }
+      .card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 40px 32px;
+        max-width: 480px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
+      }
+      .logo {
+        width: 64px;
+        height: 64px;
+        border-radius: 10px;
+        margin: 0 auto 20px;
+        display: block;
+      }
+      .status-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+        display: block;
+      }
+      h1 {
+        font-size: 22px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 8px;
+      }
+      .subtitle {
+        color: #475569;
+        font-size: 15px;
+        margin-bottom: 24px;
+      }
+      .text-box {
+        background: #0f172a;
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 24px;
+        text-align: left;
+        direction: ltr;
+      }
+      .text-box code {
+        color: #fff;
+        font-family: "Courier New", monospace;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        word-break: break-all;
+      }
+      .btn {
+        display: inline-block;
+        background: #da9a52;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 13px 28px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.15s;
+      }
+      .btn:hover {
+        background: #c8823a;
+      }
+      .btn-success {
+        background: #16a34a;
+      }
+      .btn-success:hover {
+        background: #15803d;
+      }
+      #state-loading .status-icon {
+        animation: pulse 1s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+      #state-success,
+      #state-manual,
+      #state-error {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <img
+        class="logo"
+        src="/assets/icons/Ometz-Lev-Dogs-Logo.png"
+        alt="אומץ לב"
+      />
+
+      <div id="state-loading">
+        <span class="status-icon">📋</span>
+        <h1>מעתיק...</h1>
+      </div>
+
+      <div id="state-success">
+        <span class="status-icon">✅</span>
+        <h1>הועתק בהצלחה!</h1>
+        <p class="subtitle">הטקסט הבא הועתק ללוח:</p>
+        <div class="text-box"><code id="display-text"></code></div>
+        <p class="subtitle">ניתן לסגור חלון זה</p>
+      </div>
+
+      <div id="state-manual">
+        <span class="status-icon">📋</span>
+        <h1>לחץ להעתקה</h1>
+        <p class="subtitle">לחץ על הכפתור להעתקת הטקסט ללוח</p>
+        <div class="text-box"><code id="display-text-manual"></code></div>
+        <button class="btn" onclick="manualCopy()">העתק ללוח</button>
+      </div>
+
+      <div id="state-error">
+        <span class="status-icon">⚠️</span>
+        <h1>בחר והעתק ידנית</h1>
+        <p class="subtitle">לחץ על הטקסט לבחירה, אחר כך Ctrl+C / Cmd+C</p>
+        <div class="text-box" onclick="selectText()" style="cursor: pointer">
+          <code id="display-text-error"></code>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const text =
+        new URLSearchParams(window.location.search).get("text") || "";
+
+      document.getElementById("display-text").textContent = text;
+      document.getElementById("display-text-manual").textContent = text;
+      document.getElementById("display-text-error").textContent = text;
+
+      function showState(id) {
+        [
+          "state-loading",
+          "state-success",
+          "state-manual",
+          "state-error",
+        ].forEach(
+          (s) =>
+            (document.getElementById(s).style.display =
+              s === id ? "block" : "none"),
+        );
+      }
+
+      function closeTab() {
+        setTimeout(() => window.close(), 1500);
+      }
+
+      function manualCopy() {
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            const btn = document.querySelector("#state-manual .btn");
+            btn.textContent = "✓ הועתק!";
+            btn.classList.add("btn-success");
+            setTimeout(() => showState("state-success"), 800);
+            closeTab();
+          })
+          .catch(() => showState("state-error"));
+      }
+
+      function selectText() {
+        const range = document.createRange();
+        range.selectNodeContents(document.getElementById("display-text-error"));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+      }
+
+      // Try auto-copy on load (works on desktop; mobile often requires a gesture)
+      if (navigator.clipboard) {
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            showState("state-success");
+            closeTab();
+          })
+          .catch(() => showState("state-manual"));
+      } else {
+        showState("state-manual");
+      }
+    </script>
+  </body>
+</html>
