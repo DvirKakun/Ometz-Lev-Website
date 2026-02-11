@@ -150,8 +150,9 @@
     </div>
 
     <script>
-      const text =
-        new URLSearchParams(window.location.search).get("text") || "";
+      const params = new URLSearchParams(window.location.search);
+      const text = params.get("text") || "";
+      const phone = params.get("phone") || "";
 
       document.getElementById("display-text").textContent = text;
       document.getElementById("display-text-manual").textContent = text;
@@ -170,8 +171,14 @@
         );
       }
 
-      function closeTab() {
-        setTimeout(() => window.close(), 1500);
+      function afterCopy() {
+        setTimeout(() => {
+          if (phone) {
+            window.location.href = `https://wa.me/${phone}`;
+          } else {
+            window.close();
+          }
+        }, 1500);
       }
 
       function manualCopy() {
@@ -182,7 +189,7 @@
             btn.textContent = "✓ הועתק!";
             btn.classList.add("btn-success");
             setTimeout(() => showState("state-success"), 800);
-            closeTab();
+            afterCopy();
           })
           .catch(() => showState("state-error"));
       }
@@ -200,7 +207,7 @@
           .writeText(text)
           .then(() => {
             showState("state-success");
-            closeTab();
+            afterCopy();
           })
           .catch(() => showState("state-manual"));
       } else {

@@ -1,4 +1,4 @@
-import { buildEmail } from "./base";
+import { buildEmail, formatWhatsAppNumber } from "./base";
 import type { EmailField } from "./base";
 
 /**
@@ -21,18 +21,20 @@ export function getPreQuestionnaireEmailTemplate(data: {
   street: string;
   houseNumber: string;
   floor: string;
+  apartment?: string;
   entranceCode?: string;
 }): string {
   const ageDisplay = `${data.ageYears} שנים, ${data.ageMonths} חודשים, ${data.ageWeeks} שבועות`;
 
   const summaryParts = [
     data.contactName,
-    `${data.street} ${data.houseNumber} ${data.city}`,
+    `${data.street} ${data.houseNumber} קומה ${data.floor}${data.apartment ? ` דירה ${data.apartment}` : ""} ${data.city}`,
     ...(data.entranceCode ? [data.entranceCode] : []),
   ];
   const summaryText = summaryParts.join(", ");
 
-  const copyUrl = `https://ometzlev.co.il/copy.html?text=${encodeURIComponent(summaryText)}`;
+  const whatsappNumber = formatWhatsAppNumber(data.contactPhone);
+  const copyUrl = `https://ometzlev.co.il/copy.html?text=${encodeURIComponent(summaryText)}&phone=${whatsappNumber}`;
 
   const summaryHtml = `
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px;">
@@ -56,6 +58,8 @@ export function getPreQuestionnaireEmailTemplate(data: {
     { label: "רחוב", value: `${data.street} ${data.houseNumber}` },
     { label: "קומה", value: data.floor },
   ];
+  if (data.apartment)
+    addressFields.push({ label: "דירה", value: data.apartment });
   if (data.entranceCode)
     addressFields.push({ label: "קוד כניסה", value: data.entranceCode });
 

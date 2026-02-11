@@ -1,16 +1,18 @@
 import React from "react";
-import { MapPin, Home, Building2, Hash } from "lucide-react";
+import { MapPin, Home, Building2, Hash, DoorOpen } from "lucide-react";
 
 interface FormAddressInputProps {
   registerCity: any;
   registerStreet: any;
   registerHouseNumber: any;
   registerFloor: any;
+  registerApartment: any;
   registerEntranceCode: any;
   errorCity?: string;
   errorStreet?: string;
   errorHouseNumber?: string;
   errorFloor?: string;
+  errorApartment?: string;
   errorEntranceCode?: string;
   required?: boolean;
   className?: string;
@@ -21,11 +23,13 @@ const FormAddressInput: React.FC<FormAddressInputProps> = ({
   registerStreet,
   registerHouseNumber,
   registerFloor,
+  registerApartment,
   registerEntranceCode,
   errorCity,
   errorStreet,
   errorHouseNumber,
   errorFloor,
+  errorApartment,
   errorEntranceCode,
   required = false,
   className = "",
@@ -93,7 +97,7 @@ const FormAddressInput: React.FC<FormAddressInputProps> = ({
           </div>
         </div>
 
-        {/* Floor and Entrance Code */}
+        {/* Floor and Apartment */}
         <div className="grid grid-cols-2 gap-2">
           <div>
             <div className="relative">
@@ -117,21 +121,41 @@ const FormAddressInput: React.FC<FormAddressInputProps> = ({
           <div>
             <div className="relative">
               <input
-                {...registerEntranceCode}
+                {...registerApartment}
                 type="text"
-                placeholder="קוד כניסה (אופציונלי)"
+                placeholder="דירה (אופציונלי)"
                 className={`w-full px-2 py-1 pr-7 bg-slate-50 border ${
-                  errorEntranceCode ? "border-red-400" : "border-slate-300"
+                  errorApartment ? "border-red-400" : "border-slate-300"
                 } rounded text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-200 focus:border-primary-200 text-right text-xs`}
               />
-              <Hash className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
+              <DoorOpen className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
             </div>
-            {errorEntranceCode && (
+            {errorApartment && (
               <p className="text-red-500 text-xs text-right mt-1">
-                {errorEntranceCode}
+                {errorApartment}
               </p>
             )}
           </div>
+        </div>
+
+        {/* Entrance Code */}
+        <div>
+          <div className="relative">
+            <input
+              {...registerEntranceCode}
+              type="text"
+              placeholder="קוד כניסה (אופציונלי)"
+              className={`w-full px-2 py-1 pr-7 bg-slate-50 border ${
+                errorEntranceCode ? "border-red-400" : "border-slate-300"
+              } rounded text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-200 focus:border-primary-200 text-right text-xs`}
+            />
+            <Hash className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
+          </div>
+          {errorEntranceCode && (
+            <p className="text-red-500 text-xs text-right mt-1">
+              {errorEntranceCode}
+            </p>
+          )}
         </div>
       </div>
     </div>

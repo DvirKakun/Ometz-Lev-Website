@@ -99,6 +99,7 @@ export const sendPreQuestionnaire = async (data: {
   street: string;
   houseNumber: string;
   floor: string;
+  apartment?: string;
   entranceCode?: string;
 }): Promise<{ success: boolean; error?: string }> => {
   try {

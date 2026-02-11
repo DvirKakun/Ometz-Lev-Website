@@ -33,15 +33,30 @@ const formSchema = z.object({
     .int("שבועות חייבים להיות מספר שלם"),
 
   // Allergies
-  hasAllergies: z.string({ required_error: "יש לבחור תשובה", invalid_type_error: "יש לבחור תשובה" }).min(1, "יש לבחור תשובה"),
+  hasAllergies: z
+    .string({
+      required_error: "יש לבחור תשובה",
+      invalid_type_error: "יש לבחור תשובה",
+    })
+    .min(1, "יש לבחור תשובה"),
   allergiesDetails: z.string().optional(),
 
   // Surgery/Injury
-  hasSurgeryOrInjury: z.string({ required_error: "יש לבחור תשובה", invalid_type_error: "יש לבחור תשובה" }).min(1, "יש לבחור תשובה"),
+  hasSurgeryOrInjury: z
+    .string({
+      required_error: "יש לבחור תשובה",
+      invalid_type_error: "יש לבחור תשובה",
+    })
+    .min(1, "יש לבחור תשובה"),
   surgeryDetails: z.string().optional(),
 
   // Biting history
-  hasBitten: z.string({ required_error: "יש לבחור תשובה", invalid_type_error: "יש לבחור תשובה" }).min(1, "יש לבחור תשובה"),
+  hasBitten: z
+    .string({
+      required_error: "יש לבחור תשובה",
+      invalid_type_error: "יש לבחור תשובה",
+    })
+    .min(1, "יש לבחור תשובה"),
   biteDetails: z.string().optional(),
   wearsMuzzle: z.string().optional(),
 
@@ -60,6 +75,7 @@ const formSchema = z.object({
   street: z.string().min(1, "רחוב הוא שדה חובה"),
   houseNumber: z.string().min(1, "מספר בית הוא שדה חובה"),
   floor: z.string().min(1, "קומה היא שדה חובה"),
+  apartment: z.string().optional(),
   entranceCode: z.string().optional(),
 });
 
@@ -120,6 +136,7 @@ const PreQuestionnaireForm = ({
         street: data.street,
         houseNumber: data.houseNumber,
         floor: data.floor,
+        apartment: data.apartment,
         entranceCode: data.entranceCode,
       });
 
@@ -139,13 +156,17 @@ const PreQuestionnaireForm = ({
 
   // Prevent Enter key from submitting form except on the submit button
   const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
-    if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'BUTTON') {
+    if (e.key === "Enter" && (e.target as HTMLElement).tagName !== "BUTTON") {
       e.preventDefault();
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown} className="space-y-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      onKeyDown={handleKeyDown}
+      className="space-y-6"
+    >
       {/* Dog Information Section */}
       <FormSection>
         <h3 className="text-base font-semibold text-primary-700 text-right mb-4">
@@ -278,11 +299,13 @@ const PreQuestionnaireForm = ({
           registerStreet={register("street")}
           registerHouseNumber={register("houseNumber")}
           registerFloor={register("floor")}
+          registerApartment={register("apartment")}
           registerEntranceCode={register("entranceCode")}
           errorCity={errors.city?.message}
           errorStreet={errors.street?.message}
           errorHouseNumber={errors.houseNumber?.message}
           errorFloor={errors.floor?.message}
+          errorApartment={errors.apartment?.message}
           errorEntranceCode={errors.entranceCode?.message}
           required
         />
