@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useAuth } from "../../contexts/AuthContext";
+import { trackCustomEvent } from "../../utils/facebookPixel";
 
 interface LoginFormProps {
   onSwitchToSignup: () => void;
@@ -40,6 +41,7 @@ export const LoginForm = ({
         setError("שגיאה בהתחברות. אנא נסה שנית");
       }
     } else {
+      trackCustomEvent("Login");
       onSuccess();
     }
   };

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { User, Phone, Mail, MessageSquare, Send } from "lucide-react";
 import { sendContactForm } from "../../../lib/brevo";
 import type { ContactModalFormProps } from "../../../types/modals";
+import { trackContact } from "../../../utils/facebookPixel";
 import {
   FormInput,
   FormTextarea,
@@ -59,6 +60,7 @@ const ContactModalForm = ({ onSuccess, onError }: ContactModalFormProps) => {
       }
 
       reset();
+      trackContact();
       onSuccess();
     } catch (error) {
       console.error("Email send error:", error);

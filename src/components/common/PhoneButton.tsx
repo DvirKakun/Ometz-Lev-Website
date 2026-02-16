@@ -4,6 +4,7 @@ import { Phone } from "lucide-react";
 import { Button } from "../../components/ui/button";
 import { cn } from "../../lib/utils";
 import type { PhoneButtonProps } from "../../types/phone_button";
+import { trackCustomEvent } from "../../utils/facebookPixel";
 
 const PhoneButton: React.FC<PhoneButtonProps> = ({
   phoneNumber = "052-472-4700",
@@ -47,6 +48,7 @@ const PhoneButton: React.FC<PhoneButtonProps> = ({
           className
         )}
         aria-label={`התקשר ל-${phoneNumber}`}
+        onClick={() => trackCustomEvent("PhoneClick")}
       >
         <Phone className={iconSizes[size]} />
       </motion.a>
@@ -64,7 +66,7 @@ const PhoneButton: React.FC<PhoneButtonProps> = ({
           className
         )}
       >
-        <a href={`tel:${formatPhoneForTel(phoneNumber)}`}>
+        <a href={`tel:${formatPhoneForTel(phoneNumber)}`} onClick={() => trackCustomEvent("PhoneClick")}>
           <span className="inline">התקשרו עכשיו</span>
           <motion.div
             whileHover={{ rotate: [0, -10, 10, 0] }}

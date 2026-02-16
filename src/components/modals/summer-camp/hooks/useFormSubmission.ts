@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { sendSummerCampRegistration } from "../../../../lib/brevo";
+import { trackCompleteRegistration } from "../../../../utils/facebookPixel";
 import type { FormData } from "../schemas/formSchemas";
 
 interface UseFormSubmissionProps {
@@ -48,6 +49,7 @@ export const useFormSubmission = ({
 
       onReset();
       setCurrentStep(5);
+      trackCompleteRegistration({ content_name: activityName });
       onSuccess();
     } catch (error) {
       console.error("Registration error:", error);

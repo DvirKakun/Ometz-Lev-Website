@@ -6,6 +6,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
 import { useAuth } from "../../contexts/AuthContext";
+import { trackCustomEvent } from "../../utils/facebookPixel";
 
 interface SignupFormProps {
   onSwitchToLogin: () => void;
@@ -58,6 +59,7 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
         setError("שגיאה בהרשמה. אנא נסה שנית");
       }
     } else {
+      trackCustomEvent("SignUp");
       setSuccess(true);
       // Note: With email verification enabled, user needs to confirm email
       // before they can login

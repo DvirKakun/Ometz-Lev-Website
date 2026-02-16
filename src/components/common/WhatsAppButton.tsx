@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { cn } from "../../lib/utils";
 import WhatsAppIcon from "./WhatsAppIcon";
 import type { WhatsAppButtonProps } from "../../types/whatsapp";
+import { trackCustomEvent } from "../../utils/facebookPixel";
 
 const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
   phoneNumber = "972524724700",
@@ -51,6 +52,7 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
           className
         )}
         aria-label="שלח הודעה בוואטסאפ"
+        onClick={() => trackCustomEvent("WhatsAppClick")}
       >
         <WhatsAppIcon className={iconSizes[size]} />
       </motion.a>
@@ -72,6 +74,7 @@ const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({
           href={createWhatsAppLink()}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => trackCustomEvent("WhatsAppClick")}
         >
           <span className="inline">שלחו הודעה</span>
           <div>

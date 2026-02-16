@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { User, Phone, Send } from "lucide-react";
 import { sendPreQuestionnaire } from "../../lib/brevo";
+import { trackLead } from "../../utils/facebookPixel";
 import {
   FormInput,
   FormRadioGroup,
@@ -145,6 +146,7 @@ const PreQuestionnaireForm = ({
       }
 
       reset();
+      trackLead();
       onSuccess();
     } catch (error) {
       console.error("Form submission error:", error);

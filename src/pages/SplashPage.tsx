@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { trackPageView } from "../utils/facebookPixel";
 import SplashBackground from "../components/sections/splash_screen/SplashBackground";
 import SplashLogo from "../components/sections/splash_screen/SplashLogo";
 import SplashContent from "../components/sections/splash_screen/SplashContent";
@@ -30,6 +31,10 @@ const SplashPage: React.FC = () => {
       "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
     imageAlt: "אלעד שמעונוב מאמן כלבים מקצועי עם כלבים טיפוליים",
   };
+
+  useEffect(() => {
+    trackPageView();
+  }, []);
 
   useEffect(() => {
     // Navigate to home after 3 seconds

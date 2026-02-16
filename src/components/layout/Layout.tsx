@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import ScrollToTop from "../common/ScrollToTop";
@@ -7,10 +8,15 @@ import ContactCTA from "./contact/ContactCTA";
 import { FloatingTimer } from "../timer";
 import { useLoading } from "../../contexts/LoadingContext";
 import EnableAccessibility from "../common/EnableAccessibility";
+import { trackPageView } from "../../utils/facebookPixel";
 
 export default function Layout() {
   const { isLoading } = useLoading();
   const location = useLocation();
+
+  useEffect(() => {
+    trackPageView();
+  }, [location.pathname]);
 
   // Pages that should never show loading state
   const noLoadingPages = ["/home"];

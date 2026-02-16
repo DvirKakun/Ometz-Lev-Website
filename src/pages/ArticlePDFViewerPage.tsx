@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { trackViewContent } from "../utils/facebookPixel";
 import { pdfjs } from "react-pdf";
 import { useArticles } from "../hooks/useArticles";
 import PDFViewerHeader from "../components/sections/pdf_viewer/PDFViewerHeader";
@@ -39,6 +40,15 @@ export default function ArticlePDFViewerPage({
 
   // Find the article
   const article = articles.find((a) => a.articleKey === articleKey);
+
+  useEffect(() => {
+    if (article?.title) {
+      trackViewContent({
+        content_name: article.title,
+        content_type: "article",
+      });
+    }
+  }, [article?.articleKey]);
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);

@@ -1,19 +1,26 @@
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "../../ui/dialog";
 import { VideoPlayer } from "./VideoPlayer";
 import { VideoInfo } from "./VideoInfo";
 import { useVideos } from "../../../hooks/useVideos";
 import type { VideoModalProps } from "../../../types/modals";
+import { trackViewContent } from "../../../utils/facebookPixel";
 
 const VideoModal = ({ isOpen, onOpenChange, videoId, pageType = "training" }: VideoModalProps) => {
   const { data: videos = [] } = useVideos(pageType);
-
-  if (!isOpen || !videoId) return null;
 
   const video = videos.find(
     (v) => v.videoKey === videoId || `video-${v.title}` === videoId
   );
 
+  useEffect(() => {
+    if (isOpen && video?.title) {
+      trackViewContent({ content_name: video.title, content_type: "video" });
+    }
+  }, [isOpen, video?.title]);
+
+  if (!isOpen || !videoId) return null;
   if (!video) return null;
 
   return (
