@@ -18,6 +18,8 @@ export interface SummerCampModalProps {
     title: string;
     registerFormTitle: string;
     registerFormMessage: React.ReactNode;
+    startDate?: Date;
+    endDate?: Date;
   };
 }
 
@@ -29,6 +31,8 @@ export interface SummerCampModalFormProps {
     title: string;
     registerFormTitle: string;
     registerFormMessage: React.ReactNode;
+    startDate?: Date;
+    endDate?: Date;
   };
 }
 
