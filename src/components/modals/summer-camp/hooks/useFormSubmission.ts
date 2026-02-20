@@ -9,6 +9,8 @@ interface UseFormSubmissionProps {
   onReset: () => void;
   setCurrentStep: (step: number) => void;
   activityName: string;
+  activityStartDate?: Date;
+  activityEndDate?: Date;
 }
 
 export const useFormSubmission = ({
@@ -17,6 +19,8 @@ export const useFormSubmission = ({
   onReset,
   setCurrentStep,
   activityName,
+  activityStartDate,
+  activityEndDate,
 }: UseFormSubmissionProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,6 +38,7 @@ export const useFormSubmission = ({
         motherPhone: data.motherPhone,
         fatherName: data.fatherName,
         fatherPhone: data.fatherPhone,
+        parentEmail: data.parentEmail,
         dogFear: data.dogFear,
         dogFearScale: data.dogFearScale,
         allergies: data.allergies,
@@ -41,6 +46,8 @@ export const useFormSubmission = ({
         healthIssues: data.healthIssues,
         healthIssuesText: data.healthIssuesText,
         notes: data.notes,
+        activityStartDate: activityStartDate?.toISOString(),
+        activityEndDate: activityEndDate?.toISOString(),
       });
 
       if (!result.success) {

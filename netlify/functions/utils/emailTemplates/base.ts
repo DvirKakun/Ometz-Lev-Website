@@ -119,15 +119,14 @@ export function getEmailHeader(title: string, subtitle?: string): string {
               <h1 class="mobile-title" style="margin: 0; color: ${COLORS.white}; font-size: 26px; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.1); line-height: 1.3; font-family: 'Heebo', Arial, sans-serif;">
                 ${title}
               </h1>
-              ${
-                subtitle
-                  ? `
+              ${subtitle
+      ? `
                 <p style="margin: 10px 0 0 0; color: ${COLORS.white}; font-size: 16px; opacity: 0.95; line-height: 1.5;">
                   ${subtitle}
                 </p>
               `
-                  : ""
-              }
+      : ""
+    }
             </td>
           </tr>
         </table>
@@ -144,15 +143,14 @@ export function getInfoCard(title: string, content: string): string {
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: ${COLORS.primaryLight}; border-radius: 12px; margin-bottom: 24px; border: 1px solid ${COLORS.primary};">
       <tr>
         <td class="mobile-card-padding" style="padding: 24px;">
-          ${
-            title
-              ? `
+          ${title
+      ? `
             <h3 style="margin: 0 0 16px 0; color: ${COLORS.primaryDark}; font-size: 18px; font-weight: 700; border-bottom: 1px solid ${COLORS.primary}40; padding-bottom: 12px; line-height: 1.4;">
               ${title}
             </h3>
           `
-              : ""
-          }
+      : ""
+    }
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
             ${content}
           </table>
@@ -169,13 +167,12 @@ export function getInfoRow(label: string, value: string): string {
   return `
     <tr>
       <td style="padding-bottom: 16px;">
-        ${
-          label
-            ? `<p style="margin: 0 0 4px 0; color: ${COLORS.slate600}; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+        ${label
+      ? `<p style="margin: 0 0 4px 0; color: ${COLORS.slate600}; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
             ${label}
           </p>`
-            : ""
-        }
+      : ""
+    }
         <div style="margin: 0; color: ${COLORS.slate900}; font-size: 16px; line-height: 1.5; font-weight: 400; word-break: break-word; direction: rtl; text-align: right;">
           ${value}
         </div>
@@ -247,7 +244,7 @@ export function formatPhoneWithButtons(phone: string): string {
     </div>
     <div style="text-align: right;">
       <span class="mobile-stack" style="display: inline-block;">
-        ${getButton("📞 התקשר", `tel:${phone}`)}
+        ${getButton("התקשר 📞", `tel:${phone}`)}
       </span>
       <span class="mobile-stack" style="display: inline-block;">
         ${getButton("💬 WhatsApp", `https://wa.me/${formatWhatsAppNumber(phone)}`, COLORS.whatsapp)}
@@ -362,15 +359,14 @@ export function buildEmail(config: {
     ${getEmailHeader(config.headerTitle, config.headerSubtitle)}
     <tr>
       <td class="mobile-padding" style="padding: 40px;">
-        ${
-          config.introText
-            ? `
+        ${config.introText
+      ? `
           <p class="mobile-text" style="margin: 0 0 30px 0; color: ${COLORS.slate600}; font-size: 16px; line-height: 1.6; text-align: right;">
             ${config.introText}
           </p>
         `
-            : ""
-        }
+      : ""
+    }
         ${config.summaryHtml ?? ""}
         ${sectionsHtml}
       </td>

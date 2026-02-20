@@ -13,6 +13,7 @@ export interface RegistrationData {
   motherPhone?: string | null;
   fatherName?: string | null;
   fatherPhone?: string | null;
+  parentEmail: string;
   dogFear: string | null;
   dogFearScale?: number | null;
   allergies: string | null;
@@ -20,6 +21,8 @@ export interface RegistrationData {
   healthIssues: string | null;
   healthIssuesText?: string | null;
   notes?: string | null;
+  activityStartDate?: string;
+  activityEndDate?: string;
 }
 
 /**
@@ -37,6 +40,7 @@ export const REGISTRATION_FIELDS = {
   motherPhone: { header: 'טלפון האם', key: 'motherPhone' },
   fatherName: { header: 'שם האב', key: 'fatherName' },
   fatherPhone: { header: 'טלפון האב', key: 'fatherPhone' },
+  parentEmail: { header: 'אימייל הורה', key: 'parentEmail' },
   dogFear: { header: 'פחד מכלבים', key: 'dogFear' },
   dogFearScale: { header: 'רמת פחד (1-10)', key: 'dogFearScale' },
   allergies: { header: 'אלרגיות', key: 'allergies' },
@@ -82,6 +86,7 @@ export function convertToSheetRow(
     [REGISTRATION_FIELDS.motherPhone.header]: formatPhoneNumber(data.motherPhone),
     [REGISTRATION_FIELDS.fatherName.header]: data.fatherName || '',
     [REGISTRATION_FIELDS.fatherPhone.header]: formatPhoneNumber(data.fatherPhone),
+    [REGISTRATION_FIELDS.parentEmail.header]: data.parentEmail,
     [REGISTRATION_FIELDS.dogFear.header]: data.dogFear || '',
     [REGISTRATION_FIELDS.dogFearScale.header]: data.dogFearScale || '',
     [REGISTRATION_FIELDS.allergies.header]: data.allergies || '',

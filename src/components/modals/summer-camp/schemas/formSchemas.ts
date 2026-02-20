@@ -53,6 +53,10 @@ export const step2Schema = z
       .string()
       .optional()
       .transform((val) => (val?.trim() === "" ? undefined : val)),
+    parentEmail: z
+      .string()
+      .min(1, "אימייל הוא שדה חובה")
+      .email("כתובת אימייל לא תקינה"),
     parentInfo: z.string().optional(),
   })
   .superRefine((data, ctx) => {

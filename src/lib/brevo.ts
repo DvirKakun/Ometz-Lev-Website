@@ -20,6 +20,7 @@ export const sendSummerCampRegistration = async (data: {
   motherPhone?: string | null;
   fatherName?: string | null;
   fatherPhone?: string | null;
+  parentEmail: string;
   dogFear: string | null;
   dogFearScale?: number | null;
   allergies: string | null;
@@ -27,6 +28,8 @@ export const sendSummerCampRegistration = async (data: {
   healthIssues: string | null;
   healthIssuesText?: string | null;
   notes?: string | null;
+  activityStartDate?: string;
+  activityEndDate?: string;
 }): Promise<{ success: boolean; error?: string }> => {
   try {
     const response = await fetch(getApiUrl('send-summer-camp-registration'), {

@@ -58,6 +58,8 @@ const SummerCampModalForm = ({
     onReset: reset,
     setCurrentStep,
     activityName: activityData?.title || 'פעילות',
+    activityStartDate: activityData?.startDate,
+    activityEndDate: activityData?.endDate,
   });
 
   // Set default session value when activityData changes

@@ -72,6 +72,7 @@ export const useStepValidation = ({
             motherPhone: formData.motherPhone,
             fatherName: formData.fatherName,
             fatherPhone: formData.fatherPhone,
+            parentEmail: formData.parentEmail,
           });
           return true;
         } catch {
@@ -80,6 +81,7 @@ export const useStepValidation = ({
             "motherPhone",
             "fatherName",
             "fatherPhone",
+            "parentEmail",
             "parentInfo",
           ]);
           return false;

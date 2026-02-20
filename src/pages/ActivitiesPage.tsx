@@ -34,6 +34,8 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
       title: string;
       registerFormTitle: string;
       registerFormMessage: React.ReactNode;
+      startDate?: Date;
+      endDate?: Date;
     };
   }>({ modalKey: "summerCamp" });
   const imageModal = useRouterModal<{
@@ -98,6 +100,8 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
           title: activity.title,
           registerFormTitle: activity.registerFormTitle,
           registerFormMessage: activity.registerFormMessage,
+          startDate: activity.startDate,
+          endDate: activity.endDate,
         },
       });
     },

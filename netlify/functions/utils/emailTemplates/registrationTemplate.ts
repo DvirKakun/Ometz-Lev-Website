@@ -14,6 +14,7 @@ export function getRegistrationEmailTemplate(data: {
   motherPhone?: string | null;
   fatherName?: string | null;
   fatherPhone?: string | null;
+  parentEmail?: string;
   dogFear: string | null;
   dogFearScale?: number | null;
   allergies: string | null;
@@ -49,6 +50,12 @@ export function getRegistrationEmailTemplate(data: {
       label: "טלפון האב",
       value: data.fatherPhone,
       isPhone: true,
+    });
+  if (data.parentEmail)
+    parentFields.push({
+      label: "אימייל",
+      value: data.parentEmail,
+      isEmail: true,
     });
 
   const medicalFields: EmailField[] = [

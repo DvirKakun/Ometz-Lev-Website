@@ -1,7 +1,10 @@
 import type { Handler, HandlerEvent } from "@netlify/functions";
 import { saveRegistrationToSheet } from "./utils/googleSheets";
 import type { RegistrationData } from "./utils/registrationFieldsConfig";
-import { getRegistrationEmailTemplate } from "./utils/emailTemplates";
+import {
+  getRegistrationEmailTemplate,
+  getSummerCampConfirmationTemplate,
+} from "./utils/emailTemplates";
 
 const BREVO_API_URL = "https://api.brevo.com/v3/smtp/email";
 
@@ -43,7 +46,12 @@ export const handler: Handler = async (event: HandlerEvent) => {
     const data: RegistrationData = JSON.parse(event.body || "{}");
 
     // Validate required fields
-    if (!data.activityName || !data.childName || !data.session) {
+    if (
+      !data.activityName ||
+      !data.childName ||
+      !data.session ||
+      !data.parentEmail
+    ) {
       return {
         statusCode: 400,
         headers,
@@ -81,6 +89,49 @@ export const handler: Handler = async (event: HandlerEvent) => {
       );
     }
 
+    console.log("Admin email sent successfully");
+
+    // Send confirmation email to customer
+    try {
+      const customerHtmlContent = getSummerCampConfirmationTemplate({
+        activityName: data.activityName,
+        childName: data.childName,
+        parentEmail: data.parentEmail,
+        session: data.session,
+        activityStartDate: data.activityStartDate,
+        activityEndDate: data.activityEndDate,
+      });
+
+      const customerResponse = await fetch(BREVO_API_URL, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "api-key": apiKey,
+        },
+        body: JSON.stringify({
+          sender: {
+            name: "אומץ לב - אלעד שמעונוב",
+            email: "no-reply@ometzlev.co.il",
+          },
+          to: [{ email: data.parentEmail }],
+          subject: `אישור הרשמה ל${data.activityName} - ${data.childName}`,
+          htmlContent: customerHtmlContent,
+        }),
+      });
+
+      if (!customerResponse.ok) {
+        const errorData = await customerResponse.json();
+        console.error("Customer email failed:", errorData);
+        // Don't throw - admin email succeeded
+      } else {
+        console.log("Customer confirmation email sent successfully");
+      }
+    } catch (customerEmailError) {
+      console.error("Error sending customer confirmation:", customerEmailError);
+      // Don't throw - admin email succeeded, registration is valid
+    }
+
     // Save to Google Sheets
     try {
       await saveRegistrationToSheet({
@@ -93,6 +144,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
         motherPhone: data.motherPhone,
         fatherName: data.fatherName,
         fatherPhone: data.fatherPhone,
+        parentEmail: data.parentEmail,
         dogFear: data.dogFear,
         dogFearScale: data.dogFearScale,
         allergies: data.allergies,
