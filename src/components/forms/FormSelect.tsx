@@ -23,7 +23,7 @@ const FormSelect: React.FC<FormSelectProps> = ({
           {...register}
           className={`w-full py-1 pl-6 ${
             Icon ? "pr-8" : "pr-2"
-          } bg-slate-50 border border-slate-300 rounded text-slate-900 focus:outline-none focus:ring-1 focus:ring-primary-500 focus:border-primary-500 text-right text-xs appearance-none ${
+          } bg-slate-50 border border-slate-300 rounded text-slate-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-500 focus-visible:border-primary-500 text-right text-xs appearance-none ${
             error ? "border-red-400" : ""
           } ${selectClassName}`}
           defaultValue=""

@@ -25,7 +25,7 @@ const FormTextarea: React.FC<FormTextareaProps> = ({
           rows={rows}
           className={`w-full px-2 py-1 ${
             Icon ? "pr-7" : ""
-          } bg-slate-50 border border-slate-300 rounded text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-primary-200 focus:border-primary-200 text-right resize-none text-xs ${
+          } bg-slate-50 border border-slate-300 rounded text-slate-900 placeholder-slate-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-200 focus-visible:border-primary-200 text-right resize-none text-xs ${
             error ? "border-red-400" : ""
           } ${textareaClassName}`}
           placeholder={placeholder}

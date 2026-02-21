@@ -63,10 +63,20 @@ const FloatingTimer: React.FC = () => {
     closeTimer();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleTimerClick();
+    }
+  };
+
   return (
     <AnimatePresence>
       {isVisible && !isTimerClosed && !isTimerHidden && (
         <motion.div
+          role="button"
+          tabIndex={0}
+          aria-label="עבור לעמוד הפעילויות"
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1.25, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -83,12 +93,17 @@ const FloatingTimer: React.FC = () => {
             filter: "drop-shadow(0 10px 25px rgba(0, 0, 0, 0.15))",
           }}
           onClick={handleTimerClick}
+          onKeyDown={handleKeyDown}
         >
           {/* Close button */}
-          <X
-            className="w-3 h-3 text-gray-700 absolute top-2 right-2 hover:text-gray-900 transition-colors z-10"
+          <button
+            type="button"
+            aria-label="סגור טיימר"
+            className="w-3 h-3 text-gray-700 absolute top-2 right-2 hover:text-gray-900 transition-colors z-10 border-0 bg-transparent p-0 flex items-center justify-center"
             onClick={handleClose}
-          />
+          >
+            <X className="w-3 h-3" />
+          </button>
 
           <CountdownTimer
             targetDate={closestActivity?.date || new Date()}

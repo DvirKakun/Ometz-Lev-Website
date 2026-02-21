@@ -58,6 +58,8 @@ const ImageDialog: React.FC<ImageDialogProps> = ({
       >
         {/* Custom Close Button */}
         <button
+          type="button"
+          aria-label="סגור תמונה"
           onClick={onClose}
           className="absolute top-2 right-2 z-20 p-2 rounded-full bg-black/70 hover:bg-black/90 text-white transition-colors duration-200"
         >
