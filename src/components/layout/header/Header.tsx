@@ -89,6 +89,7 @@ const Header: React.FC = () => {
 
   return (
     <header
+      role="banner"
       className={cn(
         "w-full sticky top-0 z-50 transition-all duration-300",
         isScrolled
@@ -96,7 +97,7 @@ const Header: React.FC = () => {
           : "bg-white/90 backdrop-blur-md"
       )}
     >
-      <nav className="w-full px-2 sm:px-4 lg:px-6">
+      <nav role="navigation" aria-label="תפריט ראשי" className="w-full px-2 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between h-20 lg:h-24 gap-3 lg:gap-8">
           {/* Logo Component */}
           <div className="flex-shrink-0">

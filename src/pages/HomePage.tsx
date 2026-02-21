@@ -48,11 +48,6 @@ const HomePage: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
-        {/* SEO H1 - Hidden from users but visible to search engines */}
-        <h1 className="sr-only">
-          אומץ לב - אלעד שמעונוב | אילוף כלבים מקצועי וכלבנות טיפולית בראשון לציון
-        </h1>
-        
         {/* Hero Section with Owner Image */}
         <HeroSection />
 
