@@ -75,7 +75,7 @@ const FloatingTimer: React.FC = () => {
       {isVisible && !isTimerClosed && !isTimerHidden && (
         <motion.div
           role="button"
-          tabIndex={0}
+          tabIndex={1}
           aria-label="עבור לעמוד הפעילויות"
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1.25, y: 0 }}

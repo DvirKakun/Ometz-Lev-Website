@@ -38,10 +38,10 @@ const FormRadioGroup: React.FC<FormRadioGroupProps> = ({
               {...register}
               type="radio"
               value={option}
-              className="sr-only peer"
+              className="absolute left-0 top-0 w-full h-full opacity-0 cursor-pointer peer"
             />
             <div
-              className={`px-2 py-1 bg-slate-50 border border-slate-300 rounded text-center text-xs text-slate-700 cursor-pointer peer-checked:bg-primary-500 peer-checked:text-white transition-all ${optionClassName}`}
+              className={`px-2 py-1 bg-slate-50 border border-slate-300 rounded text-center text-xs text-slate-700 cursor-pointer peer-checked:bg-primary-500 peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-primary-500 peer-focus-visible:ring-offset-2 transition-all ${optionClassName}`}
             >
               {option}
             </div>

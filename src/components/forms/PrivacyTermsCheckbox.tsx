@@ -14,7 +14,7 @@ const PrivacyTermsCheckbox = ({ register, error }: PrivacyTermsCheckboxProps) =>
           type="checkbox"
           id="termsAccepted"
           {...register}
-          className="mt-0.5 sm:mt-1 h-4 w-4 sm:h-5 sm:w-5 text-primary-500 bg-white border-2 border-slate-300 rounded focus:outline-none focus:ring-0 focus:border-primary-500 transition-colors duration-200"
+          className="mt-0.5 sm:mt-1 h-4 w-4 sm:h-5 sm:w-5 text-primary-500 bg-white border-2 border-slate-300 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 transition-colors duration-200"
         />
         <label
           htmlFor="termsAccepted"
@@ -23,7 +23,7 @@ const PrivacyTermsCheckbox = ({ register, error }: PrivacyTermsCheckboxProps) =>
           אני מאשר/ת כי קראתי והבנתי את{" "}
           <Link
             to="/terms"
-            className="text-primary-600 hover:text-primary-700 underline font-semibold transition-colors duration-200"
+            className="text-primary-600 hover:text-primary-700 underline font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:rounded"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -32,7 +32,7 @@ const PrivacyTermsCheckbox = ({ register, error }: PrivacyTermsCheckboxProps) =>
           {" "}ואת{" "}
           <Link
             to="/privacy"
-            className="text-primary-600 hover:text-primary-700 underline font-semibold transition-colors duration-200"
+            className="text-primary-600 hover:text-primary-700 underline font-semibold transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 focus-visible:rounded"
             target="_blank"
             rel="noopener noreferrer"
           >
