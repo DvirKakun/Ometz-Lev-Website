@@ -86,6 +86,7 @@ export const sendContactForm = async (data: {
 
 // Helper for pre-questionnaire form
 export const sendPreQuestionnaire = async (data: {
+  dogName: string;
   ageYears: number;
   ageMonths: number;
   ageWeeks: number;
@@ -104,6 +105,7 @@ export const sendPreQuestionnaire = async (data: {
   floor: string;
   apartment?: string;
   entranceCode?: string;
+  notes?: string;
 }): Promise<{ success: boolean; error?: string }> => {
   try {
     const response = await fetch(getApiUrl('send-pre-questionnaire'), {

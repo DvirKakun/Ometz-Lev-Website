@@ -58,16 +58,24 @@ const SummerCampModalForm = ({
     onReset: reset,
     setCurrentStep,
     activityName: activityData?.title || 'פעילות',
-    activityStartDate: activityData?.startDate,
-    activityEndDate: activityData?.endDate,
+    sessionDates: activityData?.sessionDates || [],
   });
 
-  // Set default session value when activityData changes
+  // Set default session value to first AVAILABLE (future) session
   useEffect(() => {
-    if (activityData) {
+    if (activityData && activityData.sessionDates) {
       const sessionNames = ["ראשון", "שני", "שלישי", "רביעי"];
-      const firstSession = sessionNames[0]; // Always default to "ראשון"
-      setValue("session", firstSession as any);
+      const now = new Date();
+
+      // Find first session that hasn't started yet
+      const firstAvailableIndex = activityData.sessionDates.findIndex(
+        (sessionDate) => now < sessionDate.startDate
+      );
+
+      if (firstAvailableIndex >= 0) {
+        const firstAvailableSession = sessionNames[firstAvailableIndex];
+        setValue("session", firstAvailableSession as any);
+      }
     }
   }, [activityData, setValue]);
 

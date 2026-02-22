@@ -5,6 +5,7 @@ import type { EmailField } from "./base";
  * Pre-questionnaire form email template
  */
 export function getPreQuestionnaireEmailTemplate(data: {
+  dogName: string;
   ageYears: number;
   ageMonths: number;
   ageWeeks: number;
@@ -23,6 +24,7 @@ export function getPreQuestionnaireEmailTemplate(data: {
   floor: string;
   apartment?: string;
   entranceCode?: string;
+  notes?: string;
 }): string {
   const ageDisplay = `${data.ageYears} שנים, ${data.ageMonths} חודשים, ${data.ageWeeks} שבועות`;
 
@@ -64,6 +66,7 @@ export function getPreQuestionnaireEmailTemplate(data: {
     addressFields.push({ label: "קוד כניסה", value: data.entranceCode });
 
   const dogFields: EmailField[] = [
+    { label: "שם הכלב", value: data.dogName },
     { label: "גיל הכלב", value: ageDisplay },
     { label: "אלרגיות", value: data.hasAllergies },
   ];
@@ -77,6 +80,8 @@ export function getPreQuestionnaireEmailTemplate(data: {
     dogFields.push({ label: "פירוט נשיכה", value: data.biteDetails });
   if (data.wearsMuzzle)
     dogFields.push({ label: "רגיל לזמם", value: data.wearsMuzzle });
+  if (data.notes)
+    dogFields.push({ label: "הערות נוספות", value: data.notes });
 
   return buildEmail({
     headerTitle: "שאלון מקדים חדש",

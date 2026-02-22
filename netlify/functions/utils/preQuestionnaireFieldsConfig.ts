@@ -4,6 +4,9 @@
  */
 
 export interface PreQuestionnaireData {
+  // Dog name
+  dogName: string;
+
   // Dog age
   ageYears: number;
   ageMonths: number;
@@ -35,6 +38,9 @@ export interface PreQuestionnaireData {
   floor: string;
   apartment?: string;
   entranceCode?: string;
+
+  // Additional notes
+  notes?: string;
 }
 
 /**
@@ -42,6 +48,9 @@ export interface PreQuestionnaireData {
  */
 export const PRE_QUESTIONNAIRE_FIELDS = {
   timestamp: { header: "תאריך ושעה", key: "timestamp" },
+
+  // Dog information
+  dogName: { header: "שם הכלב", key: "dogName" },
 
   // Dog age (weeks, months, years order)
   ageWeeks: { header: "גיל הכלב - שבועות", key: "ageWeeks" },
@@ -73,6 +82,9 @@ export const PRE_QUESTIONNAIRE_FIELDS = {
   floor: { header: "קומה", key: "floor" },
   apartment: { header: "דירה", key: "apartment" },
   entranceCode: { header: "קוד כניסה", key: "entranceCode" },
+
+  // Additional information
+  notes: { header: "הערות", key: "notes" },
 } as const;
 
 /**
@@ -100,6 +112,9 @@ export function convertPreQuestionnaireToSheetRow(
 ): Record<string, string | number> {
   return {
     [PRE_QUESTIONNAIRE_FIELDS.timestamp.header]: timestamp,
+
+    // Dog information
+    [PRE_QUESTIONNAIRE_FIELDS.dogName.header]: data.dogName,
 
     // Dog age (weeks, months, years order)
     [PRE_QUESTIONNAIRE_FIELDS.ageWeeks.header]: data.ageWeeks,
@@ -132,5 +147,8 @@ export function convertPreQuestionnaireToSheetRow(
     [PRE_QUESTIONNAIRE_FIELDS.floor.header]: data.floor,
     [PRE_QUESTIONNAIRE_FIELDS.apartment.header]: data.apartment || "",
     [PRE_QUESTIONNAIRE_FIELDS.entranceCode.header]: data.entranceCode || "",
+
+    // Additional information
+    [PRE_QUESTIONNAIRE_FIELDS.notes.header]: data.notes || "",
   };
 }

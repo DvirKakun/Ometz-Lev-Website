@@ -22,11 +22,31 @@ export function getRegistrationEmailTemplate(data: {
   healthIssues: string | null;
   healthIssuesText?: string | null;
   notes?: string | null;
+  activityStartDate?: string;
+  activityEndDate?: string;
 }): string {
   const activityFields: EmailField[] = [
     { label: "שם הפעילות", value: data.activityName },
     { label: "מחזור", value: data.session },
   ];
+
+  // Add session dates if provided
+  if (data.activityStartDate && data.activityEndDate) {
+    const formatDate = (dateStr: string) => {
+      const date = new Date(dateStr);
+      return date.toLocaleDateString("he-IL", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        timeZone: "Asia/Jerusalem",
+      });
+    };
+
+    activityFields.push({
+      label: "תאריכי המחזור",
+      value: `${formatDate(data.activityStartDate)} - ${formatDate(data.activityEndDate)}`
+    });
+  }
 
   const childFields: EmailField[] = [
     { label: "שם הילד/ה", value: data.childName },

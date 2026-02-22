@@ -34,8 +34,10 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
       title: string;
       registerFormTitle: string;
       registerFormMessage: React.ReactNode;
-      startDate?: Date;
-      endDate?: Date;
+      sessionDates: Array<{
+        startDate: Date;
+        endDate: Date;
+      }>;
     };
   }>({ modalKey: "summerCamp" });
   const imageModal = useRouterModal<{
@@ -100,8 +102,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
           title: activity.title,
           registerFormTitle: activity.registerFormTitle,
           registerFormMessage: activity.registerFormMessage,
-          startDate: activity.startDate,
-          endDate: activity.endDate,
+          sessionDates: activity.sessionDates,
         },
       });
     },
@@ -122,9 +123,9 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
 
   // Calculate time remaining until activity starts or show status
   const getTimeRemaining = useCallback(
-    (activity: { startDate: Date; endDate: Date; status: string }): string => {
+    (activity: { date: Date; status: string }): string => {
       const now = new Date();
-      const { startDate, status } = activity;
+      const { date, status } = activity;
 
       switch (status) {
         case "coming_soon":
@@ -134,7 +135,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
         case "in_progress":
           return "הפעילות בעיצומה";
         case "registerable": {
-          const timeDiff = startDate.getTime() - now.getTime();
+          const timeDiff = date.getTime() - now.getTime();
 
           if (timeDiff <= 0) {
             return "הפעילות החלה";
@@ -315,7 +316,8 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
                         <ActivitySection
                           activity={activity}
                           onRegisterClick={
-                            activity.status === "registerable"
+                            activity.status === "registerable" ||
+                            (activity.status === "in_progress" && activity.hasFutureSessions)
                               ? () => handleRegisterClick(activity)
                               : undefined
                           }

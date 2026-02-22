@@ -11,38 +11,57 @@ import {
 } from "./prismic-config";
 
 // Helper function to check if activity has special "בקרוב" date (02/06/1999)
-function isSpecialComingSoonDate(startDate: Date): boolean {
-  const activityYear = startDate.getFullYear();
-  const activityMonth = startDate.getMonth(); // 0-indexed
-  const activityDay = startDate.getDate();
-  return activityYear === 1999 && activityMonth === 5 && activityDay === 2; // June 2, 1999
+function isSpecialComingSoonDate(date: Date): boolean {
+  const year = date.getFullYear();
+  const month = date.getMonth(); // 0-indexed
+  const day = date.getDate();
+  return year === 1999 && month === 5 && day === 2; // June 2, 1999
 }
 
-// Helper function to determine activity status
-function calculateActivityStatus(startDate: Date, endDate: Date, hasRegistration: boolean): ActivityStatus {
+// Helper function to determine activity status based on session dates
+function calculateActivityStatus(
+  sessionDates: Array<{ startDate: Date; endDate: Date }>,
+  hasRegistration: boolean
+): ActivityStatus {
   const now = new Date();
-  
-  // Check for special "בקרוב" date first
-  if (isSpecialComingSoonDate(startDate)) {
+
+  // Check for special "בקרוב" date in FIRST session
+  if (sessionDates.length > 0 && isSpecialComingSoonDate(sessionDates[0].startDate)) {
     return "coming_soon";
   }
-  
-  // Check if activity ended
-  if (now > endDate) {
+
+  // Check if ANY session is currently active
+  const hasActiveSession = sessionDates.some(
+    (session) => now >= session.startDate && now <= session.endDate
+  );
+
+  // Check if ANY session hasn't started yet
+  const hasFutureSession = sessionDates.some(
+    (session) => now < session.startDate
+  );
+
+  // Check if ALL sessions are past
+  const allSessionsPast = sessionDates.every(
+    (session) => now > session.endDate
+  );
+
+  // Status logic:
+  // 1. If ALL sessions are past -> "past"
+  if (allSessionsPast) {
     return "past";
   }
-  
-  // Check if activity is currently in progress
-  if (now >= startDate && now <= endDate) {
+
+  // 2. If a session is active -> "in_progress"
+  if (hasActiveSession) {
     return "in_progress";
   }
-  
-  // Activity is in the future - check if registration is available
-  if (hasRegistration && now < startDate) {
+
+  // 3. If no session has started and registration is available -> "registerable"
+  if (!hasActiveSession && hasFutureSession && hasRegistration) {
     return "registerable";
   }
-  
-  // Future activity without registration (fallback to coming soon)
+
+  // 4. Fallback to coming_soon
   return "coming_soon";
 }
 
@@ -62,19 +81,19 @@ function sortActivitiesByPriority(activities: Activity[]): Activity[] {
   return activities.sort((a, b) => {
     const priorityA = getActivityPriority(a.status);
     const priorityB = getActivityPriority(b.status);
-    
+
     // First sort by priority
     if (priorityA !== priorityB) {
       return priorityA - priorityB;
     }
-    
-    // Within same priority, sort by date
+
+    // Within same priority, sort by date (using activity.date which is earliest session start)
     if (a.status === "past") {
       // For past activities: most recent first
-      return b.startDate.getTime() - a.startDate.getTime();
+      return b.date.getTime() - a.date.getTime();
     } else {
       // For future/current activities: earliest first
-      return a.startDate.getTime() - b.startDate.getTime();
+      return a.date.getTime() - b.date.getTime();
     }
   });
 }
@@ -92,10 +111,52 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const data = prismicActivity.data as any;
 
-  const startDate = getPrismicDate(data.activity_start_date);
-  const endDate = getPrismicDate(data.activity_end_date);
+  // Parse session dates from Prismic group
+  const sessionDates: Array<{ startDate: Date; endDate: Date }> = [];
+  if (data.session_dates && Array.isArray(data.session_dates)) {
+    data.session_dates.forEach((sessionItem: any) => {
+      const sessionStart = getPrismicDate(sessionItem.session_start_date);
+      const sessionEnd = getPrismicDate(sessionItem.session_end_date);
+      if (sessionStart && sessionEnd) {
+        sessionDates.push({ startDate: sessionStart, endDate: sessionEnd });
+      }
+    });
+  }
+
+  const sessions = parseInt(data.activity_sessions || "1", 10);
+
+  // Validation: warn if mismatch
+  if (sessionDates.length !== sessions) {
+    console.warn(
+      `Activity "${data.title?.[0]?.text || 'Unknown'}" has mismatched sessions: ${sessions} sessions configured but ${sessionDates.length} date ranges provided`
+    );
+  }
+
+  // Calculate dates for countdown and future sessions
+  const now = new Date();
+
+  // Get future sessions (sessions that haven't started yet)
+  const futureSessions = sessionDates.filter(
+    (session) => now < session.startDate
+  );
+
+  const hasFutureSessions = futureSessions.length > 0;
+
+  // For countdown: use earliest FUTURE session if available, otherwise use absolute earliest
+  const earliestFutureStart = futureSessions.length > 0
+    ? new Date(Math.min(...futureSessions.map((s) => s.startDate.getTime())))
+    : null;
+
+  const allStartDates = sessionDates.map((s) => s.startDate);
+  const absoluteEarliestStart = sessionDates.length > 0
+    ? new Date(Math.min(...allStartDates.map((d) => d.getTime())))
+    : new Date();
+
+  // Use earliest future session if exists, otherwise fall back to absolute earliest
+  const countdownDate = earliestFutureStart || absoluteEarliestStart;
+
   const hasRegistration = Boolean(data.has_registration);
-  const status = calculateActivityStatus(startDate, endDate, hasRegistration);
+  const status = calculateActivityStatus(sessionDates, hasRegistration);
 
   // Extract details (taking first item from group, or create default)
   const rawDetails = data.details?.[0] || {};
@@ -121,7 +182,6 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
   const registerFormMessage = getPrismicRichText(
     data.activity_register_form_message
   );
-  const sessions = parseInt(data.activity_sessions || "1", 10);
 
   return {
     id: String(prismicActivity.id),
@@ -137,10 +197,10 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
     buttonText: String(buttonText || "Register"),
     hasRegistration,
     timerTitle: String(timerTitle || "Coming Soon"),
-    date: startDate,
-    startDate,
-    endDate,
+    date: countdownDate, // For countdown timer - uses earliest future session, or absolute earliest
     sessions,
+    sessionDates,
+    hasFutureSessions,
     registerFormTitle: String(registerFormTitle || "הרשמה לפעילות"),
     registerFormMessage: String(registerFormMessage || "הטופס התקבל בהצלחה"),
     status,

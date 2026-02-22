@@ -30,10 +30,13 @@ export interface Activity {
   buttonText: string;
   hasRegistration: boolean;
   timerTitle: string;
-  date: Date; // Keep for backward compatibility with timer
-  startDate: Date;
-  endDate: Date;
+  date: Date; // For countdown (uses earliest future session start, or earliest start if none future)
   sessions: number; // 1-4
+  sessionDates: Array<{
+    startDate: Date;
+    endDate: Date;
+  }>;
+  hasFutureSessions: boolean; // True if any session hasn't started yet (for registration button visibility)
   registerFormTitle: string;
   registerFormMessage: React.ReactNode;
   status: ActivityStatus;

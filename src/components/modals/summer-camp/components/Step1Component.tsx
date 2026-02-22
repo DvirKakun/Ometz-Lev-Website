@@ -15,6 +15,10 @@ interface Step1ComponentProps {
     title: string;
     registerFormTitle: string;
     registerFormMessage: React.ReactNode;
+    sessionDates: Array<{
+      startDate: Date;
+      endDate: Date;
+    }>;
   };
 }
 
@@ -23,13 +27,45 @@ export const Step1Component = ({
   errors,
   activityData,
 }: Step1ComponentProps) => {
-  // Generate session options based on activityData.sessions
+  // Generate session options with dates, filtering out past/started sessions
   const sessionOptions = activityData
     ? Array.from({ length: activityData.sessions }, (_, i) => {
         const sessionNames = ["ראשון", "שני", "שלישי", "רביעי"];
-        return sessionNames[i];
-      })
-    : ["ראשון", "שני", "שלישי"]; // fallback
+        const sessionName = sessionNames[i];
+        const sessionDate = activityData.sessionDates[i];
+
+        // Check if session has started
+        const now = new Date();
+        const hasStarted = sessionDate && now >= sessionDate.startDate;
+
+        // Skip past/started sessions - only show future sessions
+        if (hasStarted) {
+          return null;
+        }
+
+        // Format dates for display
+        let description = "";
+        if (sessionDate) {
+          const formatDate = (date: Date) => {
+            return date.toLocaleDateString("he-IL", {
+              day: "numeric",
+              month: "numeric",
+              year: "2-digit"
+            });
+          };
+          description = `${formatDate(sessionDate.startDate)} - ${formatDate(sessionDate.endDate)}`;
+        }
+
+        return {
+          value: sessionName,
+          label: sessionName,
+          description,
+        };
+      }).filter((opt): opt is { value: string; label: string; description: string } => opt !== null)
+    : [
+        { value: "ראשון", label: "ראשון", description: "" },
+        { value: "שני", label: "שני", description: "" },
+      ]; // fallback
 
   return (
     <div className="space-y-6">
@@ -51,7 +87,6 @@ export const Step1Component = ({
           required
           className="w-full"
           layout="horizontal"
-          optionClassName={sessionOptions.length > 2 ? "text-xs" : ""}
         />
       </FormSection>
 

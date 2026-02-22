@@ -13,9 +13,15 @@ export interface FormInputProps {
   inputClassName?: string;
 }
 
+export interface FormRadioGroupOption {
+  value: string;
+  label: string;
+  description?: string;
+}
+
 export interface FormRadioGroupProps {
   label: string;
-  options: string[];
+  options: string[] | FormRadioGroupOption[];
   register: any;
   error?: string;
   layout?: "horizontal" | "grid" | "vertical";

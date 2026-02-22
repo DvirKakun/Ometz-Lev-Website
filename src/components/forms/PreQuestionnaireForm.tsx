@@ -13,10 +13,17 @@ import {
   FormAgeInput,
   FormConditionalTextarea,
   FormAddressInput,
+  FormTextarea,
 } from ".";
 
 // Validation schema
 const formSchema = z.object({
+  // Dog name
+  dogName: z
+    .string()
+    .min(1, "שם הכלב הוא שדה חובה")
+    .regex(/^[\u0590-\u05FF\s]+$/, "שם הכלב חייב להכיל רק אותיות בעברית"),
+
   // Dog age
   ageYears: z.coerce
     .number()
@@ -78,6 +85,9 @@ const formSchema = z.object({
   floor: z.string().min(1, "קומה היא שדה חובה"),
   apartment: z.string().optional(),
   entranceCode: z.string().optional(),
+
+  // Additional notes
+  notes: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -121,6 +131,7 @@ const PreQuestionnaireForm = ({
 
     try {
       const result = await sendPreQuestionnaire({
+        dogName: data.dogName,
         ageYears: data.ageYears,
         ageMonths: data.ageMonths,
         ageWeeks: data.ageWeeks,
@@ -139,6 +150,7 @@ const PreQuestionnaireForm = ({
         floor: data.floor,
         apartment: data.apartment,
         entranceCode: data.entranceCode,
+        notes: data.notes,
       });
 
       if (!result.success) {
@@ -174,6 +186,18 @@ const PreQuestionnaireForm = ({
         <h3 className="text-base font-semibold text-primary-700 text-right mb-4">
           פרטים על הכלב/ה
         </h3>
+
+        {/* Dog Name */}
+        <FormInput
+          label="שם הכלב/ה"
+          icon={User}
+          placeholder="הכניס/י את שם הכלב/ה"
+          register={register("dogName")}
+          error={errors.dogName?.message}
+          required
+          inputClassName="px-3 py-2 pr-10"
+          className="mb-4"
+        />
 
         {/* Age */}
         <FormAgeInput
@@ -310,6 +334,16 @@ const PreQuestionnaireForm = ({
           errorApartment={errors.apartment?.message}
           errorEntranceCode={errors.entranceCode?.message}
           required
+        />
+
+        {/* Notes */}
+        <FormTextarea
+          label="הערות נוספות"
+          placeholder="הכניס/י הערות נוספות (אופציונלי)"
+          register={register("notes")}
+          error={errors.notes?.message}
+          rows={3}
+          className="mt-4"
         />
       </FormSection>
 

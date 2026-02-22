@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { sendSummerCampRegistration } from "../../../../lib/brevo";
 import { trackCompleteRegistration } from "../../../../utils/facebookPixel";
 import type { FormData } from "../schemas/formSchemas";
@@ -9,8 +9,7 @@ interface UseFormSubmissionProps {
   onReset: () => void;
   setCurrentStep: (step: number) => void;
   activityName: string;
-  activityStartDate?: Date;
-  activityEndDate?: Date;
+  sessionDates: Array<{ startDate: Date; endDate: Date }>;
 }
 
 export const useFormSubmission = ({
@@ -19,13 +18,38 @@ export const useFormSubmission = ({
   onReset,
   setCurrentStep,
   activityName,
-  activityStartDate,
-  activityEndDate,
+  sessionDates,
 }: UseFormSubmissionProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Helper function to get dates for a specific session
+  const getSessionDates = useCallback((sessionName: string) => {
+    const sessionIndex = ["ראשון", "שני", "שלישי", "רביעי"].indexOf(sessionName);
+
+    if (sessionIndex >= 0 && sessionIndex < sessionDates.length) {
+      return {
+        start: sessionDates[sessionIndex].startDate,
+        end: sessionDates[sessionIndex].endDate,
+      };
+    }
+
+    // Fallback to first session if index out of bounds
+    console.warn(`Session "${sessionName}" not found or out of bounds, using first session`);
+    if (sessionDates.length > 0) {
+      return {
+        start: sessionDates[0].startDate,
+        end: sessionDates[0].endDate,
+      };
+    }
+
+    return { start: undefined, end: undefined };
+  }, [sessionDates]);
+
   const submitForm = async (data: FormData) => {
     setIsSubmitting(true);
+
+    // Get dates for the selected session
+    const dates = getSessionDates(data.session);
 
     try {
       const result = await sendSummerCampRegistration({
@@ -46,8 +70,8 @@ export const useFormSubmission = ({
         healthIssues: data.healthIssues,
         healthIssuesText: data.healthIssuesText,
         notes: data.notes,
-        activityStartDate: activityStartDate?.toISOString(),
-        activityEndDate: activityEndDate?.toISOString(),
+        activityStartDate: dates.start?.toISOString(),
+        activityEndDate: dates.end?.toISOString(),
       });
 
       if (!result.success) {

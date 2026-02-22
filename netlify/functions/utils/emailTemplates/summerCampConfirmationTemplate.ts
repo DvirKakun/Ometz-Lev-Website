@@ -32,13 +32,13 @@ export function getSummerCampConfirmationTemplate(
 
   // Format dates for display
   const formatDate = (dateStr?: string) => {
-    if (!dateStr) return '';
+    if (!dateStr) return "";
     const date = new Date(dateStr);
-    return date.toLocaleDateString('he-IL', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      timeZone: 'Asia/Jerusalem'
+    return date.toLocaleDateString("he-IL", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: "Asia/Jerusalem",
     });
   };
 
@@ -61,14 +61,18 @@ export function getSummerCampConfirmationTemplate(
                 <span style="color: ${COLORS.slate900}; font-size: 15px; margin-right: 8px;">${data.session}</span>
               </td>
             </tr>
-            ${startDateFormatted && endDateFormatted ? `
+            ${
+              startDateFormatted && endDateFormatted
+                ? `
             <tr>
               <td style="text-align: right;">
                 <span style="color: ${COLORS.slate600}; font-size: 14px; font-weight: 600;">תאריכי הפעילות:</span>
                 <span style="color: ${COLORS.slate900}; font-size: 15px; margin-right: 8px;">${startDateFormatted} - ${endDateFormatted}</span>
               </td>
             </tr>
-            ` : ''}
+            `
+                : ""
+            }
           </table>
         </div>
 
@@ -93,9 +97,13 @@ export function getSummerCampConfirmationTemplate(
           </tr>
         </table>
 
-        <p style="margin: 0 0 24px 0; color: ${COLORS.slate600}; font-size: 15px; text-align: right; line-height: 1.6;">
-          ניתן גם לשלם דרך Paybox 💳 - 0524724700
-        </p>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 24px;">
+          <tr>
+            <td style="text-align: right;">
+              ${getButton("תשלום דרך Paybox 💳", "https://links.payboxapp.com/Ug23I0blWUb")}
+            </td>
+          </tr>
+        </table>
 
         <div style="background-color: ${COLORS.slate100}; border-radius: 8px; padding: 20px; margin-bottom: 24px; border-right: 4px solid ${COLORS.primary};">
           <h4 style="margin: 0 0 12px 0; color: ${COLORS.slate900}; font-size: 16px; font-weight: 600; text-align: right;">
