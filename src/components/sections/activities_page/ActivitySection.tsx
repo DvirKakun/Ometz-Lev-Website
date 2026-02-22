@@ -12,6 +12,10 @@ const ActivitySection = ({
   const isComingSoon = status === "coming_soon";
   const isInProgress = status === "in_progress";
   const isRegisterable = status === "registerable";
+
+  // Show registration button for registerable OR in_progress with future sessions
+  const showRegistrationButton = isRegisterable || (isInProgress && activity.hasFutureSessions);
+
   const handleImageClick = (imageUrl: string, index: number) => {
     onImageClick?.(
       imageUrl,
@@ -60,7 +64,7 @@ const ActivitySection = ({
               </div>
 
               {activity.hasRegistration &&
-                isRegisterable &&
+                showRegistrationButton &&
                 onRegisterClick && (
                   <div>
                     <Button
@@ -85,14 +89,14 @@ const ActivitySection = ({
                     alt={activity.main_image.alt || "Activity image"}
                     loading="lazy"
                     className={`max-w-full max-h-48 sm:max-h-56 md:max-h-64 lg:max-h-96 rounded-xl object-contain ${
-                      !isRegisterable
+                      !showRegistrationButton
                         ? `filter blur-md cursor-default ${
                             isPast ? "grayscale" : ""
                           }`
                         : "cursor-pointer"
                     }`}
                     onClick={
-                      !isRegisterable
+                      !showRegistrationButton
                         ? undefined
                         : () =>
                             handleImageClick(activity.main_image.url || "", -1)
@@ -100,8 +104,8 @@ const ActivitySection = ({
                     crossOrigin="anonymous"
                   />
 
-                  {/* Activity Overlays and Banners */}
-                  {(isPast || isComingSoon || isInProgress) && (
+                  {/* Activity Overlays and Banners - only show if not registerable */}
+                  {!showRegistrationButton && (
                     <div className="absolute inset-0 flex items-center justify-center rounded-xl overflow-hidden">
                       {/* Overlay - priority: isComingSoon > isInProgress > isPast */}
                       <div

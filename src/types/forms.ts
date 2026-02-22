@@ -17,6 +17,7 @@ export interface FormRadioGroupOption {
   value: string;
   label: string;
   description?: string;
+  disabled?: boolean;
 }
 
 export interface FormRadioGroupProps {

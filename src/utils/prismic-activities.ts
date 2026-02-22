@@ -125,18 +125,21 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
 
   const sessions = parseInt(data.activity_sessions || "1", 10);
 
-  // Validation: warn if mismatch
-  if (sessionDates.length !== sessions) {
+  // Only use the first N sessions based on the sessions count
+  const relevantSessionDates = sessionDates.slice(0, sessions);
+
+  // Validation: warn if we don't have enough session dates
+  if (sessionDates.length < sessions) {
     console.warn(
-      `Activity "${data.title?.[0]?.text || 'Unknown'}" has mismatched sessions: ${sessions} sessions configured but ${sessionDates.length} date ranges provided`
+      `Activity "${data.title?.[0]?.text || 'Unknown'}" is missing session dates: ${sessions} sessions configured but only ${sessionDates.length} date ranges provided`
     );
   }
 
   // Calculate dates for countdown and future sessions
   const now = new Date();
 
-  // Get future sessions (sessions that haven't started yet)
-  const futureSessions = sessionDates.filter(
+  // Get future sessions (sessions that haven't started yet) - only from relevant sessions
+  const futureSessions = relevantSessionDates.filter(
     (session) => now < session.startDate
   );
 
@@ -147,8 +150,8 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
     ? new Date(Math.min(...futureSessions.map((s) => s.startDate.getTime())))
     : null;
 
-  const allStartDates = sessionDates.map((s) => s.startDate);
-  const absoluteEarliestStart = sessionDates.length > 0
+  const allStartDates = relevantSessionDates.map((s) => s.startDate);
+  const absoluteEarliestStart = relevantSessionDates.length > 0
     ? new Date(Math.min(...allStartDates.map((d) => d.getTime())))
     : new Date();
 
@@ -156,7 +159,7 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
   const countdownDate = earliestFutureStart || absoluteEarliestStart;
 
   const hasRegistration = Boolean(data.has_registration);
-  const status = calculateActivityStatus(sessionDates, hasRegistration);
+  const status = calculateActivityStatus(relevantSessionDates, hasRegistration);
 
   // Extract details (taking first item from group, or create default)
   const rawDetails = data.details?.[0] || {};
@@ -199,7 +202,7 @@ const mapPrismicToActivity = (prismicActivity: PrismicActivity): Activity => {
     timerTitle: String(timerTitle || "Coming Soon"),
     date: countdownDate, // For countdown timer - uses earliest future session, or absolute earliest
     sessions,
-    sessionDates,
+    sessionDates: relevantSessionDates, // Only include relevant sessions based on sessions count
     hasFutureSessions,
     registerFormTitle: String(registerFormTitle || "הרשמה לפעילות"),
     registerFormMessage: String(registerFormMessage || "הטופס התקבל בהצלחה"),

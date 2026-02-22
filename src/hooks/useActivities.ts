@@ -33,11 +33,30 @@ export const useClosestActivity = () => {
     retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 30000),
   });
 
-  // Pure computation - no API calls needed
+  // Find activity with the absolute closest future session across ALL activities
   const now = new Date();
-  const futureActivities = activities.filter((activity) => activity.startDate > now);
-  const closestActivity =
-    futureActivities.length > 0 ? futureActivities[0] : null;
+  let closestActivity: Activity | null = null;
+  let closestSessionDate: Date | null = null;
+
+  for (const activity of activities) {
+    // Find the closest future session for this activity
+    const futureSessions = activity.sessionDates.filter(
+      (session) => session.startDate > now
+    );
+
+    if (futureSessions.length > 0) {
+      // Get the earliest future session start date
+      const earliestFutureSession = new Date(
+        Math.min(...futureSessions.map((s) => s.startDate.getTime()))
+      );
+
+      // Compare with overall closest
+      if (!closestSessionDate || earliestFutureSession < closestSessionDate) {
+        closestSessionDate = earliestFutureSession;
+        closestActivity = activity;
+      }
+    }
+  }
 
   return {
     data: closestActivity,

@@ -27,41 +27,46 @@ export const Step1Component = ({
   errors,
   activityData,
 }: Step1ComponentProps) => {
-  // Generate session options with dates, filtering out past/started sessions
+  // Generate session options with dates, marking started/finished sessions as disabled
   const sessionOptions = activityData
     ? Array.from({ length: activityData.sessions }, (_, i) => {
         const sessionNames = ["ראשון", "שני", "שלישי", "רביעי"];
         const sessionName = sessionNames[i];
         const sessionDate = activityData.sessionDates[i];
 
-        // Check if session has started
+        // Check if session has started or finished
         const now = new Date();
         const hasStarted = sessionDate && now >= sessionDate.startDate;
-
-        // Skip past/started sessions - only show future sessions
-        if (hasStarted) {
-          return null;
-        }
+        const hasFinished = sessionDate && now > sessionDate.endDate;
 
         // Format dates for display
         let description = "";
         if (sessionDate) {
           const formatDate = (date: Date) => {
             return date.toLocaleDateString("he-IL", {
-              day: "numeric",
-              month: "numeric",
-              year: "2-digit"
+              day: "2-digit",
+              month: "2-digit",
             });
           };
-          description = `${formatDate(sessionDate.startDate)} - ${formatDate(sessionDate.endDate)}`;
+          const dateRange = `${formatDate(sessionDate.endDate)} - ${formatDate(sessionDate.startDate)}`;
+
+          // Add status to description
+          if (hasFinished) {
+            description = `${dateRange}\n✗ הסתיים`;
+          } else if (hasStarted) {
+            description = `${dateRange}\n◉ בעיצומו`;
+          } else {
+            description = dateRange;
+          }
         }
 
         return {
           value: sessionName,
           label: sessionName,
           description,
+          disabled: hasStarted, // Disable if started (includes finished)
         };
-      }).filter((opt): opt is { value: string; label: string; description: string } => opt !== null)
+      })
     : [
         { value: "ראשון", label: "ראשון", description: "" },
         { value: "שני", label: "שני", description: "" },
@@ -86,7 +91,7 @@ export const Step1Component = ({
           error={errors.session?.message as string}
           required
           className="w-full"
-          layout="horizontal"
+          layout="grid"
         />
       </FormSection>
 

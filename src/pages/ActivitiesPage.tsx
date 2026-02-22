@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { AlertCircle, Calendar, Clock } from "lucide-react";
@@ -26,6 +26,7 @@ import type { Activity } from "../types/activities";
 export default function ActivitiesPage({ service }: ServicePageProps) {
   const location = useLocation();
   const scrollTargetRef = useRef<string | null>(null);
+  const [accordionValue, setAccordionValue] = useState<string | undefined>(undefined);
 
   // Modal hooks
   const summerCampModal = useRouterModal<{
@@ -68,9 +69,15 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
 
   // Scroll to activity function using React patterns
   const scrollToActivity = useCallback((activityId: string) => {
-    const element = document.getElementById(activityId);
+    const element = document.getElementById(`accordion-${activityId}`);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - 100; // 100px from top to show header clearly
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
     }
   }, []);
 
@@ -82,14 +89,21 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
     }
   }, [location]);
 
-  // Handle scrolling when data is loaded
+  // Handle scrolling and opening accordion when data is loaded
   useEffect(() => {
     if (!loading && scrollTargetRef.current && activities.length > 0) {
-      // Use requestAnimationFrame to ensure DOM is updated
-      requestAnimationFrame(() => {
-        scrollToActivity(scrollTargetRef.current!);
-        scrollTargetRef.current = null; // Clear after scrolling
-      });
+      const targetId = scrollTargetRef.current;
+
+      // First, open the accordion
+      setAccordionValue(targetId);
+
+      // Then scroll to it after a short delay to allow accordion to open
+      setTimeout(() => {
+        requestAnimationFrame(() => {
+          scrollToActivity(targetId);
+          scrollTargetRef.current = null; // Clear after scrolling
+        });
+      }, 300); // Wait for accordion animation
     }
   }, [loading, activities, scrollToActivity]);
 
@@ -169,6 +183,8 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
   // Auto-scroll to show accordion header when accordion opens
   // Modern UX research (2024) suggests intelligent auto-scrolling for accordions
   const handleAccordionChange = useCallback((value: string) => {
+    setAccordionValue(value);
+
     if (value) {
       // Capture the current scroll position and target element position BEFORE animations
       const targetElement = document.getElementById(`accordion-${value}`);
@@ -268,6 +284,7 @@ export default function ActivitiesPage({ service }: ServicePageProps) {
               collapsible
               className="w-full space-y-2 sm:space-y-4"
               onValueChange={handleAccordionChange}
+              value={accordionValue}
               defaultValue={activities[0]?.id}
             >
               {activities.map((activity, index) => (
