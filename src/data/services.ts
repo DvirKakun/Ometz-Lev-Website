@@ -64,7 +64,7 @@ export const services: Service[] = [
     path: "/activities",
     title: "פעילויות",
     description:
-      "מגוון פעילויות חווייתיות עם כלבים לכל המשפחה, כולל קייטנות, חוגי אילוף לילדים ואירועים מיוחדים.",
+      "מגוון פעילויות חווייתיות עם כלבים, כולל קייטנות, חוגי אילוף לילדים ואירועים מיוחדים. ",
     icon: Award,
     offerings: [], // All offerings come from Prismic activities_offerings
     cta: [],

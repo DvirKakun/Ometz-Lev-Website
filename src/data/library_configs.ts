@@ -37,8 +37,8 @@ export const trainingArticleLibraryConfig: ArticleLibraryConfig = {
 export const therapyArticleLibraryConfig: ArticleLibraryConfig = {
   contentType: "articles",
   pageType: "therapy",
-  title: "ספריית מדריכי הטיפול",
-  description: "מדריכים מקצועיים ומדריכים לטיפול בכלבים",
+  title: "ספריית מדריכי הכלבנות הטיפולית",
+  description: "מדריכים מקצועיים על כלבנות טיפולית",
   returnPath: "/therapy",
   returnLabel: "חזרה לעמוד הטיפול",
   backgroundPattern: false,

@@ -10,7 +10,7 @@ import {
 function processFAQItem(
   faqItem: any,
   index: number,
-  docId: string
+  docId: string,
 ): ProcessedFAQ {
   return {
     id: `${docId}-faq-${index}`,
@@ -22,7 +22,7 @@ function processFAQItem(
 
 // Generic function to fetch FAQs from Prismic by page type
 export async function fetchFAQsFromPrismic(
-  pageType: FAQPageType
+  pageType: FAQPageType,
 ): Promise<ProcessedFAQ[]> {
   try {
     const client = createPrismicClient();
@@ -37,7 +37,7 @@ export async function fetchFAQsFromPrismic(
 
     // Process all FAQ items from the group
     const faqs = document.data.faq.map((faqItem, index) =>
-      processFAQItem(faqItem, index, document.id)
+      processFAQItem(faqItem, index, document.id),
     );
 
     // Sort by order field
@@ -59,27 +59,25 @@ export const fetchProductsFAQs = () => fetchFAQsFromPrismic("products");
 export const getFAQSectionConfig = (pageType: FAQPageType) => {
   const configs = {
     therapy: {
-      title: "שאלות נפוצות על טיפול בעזרת כלבים",
-      description:
-        "מצאו תשובות לשאלות הנפוצות ביותר על השירותים הטיפוליים שלנו",
+      title: "שאלות נפוצות על כלבנות טיפולית",
+      description: "מצאו תשובות על כל מה שרציתם לדעת על כלבנות טיפולית",
     },
     training: {
       title: "שאלות נפוצות על אילוף כלבים",
-      description: "כל מה שרציתם לדעת על שירותי האילוף וההדרכה המקצועיים שלנו",
+      description: "מצאו תשובות על כל מה שרציתם לדעת על אילוף כלבים",
     },
     activities: {
       title: "שאלות נפוצות על הפעילויות",
       description: "מידע מפורט על הפעילויות, הקייטנות והסדנאות שאנו מציעים",
     },
     schools: {
-      title: "שאלות נפוצות על סדנאות בבתי ספר",
+      title: "שאלות נפוצות על היוזמות החינוכיות בבתי הספר",
       description:
         "מידע עבור מורים ומנהלים על הסדנאות החינוכיות המקצועיים שלנו",
     },
     products: {
       title: "שאלות נפוצות על המוצרים",
-      description:
-        "מידע מפורט על המוצרים המומלצים, איכות, משלוחים והזמנות",
+      description: "מידע מפורט על המוצרים המומלצים, איכות, משלוחים והזמנות",
     },
   };
 

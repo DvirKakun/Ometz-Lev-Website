@@ -10,10 +10,10 @@ export const therapyContentConfig: PageContentConfig = {
     buttonText: "עבור לספרייה",
   },
   articles: {
-    title: "מדריכי טיפול",
-    description: "מדריכים מקצועיים ומדריכים לטיפול בכלבים",
+    title: "מדריכי כלבנות טיפולית",
+    description: "מדריכים מקצועיים על כלבנות טיפולית",
     libraryPath: "/therapy-articles-library",
-    libraryTitle: "ספריית מדריכי הטיפול שלנו",
+    libraryTitle: "ספריית מדריכי כלבנות טיפולית ",
     buttonText: "עבור לספרייה",
   },
 };

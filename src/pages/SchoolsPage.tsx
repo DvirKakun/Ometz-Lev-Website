@@ -1,17 +1,8 @@
 import { motion } from "framer-motion";
 import { Outlet } from "react-router-dom";
-import {
-  ExternalLink,
-  Users,
-  Clock,
-  MapPin,
-  BookOpen,
-  Target,
-  Award,
-} from "lucide-react";
+import { Users, MapPin, Target } from "lucide-react";
 import ServiceHeader from "../components/sections/shared/headers/MainHeader";
 import { Card, CardContent, CardHeader } from "../components/ui/card";
-import { Button } from "../components/ui/button";
 import { FAQSection } from "../components/sections/shared/faq";
 import SEOMeta from "../components/seo/SEOMeta";
 import SEOJsonLD from "../components/seo/SEOJsonLD";
@@ -27,8 +18,7 @@ export default function SchoolsPage({ service }: ServicePageProps) {
     description:
       "אלעד שמעונוב - תכניות חינוכיות מותאמות לגילאים שונים עם כלבים. יוזמות חינוכיות לבתי ספר, סדנאות חינוכיות, פיתוח אחריות ואמפתיה. תכנית מאושרת במערכת החינוך. צרו קשר!",
     keywords: getKeywordsForPage("schools"),
-    imageUrl:
-      "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
+    imageUrl: "https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png",
     imageAlt: "תלמידים בתכנית חינוכית עם כלב במסגרת יוזמות חינוכיות",
   };
 
@@ -61,7 +51,8 @@ export default function SchoolsPage({ service }: ServicePageProps) {
       >
         {/* SEO H1 - Hidden from users but visible to search engines */}
         <h1 className="sr-only">
-          יוזמות חינוכיות - תכניות חינוכיות עם כלבים לבתי ספר | אלעד שמעונוב | אומץ לב
+          יוזמות חינוכיות - תכניות חינוכיות עם כלבים לבתי ספר | אלעד שמעונוב |
+          אומץ לב
         </h1>
         {/* Header Section */}
         <section className="py-16 bg-slate-900/85">
@@ -93,14 +84,6 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                     </span>
                   </h3>
                 </div>
-                <div className="flex items-center justify-center gap-4">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
-                    תכנית מספר {schoolProgram.programNumber}
-                  </span>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                    {schoolProgram.status}
-                  </span>
-                </div>
               </div>
 
               {/* Program Summary */}
@@ -113,7 +96,17 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                 </CardHeader>
                 <CardContent>
                   <p className="text-gray-700 leading-relaxed mb-4">
-                    {schoolProgram.summary.description}
+                    {schoolProgram.summary.description
+                      .split("\n")
+                      .map((line, index) => (
+                        <span key={index}>
+                          {line}
+                          {index <
+                            schoolProgram.summary.description.split("\n")
+                              .length -
+                              1 && <br />}
+                        </span>
+                      ))}
                   </p>
                   <div className="space-y-2">
                     <h5 className="font-semibold text-primary-500">
@@ -128,7 +121,7 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                           >
                             {message}
                           </span>
-                        )
+                        ),
                       )}
                     </div>
                   </div>
@@ -137,42 +130,6 @@ export default function SchoolsPage({ service }: ServicePageProps) {
 
               {/* Program Details Grid */}
               <div className="grid md:grid-cols-2 gap-6">
-                {/* Basic Information */}
-                <Card>
-                  <CardHeader>
-                    <h4 className="flex items-center gap-2 text-primary-500 font-semibold leading-none tracking-tight">
-                      <BookOpen className="w-5 h-5" />
-                      פרטי התכנית
-                    </h4>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div>
-                      <span className="font-medium">מקור התכנית:</span>
-                      <span className="mr-2">
-                        {schoolProgram.basicInfo.source}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-medium">תחום מרכזי:</span>
-                      <span className="mr-2">
-                        {schoolProgram.basicInfo.centralField}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-medium">מפעיל:</span>
-                      <span className="mr-2">
-                        {schoolProgram.basicInfo.operator}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-medium">שנות הפעלה:</span>
-                      <span className="mr-2">
-                        {schoolProgram.basicInfo.operatingYears}
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-
                 {/* Target Audience */}
                 <Card>
                   <CardHeader>
@@ -203,39 +160,6 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                   </CardContent>
                 </Card>
 
-                {/* Required Resources */}
-                <Card>
-                  <CardHeader>
-                    <h4 className="flex items-center gap-2 text-primary-500 font-semibold leading-none tracking-tight">
-                      <Clock className="w-5 h-5" />
-                      משאבים נדרשים
-                    </h4>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div>
-                      <span className="font-medium">הכשרת צוות:</span>
-                      <span className="mr-2">
-                        {schoolProgram.requiredResources.staffTraining}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-medium">משך הטמעה:</span>
-                      <span className="mr-2">
-                        {
-                          schoolProgram.requiredResources
-                            .recommendedImplementationDuration
-                        }
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-medium">שימוש בכלבים:</span>
-                      <span className="mr-2">
-                        {schoolProgram.requiredResources.dogUsage}
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-
                 {/* Geographic Distribution */}
                 <Card>
                   <CardHeader>
@@ -250,65 +174,6 @@ export default function SchoolsPage({ service }: ServicePageProps) {
                     </p>
                   </CardContent>
                 </Card>
-              </div>
-
-              {/* Skills and Tags */}
-              <Card>
-                <CardHeader>
-                  <h4 className="flex items-center gap-2 text-primary-500 font-semibold leading-none tracking-tight">
-                    <Award className="w-5 h-5" />
-                    מיומנויות ותחומי התמחות
-                  </h4>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div>
-                      <h5 className="font-semibold  mb-2 text-primary-500">
-                        מיומנויות מרכזיות:
-                      </h5>
-                      <div className="flex flex-wrap gap-2">
-                        {schoolProgram.basicInfo.skills.map((skill, index) => (
-                          <span
-                            key={index}
-                            className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <h5 className="font-semibold text-primary-500 mb-2">
-                        תגיות:
-                      </h5>
-                      <div className="flex flex-wrap gap-2">
-                        {schoolProgram.tags.map((tag, index) => (
-                          <span
-                            key={index}
-                            className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium border border-gray-300 text-gray-700"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Program Link */}
-              <div className="text-center">
-                <Button asChild size="lg" className="text-lg px-8">
-                  <a
-                    href={schoolProgram.programLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2"
-                  >
-                    צפייה בתכנית במערכת החינוך
-                    <ExternalLink className="w-5 h-5 text-primary-500" />
-                  </a>
-                </Button>
               </div>
             </div>
           </div>
