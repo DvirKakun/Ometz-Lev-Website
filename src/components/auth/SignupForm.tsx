@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertCircle, CheckCircle2, Mail } from "lucide-react";
+import { AlertCircle, CheckCircle2, Mail, Bell } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -19,6 +19,7 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [wantsNotifications, setWantsNotifications] = useState(true);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -46,7 +47,9 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
 
     setLoading(true);
 
-    const { error: signUpError } = await signUp(email, password);
+    const { error: signUpError } = await signUp(email, password, {
+      wantsNotifications,
+    });
 
     setLoading(false);
 
@@ -68,25 +71,25 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
 
   if (success) {
     return (
-      <div className="space-y-6 text-center" dir="rtl">
-        <div className="flex flex-col items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg">
-            <CheckCircle2 className="w-8 h-8 text-primary-50" />
+      <div className="space-y-4 text-center" dir="rtl">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg">
+            <CheckCircle2 className="w-6 h-6 text-primary-50" />
           </div>
           <div className="space-y-2">
-            <h3 className="text-xl font-bold text-primary-900">נרשמת בהצלחה!</h3>
-            <div className="flex items-start gap-3 text-sm text-primary-800 bg-primary-100/60 p-4 rounded-lg border-r-4 border-primary-500">
-              <Mail className="w-5 h-5 text-primary-600 flex-shrink-0 mt-0.5" />
+            <h3 className="text-lg font-bold text-primary-900">נרשמת בהצלחה!</h3>
+            <div className="flex items-start gap-2 text-xs text-primary-800 bg-primary-100/60 p-3 rounded-lg border-r-4 border-primary-500">
+              <Mail className="w-4 h-4 text-primary-600 flex-shrink-0 mt-0.5" />
               <p className="flex-1 text-right">
-                שלחנו אליך מייל עם קישור לאימות החשבון. אנא בדוק את תיבת המייל שלך
-                (כולל תיקיית הספאם) ולחץ על הקישור כדי להפעיל את החשבון.
+                שלחנו אליך מייל עם קישור לאימות החשבון. בדוק את תיבת המייל שלך
+                (כולל ספאם) ולחץ על הקישור להפעלת החשבון.
               </p>
             </div>
           </div>
         </div>
         <Button
           onClick={onSwitchToLogin}
-          className="w-full h-11 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-primary-50 font-semibold shadow-lg shadow-primary-500/30"
+          className="w-full h-8 text-sm bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-primary-50 font-semibold shadow-md shadow-primary-500/25"
         >
           חזרה להתחברות
         </Button>
@@ -95,9 +98,9 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3" dir="rtl">
-      <div className="space-y-1.5">
-        <Label htmlFor="signup-email" className="text-primary-900 font-semibold">
+    <form onSubmit={handleSubmit} className="space-y-2" dir="rtl">
+      <div className="space-y-0.5">
+        <Label htmlFor="signup-email" className="text-primary-900 font-semibold text-xs">
           אימייל
         </Label>
         <Input
@@ -109,12 +112,12 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
           required
           disabled={loading}
           dir="ltr"
-          className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
+          className="h-8 text-sm bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
       </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="signup-password" className="text-primary-900 font-semibold">
+      <div className="space-y-0.5">
+        <Label htmlFor="signup-password" className="text-primary-900 font-semibold text-xs">
           סיסמה
         </Label>
         <Input
@@ -126,13 +129,13 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
           required
           disabled={loading}
           minLength={6}
-          className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
+          className="h-8 text-sm bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
-        <p className="text-xs text-primary-700 pt-0.5">לפחות 6 תווים</p>
+        <p className="text-[10px] text-primary-600">לפחות 6 תווים</p>
       </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="confirm-password" className="text-primary-900 font-semibold">
+      <div className="space-y-0.5">
+        <Label htmlFor="confirm-password" className="text-primary-900 font-semibold text-xs">
           אימות סיסמה
         </Label>
         <Input
@@ -144,21 +147,22 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
           required
           disabled={loading}
           minLength={6}
-          className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
+          className="h-8 text-sm bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
       </div>
 
       {/* Terms and Privacy Checkbox */}
-      <div className="flex items-start gap-3 py-2">
+      <div className="flex items-start gap-2 pt-0.5">
         <Checkbox
           id="terms"
           checked={agreedToTerms}
           onCheckedChange={(checked: boolean) => setAgreedToTerms(checked)}
           disabled={loading}
+          className="mt-0.5 h-4 w-4"
         />
         <Label
           htmlFor="terms"
-          className="text-sm text-primary-800 leading-relaxed cursor-pointer font-normal"
+          className="text-xs text-primary-800 leading-tight cursor-pointer font-normal"
         >
           אני מאשר/ת את{" "}
           <Link
@@ -183,22 +187,45 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
         </Label>
       </div>
 
+      {/* Notifications Checkbox */}
+      <div className="flex items-start gap-2 py-1.5 bg-primary-50/50 rounded-md px-2">
+        <Checkbox
+          id="notifications"
+          checked={wantsNotifications}
+          onCheckedChange={(checked: boolean) => setWantsNotifications(checked)}
+          disabled={loading}
+          className="mt-0.5 h-4 w-4"
+        />
+        <div className="flex-1">
+          <Label
+            htmlFor="notifications"
+            className="text-xs text-primary-800 leading-tight cursor-pointer font-normal flex items-center gap-1"
+          >
+            <Bell className="w-3 h-3 text-primary-600 flex-shrink-0" />
+            <span>אני רוצה לקבל עדכונים על תכנים חדשים</span>
+          </Label>
+          <p className="text-[10px] text-primary-600 mr-4">
+            ניתן לשנות בהגדרות בכל עת
+          </p>
+        </div>
+      </div>
+
       {error && (
-        <div className="flex items-start gap-2.5 text-sm text-primary-900 bg-primary-200/60 p-3 rounded-lg border-r-4 border-primary-700 shadow-sm">
-          <AlertCircle className="w-4 h-4 text-primary-700 flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-1.5 text-xs text-primary-900 bg-primary-200/60 py-1.5 px-2 rounded-md border-r-3 border-primary-700">
+          <AlertCircle className="w-3.5 h-3.5 text-primary-700 flex-shrink-0 mt-0.5" />
           <p className="flex-1">{error}</p>
         </div>
       )}
 
       <Button
         type="submit"
-        className="w-full h-10 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-primary-50 font-semibold shadow-lg shadow-primary-500/30 transition-all duration-200"
+        className="w-full h-8 text-sm bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-primary-50 font-semibold shadow-md shadow-primary-500/25 transition-all duration-200"
         disabled={loading}
       >
         {loading ? "נרשם..." : "הירשם"}
       </Button>
 
-      <div className="text-sm text-center text-primary-800 pt-1">
+      <div className="text-xs text-center text-primary-800">
         יש לך חשבון?{" "}
         <button
           type="button"

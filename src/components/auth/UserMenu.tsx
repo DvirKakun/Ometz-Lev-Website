@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { LogOut, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { LogOut, User, Settings } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
@@ -22,6 +23,7 @@ export const UserMenu = ({
   onMobileMenuClose,
 }: UserMenuProps = {}) => {
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   const [internalOpen, setInternalOpen] = useState(false);
 
   // Use external state if provided, otherwise use internal state
@@ -60,9 +62,7 @@ export const UserMenu = ({
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent
-          className="max-w-[85vw] sm:max-w-md p-0 border-0 text-primary-900 overflow-hidden rounded-2xl"
-        >
+        <DialogContent className="max-w-[85vw] sm:max-w-md p-0 border-0 text-primary-900 overflow-hidden rounded-2xl">
           <div className="flex flex-col">
             {/* Header */}
             <div className="bg-gradient-to-br from-primary-50 to-primary-100 p-8 pb-6 text-center">
@@ -75,12 +75,18 @@ export const UserMenu = ({
                 </h2>
               </DialogTitle>
               <DialogDescription asChild>
-                <p className="text-sm text-primary-700">נהל את פרטי החשבון שלך</p>
+                <p className="text-sm text-primary-700">
+                  נהל את פרטי החשבון שלך
+                </p>
               </DialogDescription>
             </div>
 
             {/* Content */}
-            <div className="p-6 space-y-4" style={{ backgroundColor: '#fefdfb' }} dir="rtl">
+            <div
+              className="p-6 space-y-4"
+              style={{ backgroundColor: "#fefdfb" }}
+              dir="rtl"
+            >
               <div className="flex items-center gap-3 p-4 bg-primary-100/50 rounded-xl border-r-4 border-primary-500">
                 <Avatar className="h-12 w-12 ring-2 ring-primary-200">
                   <AvatarFallback className="bg-gradient-to-br from-primary-400 to-primary-600 text-primary-50 text-lg font-bold">
@@ -88,7 +94,9 @@ export const UserMenu = ({
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-bold text-primary-900 truncate">{user.email}</p>
+                  <p className="text-sm font-bold text-primary-900 truncate">
+                    {user.email}
+                  </p>
                   <p className="text-xs text-primary-700">משתמש רשום</p>
                 </div>
               </div>
@@ -96,10 +104,22 @@ export const UserMenu = ({
               <Button
                 variant="outline"
                 className="w-full justify-start gap-2 h-11 border-primary-300 hover:bg-primary-100 hover:border-primary-400 transition-colors"
+                onClick={() => {
+                  setOpen(false);
+                  navigate("/settings");
+                }}
+              >
+                <Settings className="h-4 w-4" />
+                הגדרות
+              </Button>
+
+              <Button
+                variant="outline"
+                className="w-full justify-start gap-2 h-11 border-primary-300 hover:bg-primary-100 hover:border-primary-400 transition-colors"
                 onClick={handleSignOut}
               >
-                התנתק
                 <LogOut className="h-4 w-4" />
+                התנתק
               </Button>
             </div>
           </div>

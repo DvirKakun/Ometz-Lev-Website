@@ -68,7 +68,7 @@ export const AuthDialog = ({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-w-[85vw] sm:max-w-md max-h-[90vh] p-0 border-0 text-primary-900 overflow-hidden rounded-2xl"
+        className="max-w-[90vw] sm:max-w-[380px] max-h-[85vh] p-0 border-0 text-primary-900 overflow-hidden rounded-2xl"
       >
         <AnimatePresence mode="wait">
           <motion.div
@@ -88,7 +88,7 @@ export const AuthDialog = ({
             className="flex flex-col"
           >
             {/* Header */}
-            <div className="bg-gradient-to-br from-primary-50 to-primary-100 p-8 pb-6 text-center">
+            <div className="bg-gradient-to-br from-primary-50 to-primary-100 px-5 py-4 text-center">
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
@@ -98,22 +98,22 @@ export const AuthDialog = ({
                   stiffness: 200,
                   damping: 20,
                 }}
-                className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg mx-auto mb-4"
+                className="w-11 h-11 rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg mx-auto mb-2.5"
               >
-                <Icon className="w-7 h-7 text-primary-50" />
+                <Icon className="w-5 h-5 text-primary-50" />
               </motion.div>
               <DialogTitle asChild>
-                <h2 className="text-2xl font-bold text-primary-900 mb-2">
+                <h2 className="text-xl font-bold text-primary-900 mb-1">
                   {title}
                 </h2>
               </DialogTitle>
               <DialogDescription asChild>
-                <p className="text-sm text-primary-700">{description}</p>
+                <p className="text-xs text-primary-700">{description}</p>
               </DialogDescription>
             </div>
 
             {/* Content */}
-            <div className="p-6 overflow-y-auto" style={{ backgroundColor: '#fefdfb' }}>
+            <div className="px-5 py-4 overflow-y-auto" style={{ backgroundColor: '#fefdfb' }}>
               {mode === "login" && (
                 <LoginForm
                   onSwitchToSignup={() => setMode("signup")}

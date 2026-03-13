@@ -27,6 +27,8 @@ import TrainingArticlesLibraryPage from "./pages/training_page/TrainingArticlesL
 import TherapyVideoLibraryPage from "./pages/therapy_page/TherapyVideoLibraryPage";
 import TherapyArticlesLibraryPage from "./pages/therapy_page/TherapyArticlesLibraryPage";
 import ArticlePDFViewerPage from "./pages/ArticlePDFViewerPage";
+import SettingsPage from "./pages/SettingsPage";
+import UnsubscribePage from "./pages/UnsubscribePage";
 import PageLoader from "./components/common/PageLoader";
 import { services } from "./data/services";
 import { productsPageConfig } from "./data/library_configs";
@@ -171,6 +173,16 @@ const router = createBrowserRouter([
   {
     path: "/reset-password",
     element: <ResetPasswordPage />,
+  },
+  {
+    path: "/settings",
+    element: <Layout />,
+    children: [{ index: true, element: <SettingsPage /> }],
+  },
+  {
+    path: "/unsubscribe",
+    element: <Layout />,
+    children: [{ index: true, element: <UnsubscribePage /> }],
   },
   {
     path: "/pq-k8x2m",

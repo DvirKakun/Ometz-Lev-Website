@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { type User, type Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
-import type { AuthContextType } from "../types/auth";
+import type { AuthContextType, SignUpOptions } from "../types/auth";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -43,13 +43,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return () => subscription.unsubscribe();
   }, []);
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, options?: SignUpOptions) => {
     try {
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/home`,
+          data: {
+            wants_notifications: options?.wantsNotifications ?? true,
+          },
         },
       });
       return { error: error as Error | null };

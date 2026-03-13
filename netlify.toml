@@ -54,6 +54,12 @@
 [functions]
   directory = "netlify/functions"
 
+# Scheduled function: Check for activities opening for registration
+# Runs daily at 8:00 AM Israel time (6:00 AM UTC during winter, 5:00 AM UTC during summer)
+# Using 6:00 AM UTC as a reasonable middle ground
+[functions."check-activity-registration"]
+  schedule = "0 6 * * *"
+
 # SPA fallback - must come AFTER domain redirects
 [[redirects]]
   from = "/*"

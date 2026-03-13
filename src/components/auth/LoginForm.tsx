@@ -47,9 +47,9 @@ export const LoginForm = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3.5" dir="rtl">
-      <div className="space-y-1.5">
-        <Label htmlFor="email" className="text-primary-900 font-semibold">
+    <form onSubmit={handleSubmit} className="space-y-2.5" dir="rtl">
+      <div className="space-y-0.5">
+        <Label htmlFor="email" className="text-primary-900 font-semibold text-xs">
           אימייל
         </Label>
         <Input
@@ -61,12 +61,12 @@ export const LoginForm = ({
           required
           disabled={loading}
           dir="ltr"
-          className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
+          className="h-8 text-sm bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
       </div>
 
-      <div className="space-y-1.5">
-        <Label htmlFor="password" className="text-primary-900 font-semibold">
+      <div className="space-y-0.5">
+        <Label htmlFor="password" className="text-primary-900 font-semibold text-xs">
           סיסמה
         </Label>
         <Input
@@ -78,26 +78,26 @@ export const LoginForm = ({
           required
           disabled={loading}
           minLength={6}
-          className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
+          className="h-8 text-sm bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
       </div>
 
       {error && (
-        <div className="flex items-start gap-2.5 text-sm text-primary-900 bg-primary-200/60 p-3 rounded-lg border-r-4 border-primary-700 shadow-sm">
-          <AlertCircle className="w-4 h-4 text-primary-700 flex-shrink-0 mt-0.5" />
+        <div className="flex items-start gap-1.5 text-xs text-primary-900 bg-primary-200/60 py-1.5 px-2 rounded-md border-r-3 border-primary-700">
+          <AlertCircle className="w-3.5 h-3.5 text-primary-700 flex-shrink-0 mt-0.5" />
           <p className="flex-1">{error}</p>
         </div>
       )}
 
       <Button
         type="submit"
-        className="w-full h-10 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-primary-50 font-semibold shadow-lg shadow-primary-500/30 transition-all duration-200"
+        className="w-full h-8 text-sm bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-primary-50 font-semibold shadow-md shadow-primary-500/25 transition-all duration-200"
         disabled={loading}
       >
         {loading ? "מתחבר..." : "התחבר"}
       </Button>
 
-      <div className="flex flex-col gap-2 pt-1 text-sm text-center">
+      <div className="flex flex-col gap-1 text-xs text-center">
         <button
           type="button"
           onClick={(e) => {
