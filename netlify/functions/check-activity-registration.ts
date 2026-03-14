@@ -13,7 +13,7 @@ const BREVO_API_URL = "https://api.brevo.com/v3/smtp/email";
  * Extract text from Prismic rich text field
  */
 function getPrismicText(
-  field: prismic.RichTextField | string | null | undefined
+  field: prismic.RichTextField | string | null | undefined,
 ): string {
   if (!field) return "";
   if (typeof field === "string") return field;
@@ -24,31 +24,26 @@ function getPrismicText(
 }
 
 /**
- * Check if a date is today (comparing year, month, day only)
+ * Check if activity is open for registration
+ * Activity is registerable when:
+ * 1. has_registration is true
+ * 2. At least one session start date is in the future (now < session_start_date)
  */
-function isToday(date: Date): boolean {
-  const today = new Date();
-  return (
-    date.getFullYear() === today.getFullYear() &&
-    date.getMonth() === today.getMonth() &&
-    date.getDate() === today.getDate()
-  );
-}
-
-/**
- * Check if activity has registration opening today
- * Registration opens when any session's start date is today
- */
-function hasRegistrationOpeningToday(
-  sessionDates: Array<{ session_start_date?: string; session_end_date?: string }>,
-  hasRegistration: boolean
+function isActivityOpenForRegistration(
+  sessionDates: Array<{
+    session_start_date?: string;
+    session_end_date?: string;
+  }>,
+  hasRegistration: boolean,
 ): boolean {
   if (!hasRegistration) return false;
+
+  const now = new Date();
 
   return sessionDates.some((session) => {
     if (!session.session_start_date) return false;
     const startDate = new Date(session.session_start_date);
-    return isToday(startDate);
+    return now < startDate; // Has a future session
   });
 }
 
@@ -100,7 +95,7 @@ export const handler: Handler = async () => {
         session_end_date?: string;
       }>;
 
-      if (hasRegistrationOpeningToday(sessionDates, hasRegistration)) {
+      if (isActivityOpenForRegistration(sessionDates, hasRegistration)) {
         // Check if we already sent notification for this specific activity
         // This prevents duplicate notifications if the function runs multiple times
         // or if another activity opens while this one is still open
@@ -113,9 +108,11 @@ export const handler: Handler = async () => {
 
         if (!existingNotification) {
           const title = getPrismicText(data.title as prismic.RichTextField);
-          const descArray = data.description as Array<{
-            paragraph?: prismic.RichTextField;
-          }> | undefined;
+          const descArray = data.description as
+            | Array<{
+                paragraph?: prismic.RichTextField;
+              }>
+            | undefined;
           const description = descArray?.[0]?.paragraph
             ? getPrismicText(descArray[0].paragraph)
             : "";
@@ -128,13 +125,15 @@ export const handler: Handler = async () => {
             imageUrl: mainImage?.url,
           });
         } else {
-          console.log(`Skipping activity ${activity.id} - notification already sent`);
+          console.log(
+            `Skipping activity ${activity.id} - notification already sent`,
+          );
         }
       }
     }
 
     if (activitiesOpeningToday.length === 0) {
-      console.log("No new activities opening for registration today");
+      console.log("No new activities open for registration");
       return {
         statusCode: 200,
         body: JSON.stringify({ message: "No activities to notify about" }),
@@ -142,7 +141,7 @@ export const handler: Handler = async () => {
     }
 
     console.log(
-      `Found ${activitiesOpeningToday.length} activities opening for registration today`
+      `Found ${activitiesOpeningToday.length} activities open for registration`,
     );
 
     // Get subscribers for activities category
@@ -166,7 +165,8 @@ export const handler: Handler = async () => {
 
     // Get user emails
     const userIds = subscribers.map((s) => s.user_id);
-    const { data: users, error: usersError } = await supabase.auth.admin.listUsers();
+    const { data: users, error: usersError } =
+      await supabase.auth.admin.listUsers();
 
     if (usersError) {
       console.error("Error fetching users:", usersError);
@@ -174,11 +174,11 @@ export const handler: Handler = async () => {
     }
 
     const subscriberMap = new Map(
-      subscribers.map((s) => [s.user_id, s.unsubscribe_token])
+      subscribers.map((s) => [s.user_id, s.unsubscribe_token]),
     );
 
     const subscribedUsers = users.users.filter(
-      (user) => userIds.includes(user.id) && user.email
+      (user) => userIds.includes(user.id) && user.email,
     );
 
     if (subscribedUsers.length === 0) {
@@ -194,7 +194,10 @@ export const handler: Handler = async () => {
     const categoryLabel = getCategoryLabel("activity_registration");
 
     for (const activity of activitiesOpeningToday) {
-      const subject = getNotificationSubject("activity_registration", activity.title);
+      const subject = getNotificationSubject(
+        "activity_registration",
+        activity.title,
+      );
 
       let sentCount = 0;
 
@@ -254,7 +257,7 @@ export const handler: Handler = async () => {
 
       totalSent += sentCount;
       console.log(
-        `Sent ${sentCount} notifications for activity: ${activity.title}`
+        `Sent ${sentCount} notifications for activity: ${activity.title}`,
       );
     }
 
