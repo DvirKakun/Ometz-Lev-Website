@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import MainHero from "../components/sections/home_page/hero/MainHero";
 import HeroSection from "../components/sections/home_page/hero/HeroSection";
 import AboutSection from "../components/sections/home_page/about/AboutSection";
 import ServicesGrid from "../components/sections/home_page/services/ServicesGrid";
@@ -48,6 +49,9 @@ const HomePage: React.FC = () => {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
+        {/* Main Hero - Website Face */}
+        <MainHero />
+
         {/* Hero Section with Owner Image */}
         <HeroSection />
 
