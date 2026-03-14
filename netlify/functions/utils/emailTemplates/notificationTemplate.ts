@@ -1,7 +1,12 @@
 /**
  * Email templates for notification system
  */
-import { COLORS, getEmailContainer } from "./base";
+import {
+  COLORS,
+  getEmailContainer,
+  getEmailHeader,
+  getButton,
+} from "./base";
 
 interface NotificationEmailData {
   title: string;
@@ -30,57 +35,41 @@ export function getNotificationEmailTemplate(
   } = data;
 
   const content = `
-    <!-- Header with Logo -->
-    <tr>
-      <td class="mobile-header-padding" style="background: linear-gradient(135deg, ${COLORS.primary} 0%, ${COLORS.primaryDark} 100%); padding: 40px 30px; text-align: center;">
-        <img
-          src="https://ometzlev.co.il/assets/Ometz-Lev-Logo-BwrQZuQM.png"
-          alt="אומץ לב"
-          width="150"
-          style="display: block; margin: 0 auto 20px;"
-        />
-        <h1 style="margin: 0; color: ${COLORS.white}; font-size: 24px; font-weight: 700;">
-          ${title}
-        </h1>
-        <p style="margin: 10px 0 0; color: rgba(255,255,255,0.9); font-size: 14px;">
-          ${categoryLabel}
-        </p>
-      </td>
-    </tr>
+    ${getEmailHeader(title, categoryLabel)}
 
     <!-- Content -->
     <tr>
-      <td class="mobile-padding" style="padding: 30px;">
+      <td class="mobile-padding" style="padding: 40px;">
         ${
           imageUrl
             ? `
-        <div style="margin-bottom: 20px; border-radius: 12px; overflow: hidden;">
+        <div style="margin-bottom: 24px; border-radius: 12px; overflow: hidden;">
           <img
             src="${imageUrl}"
             alt="${title}"
             width="100%"
-            style="display: block; max-width: 100%; height: auto;"
+            class="img-responsive"
+            style="display: block; max-width: 100%; height: auto; border-radius: 12px;"
           />
         </div>
         `
             : ""
         }
 
-        <p style="margin: 0 0 20px; color: ${COLORS.slate600}; font-size: 16px; line-height: 1.7;">
+        <p class="mobile-text" style="margin: 0 0 24px; color: ${COLORS.slate600}; font-size: 16px; line-height: 1.7; text-align: right;">
           ${description}
         </p>
 
         ${
           ctaText && ctaUrl
             ? `
-        <div style="text-align: center; margin: 30px 0;">
-          <a
-            href="${ctaUrl}"
-            style="display: inline-block; background: linear-gradient(135deg, ${COLORS.primary} 0%, ${COLORS.primaryDark} 100%); color: ${COLORS.white}; text-decoration: none; padding: 14px 40px; border-radius: 30px; font-weight: 600; font-size: 16px; box-shadow: 0 4px 15px rgba(218, 154, 82, 0.3);"
-          >
-            ${ctaText}
-          </a>
-        </div>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 30px 0;">
+          <tr>
+            <td style="text-align: right;">
+              ${getButton(ctaText, ctaUrl)}
+            </td>
+          </tr>
+        </table>
         `
             : ""
         }
@@ -89,18 +78,27 @@ export function getNotificationEmailTemplate(
 
     <!-- Footer -->
     <tr>
-      <td style="padding: 20px 30px; background-color: ${COLORS.slate100}; border-top: 1px solid #e2e8f0;">
-        <p style="margin: 0 0 10px; color: ${COLORS.slate600}; font-size: 13px; text-align: center;">
-          קיבלת מייל זה כי נרשמת לקבלת עדכונים מאומץ לב
-        </p>
-        <p style="margin: 0; text-align: center;">
-          <a
-            href="${unsubscribeUrl}"
-            style="color: ${COLORS.primary}; text-decoration: underline; font-size: 13px;"
-          >
-            עדכון העדפות התראות או הסרה מרשימת התפוצה
-          </a>
-        </p>
+      <td class="mobile-padding" style="background-color: ${COLORS.slate100}; padding: 30px; text-align: center; border-top: 1px solid #e2e8f0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td align="center">
+              <p style="margin: 0 0 8px 0; color: ${COLORS.slate900}; font-size: 16px; font-weight: 700; line-height: 1.4;">
+                אומץ לב - אלעד שמעונוב
+              </p>
+              <p style="margin: 0 0 20px 0; color: ${COLORS.slate600}; font-size: 14px; line-height: 1.4;">
+                אילוף כלבים מקצועי
+              </p>
+              <p style="margin: 0 0 12px 0; color: ${COLORS.slate600}; font-size: 13px; line-height: 1.4;">
+                קיבלת מייל זה כי נרשמת לקבלת עדכונים מאומץ לב
+              </p>
+              <p style="margin: 0;">
+                <a href="${unsubscribeUrl}" style="color: ${COLORS.primary}; text-decoration: underline; font-size: 13px; font-weight: 500;">
+                  עדכון העדפות התראות או הסרה מרשימת התפוצה
+                </a>
+              </p>
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
   `;

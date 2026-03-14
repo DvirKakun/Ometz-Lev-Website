@@ -44,7 +44,7 @@ export function getRegistrationEmailTemplate(data: {
 
     activityFields.push({
       label: "תאריכי המחזור",
-      value: `${formatDate(data.activityStartDate)} - ${formatDate(data.activityEndDate)}`
+      value: `${formatDate(data.activityStartDate)} - ${formatDate(data.activityEndDate)}`,
     });
   }
 
