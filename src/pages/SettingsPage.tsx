@@ -12,7 +12,7 @@ import type { NotificationPreferences as NotificationPreferencesType } from "../
 import { DEFAULT_PREFERENCES } from "../data/notification-categories";
 
 export default function SettingsPage() {
-  const { user, signOut } = useAuth();
+  const { user, signOut, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const [preferences, setPreferences] =
     useState<NotificationPreferencesType>(DEFAULT_PREFERENCES);
@@ -21,12 +21,12 @@ export default function SettingsPage() {
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  // Redirect if not logged in
+  // Redirect if not logged in (wait for auth to finish loading first)
   useEffect(() => {
-    if (!user) {
+    if (!authLoading && !user) {
       navigate("/home");
     }
-  }, [user, navigate]);
+  }, [user, authLoading, navigate]);
 
   // Load preferences on mount
   useEffect(() => {
@@ -84,51 +84,60 @@ export default function SettingsPage() {
     navigate("/home");
   };
 
-  if (!user) {
-    return null;
+  // Show loading while checking auth or if no user yet
+  if (authLoading || !user) {
+    return (
+      <div className="py-16 px-4">
+        <div className="max-w-md mx-auto text-center" dir="rtl">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg mx-auto mb-3 animate-pulse">
+            <Settings className="w-6 h-6 text-primary-50" />
+          </div>
+          <p className="text-sm text-primary-700">טוען...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary-50 to-white py-12 px-4">
-      <div className="max-w-2xl mx-auto" dir="rtl">
+    <div className="py-8 px-4">
+      <div className="max-w-md mx-auto" dir="rtl">
         {/* Header */}
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg mx-auto mb-4">
-            <Settings className="w-8 h-8 text-primary-50" />
+        <div className="text-center mb-6">
+          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-400 to-primary-600 flex items-center justify-center shadow-lg mx-auto mb-3">
+            <Settings className="w-6 h-6 text-primary-50" />
           </div>
-          <h1 className="text-3xl font-bold text-primary-900">הגדרות</h1>
-          <p className="text-primary-700 mt-2">נהל את העדפות החשבון שלך</p>
+          <h1 className="text-2xl font-bold text-primary-900">הגדרות</h1>
         </div>
 
         {/* Account Info Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-primary-100">
-          <div className="flex items-center gap-3 mb-4">
-            <Mail className="w-5 h-5 text-primary-600" />
-            <h2 className="text-lg font-semibold text-primary-900">
+        <div className="bg-white rounded-xl shadow-md p-4 mb-4 border border-primary-100">
+          <div className="flex items-center gap-2 mb-2">
+            <Mail className="w-4 h-4 text-primary-600" />
+            <h2 className="text-sm font-semibold text-primary-900">
               פרטי חשבון
             </h2>
           </div>
-          <div className="bg-primary-50/50 rounded-lg p-4">
-            <p className="text-sm text-primary-700">כתובת אימייל</p>
-            <p className="font-medium text-primary-900" dir="ltr">
+          <div className="bg-primary-50/50 rounded-lg p-2.5">
+            <p className="text-xs text-primary-700">כתובת אימייל</p>
+            <p className="text-sm font-medium text-primary-900" dir="ltr">
               {user.email}
             </p>
           </div>
         </div>
 
         {/* Notification Preferences Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 border border-primary-100">
-          <div className="flex items-center gap-3 mb-4">
-            <Bell className="w-5 h-5 text-primary-600" />
-            <h2 className="text-lg font-semibold text-primary-900">
+        <div className="bg-white rounded-xl shadow-md p-4 mb-4 border border-primary-100">
+          <div className="flex items-center gap-2 mb-3">
+            <Bell className="w-4 h-4 text-primary-600" />
+            <h2 className="text-sm font-semibold text-primary-900">
               העדפות התראות
             </h2>
           </div>
 
           {loading ? (
-            <div className="flex items-center justify-center py-8">
-              <Loader2 className="w-6 h-6 text-primary-600 animate-spin" />
-              <span className="mr-2 text-primary-700">טוען...</span>
+            <div className="flex items-center justify-center py-4">
+              <Loader2 className="w-5 h-5 text-primary-600 animate-spin" />
+              <span className="mr-2 text-sm text-primary-700">טוען...</span>
             </div>
           ) : (
             <>
@@ -140,13 +149,13 @@ export default function SettingsPage() {
               />
 
               {error && (
-                <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                <div className="mt-3 p-2 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs">
                   {error}
                 </div>
               )}
 
               {saveSuccess && (
-                <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm">
+                <div className="mt-3 p-2 bg-green-50 border border-green-200 rounded-lg text-green-700 text-xs">
                   ההגדרות נשמרו בהצלחה!
                 </div>
               )}
@@ -154,7 +163,7 @@ export default function SettingsPage() {
               <Button
                 onClick={handleSave}
                 disabled={saving}
-                className="w-full mt-6 h-11 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-primary-50 font-semibold shadow-lg shadow-primary-500/30"
+                className="w-full mt-4 h-9 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-primary-50 font-semibold text-sm shadow-md shadow-primary-500/30"
               >
                 {saving ? (
                   <>
@@ -173,11 +182,11 @@ export default function SettingsPage() {
         </div>
 
         {/* Sign Out Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 border border-primary-100">
+        <div className="bg-white rounded-xl shadow-md p-4 border border-primary-100">
           <Button
             onClick={handleSignOut}
             variant="outline"
-            className="w-full h-11 border-primary-300 hover:bg-primary-50 text-primary-700"
+            className="w-full h-9 border-primary-300 hover:bg-primary-50 text-primary-700 text-sm"
           >
             <LogOut className="w-4 h-4 ml-2" />
             התנתק

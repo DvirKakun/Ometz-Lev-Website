@@ -181,8 +181,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/unsubscribe",
-    element: <Layout />,
-    children: [{ index: true, element: <UnsubscribePage /> }],
+    element: <UnsubscribePage />,
   },
   {
     path: "/pq-k8x2m",

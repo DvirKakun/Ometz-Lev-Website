@@ -45,9 +45,9 @@ export function NotificationPreferences({
   };
 
   return (
-    <div className="space-y-4" dir="rtl">
+    <div className="space-y-2" dir="rtl">
       {showSelectAll && (
-        <div className="flex items-center justify-between pb-2 border-b border-primary-200">
+        <div className="flex items-center justify-between pb-1.5 border-b border-primary-200">
           <span className="text-sm font-medium text-primary-800">
             העדפות התראות
           </span>
@@ -57,18 +57,18 @@ export function NotificationPreferences({
             size="sm"
             onClick={handleSelectAll}
             disabled={disabled}
-            className="text-primary-600 hover:text-primary-700 hover:bg-primary-50 text-sm"
+            className="text-primary-600 hover:text-primary-700 hover:bg-primary-50 text-xs h-7 px-2"
           >
             {allEnabled ? "בטל הכל" : "בחר הכל"}
           </Button>
         </div>
       )}
 
-      <div className="space-y-3">
+      <div className="space-y-1.5">
         {NOTIFICATION_CATEGORIES.map((category) => (
           <div
             key={category.key}
-            className="flex items-start gap-3 p-3 rounded-lg bg-primary-50/50 hover:bg-primary-100/50 transition-colors"
+            className="flex items-center gap-2.5 p-2 rounded-lg bg-primary-50/50 hover:bg-primary-100/50 transition-colors"
           >
             <Checkbox
               id={`notification-${category.key}`}
@@ -77,25 +77,19 @@ export function NotificationPreferences({
                 handleCategoryChange(category.key, checked)
               }
               disabled={disabled}
-              className="mt-0.5"
             />
-            <div className="flex-1">
-              <Label
-                htmlFor={`notification-${category.key}`}
-                className="text-sm font-medium text-primary-900 cursor-pointer block"
-              >
-                {category.label}
-              </Label>
-              <p className="text-xs text-primary-600 mt-0.5">
-                {category.description}
-              </p>
-            </div>
+            <Label
+              htmlFor={`notification-${category.key}`}
+              className="text-sm text-primary-900 cursor-pointer flex-1"
+            >
+              {category.label}
+            </Label>
           </div>
         ))}
       </div>
 
       {allDisabled && (
-        <p className="text-xs text-primary-500 text-center pt-2">
+        <p className="text-xs text-primary-500 text-center pt-1">
           לא תקבל התראות על תכנים חדשים
         </p>
       )}
