@@ -55,7 +55,7 @@ interface ContentInfo {
  * Extract text from Prismic rich text field
  */
 function getPrismicText(
-  field: prismic.RichTextField | string | null | undefined
+  field: prismic.RichTextField | string | null | undefined,
 ): string {
   if (!field) return "";
   if (typeof field === "string") return field;
@@ -70,12 +70,19 @@ function getPrismicText(
  */
 function getNotificationCategory(
   docType: PrismicDocType,
-  docData: Record<string, unknown>
+  docData: Record<string, unknown>,
 ): { category: NotificationCategory; internalType: string } | null {
+  console.log(
+    "Determining category for doc type:",
+    docType,
+    "with data:",
+    docData,
+  );
+
   switch (docType) {
     case "video": {
       const page = docData.page as string;
-      if (page === "אילוף" || page === "training") {
+      if (page === "אילוף כלבים" || page === "training") {
         return { category: "training_videos", internalType: "training_videos" };
       }
       if (page === "כלבנות טיפולית" || page === "therapy") {
@@ -85,8 +92,11 @@ function getNotificationCategory(
     }
     case "article": {
       const page = docData.page as string;
-      if (page === "אילוף" || page === "training") {
-        return { category: "training_article", internalType: "training_article" };
+      if (page === "אילוף כלבים" || page === "training") {
+        return {
+          category: "training_article",
+          internalType: "training_article",
+        };
       }
       if (page === "כלבנות טיפולית" || page === "therapy") {
         return { category: "therapy_article", internalType: "therapy_article" };
@@ -107,7 +117,7 @@ function getNotificationCategory(
  */
 function extractContentInfo(
   doc: prismic.PrismicDocument,
-  categoryInfo: { category: NotificationCategory; internalType: string }
+  categoryInfo: { category: NotificationCategory; internalType: string },
 ): ContentInfo {
   const data = doc.data as Record<string, unknown>;
   const docType = doc.type as PrismicDocType;
@@ -127,7 +137,7 @@ function extractContentInfo(
 
       // Determine library URL
       const page = data.page as string;
-      if (page === "אילוף" || page === "training") {
+      if (page === "אילוף כלבים" || page === "training") {
         ctaUrl = "https://ometzlev.co.il/training-videos-library";
       } else {
         ctaUrl = "https://ometzlev.co.il/therapy-videos-library";
@@ -142,7 +152,7 @@ function extractContentInfo(
       imageUrl = thumbnail?.url;
 
       const page = data.page as string;
-      if (page === "אילוף" || page === "training") {
+      if (page === "אילוף כלבים" || page === "training") {
         ctaUrl = `https://ometzlev.co.il/training-articles-library/${doc.id}`;
       } else {
         ctaUrl = `https://ometzlev.co.il/therapy-articles-library/${doc.id}`;
@@ -152,8 +162,12 @@ function extractContentInfo(
     }
     case "product": {
       title = getPrismicText(data.product_name as prismic.RichTextField);
-      description = getPrismicText(data.product_description as prismic.RichTextField);
-      const images = data.product_images as Array<{ product_image?: { url?: string } }> | undefined;
+      description = getPrismicText(
+        data.product_description as prismic.RichTextField,
+      );
+      const images = data.product_images as
+        | Array<{ product_image?: { url?: string } }>
+        | undefined;
       imageUrl = images?.[0]?.product_image?.url;
       ctaUrl = "https://ometzlev.co.il/products";
       ctaText = "לצפייה במוצר";
@@ -161,7 +175,9 @@ function extractContentInfo(
     }
     case "activity": {
       title = getPrismicText(data.title as prismic.RichTextField);
-      const descArray = data.description as Array<{ paragraph?: prismic.RichTextField }> | undefined;
+      const descArray = data.description as
+        | Array<{ paragraph?: prismic.RichTextField }>
+        | undefined;
       description = descArray?.[0]?.paragraph
         ? getPrismicText(descArray[0].paragraph)
         : "";
@@ -205,7 +221,9 @@ async function sendNotifications(contentInfo: ContentInfo): Promise<number> {
     .maybeSingle();
 
   if (existingNotification) {
-    console.log(`Notification already sent for ${contentInfo.internalType}: ${contentInfo.id}`);
+    console.log(
+      `Notification already sent for ${contentInfo.internalType}: ${contentInfo.id}`,
+    );
     return 0;
   }
 
@@ -227,7 +245,8 @@ async function sendNotifications(contentInfo: ContentInfo): Promise<number> {
 
   // Get user emails from auth.users
   const userIds = subscribers.map((s) => s.user_id);
-  const { data: users, error: usersError } = await supabase.auth.admin.listUsers();
+  const { data: users, error: usersError } =
+    await supabase.auth.admin.listUsers();
 
   if (usersError) {
     console.error("Error fetching users:", usersError);
@@ -236,12 +255,12 @@ async function sendNotifications(contentInfo: ContentInfo): Promise<number> {
 
   // Create subscriber map with emails
   const subscriberMap = new Map(
-    subscribers.map((s) => [s.user_id, s.unsubscribe_token])
+    subscribers.map((s) => [s.user_id, s.unsubscribe_token]),
   );
 
   // Filter users who are subscribed
   const subscribedUsers = users.users.filter(
-    (user) => userIds.includes(user.id) && user.email
+    (user) => userIds.includes(user.id) && user.email,
   );
 
   if (subscribedUsers.length === 0) {
@@ -251,7 +270,10 @@ async function sendNotifications(contentInfo: ContentInfo): Promise<number> {
 
   // Send emails in batches
   const categoryLabel = getCategoryLabel(contentInfo.internalType);
-  const subject = getNotificationSubject(contentInfo.internalType, contentInfo.title);
+  const subject = getNotificationSubject(
+    contentInfo.internalType,
+    contentInfo.title,
+  );
 
   let sentCount = 0;
 
@@ -374,7 +396,12 @@ export const handler: Handler = async (event: HandlerEvent) => {
 
     // Fetch documents and process
     let totalSent = 0;
-    const supportedTypes: PrismicDocType[] = ["video", "article", "product", "activity"];
+    const supportedTypes: PrismicDocType[] = [
+      "video",
+      "article",
+      "product",
+      "activity",
+    ];
 
     for (const docId of documentIds) {
       try {
@@ -389,7 +416,7 @@ export const handler: Handler = async (event: HandlerEvent) => {
         // Get notification category
         const categoryInfo = getNotificationCategory(
           doc.type as PrismicDocType,
-          doc.data as Record<string, unknown>
+          doc.data as Record<string, unknown>,
         );
 
         if (!categoryInfo) {
