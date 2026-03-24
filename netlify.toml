@@ -60,6 +60,12 @@
 [functions."check-activity-registration"]
   schedule = "0 6 * * *"
 
+# Dynamic sitemap from Netlify function
+[[redirects]]
+  from = "/sitemap.xml"
+  to = "/.netlify/functions/sitemap"
+  status = 200
+
 # SPA fallback - must come AFTER domain redirects
 [[redirects]]
   from = "/*"

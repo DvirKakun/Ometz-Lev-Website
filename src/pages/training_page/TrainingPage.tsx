@@ -64,6 +64,7 @@ export default function TrainingPage({ service }: ServicePageProps) {
         keywords={seoConfig.keywords}
         imageUrl={seoConfig.imageUrl}
         imageAlt={seoConfig.imageAlt}
+        canonicalUrl="https://ometzlev.co.il/training"
         type="service"
       />
 

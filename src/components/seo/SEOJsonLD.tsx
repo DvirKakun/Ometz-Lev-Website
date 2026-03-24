@@ -149,12 +149,18 @@ export default function SEOJsonLD({
     address: {
       "@type": "PostalAddress",
       addressCountry: "IL",
-      addressLocality: "ישראל",
+      addressRegion: "מרכז",
+      addressLocality: "ראשון לציון",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 31.9730,
+      longitude: 34.7925,
     },
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+972-52-472-4700", // Replace with actual phone when available
+        telephone: "+972-52-472-4700",
         contactType: "customer service",
         areaServed: "IL",
         availableLanguage: ["Hebrew", "English"],
@@ -165,10 +171,32 @@ export default function SEOJsonLD({
       "https://www.instagram.com/eladshimoniv_omets_lev",
       "https://youtube.com/@eladshimonov6820?si=4vYpdv5hN_Mox1tU",
     ],
-    serviceArea: {
-      "@type": "Country",
-      name: "Israel",
-    },
+    areaServed: [
+      {
+        "@type": "City",
+        name: "ראשון לציון",
+      },
+      {
+        "@type": "City",
+        name: "תל אביב",
+      },
+      {
+        "@type": "City",
+        name: "חולון",
+      },
+      {
+        "@type": "City",
+        name: "בת ים",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "גוש דן",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "מרכז",
+      },
+    ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "שירותי אילוף כלבים וכלבנות טיפולית של אלעד שמעונוב",

@@ -265,6 +265,7 @@ export default function ProductsPage({ config }: ProductsPageProps) {
         keywords={seoConfig.keywords}
         imageUrl={seoConfig.imageUrl}
         imageAlt={seoConfig.imageAlt}
+        canonicalUrl="https://ometzlev.co.il/products"
         type="service"
       />
 

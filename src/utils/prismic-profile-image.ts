@@ -10,7 +10,7 @@ export interface ProfileImage {
 
 // Transform Prismic profile image to our format
 export function mapPrismicProfileImage(
-  prismicProfileImage: ImageField
+  prismicProfileImage: ImageField,
 ): ProfileImage {
   return {
     id: String(prismicProfileImage.id),
