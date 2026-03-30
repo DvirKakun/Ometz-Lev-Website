@@ -24,6 +24,7 @@ const AboutIntro = ({ config }: AboutIntroProps) => {
               src={config.imageSrc}
               alt={config.altText || config.name}
               className="w-full h-full object-cover"
+              loading="lazy"
             />
           </div>
         )}

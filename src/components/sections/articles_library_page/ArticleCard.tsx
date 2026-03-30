@@ -45,6 +45,7 @@ const ArticleCard = ({
                 src={article.thumbnailUrl}
                 alt={article.thumbnailAlt || article.title}
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-primary-50 to-primary-100" />

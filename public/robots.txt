@@ -5,6 +5,7 @@ Allow: /sitemap.xml
 
 # Allow root and main content pages
 Allow: /
+Allow: /home
 Allow: /training
 Allow: /therapy
 Allow: /activities
@@ -16,7 +17,6 @@ Allow: /therapy-articles-library
 Allow: /products
 
 # Block pages you don't want in search results
-Disallow: /home
 Disallow: /privacy
 Disallow: /terms
 Disallow: /accessibility

@@ -114,7 +114,7 @@ const Header: React.FC = () => {
             >
               <img
                 src={OmetzLevLogo}
-                alt="Ometz Lev Logo"
+                alt="אומץ לב - אילוף כלבים מקצועי וכלבנות טיפולית"
                 className="h-12 w-auto"
               />
             </motion.button>

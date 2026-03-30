@@ -5,7 +5,8 @@ const BASE_URL = "https://ometzlev.co.il";
 
 // Static pages configuration
 const staticPages = [
-  { path: "/", changefreq: "weekly", priority: "1.0" },
+  { path: "/", changefreq: "weekly", priority: "0.5" },
+  { path: "/home", changefreq: "weekly", priority: "1.0" },
   { path: "/training", changefreq: "monthly", priority: "0.9" },
   { path: "/therapy", changefreq: "monthly", priority: "0.9" },
   { path: "/activities", changefreq: "weekly", priority: "0.9" },

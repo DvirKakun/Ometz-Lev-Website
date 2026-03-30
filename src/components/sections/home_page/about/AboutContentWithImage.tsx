@@ -7,6 +7,7 @@ interface AboutContentWithImageProps {
   description: string | React.ReactNode;
   bottomDescription?: string;
   imagePath: string;
+  webpPath?: string;
   imageAlt: string;
   imagePosition?: "left" | "right";
 }
@@ -17,6 +18,7 @@ const AboutContentWithImage: React.FC<AboutContentWithImageProps> = ({
   description,
   bottomDescription,
   imagePath,
+  webpPath,
   imageAlt,
   imagePosition = "right",
 }) => {
@@ -32,12 +34,15 @@ const AboutContentWithImage: React.FC<AboutContentWithImageProps> = ({
           className="order-1 lg:order-1"
         >
           <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-            <img
-              src={imagePath}
-              alt={imageAlt}
-              className="w-full h-auto object-cover"
-              loading="lazy"
-            />
+            <picture>
+              {webpPath && <source srcSet={webpPath} type="image/webp" />}
+              <img
+                src={imagePath}
+                alt={imageAlt}
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </picture>
           </div>
         </motion.div>
       )}
@@ -94,12 +99,15 @@ const AboutContentWithImage: React.FC<AboutContentWithImageProps> = ({
           className="order-2 lg:order-2"
         >
           <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-            <img
-              src={imagePath}
-              alt={imageAlt}
-              className="w-full h-auto object-cover"
-              loading="lazy"
-            />
+            <picture>
+              {webpPath && <source srcSet={webpPath} type="image/webp" />}
+              <img
+                src={imagePath}
+                alt={imageAlt}
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </picture>
           </div>
         </motion.div>
       )}

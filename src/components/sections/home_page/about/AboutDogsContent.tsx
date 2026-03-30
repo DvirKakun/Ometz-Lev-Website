@@ -29,7 +29,8 @@ const AboutDogsContent: React.FC = () => {
       description={description}
       bottomDescription="החיים הרבה יותר יפים בשניים"
       imagePath="/assets/about/dogs_about_image.png"
-      imageAlt="בוני ומייפל - הכלבות הטיפוליות"
+      webpPath="/assets/about/dogs_about_image.webp"
+      imageAlt="בוני ומייפל - כלבות טיפוליות בכלבנות טיפולית לילדים ונוער | אומץ לב"
       imagePosition="right"
     />
   );

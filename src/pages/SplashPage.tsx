@@ -54,7 +54,7 @@ const SplashPage: React.FC = () => {
         keywords={seoConfig.keywords}
         imageUrl={seoConfig.imageUrl}
         imageAlt={seoConfig.imageAlt}
-        canonicalUrl="https://ometzlev.co.il/"
+        canonicalUrl="https://ometzlev.co.il/home"
         type="website"
         noindex={false}
       />

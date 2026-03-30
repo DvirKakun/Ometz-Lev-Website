@@ -61,7 +61,8 @@ const AboutContent: React.FC = () => {
       description={description}
       bottomDescription="מוזמנים להצטרף למסע המיוחד הזה איתי."
       imagePath="/assets/about/elad_about_image.png"
-      imageAlt="אלעד שמעונוב עם הכלבות בוני ומייפל"
+      webpPath="/assets/about/elad_about_image.webp"
+      imageAlt="אלעד שמעונוב - מאלף כלבים מקצועי ומטפל בכלבנות טיפולית | אומץ לב"
       imagePosition="right"
     />
   );

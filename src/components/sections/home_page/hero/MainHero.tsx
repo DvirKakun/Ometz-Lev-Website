@@ -5,11 +5,15 @@ const MainHero: React.FC = () => {
     <section className="relative min-h-screen overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full">
-        <img
-          src="/assets/hero/hero_image.png"
-          alt="אומץ לב - אילוף כלבים"
-          className="w-full h-full object-cover object-[70%_70%] sm:object-center"
-        />
+        <picture>
+          <source srcSet="/assets/hero/hero_image.webp" type="image/webp" />
+          <img
+            src="/assets/hero/hero_image.png"
+            alt="אלעד שמעונוב - מאמן כלבים מקצועי, אילוף כלבים בגישה חיובית | אומץ לב"
+            className="w-full h-full object-cover object-[70%_70%] sm:object-center"
+            fetchPriority="high"
+          />
+        </picture>
         {/* Top gradient fade - mobile only */}
         <div
           className="absolute top-0 left-0 right-0 h-80 sm:hidden"

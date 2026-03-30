@@ -45,6 +45,7 @@ const VideoCard = ({ video, index, onClick }: VideoCardProps) => {
                 src={video.thumbnailUrl}
                 alt={video.thumbnailAlt || video.title}
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             ) : (
               <div className="w-full h-full bg-gradient-to-br from-slate-200 to-slate-300" />

@@ -1,3 +1,4 @@
+import React, { Suspense } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -11,27 +12,47 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
-import ActivitiesPage from "./pages/ActivitiesPage";
-import TherapyPage from "./pages/therapy_page/TherapyPage";
-import TrainingPage from "./pages/training_page/TrainingPage";
-import SchoolsPage from "./pages/SchoolsPage";
-import ProductsPage from "./pages/ProductsPage";
 import SplashPage from "./pages/SplashPage";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-import TermsOfServicePage from "./pages/TermsOfServicePage";
-import AccessibilityPage from "./pages/AccessibilityPage";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
-import PreQuestionnairePage from "./pages/PreQuestionnairePage";
-import TrainingVideoLibraryPage from "./pages/training_page/TrainingVideoLibraryPage";
-import TrainingArticlesLibraryPage from "./pages/training_page/TrainingArticlesLibraryPage";
-import TherapyVideoLibraryPage from "./pages/therapy_page/TherapyVideoLibraryPage";
-import TherapyArticlesLibraryPage from "./pages/therapy_page/TherapyArticlesLibraryPage";
-import ArticlePDFViewerPage from "./pages/ArticlePDFViewerPage";
-import SettingsPage from "./pages/SettingsPage";
-import UnsubscribePage from "./pages/UnsubscribePage";
 import PageLoader from "./components/common/PageLoader";
 import { services } from "./data/services";
 import { productsPageConfig } from "./data/library_configs";
+
+// Lazy-loaded pages for code splitting
+const TherapyPage = React.lazy(
+  () => import("./pages/therapy_page/TherapyPage"),
+);
+const TrainingPage = React.lazy(
+  () => import("./pages/training_page/TrainingPage"),
+);
+const ActivitiesPage = React.lazy(() => import("./pages/ActivitiesPage"));
+const SchoolsPage = React.lazy(() => import("./pages/SchoolsPage"));
+const ProductsPage = React.lazy(() => import("./pages/ProductsPage"));
+const TrainingVideoLibraryPage = React.lazy(
+  () => import("./pages/training_page/TrainingVideoLibraryPage"),
+);
+const TrainingArticlesLibraryPage = React.lazy(
+  () => import("./pages/training_page/TrainingArticlesLibraryPage"),
+);
+const TherapyVideoLibraryPage = React.lazy(
+  () => import("./pages/therapy_page/TherapyVideoLibraryPage"),
+);
+const TherapyArticlesLibraryPage = React.lazy(
+  () => import("./pages/therapy_page/TherapyArticlesLibraryPage"),
+);
+const ArticlePDFViewerPage = React.lazy(
+  () => import("./pages/ArticlePDFViewerPage"),
+);
+const PrivacyPolicyPage = React.lazy(() => import("./pages/PrivacyPolicyPage"));
+const TermsOfServicePage = React.lazy(
+  () => import("./pages/TermsOfServicePage"),
+);
+const AccessibilityPage = React.lazy(() => import("./pages/AccessibilityPage"));
+const ResetPasswordPage = React.lazy(() => import("./pages/ResetPasswordPage"));
+const PreQuestionnairePage = React.lazy(
+  () => import("./pages/PreQuestionnairePage"),
+);
+const SettingsPage = React.lazy(() => import("./pages/SettingsPage"));
+const UnsubscribePage = React.lazy(() => import("./pages/UnsubscribePage"));
 
 const trainingService = services.find(
   (service) => service.path === "/training",
@@ -116,32 +137,72 @@ const router = createBrowserRouter([
   {
     path: "/training-videos-library",
     element: <Layout />,
-    children: [{ index: true, element: <TrainingVideoLibraryPage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <TrainingVideoLibraryPage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   {
     path: "/training-articles-library",
     element: <Layout />,
     children: [
-      { index: true, element: <TrainingArticlesLibraryPage /> },
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <TrainingArticlesLibraryPage />
+          </Suspense>
+        ),
+      },
       {
         path: ":articleKey",
-        element: <ArticlePDFViewerPage pageType="training" />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ArticlePDFViewerPage pageType="training" />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: "/therapy-videos-library",
     element: <Layout />,
-    children: [{ index: true, element: <TherapyVideoLibraryPage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <TherapyVideoLibraryPage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   {
     path: "/therapy-articles-library",
     element: <Layout />,
     children: [
-      { index: true, element: <TherapyArticlesLibraryPage /> },
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <TherapyArticlesLibraryPage />
+          </Suspense>
+        ),
+      },
       {
         path: ":articleKey",
-        element: <ArticlePDFViewerPage pageType="therapy" />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ArticlePDFViewerPage pageType="therapy" />
+          </Suspense>
+        ),
       },
     ],
   },
@@ -151,42 +212,99 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ProductsPage config={productsPageConfig} />,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <ProductsPage config={productsPageConfig} />
+          </Suspense>
+        ),
       },
     ],
   },
   {
     path: "/privacy",
     element: <Layout />,
-    children: [{ index: true, element: <PrivacyPolicyPage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PrivacyPolicyPage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   {
     path: "/terms",
     element: <Layout />,
-    children: [{ index: true, element: <TermsOfServicePage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <TermsOfServicePage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   {
     path: "/accessibility",
     element: <Layout />,
-    children: [{ index: true, element: <AccessibilityPage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <AccessibilityPage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   {
     path: "/reset-password",
-    element: <ResetPasswordPage />,
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <ResetPasswordPage />
+      </Suspense>
+    ),
   },
   {
     path: "/settings",
     element: <Layout />,
-    children: [{ index: true, element: <SettingsPage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <SettingsPage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   {
     path: "/unsubscribe",
-    element: <UnsubscribePage />,
+    element: (
+      <Suspense fallback={<PageLoader />}>
+        <UnsubscribePage />
+      </Suspense>
+    ),
   },
   {
     path: "/pq-k8x2m",
     element: <Layout />,
-    children: [{ index: true, element: <PreQuestionnairePage /> }],
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <PreQuestionnairePage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   // Redirect any unknown routes to splash
   { path: "*", element: <Navigate to="/" replace /> },

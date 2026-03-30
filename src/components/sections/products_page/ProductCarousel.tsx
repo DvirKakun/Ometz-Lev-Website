@@ -59,6 +59,7 @@ const ProductCarousel: React.FC<ProductCarouselProps> = ({
             alt={images[0].alt}
             className="w-full h-full object-contain cursor-pointer hover:scale-105 transition-transform duration-300"
             onClick={() => onImageClick(images[0].url, 0)}
+            loading="lazy"
           />
         </div>
       </div>
