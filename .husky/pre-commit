@@ -1,0 +1,8 @@
+echo "Running pre-commit checks..."
+
+# 1. ESLint on staged files (via lint-staged)
+npx lint-staged
+
+# 2. TypeScript type check (whole project - types can break across files)
+echo "Checking TypeScript types..."
+npx tsc -b --noEmit 2>/dev/null || npx tsc -b
