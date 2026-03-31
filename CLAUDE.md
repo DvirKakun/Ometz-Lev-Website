@@ -45,8 +45,34 @@ This is a React 19 + TypeScript + Vite dog training website with the following a
 
 ### File Organization
 - `src/components/` - All React components organized by type
-- `src/pages/` - Page-level components  
+- `src/pages/` - Page-level components
 - `src/data/` - Static data (FAQ, services, gallery)
 - `src/hooks/` - Custom React hooks
 - `src/types/` - TypeScript type definitions
 - `src/utils/` - Utility functions and constants
+
+## ⚠️ Critical: CSP Hash for Facebook Pixel
+
+The `Content-Security-Policy` in `netlify.toml` uses a SHA-256 hash instead of `'unsafe-inline'` for `script-src`:
+
+```
+'sha256-Z6wG901mJehG8RneT0u7V2mnlgo7eOnqI9czXZ/XhYU='
+```
+
+This hash is computed from the **exact content** of the inline Facebook Pixel `<script>` block in `index.html` (including whitespace).
+
+**If you ever modify the Facebook Pixel script in `index.html`, you MUST recompute the hash and update `netlify.toml`, otherwise the pixel will be silently blocked by the browser.**
+
+To recompute the hash after any change to the pixel script:
+```bash
+python3 -c "
+import hashlib, base64, re
+with open('index.html', 'r') as f:
+    content = f.read()
+match = re.search(r'<!-- Facebook Pixel[^>]*-->\s*<script>(.*?)</script>', content, re.DOTALL)
+script_content = match.group(1)
+digest = hashlib.sha256(script_content.encode('utf-8')).digest()
+print('sha256-' + base64.b64encode(digest).decode())
+"
+```
+Then replace the hash value in the `Content-Security-Policy` line in `netlify.toml`.
