@@ -12,7 +12,6 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 import Layout from "./components/layout/Layout";
 import HomePage from "./pages/HomePage";
-import SplashPage from "./pages/SplashPage";
 import PageLoader from "./components/common/PageLoader";
 import { services } from "./data/services";
 import { productsPageConfig } from "./data/library_configs";
@@ -67,10 +66,6 @@ const activitiesService = services.find(
 const schoolsService = services.find((service) => service.path === "/schools");
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <SplashPage />, // Welcome splash screen at root
-  },
   {
     path: "/home",
     element: <Layout />, // Main layout with header + footer
@@ -306,8 +301,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // Redirect any unknown routes to splash
-  { path: "*", element: <Navigate to="/" replace /> },
+  { path: "*", element: <Navigate to="/home" replace /> },
 ]);
 
 // Create a query client instance
