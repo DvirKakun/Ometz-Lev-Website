@@ -23,8 +23,10 @@ const LoadingPage = () => {
 
   // Find the service that matches current path (memoized to prevent re-renders)
   const service = useMemo(() => {
-    const currentService = services.find((service) =>
-      location.pathname.startsWith(service.path)
+    const currentService = services.find(
+      (service) =>
+        location.pathname === service.path ||
+        location.pathname.startsWith(service.path + "/")
     );
 
     // Fallback to default if no service found

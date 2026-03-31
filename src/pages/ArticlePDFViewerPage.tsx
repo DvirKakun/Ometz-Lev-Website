@@ -11,8 +11,11 @@ import SEOJsonLD from "../components/seo/SEOJsonLD";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
-// Configure PDF.js worker
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
+// Configure PDF.js worker using import.meta.url so Vite bundles/serves it correctly
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.mjs",
+  import.meta.url,
+).toString();
 
 interface ArticlePDFViewerPageProps {
   pageType: "training" | "therapy";
@@ -48,7 +51,7 @@ export default function ArticlePDFViewerPage({
         content_type: "article",
       });
     }
-  }, [article?.articleKey]);
+  }, [article?.articleKey, article?.title]);
 
   const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
     setNumPages(numPages);

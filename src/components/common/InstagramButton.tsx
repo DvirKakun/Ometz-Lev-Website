@@ -6,7 +6,7 @@ import InstagramIcon from "./InstagramIcon";
 import type { InstagramButtonProps } from "../../types/instagram";
 
 const InstagramButton: React.FC<InstagramButtonProps> = ({
-  instagramUrl = "https://www.instagram.com/eladshimoniv_omets_lev",
+  instagramUrl = "https://www.instagram.com/eladshimonov_omets_lev",
   className,
   variant = "default",
   size = "md",
@@ -42,7 +42,7 @@ const InstagramButton: React.FC<InstagramButtonProps> = ({
         className={cn(
           "inline-flex items-center justify-center rounded-xl transition-all duration-200",
           variants.icon,
-          className
+          className,
         )}
         aria-label="עקבו באינסטגרם"
       >
@@ -59,7 +59,7 @@ const InstagramButton: React.FC<InstagramButtonProps> = ({
           "font-medium rounded-2xl transition-all duration-200 flex items-center space-x-2 space-x-reverse",
           variants[variant],
           sizeClasses[size],
-          className
+          className,
         )}
       >
         <a href={instagramUrl} target="_blank" rel="noopener noreferrer">

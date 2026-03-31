@@ -141,7 +141,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <TrainingVideoLibraryPage />
           </Suspense>
         ),
@@ -155,7 +155,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <TrainingArticlesLibraryPage />
           </Suspense>
         ),
@@ -163,7 +163,7 @@ const router = createBrowserRouter([
       {
         path: ":articleKey",
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <ArticlePDFViewerPage pageType="training" />
           </Suspense>
         ),
@@ -177,7 +177,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <TherapyVideoLibraryPage />
           </Suspense>
         ),
@@ -191,7 +191,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <TherapyArticlesLibraryPage />
           </Suspense>
         ),
@@ -199,7 +199,7 @@ const router = createBrowserRouter([
       {
         path: ":articleKey",
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <ArticlePDFViewerPage pageType="therapy" />
           </Suspense>
         ),
@@ -213,7 +213,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <ProductsPage config={productsPageConfig} />
           </Suspense>
         ),
@@ -227,7 +227,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <PrivacyPolicyPage />
           </Suspense>
         ),
@@ -241,7 +241,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <TermsOfServicePage />
           </Suspense>
         ),
@@ -255,7 +255,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <AccessibilityPage />
           </Suspense>
         ),
@@ -265,7 +265,7 @@ const router = createBrowserRouter([
   {
     path: "/reset-password",
     element: (
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={null}>
         <ResetPasswordPage />
       </Suspense>
     ),
@@ -277,7 +277,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <SettingsPage />
           </Suspense>
         ),
@@ -287,7 +287,7 @@ const router = createBrowserRouter([
   {
     path: "/unsubscribe",
     element: (
-      <Suspense fallback={<PageLoader />}>
+      <Suspense fallback={null}>
         <UnsubscribePage />
       </Suspense>
     ),
@@ -299,7 +299,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense fallback={<PageLoader />}>
+          <Suspense fallback={null}>
             <PreQuestionnairePage />
           </Suspense>
         ),
