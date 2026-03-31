@@ -27,7 +27,8 @@
     />
     <meta name="author" content="אלעד שמעונוב - אומץ לב" />
     <meta name="language" content="Hebrew" />
-    <!-- Canonical tag is dynamically set by SEOMeta component based on current page -->
+    <!-- Static canonical for the entry document — JS will update per-page -->
+    <link rel="canonical" href="https://ometzlev.co.il/home" />
 
     <!-- Open Graph - Default tags for initial load (will be updated by SEOMeta component) -->
     <meta
@@ -39,7 +40,8 @@
       content="אומץ לב - אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אילוף בבית הלקוח, טיפול בפחדים בעזרת כלבים, קייטנות קיץ לילדים. אומץ לב - ייעוץ ראשון חינם!"
     />
     <meta property="og:type" content="website" />
-    <!-- og:url is dynamically set by SEOMeta component based on current page -->
+    <!-- Static og:url for the entry document — JS will update per-page -->
+    <meta property="og:url" content="https://ometzlev.co.il/home" />
     <meta
       property="og:image"
       content="https://ometzlev.co.il/assets/icons/Ometz-Lev-Large-Logo.png"
@@ -76,7 +78,11 @@
     <!-- Preload hero image for faster LCP -->
     <link rel="preload" as="image" href="/assets/hero/hero_image.webp" type="image/webp" />
 
-    <!-- Facebook Pixel -->
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <!-- Facebook Pixel — deferred to end of body to avoid render-blocking -->
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -89,16 +95,11 @@
       fbq('init', '912316251532184');
       fbq('track', 'PageView');
     </script>
-    <!-- End Facebook Pixel -->
-  </head>
-  <body>
-    <!-- Facebook Pixel noscript fallback -->
     <noscript>
       <img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=912316251532184&ev=PageView&noscript=1"/>
     </noscript>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- End Facebook Pixel -->
     <script defer src="https://cdn.enable.co.il/licenses/enable-L484843pgobrlya8-1025-77436/init.js"></script>
   </body>
 </html>

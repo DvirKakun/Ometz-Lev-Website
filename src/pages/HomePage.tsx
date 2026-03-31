@@ -7,6 +7,7 @@ import ServicesGrid from "../components/sections/home_page/services/ServicesGrid
 import SEOMeta from "../components/seo/SEOMeta";
 import SEOJsonLD from "../components/seo/SEOJsonLD";
 import { getKeywordsForPage } from "../data/seo-keywords";
+import SplashOverlay from "../components/sections/splash_screen/SplashOverlay";
 
 const HomePage: React.FC = () => {
   // SEO Configuration for Homepage
@@ -41,6 +42,9 @@ const HomePage: React.FC = () => {
         isHomePage={true}
         imageUrl={seoConfig.imageUrl}
       />
+
+      {/* Splash overlay — shown once per browser session */}
+      <SplashOverlay />
 
       <motion.div
         initial={{ opacity: 0 }}

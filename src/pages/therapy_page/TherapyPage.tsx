@@ -83,11 +83,6 @@ const TherapyPage = ({ service }: ServicePageProps) => {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
-        {/* SEO H1 - Hidden from users but visible to search engines */}
-        <h1 className="sr-only">
-          כלבנות טיפולית מקצועית - אלעד שמעונוב | עבודה על בחרדות ופחדים | אומץ
-          לב
-        </h1>
         {/* Features Section */}
         <CollapsibleFeatures service={serviceWithOfferings} />
 

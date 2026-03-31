@@ -150,9 +150,9 @@ export default function SEOMeta({
     updateMetaTag("apple-mobile-web-app-status-bar-style", "default");
 
     // Business-specific meta tags
-    updateMetaTag("geo.region", "IL");
-    updateMetaTag("geo.placename", "Israel");
-    updateMetaTag("ICBM", "31.7767,35.2345"); // Replace with actual coordinates
+    updateMetaTag("geo.region", "IL-M");
+    updateMetaTag("geo.placename", "Rishon LeZion, Israel");
+    updateMetaTag("ICBM", "31.9730,34.7925");
 
     // Additional meta tags for better indexing
     updateMetaTag("referrer", "strict-origin-when-cross-origin");

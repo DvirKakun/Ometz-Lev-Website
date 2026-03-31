@@ -2,8 +2,12 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* Hebrew Font Import */
-@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap");
+/* Hebrew Font — self-hosted via @fontsource (eliminates Google Fonts render-blocking chain) */
+@import "@fontsource/heebo/hebrew-300.css";
+@import "@fontsource/heebo/hebrew-400.css";
+@import "@fontsource/heebo/hebrew-500.css";
+@import "@fontsource/heebo/hebrew-600.css";
+@import "@fontsource/heebo/hebrew-700.css";
 
 /* RTL Base Styles */
 html[dir="rtl"] {

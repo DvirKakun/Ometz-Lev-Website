@@ -6,7 +6,7 @@ import YouTubeIcon from "./YoutubeIcon";
 import type { YouTubeButtonProps } from "../../types/youtube";
 
 const YouTubeButton: React.FC<YouTubeButtonProps> = ({
-  youtubeUrl = "https://www.youtube.com/@ometzlev",
+  youtubeUrl = "https://youtube.com/@ometzlev",
   className,
   variant = "default",
   size = "md",
@@ -42,7 +42,7 @@ const YouTubeButton: React.FC<YouTubeButtonProps> = ({
         className={cn(
           "inline-flex items-center justify-center rounded-xl transition-all duration-200",
           variants.icon,
-          className
+          className,
         )}
         aria-label="עקבו ביוטיוב"
       >
@@ -59,7 +59,7 @@ const YouTubeButton: React.FC<YouTubeButtonProps> = ({
           "font-medium rounded-2xl transition-all duration-200 flex items-center space-x-2 space-x-reverse",
           variants[variant],
           sizeClasses[size],
-          className
+          className,
         )}
       >
         <a href={youtubeUrl} target="_blank" rel="noopener noreferrer">

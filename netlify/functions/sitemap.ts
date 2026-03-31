@@ -1,21 +1,22 @@
-import type { Handler } from "@netlify/functions";
+import type { Handler, HandlerResponse } from "@netlify/functions";
 import * as prismic from "@prismicio/client";
 
 const BASE_URL = "https://ometzlev.co.il";
 
 // Static pages configuration
+// Note: "/" (splash) intentionally excluded — its canonical URL is "/home"
+// lastmod reflects actual last content update, not request time
 const staticPages = [
-  { path: "/", changefreq: "weekly", priority: "0.5" },
-  { path: "/home", changefreq: "weekly", priority: "1.0" },
-  { path: "/training", changefreq: "monthly", priority: "0.9" },
-  { path: "/therapy", changefreq: "monthly", priority: "0.9" },
-  { path: "/activities", changefreq: "weekly", priority: "0.9" },
-  { path: "/schools", changefreq: "monthly", priority: "0.9" },
-  { path: "/products", changefreq: "weekly", priority: "0.7" },
-  { path: "/training-videos-library", changefreq: "weekly", priority: "0.8" },
-  { path: "/training-articles-library", changefreq: "weekly", priority: "0.8" },
-  { path: "/therapy-videos-library", changefreq: "weekly", priority: "0.8" },
-  { path: "/therapy-articles-library", changefreq: "weekly", priority: "0.8" },
+  { path: "/home", lastmod: "2026-03-31" },
+  { path: "/training", lastmod: "2026-03-31" },
+  { path: "/therapy", lastmod: "2026-03-31" },
+  { path: "/activities", lastmod: "2026-03-31" },
+  { path: "/schools", lastmod: "2026-03-31" },
+  { path: "/products", lastmod: "2026-03-31" },
+  { path: "/training-videos-library", lastmod: "2026-03-31" },
+  { path: "/training-articles-library", lastmod: "2026-03-31" },
+  { path: "/therapy-videos-library", lastmod: "2026-03-31" },
+  { path: "/therapy-articles-library", lastmod: "2026-03-31" },
 ];
 
 /**
@@ -43,7 +44,7 @@ function escapeXml(text: string): string {
 /**
  * Generate sitemap XML dynamically from Prismic content
  */
-export const handler: Handler = async () => {
+export const handler: Handler = async (): Promise<HandlerResponse> => {
   try {
     const prismicEndpoint = process.env.VITE_PRISMIC_API_ENDPOINT;
 
@@ -66,14 +67,11 @@ export const handler: Handler = async () => {
 `;
 
     // Add static pages
-    const today = new Date().toISOString().split("T")[0];
     for (const page of staticPages) {
       xml += `
   <url>
     <loc>${escapeXml(BASE_URL + page.path)}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
+    <lastmod>${page.lastmod}</lastmod>
   </url>`;
     }
 
@@ -89,10 +87,8 @@ export const handler: Handler = async () => {
 
         xml += `
   <url>
-    <loc>${escapeXml(`${BASE_URL}/${pageType}-articles-library/${article.id}`)}</loc>
+    <loc>${escapeXml(`${BASE_URL}/${pageType}-articles-library/${article.uid}`)}</loc>
     <lastmod>${lastmod}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>`;
       }
     } catch (articleError) {

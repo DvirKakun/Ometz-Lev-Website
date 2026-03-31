@@ -7,13 +7,15 @@ import type { PhoneButtonProps } from "../../types/phone_button";
 import { trackCustomEvent } from "../../utils/facebookPixel";
 
 const PhoneButton: React.FC<PhoneButtonProps> = ({
-  phoneNumber = "052-472-4700",
+  phoneNumber = "+972-52-472-4700",
   className,
   variant = "default",
   size = "md",
 }) => {
   const formatPhoneForTel = (phone: string) => {
-    return phone.replace(/[-\s]/g, "");
+    // Normalize to E.164: keep leading +, strip all other non-digits
+    const digits = phone.replace(/[^\d+]/g, "");
+    return digits.startsWith("+") ? digits : `+972${digits.replace(/^0/, "")}`;
   };
 
   const sizeClasses = {

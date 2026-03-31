@@ -37,7 +37,7 @@ export default function SEOJsonLD({
         "@type": "ListItem",
         position: 1,
         name: "בית",
-        item: baseUrl,
+        item: `${baseUrl}/home`,
       },
     ];
 
@@ -104,14 +104,6 @@ export default function SEOJsonLD({
     url: baseUrl,
     description:
       "אומץ לב - אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אומץ לב מציע אילוף כלבים מקצועי, טיפול בעזרת כלבים להתגברות על פחדים, קייטנות קיץ ופעילויות חברתיות לילדים ומבוגרים. אומץ לב - הפתרון המקצועי לכל צרכי הכלב שלכם",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${baseUrl}/search?q={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
     publisher: {
       "@type": "Organization",
       name: "אומץ לב",
@@ -124,23 +116,24 @@ export default function SEOJsonLD({
   // Organization Schema
   const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: "אומץ לב - אילוף כלבים מקצועי, כלבנות טיפולית ופעילויות חברתיות",
+    "@type": "ProfessionalService",
+    "@id": `${baseUrl}/#business`,
+    name: "אומץ לב",
     alternateName: [
-      "אומץ לב",
       "Ometz Lev",
       "אומץ לב אלעד שמעונוב",
       "Ometz Lev - Elad Shimonov",
     ],
     url: baseUrl,
-    logo: `${baseUrl}/favicon-512x512.png`, // Square logo required by Google (512x512)
+    logo: `${baseUrl}/favicon-512x512.png`,
     image: [
-      `${baseUrl}/favicon-512x512.png`, // Square logo for circular icons
-      `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`, // Wide banner for knowledge panel & rich results
+      `${baseUrl}/favicon-512x512.png`,
+      `${baseUrl}/assets/icons/Ometz-Lev-Large-Logo.png`,
     ],
     description:
-      "אומץ לב - אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. אומץ לב מתמחה באילוף כלבים, טיפול בחרדות ופחדים בעזרת כלבים טיפוליים, וקייטנות קיץ לילדים. אומץ לב - השירות המקצועי והאמין לכלב שלכם",
+      "אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. מתמחה באילוף כלבים, טיפול בחרדות ופחדים בעזרת כלבים טיפוליים, וקייטנות קיץ לילדים.",
     telephone: "+972-52-472-4700",
+    priceRange: "₪₪",
     founder: {
       "@type": "Person",
       name: "אלעד שמעונוב",
@@ -151,12 +144,27 @@ export default function SEOJsonLD({
       addressCountry: "IL",
       addressRegion: "מרכז",
       addressLocality: "ראשון לציון",
+      postalCode: "7546802",
     },
     geo: {
       "@type": "GeoCoordinates",
       latitude: 31.9730,
       longitude: 34.7925,
     },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday"],
+        opens: "08:00",
+        closes: "20:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Friday"],
+        opens: "08:00",
+        closes: "15:00",
+      },
+    ],
     contactPoint: [
       {
         "@type": "ContactPoint",
@@ -168,8 +176,9 @@ export default function SEOJsonLD({
     ],
     sameAs: [
       "https://www.facebook.com/share/1BZ6LUVmqB/",
-      "https://www.instagram.com/eladshimoniv_omets_lev",
-      "https://youtube.com/@eladshimonov6820?si=4vYpdv5hN_Mox1tU",
+      "https://www.instagram.com/eladshimonov_omets_lev",
+      "https://youtube.com/@ometzlev",
+      "https://www.tiktok.com/@ometz.lev1",
     ],
     areaServed: [
       {
@@ -284,8 +293,8 @@ export default function SEOJsonLD({
             url: baseUrl,
           },
           publisher: {
-            "@type": "Person",
-            name: "אלעד שמעונוב - אומץ לב",
+            "@type": "Organization",
+            name: "אומץ לב",
             url: baseUrl,
             logo: {
               "@type": "ImageObject",

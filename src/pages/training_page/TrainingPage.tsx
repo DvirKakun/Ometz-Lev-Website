@@ -83,11 +83,6 @@ export default function TrainingPage({ service }: ServicePageProps) {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
-        {/* SEO H1 - Hidden from users but visible to search engines */}
-        <h1 className="sr-only">
-          אילוף כלבים מקצועי ואישי - אלעד שמעונוב | מאמן כלבים פרטי בבית הלקוח |
-          אומץ לב
-        </h1>
         {/* Collapsible Features Section */}
         <CollapsibleFeatures service={serviceWithOfferings} />
 

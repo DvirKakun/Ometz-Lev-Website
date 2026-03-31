@@ -8,7 +8,7 @@ const FooterContact: React.FC = () => {
     {
       icon: Phone,
       label: "052-472-4700",
-      href: "tel:0524724700",
+      href: "tel:+972524724700",
       actionable: true,
     },
     {

@@ -284,11 +284,6 @@ export default function ProductsPage({ config }: ProductsPageProps) {
         transition={{ duration: 0.6 }}
         className="min-h-screen"
       >
-        {/* SEO H1 - Hidden from users but visible to search engines */}
-        <h1 className="sr-only">
-          מוצרים מומלצים לאילוף כלבים וכלבנות טיפולית - אלעד שמעונוב | אומץ לב
-        </h1>
-
         {/* Header Section */}
         <section className="py-16 bg-gradient-to-br from-primary-500 to-primary-600">
           <div className="container mx-auto px-4">
