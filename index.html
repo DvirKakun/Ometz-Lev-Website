@@ -78,6 +78,54 @@
     <!-- Preload hero image for faster LCP -->
     <link rel="preload" as="image" href="/assets/hero/hero_image.webp" type="image/webp" />
 
+    <!-- Static ProfessionalService schema — visible to crawlers without JavaScript -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "@id": "https://ometzlev.co.il/#business",
+      "name": "אומץ לב",
+      "alternateName": ["Ometz Lev", "אומץ לב אלעד שמעונוב"],
+      "url": "https://ometzlev.co.il",
+      "logo": "https://ometzlev.co.il/favicon-512x512.png",
+      "description": "אלעד שמעונוב מאמן כלבים מקצועי ומטפל בכלבנות טיפולית. מתמחה באילוף כלבים, טיפול בחרדות ופחדים בעזרת כלבים טיפוליים, וקייטנות קיץ לילדים.",
+      "telephone": "+972-52-472-4700",
+      "priceRange": "₪₪",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "IL",
+        "addressRegion": "מרכז",
+        "addressLocality": "ראשון לציון",
+        "postalCode": "7546802"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 31.9730,
+        "longitude": 34.7925
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],
+          "opens": "08:00",
+          "closes": "20:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Friday"],
+          "opens": "08:00",
+          "closes": "15:00"
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/share/1BZ6LUVmqB/",
+        "https://www.instagram.com/eladshimonov_omets_lev",
+        "https://youtube.com/@ometzlev",
+        "https://www.tiktok.com/@ometz.lev1"
+      ]
+    }
+    </script>
+
   </head>
   <body>
     <div id="root"></div>
