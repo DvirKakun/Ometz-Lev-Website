@@ -87,7 +87,7 @@ export const handler: Handler = async (): Promise<HandlerResponse> => {
 
         xml += `
   <url>
-    <loc>${escapeXml(`${BASE_URL}/${pageType}-articles-library/${article.uid}`)}</loc>
+    <loc>${escapeXml(`${BASE_URL}/${pageType}-articles-library/${article.id}`)}</loc>
     <lastmod>${lastmod}</lastmod>
   </url>`;
       }
