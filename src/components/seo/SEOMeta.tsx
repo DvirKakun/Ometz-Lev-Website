@@ -146,7 +146,7 @@ export default function SEOMeta({
     updateMetaTag("msapplication-TileColor", "#da9a52");
     updateMetaTag("application-name", "אומץ לב");
     updateMetaTag("apple-mobile-web-app-title", "אומץ לב");
-    updateMetaTag("apple-mobile-web-app-capable", "yes");
+    updateMetaTag("mobile-web-app-capable", "yes");
     updateMetaTag("apple-mobile-web-app-status-bar-style", "default");
 
     // Business-specific meta tags
