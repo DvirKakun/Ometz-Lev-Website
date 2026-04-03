@@ -129,6 +129,7 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
           required
           disabled={loading}
           minLength={6}
+          dir="ltr"
           className="h-8 text-sm bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
         <p className="text-[10px] text-primary-600">לפחות 6 תווים</p>
@@ -147,6 +148,7 @@ export const SignupForm = ({ onSwitchToLogin }: SignupFormProps) => {
           required
           disabled={loading}
           minLength={6}
+          dir="ltr"
           className="h-8 text-sm bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
         />
       </div>

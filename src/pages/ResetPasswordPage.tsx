@@ -148,6 +148,7 @@ export default function ResetPasswordPage() {
                   required
                   disabled={loading}
                   minLength={6}
+                  dir="ltr"
                   className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
                 />
                 <p className="text-xs text-primary-700 pt-0.5">לפחות 6 תווים</p>
@@ -166,6 +167,7 @@ export default function ResetPasswordPage() {
                   required
                   disabled={loading}
                   minLength={6}
+                  dir="ltr"
                   className="h-10 bg-primary-50/50 border-primary-200 focus-visible:ring-primary-500 focus-visible:border-primary-500"
                 />
               </div>
