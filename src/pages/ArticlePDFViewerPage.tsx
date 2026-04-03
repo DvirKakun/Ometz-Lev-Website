@@ -84,8 +84,8 @@ export default function ArticlePDFViewerPage({
         },
       });
     } else {
-      // Fallback to browser back navigation
-      navigate(-1);
+      // No in-app return path (e.g., opened from email link) — go to the relevant library page
+      navigate(`/${pageType}-articles-library`);
     }
   };
 
